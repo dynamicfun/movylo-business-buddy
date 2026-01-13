@@ -6,7 +6,7 @@ import { ChevronRight } from "lucide-react";
 interface SimpleCardProps {
   title: string;
   children: ReactNode;
-  cta: string;
+  cta?: string;
   onCtaClick?: () => void;
   delay?: number;
   headerRight?: ReactNode;
@@ -29,13 +29,15 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, header
         {children}
       </div>
       
-      <Button 
-        onClick={onCtaClick}
-        className="w-full justify-between mt-4"
-      >
-        {cta}
-        <ChevronRight className="w-4 h-4" />
-      </Button>
+      {cta && (
+        <Button 
+          onClick={onCtaClick}
+          className="w-full justify-between mt-4"
+        >
+          {cta}
+          <ChevronRight className="w-4 h-4" />
+        </Button>
+      )}
     </motion.div>
   );
 }

@@ -1,13 +1,5 @@
 import { SimpleCard } from "./SimpleCard";
 import { GrowthIndicator } from "./GrowthIndicator";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 interface SalesMetricProps {
   label: string;
@@ -55,16 +47,6 @@ function MetricSection({ title, children }: MetricSectionProps) {
   );
 }
 
-interface Order {
-  customer: string;
-  amount: string;
-  status: string;
-  code: string;
-  source: string;
-  type: string;
-  date: string;
-}
-
 // Activation mode props
 interface ActivationModeProps {
   isActivationMode?: true;
@@ -75,14 +57,13 @@ interface ActivationModeProps {
   reservations?: { count: number; value: string };
 }
 
-// Steady state props
+// Steady state props (no orders - moved to OrdersCard)
 interface SteadyStateProps {
   isActivationMode: false;
   downloadedCoupons: number;
   inStoreSales: { closed: number; value: string };
   onlineSales: { closed: number; value: string };
   reservations: { covers: number; value: string };
-  lastOrders?: Order[];
 }
 
 type SalesCardProps = ActivationModeProps | SteadyStateProps;
@@ -90,7 +71,7 @@ type SalesCardProps = ActivationModeProps | SteadyStateProps;
 export function SalesCard(props: SalesCardProps) {
   // Check if we're in steady state mode
   if (props.isActivationMode === false) {
-    const { downloadedCoupons, inStoreSales, onlineSales, reservations, lastOrders = [] } = props;
+    const { downloadedCoupons, inStoreSales, onlineSales, reservations } = props;
 
     return (
       <SimpleCard
@@ -124,41 +105,6 @@ export function SalesCard(props: SalesCardProps) {
             <MetricItem label="Covers" value={reservations.covers} />
             <MetricItem label="Value" value={reservations.value} />
           </MetricSection>
-
-          {/* Last 5 orders table */}
-          {lastOrders.length > 0 && (
-            <div className="pt-2">
-              <span className="text-sm font-medium text-foreground">Last 5 orders</span>
-              <div className="mt-2 -mx-2 overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="text-[10px]">
-                      <TableHead className="h-7 px-2 text-[10px]">Customer</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Amount</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Status</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Code</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Source</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Type</TableHead>
-                      <TableHead className="h-7 px-2 text-[10px]">Date</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {lastOrders.map((order, index) => (
-                      <TableRow key={index} className="text-[10px]">
-                        <TableCell className="py-1 px-2 text-[10px]">{order.customer}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.amount}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.status}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.code}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.source}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.type}</TableCell>
-                        <TableCell className="py-1 px-2 text-[10px]">{order.date}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-          )}
         </div>
       </SimpleCard>
     );
