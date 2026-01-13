@@ -11,24 +11,45 @@ function SourceChip({ icon, label }: { icon: React.ReactNode; label: string }) {
   );
 }
 
-export function CustomerCard() {
+interface CustomerCardProps {
+  isActivationMode?: boolean;
+  newCustomers?: number;
+  totalCustomers?: number;
+}
+
+export function CustomerCard({ 
+  isActivationMode = true,
+  newCustomers = 0,
+  totalCustomers = 0 
+}: CustomerCardProps) {
+  // Determine status based on customer count
+  const getStatus = () => {
+    if (totalCustomers >= 10) return "growing";
+    if (totalCustomers > 0) return "starting";
+    return "waiting";
+  };
+
   return (
     <SimpleCard
-      title="My Customers"
-      cta="Find & manage"
+      title="Your customers"
+      cta="Find & manage customers"
       delay={0.1}
-      headerRight={<GrowthIndicator value={12} />}
+      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
     >
       <div className="space-y-5">
         {/* Stats */}
         <div className="flex justify-between items-baseline">
           <div>
-            <span className="text-3xl font-bold text-foreground">1</span>
-            <p className="text-xs text-muted-foreground mt-0.5">New this month</p>
+            <span className="text-3xl font-bold text-foreground">
+              {newCustomers === 0 && isActivationMode ? "—" : newCustomers}
+            </span>
+            <p className="text-xs text-muted-foreground mt-0.5">New (last 30 days)</p>
           </div>
           <div className="text-right">
-            <span className="text-3xl font-bold text-foreground">1</span>
-            <p className="text-xs text-muted-foreground mt-0.5">Total</p>
+            <span className="text-3xl font-bold text-foreground">
+              {totalCustomers === 0 && isActivationMode ? "—" : totalCustomers}
+            </span>
+            <p className="text-xs text-muted-foreground mt-0.5">Total customers</p>
           </div>
         </div>
 
