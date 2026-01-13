@@ -15,7 +15,7 @@ function SourceChip({ icon, label }: { icon: React.ReactNode; label: string }) {
 interface CustomerSource {
   icon: React.ReactNode;
   label: string;
-  count: number;
+  count: number | null; // null means needs activation
   sourceKey: string;
 }
 
@@ -32,14 +32,14 @@ interface SteadyStateProps {
   newCustomers: number;
   totalCustomers: number;
   sources: {
-    website: number;
-    facebook: number;
-    instagram: number;
-    whatsapp: number;
-    qrCodes: number;
-    excel: number;
-    manual: number;
-    ads: number;
+    website: number | null;
+    facebook: number | null;
+    instagram: number | null;
+    whatsapp: number | null;
+    qrCodes: number | null;
+    excel: number | null;
+    manual: number | null;
+    ads: number | null;
   };
 }
 
@@ -48,8 +48,13 @@ type CustomerCardProps = ActivationModeProps | SteadyStateProps;
 export function CustomerCard(props: CustomerCardProps) {
   const navigate = useNavigate();
 
-  const handleSourceClick = (sourceKey: string) => {
-    navigate(`/customers?source=${sourceKey}`);
+  const handleSourceClick = (sourceKey: string, isActive: boolean) => {
+    if (isActive) {
+      navigate(`/customers?source=${sourceKey}`);
+    } else {
+      // Navigate to setup/activation for this source
+      navigate(`/settings/integrations?setup=${sourceKey}`);
+    }
   };
 
   // Check if we're in steady state mode
@@ -66,6 +71,9 @@ export function CustomerCard(props: CustomerCardProps) {
       { icon: <UserPlus className="w-3 h-3" />, label: "Manual", count: sources.manual, sourceKey: "manual" },
       { icon: <Megaphone className="w-3 h-3" />, label: "Ads", count: sources.ads, sourceKey: "ads" },
     ];
+
+    const activeSources = sourceItems.filter(s => s.count !== null);
+    const inactiveSources = sourceItems.filter(s => s.count === null);
 
     return (
       <SimpleCard
@@ -87,22 +95,42 @@ export function CustomerCard(props: CustomerCardProps) {
           </div>
 
           <div className="pt-2 border-t border-border/50">
-            <p className="text-xs text-muted-foreground mb-2">Customer sources:</p>
-            <div className="grid grid-cols-2 gap-1.5">
-              {sourceItems.map(({ icon, label, count, sourceKey }) => (
-                <button
-                  key={label}
-                  onClick={() => handleSourceClick(sourceKey)}
-                  className="flex items-center justify-between py-1 px-2 rounded bg-secondary/30 hover:bg-secondary/50 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-muted-foreground">{icon}</span>
-                    <span className="text-xs text-foreground">{label}</span>
-                  </div>
-                  <span className="text-xs font-medium text-foreground">{count}</span>
-                </button>
-              ))}
-            </div>
+            <p className="text-xs text-muted-foreground mb-2">Add customers from:</p>
+            
+            {/* Active sources with counts */}
+            {activeSources.length > 0 && (
+              <div className="grid grid-cols-2 gap-1.5 mb-2">
+                {activeSources.map(({ icon, label, count, sourceKey }) => (
+                  <button
+                    key={label}
+                    onClick={() => handleSourceClick(sourceKey, true)}
+                    className="flex items-center justify-between py-1 px-2 rounded bg-secondary/30 hover:bg-secondary/50 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-muted-foreground">{icon}</span>
+                      <span className="text-xs text-foreground">{label}</span>
+                    </div>
+                    <span className="text-xs font-medium text-foreground">{count}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Inactive sources needing activation */}
+            {inactiveSources.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {inactiveSources.map(({ icon, label, sourceKey }) => (
+                  <button
+                    key={label}
+                    onClick={() => handleSourceClick(sourceKey, false)}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-dashed border-border text-muted-foreground text-xs hover:border-accent hover:text-accent transition-colors"
+                  >
+                    {icon}
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </SimpleCard>

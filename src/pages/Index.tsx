@@ -49,11 +49,11 @@ const sampleCustomerData = {
     website: 45,
     facebook: 32,
     instagram: 28,
-    whatsapp: 18,
+    whatsapp: null, // needs activation
     qrCodes: 12,
-    excel: 8,
+    excel: null, // needs activation
     manual: 10,
-    ads: 3,
+    ads: null, // needs activation
   },
 };
 
