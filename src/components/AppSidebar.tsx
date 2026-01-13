@@ -42,12 +42,12 @@ import {
 const primaryItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { 
-    title: "My Customers", 
-    url: "/customers", 
+    title: "CRM", 
+    url: "/crm", 
     icon: Users,
     submenu: [
-      { title: "CRM", url: "/customers/crm" },
-      { title: "Sign up page", url: "/customers/signup" },
+      { title: "My Customer List", url: "/crm/customers" },
+      { title: "Sign up page", url: "/crm/signup" },
     ]
   },
   { title: "Messages & offers", url: "/messages", icon: MessageSquare },
