@@ -72,9 +72,6 @@ export function CustomerCard(props: CustomerCardProps) {
       { icon: <Megaphone className="w-3 h-3" />, label: "Ads", count: sources.ads, sourceKey: "ads" },
     ];
 
-    const activeSources = sourceItems.filter(s => s.count !== null);
-    const inactiveSources = sourceItems.filter(s => s.count === null);
-
     return (
       <SimpleCard
         title="My Customers"
@@ -97,40 +94,31 @@ export function CustomerCard(props: CustomerCardProps) {
           <div className="pt-2 border-t border-border/50">
             <p className="text-xs text-muted-foreground mb-2">Add customers from:</p>
             
-            {/* Active sources with counts */}
-            {activeSources.length > 0 && (
-              <div className="grid grid-cols-2 gap-1.5 mb-2">
-                {activeSources.map(({ icon, label, count, sourceKey }) => (
+            {/* All sources in single column */}
+            <div className="flex flex-col gap-1">
+              {sourceItems.map(({ icon, label, count, sourceKey }) => {
+                const isActive = count !== null;
+                return (
                   <button
                     key={label}
-                    onClick={() => handleSourceClick(sourceKey, true)}
-                    className="flex items-center justify-between py-1 px-2 rounded bg-secondary/30 hover:bg-secondary/50 transition-colors cursor-pointer"
+                    onClick={() => handleSourceClick(sourceKey, isActive)}
+                    className={`flex items-center justify-between py-1.5 px-2 rounded transition-colors cursor-pointer ${
+                      isActive 
+                        ? "bg-secondary/30 hover:bg-secondary/50" 
+                        : "border border-dashed border-border hover:border-accent"
+                    }`}
                   >
                     <div className="flex items-center gap-1.5">
-                      <span className="text-muted-foreground">{icon}</span>
-                      <span className="text-xs text-foreground">{label}</span>
+                      <span className={isActive ? "text-muted-foreground" : "text-muted-foreground/60"}>{icon}</span>
+                      <span className={`text-xs ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{label}</span>
                     </div>
-                    <span className="text-xs font-medium text-foreground">{count}</span>
+                    <span className={`text-xs font-medium ${isActive ? "text-foreground" : "text-muted-foreground/60"}`}>
+                      {isActive ? count : "Activate"}
+                    </span>
                   </button>
-                ))}
-              </div>
-            )}
-
-            {/* Inactive sources needing activation */}
-            {inactiveSources.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {inactiveSources.map(({ icon, label, sourceKey }) => (
-                  <button
-                    key={label}
-                    onClick={() => handleSourceClick(sourceKey, false)}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-dashed border-border text-muted-foreground text-xs hover:border-accent hover:text-accent transition-colors"
-                  >
-                    {icon}
-                    {label}
-                  </button>
-                ))}
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
         </div>
       </SimpleCard>
