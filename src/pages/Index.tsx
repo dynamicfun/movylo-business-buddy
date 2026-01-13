@@ -8,6 +8,7 @@ import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
+import { OrdersCard } from "@/components/dashboard/OrdersCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -40,20 +41,37 @@ const sampleActivityData = {
   },
 };
 
+const sampleCustomerData = {
+  isActivationMode: false as const,
+  newCustomers: 24,
+  totalCustomers: 156,
+  sources: {
+    website: 45,
+    facebook: 32,
+    instagram: 28,
+    whatsapp: 18,
+    qrCodes: 12,
+    excel: 8,
+    manual: 10,
+    ads: 3,
+  },
+};
+
 const sampleSalesData = {
   isActivationMode: false as const,
   downloadedCoupons: 22,
   inStoreSales: { closed: 3, value: "£ 25" },
   onlineSales: { closed: 1, value: "£ 100" },
   reservations: { covers: 359, value: "£ 8,975" },
-  lastOrders: [
-    { customer: "John D.", amount: "£ 45", status: "Completed", code: "ORD001", source: "Website", type: "Dine-in", date: "12 Jan" },
-    { customer: "Sarah M.", amount: "£ 32", status: "Completed", code: "ORD002", source: "App", type: "Takeaway", date: "12 Jan" },
-    { customer: "Mike R.", amount: "£ 78", status: "Pending", code: "ORD003", source: "Phone", type: "Delivery", date: "11 Jan" },
-    { customer: "Emma L.", amount: "£ 25", status: "Completed", code: "ORD004", source: "Walk-in", type: "Dine-in", date: "11 Jan" },
-    { customer: "Chris P.", amount: "£ 56", status: "Completed", code: "ORD005", source: "Website", type: "Takeaway", date: "10 Jan" },
-  ],
 };
+
+const sampleOrdersData = [
+  { customer: "John D.", amount: "£ 45", status: "Completed", code: "ORD001", source: "Website", type: "Dine-in", date: "12 Jan" },
+  { customer: "Sarah M.", amount: "£ 32", status: "Completed", code: "ORD002", source: "App", type: "Takeaway", date: "12 Jan" },
+  { customer: "Mike R.", amount: "£ 78", status: "Pending", code: "ORD003", source: "Phone", type: "Delivery", date: "11 Jan" },
+  { customer: "Emma L.", amount: "£ 25", status: "Completed", code: "ORD004", source: "Walk-in", type: "Dine-in", date: "11 Jan" },
+  { customer: "Chris P.", amount: "£ 56", status: "Completed", code: "ORD005", source: "Website", type: "Takeaway", date: "10 Jan" },
+];
 
 const Index = () => {
   const [showSteadyState, setShowSteadyState] = useState(false);
@@ -104,19 +122,27 @@ const Index = () => {
 
             {/* Three equal cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <CustomerCard />
               {showSteadyState ? (
                 <>
+                  <CustomerCard {...sampleCustomerData} />
                   <EngagementCard {...sampleActivityData} />
                   <SalesCard {...sampleSalesData} />
                 </>
               ) : (
                 <>
+                  <CustomerCard />
                   <EngagementCard />
                   <SalesCard />
                 </>
               )}
             </div>
+
+            {/* Orders card - only in steady state */}
+            {showSteadyState && (
+              <div className="mt-4">
+                <OrdersCard orders={sampleOrdersData} />
+              </div>
+            )}
           </div>
         </main>
       </div>
