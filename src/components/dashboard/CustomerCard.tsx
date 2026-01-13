@@ -78,16 +78,16 @@ export function CustomerCard(props: CustomerCardProps) {
         cta="Find & manage customers"
         delay={0.1}
       >
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {/* Stats */}
           <div className="flex justify-between items-baseline">
             <div>
-              <span className="text-3xl font-bold text-foreground">{newCustomers}</span>
-              <p className="text-xs text-muted-foreground mt-0.5">New (last 30 days)</p>
+              <span className="text-2xl sm:text-3xl font-bold text-foreground">{newCustomers}</span>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">New (30 days)</p>
             </div>
             <div className="text-right">
-              <span className="text-3xl font-bold text-foreground">{totalCustomers}</span>
-              <p className="text-xs text-muted-foreground mt-0.5">Total customers</p>
+              <span className="text-2xl sm:text-3xl font-bold text-foreground">{totalCustomers}</span>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">Total</p>
             </div>
           </div>
 
@@ -145,20 +145,20 @@ export function CustomerCard(props: CustomerCardProps) {
       delay={0.1}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
     >
-      <div className="space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         {/* Stats */}
         <div className="flex justify-between items-baseline">
           <div>
-            <span className="text-3xl font-bold text-foreground">
+            <span className="text-2xl sm:text-3xl font-bold text-foreground">
               {newCustomers === 0 ? "—" : newCustomers}
             </span>
-            <p className="text-xs text-muted-foreground mt-0.5">New (last 30 days)</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">New (30 days)</p>
           </div>
           <div className="text-right">
-            <span className="text-3xl font-bold text-foreground">
+            <span className="text-2xl sm:text-3xl font-bold text-foreground">
               {totalCustomers === 0 ? "—" : totalCustomers}
             </span>
-            <p className="text-xs text-muted-foreground mt-0.5">Total customers</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">Total</p>
           </div>
         </div>
 
