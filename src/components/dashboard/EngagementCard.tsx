@@ -22,34 +22,137 @@ function ActivityRow({ icon, label, status }: ActivityRowProps) {
   );
 }
 
-interface EngagementCardProps {
-  isActivationMode?: boolean;
+interface MetricItemProps {
+  label: string;
+  value: string | number;
+}
+
+function MetricItem({ label, value }: MetricItemProps) {
+  return (
+    <div className="flex justify-between items-center py-1">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-xs font-medium text-foreground">{value}</span>
+    </div>
+  );
+}
+
+interface MetricSectionProps {
+  title: string;
+  growth?: number;
+  children: React.ReactNode;
+}
+
+function MetricSection({ title, growth, children }: MetricSectionProps) {
+  return (
+    <div className="py-2 border-b border-border/50 last:border-0">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm font-medium text-foreground">{title}</span>
+        {growth !== undefined && (
+          <span className={`text-xs font-medium ${growth >= 0 ? 'text-emerald-600' : 'text-muted-foreground'}`}>
+            {growth >= 0 ? '+' : ''}{growth}%
+          </span>
+        )}
+      </div>
+      <div className="pl-0">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Activation mode props (simple)
+interface ActivationModeProps {
+  isActivationMode?: true;
   messagesOpened?: number;
   socialClicks?: number;
   reviews?: number;
 }
 
-export function EngagementCard({ 
-  isActivationMode = true,
-  messagesOpened = 0,
-  socialClicks = 0,
-  reviews = 0
-}: EngagementCardProps) {
-  // Determine status for growth indicator
+// Steady state props (detailed)
+interface SteadyStateProps {
+  isActivationMode: false;
+  messages: {
+    growth?: number;
+    sent: number;
+    opened: string;
+    clicked: string;
+  };
+  contacts: {
+    calls: number;
+    email: number;
+    whatsapp: number;
+  };
+  socialClicks: {
+    growth?: number;
+    facebook: number;
+    instagram: number;
+    google: number;
+  };
+  interactions: {
+    reviews: { count: number; total: number };
+    feedback: { count: number; total: number };
+    deliveries: { count: number; total: number };
+  };
+}
+
+type EngagementCardProps = ActivationModeProps | SteadyStateProps;
+
+export function EngagementCard(props: EngagementCardProps) {
+  // Check if we're in steady state mode
+  if (props.isActivationMode === false) {
+    const { messages, contacts, socialClicks, interactions } = props;
+
+    return (
+      <SimpleCard
+        title="Activity"
+        cta="Messages & offers"
+        delay={0.15}
+      >
+        <div className="space-y-0 -mt-1">
+          {/* Messages section */}
+          <MetricSection title="Messages" growth={messages.growth}>
+            <MetricItem label="Sent" value={messages.sent} />
+            <MetricItem label="Opened" value={messages.opened} />
+            <MetricItem label="Clicked" value={messages.clicked} />
+          </MetricSection>
+
+          {/* Contacts received */}
+          <MetricSection title="Contacts received">
+            <MetricItem label="Calls" value={contacts.calls} />
+            <MetricItem label="Email" value={contacts.email} />
+            <MetricItem label="WhatsApp" value={contacts.whatsapp} />
+          </MetricSection>
+
+          {/* Social clicks */}
+          <MetricSection title="Social clicks" growth={socialClicks.growth}>
+            <MetricItem label="Facebook" value={socialClicks.facebook} />
+            <MetricItem label="Instagram" value={socialClicks.instagram} />
+            <MetricItem label="Google" value={socialClicks.google} />
+          </MetricSection>
+
+          {/* Interactions */}
+          <MetricSection title="Interactions">
+            <MetricItem label="Reviews" value={`${interactions.reviews.count} (${interactions.reviews.total})`} />
+            <MetricItem label="Feedback" value={`${interactions.feedback.count} (${interactions.feedback.total})`} />
+            <MetricItem label="Deliveries" value={`${interactions.deliveries.count} (${interactions.deliveries.total})`} />
+          </MetricSection>
+        </div>
+      </SimpleCard>
+    );
+  }
+
+  // Activation mode - simple view (default)
+  const { messagesOpened = 0, socialClicks = 0, reviews = 0 } = props;
+  
   const getStatus = () => {
     const totalActivity = messagesOpened + socialClicks + reviews;
     if (totalActivity > 0) return "starting";
     return "waiting";
   };
 
-  // Get status text based on activation mode
-  const getActivityStatus = (value: number, activityType: string) => {
-    if (isActivationMode) {
-      if (value > 0) return "Just started";
-      return "Waiting for activity";
-    }
-    // Steady state - show actual values
-    return value > 0 ? `${value} interactions` : "No activity yet";
+  const getActivityStatus = (value: number) => {
+    if (value > 0) return "Just started";
+    return "Waiting for activity";
   };
 
   return (
@@ -57,23 +160,23 @@ export function EngagementCard({
       title="Activity"
       cta="Messages & offers"
       delay={0.15}
-      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
+      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
     >
       <div>
         <ActivityRow
           icon={<MessageSquare className="w-4 h-4" />}
           label="Saw your messages"
-          status={getActivityStatus(messagesOpened, "messages")}
+          status={getActivityStatus(messagesOpened)}
         />
         <ActivityRow
           icon={<MousePointerClick className="w-4 h-4" />}
           label="Contacted you"
-          status={getActivityStatus(socialClicks, "contacts")}
+          status={getActivityStatus(socialClicks)}
         />
         <ActivityRow
           icon={<Star className="w-4 h-4" />}
           label="Reviews & feedback"
-          status={getActivityStatus(reviews, "reviews")}
+          status={getActivityStatus(reviews)}
         />
       </div>
     </SimpleCard>
