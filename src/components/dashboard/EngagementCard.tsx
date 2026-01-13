@@ -1,32 +1,24 @@
 import { SimpleCard } from "./SimpleCard";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { MessageSquare, MousePointerClick, Star } from "lucide-react";
 
-interface MetricGroupProps {
+interface ActivityRowProps {
+  icon: React.ReactNode;
   label: string;
-  trend?: number;
-  items: { label: string; value: string | number }[];
+  value: string | number;
+  subtitle?: string;
 }
 
-function MetricGroup({ label, trend, items }: MetricGroupProps) {
+function ActivityRow({ icon, label, value, subtitle }: ActivityRowProps) {
   return (
-    <div className="space-y-1.5">
-      <div className="flex items-center gap-2">
-        <span className="text-xs font-medium text-foreground">{label}</span>
-        {trend !== undefined && (
-          <span className={`flex items-center gap-0.5 text-xs ${trend >= 0 ? 'text-green-600' : 'text-amber-600'}`}>
-            {trend >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-            {trend >= 0 ? '+' : ''}{trend}%
-          </span>
-        )}
+    <div className="flex items-center gap-3 py-2.5 border-b border-border/50 last:border-0">
+      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground">
+        {icon}
       </div>
-      <div className="flex gap-3">
-        {items.map((item, i) => (
-          <div key={i} className="text-center">
-            <p className="text-sm font-semibold text-foreground">{item.value}</p>
-            <p className="text-[10px] text-muted-foreground">{item.label}</p>
-          </div>
-        ))}
+      <div className="flex-1">
+        <p className="text-sm font-medium text-foreground">{label}</p>
+        {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
       </div>
+      <span className="text-lg font-semibold text-foreground">{value}</span>
     </div>
   );
 }
@@ -38,43 +30,24 @@ export function EngagementCard() {
       cta="Messages & offers"
       delay={0.15}
     >
-      <div className="space-y-4">
-        <MetricGroup
+      <div>
+        <ActivityRow
+          icon={<MessageSquare className="w-4 h-4" />}
           label="Messages"
-          trend={11}
-          items={[
-            { label: "Sent", value: 10 },
-            { label: "Opened", value: "50%" },
-            { label: "Clicked", value: "0%" },
-          ]}
+          value={10}
+          subtitle="50% opened"
         />
-        
-        <MetricGroup
-          label="Contacts received"
-          items={[
-            { label: "Calls", value: 0 },
-            { label: "Email", value: 0 },
-            { label: "WhatsApp", value: 0 },
-          ]}
-        />
-        
-        <MetricGroup
+        <ActivityRow
+          icon={<MousePointerClick className="w-4 h-4" />}
           label="Social clicks"
-          trend={-21}
-          items={[
-            { label: "Facebook", value: 11 },
-            { label: "Instagram", value: 0 },
-            { label: "Google", value: 0 },
-          ]}
+          value={11}
+          subtitle="Facebook, Instagram, Google"
         />
-        
-        <MetricGroup
-          label="Interactions"
-          items={[
-            { label: "Reviews", value: "0" },
-            { label: "Feedback", value: "0" },
-            { label: "Deliveries", value: "0" },
-          ]}
+        <ActivityRow
+          icon={<Star className="w-4 h-4" />}
+          label="Reviews"
+          value={0}
+          subtitle="Waiting for first review"
         />
       </div>
     </SimpleCard>

@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickActions } from "@/components/dashboard/QuickActions";
-import { AddCustomersHint } from "@/components/dashboard/AddCustomersHint";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
@@ -25,9 +24,6 @@ const Index = () => {
 
         {/* Frequent actions */}
         <QuickActions />
-
-        {/* Customer acquisition hint */}
-        <AddCustomersHint />
 
         {/* Three equal cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
