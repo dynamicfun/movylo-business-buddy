@@ -12,6 +12,7 @@ import { OrdersCard } from "@/components/dashboard/OrdersCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
+import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 // Sample data for steady state preview
@@ -143,6 +144,9 @@ const Index = () => {
                 <OrdersCard orders={sampleOrdersData} />
               </div>
             )}
+
+            {/* Footer */}
+            <DashboardFooter />
           </div>
         </main>
       </div>
