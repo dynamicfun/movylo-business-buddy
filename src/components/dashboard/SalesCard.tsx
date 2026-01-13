@@ -63,8 +63,8 @@ export function SalesCard({
 
   return (
     <SimpleCard
-      title="My business"
-      cta="Connect sales tools"
+      title="My Business"
+      cta="Sell"
       delay={0.2}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
     >

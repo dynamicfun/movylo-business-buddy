@@ -31,7 +31,7 @@ export function CustomerCard({
 
   return (
     <SimpleCard
-      title="Your customers"
+      title="My Customers"
       cta="Find & manage customers"
       delay={0.1}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
