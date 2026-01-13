@@ -1,31 +1,40 @@
 import { motion } from "framer-motion";
-import { Activity, UserPlus, Star, ShoppingBag, MessageSquare } from "lucide-react";
+import { Activity, UserPlus, Star, ShoppingBag, MessageSquare, Heart, Calendar } from "lucide-react";
 
 interface FeedItem {
   id: string;
-  type: "customer" | "review" | "sale" | "message";
+  type: "signup" | "opened" | "clicked" | "contacted" | "saved" | "reservation" | "review";
   text: string;
   time: string;
 }
 
+// Customer-first, singular language - no batch/campaign terminology
 const feedItems: FeedItem[] = [
-  { id: "1", type: "customer", text: "New customer signed up", time: "2m ago" },
-  { id: "2", type: "message", text: "Campaign sent to 45 customers", time: "1h ago" },
-  { id: "3", type: "sale", text: "Online order received", time: "3h ago" },
+  { id: "1", type: "signup", text: "New customer signed up", time: "2m ago" },
+  { id: "2", type: "opened", text: "Customer opened a message", time: "15m ago" },
+  { id: "3", type: "clicked", text: "Customer clicked an offer", time: "1h ago" },
+  { id: "4", type: "contacted", text: "Customer contacted you", time: "2h ago" },
+  { id: "5", type: "saved", text: "Offer saved by a customer", time: "3h ago" },
 ];
 
 const iconMap = {
-  customer: <UserPlus className="w-3 h-3" />,
+  signup: <UserPlus className="w-3 h-3" />,
+  opened: <MessageSquare className="w-3 h-3" />,
+  clicked: <ShoppingBag className="w-3 h-3" />,
+  contacted: <MessageSquare className="w-3 h-3" />,
+  saved: <Heart className="w-3 h-3" />,
+  reservation: <Calendar className="w-3 h-3" />,
   review: <Star className="w-3 h-3" />,
-  sale: <ShoppingBag className="w-3 h-3" />,
-  message: <MessageSquare className="w-3 h-3" />,
 };
 
 const colorMap = {
-  customer: "text-emerald-600 bg-emerald-100",
+  signup: "text-emerald-600 bg-emerald-100",
+  opened: "text-blue-600 bg-blue-100",
+  clicked: "text-violet-600 bg-violet-100",
+  contacted: "text-amber-600 bg-amber-100",
+  saved: "text-rose-500 bg-rose-100",
+  reservation: "text-indigo-600 bg-indigo-100",
   review: "text-amber-600 bg-amber-100",
-  sale: "text-blue-600 bg-blue-100",
-  message: "text-violet-600 bg-violet-100",
 };
 
 export function LiveFeed() {

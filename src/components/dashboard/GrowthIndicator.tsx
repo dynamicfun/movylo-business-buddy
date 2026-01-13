@@ -1,37 +1,71 @@
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, Minus, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GrowthIndicatorProps {
-  value: number; // percentage change
+  value?: number; // percentage change (optional - only show after steady state)
+  status?: "growing" | "stable" | "starting" | "waiting";
+  isActivationMode?: boolean; // First 7 days = no percentages
   className?: string;
 }
 
-export function GrowthIndicator({ value, className }: GrowthIndicatorProps) {
-  if (value === 0) {
+export function GrowthIndicator({ 
+  value, 
+  status = "starting",
+  isActivationMode = true, 
+  className 
+}: GrowthIndicatorProps) {
+  // Activation mode: status-based language only, no percentages
+  if (isActivationMode || value === undefined) {
+    const statusConfig = {
+      growing: { icon: TrendingUp, text: "Growing", colorClass: "text-emerald-600" },
+      stable: { icon: Minus, text: "Stable", colorClass: "text-muted-foreground" },
+      starting: { icon: Sparkles, text: "Starting", colorClass: "text-primary" },
+      waiting: { icon: Sparkles, text: "Setting up", colorClass: "text-muted-foreground" },
+    };
+
+    const config = statusConfig[status];
+    const Icon = config.icon;
+
     return (
-      <span className={cn("inline-flex items-center gap-0.5 text-xs text-muted-foreground", className)}>
-        <Minus className="w-3 h-3" />
-        <span>0%</span>
+      <span className={cn("inline-flex items-center gap-1 text-xs font-medium", config.colorClass, className)}>
+        <Icon className="w-3 h-3" />
+        <span>{config.text}</span>
       </span>
     );
   }
 
+  // Steady state: show percentages (only positive or neutral, never red)
+  if (value === 0) {
+    return (
+      <span className={cn("inline-flex items-center gap-0.5 text-xs text-muted-foreground", className)}>
+        <Minus className="w-3 h-3" />
+        <span>Stable</span>
+      </span>
+    );
+  }
+
+  // Only show positive trends with green, never show negative in red
   const isPositive = value > 0;
   
   return (
     <span 
       className={cn(
         "inline-flex items-center gap-0.5 text-xs font-medium",
-        isPositive ? "text-emerald-600" : "text-rose-500",
+        isPositive ? "text-emerald-600" : "text-muted-foreground",
         className
       )}
     >
       {isPositive ? (
-        <TrendingUp className="w-3 h-3" />
+        <>
+          <TrendingUp className="w-3 h-3" />
+          <span>+{value}%</span>
+        </>
       ) : (
-        <TrendingDown className="w-3 h-3" />
+        <>
+          <Minus className="w-3 h-3" />
+          <span>Recent change</span>
+        </>
       )}
-      <span>{isPositive ? "+" : ""}{value}%</span>
     </span>
   );
 }
