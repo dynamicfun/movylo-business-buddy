@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { SimpleCard } from "./SimpleCard";
 import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone } from "lucide-react";
 import { GrowthIndicator } from "./GrowthIndicator";
@@ -15,6 +16,7 @@ interface CustomerSource {
   icon: React.ReactNode;
   label: string;
   count: number;
+  sourceKey: string;
 }
 
 // Activation mode props
@@ -44,19 +46,25 @@ interface SteadyStateProps {
 type CustomerCardProps = ActivationModeProps | SteadyStateProps;
 
 export function CustomerCard(props: CustomerCardProps) {
+  const navigate = useNavigate();
+
+  const handleSourceClick = (sourceKey: string) => {
+    navigate(`/customers?source=${sourceKey}`);
+  };
+
   // Check if we're in steady state mode
   if (props.isActivationMode === false) {
     const { newCustomers, totalCustomers, sources } = props;
 
     const sourceItems: CustomerSource[] = [
-      { icon: <Globe className="w-3 h-3" />, label: "Website", count: sources.website },
-      { icon: <Facebook className="w-3 h-3" />, label: "Facebook", count: sources.facebook },
-      { icon: <Instagram className="w-3 h-3" />, label: "Instagram", count: sources.instagram },
-      { icon: <MessageCircle className="w-3 h-3" />, label: "WhatsApp", count: sources.whatsapp },
-      { icon: <QrCode className="w-3 h-3" />, label: "QR codes", count: sources.qrCodes },
-      { icon: <FileSpreadsheet className="w-3 h-3" />, label: "Excel", count: sources.excel },
-      { icon: <UserPlus className="w-3 h-3" />, label: "Manual", count: sources.manual },
-      { icon: <Megaphone className="w-3 h-3" />, label: "Ads", count: sources.ads },
+      { icon: <Globe className="w-3 h-3" />, label: "Website", count: sources.website, sourceKey: "website" },
+      { icon: <Facebook className="w-3 h-3" />, label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
+      { icon: <Instagram className="w-3 h-3" />, label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
+      { icon: <MessageCircle className="w-3 h-3" />, label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
+      { icon: <QrCode className="w-3 h-3" />, label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
+      { icon: <FileSpreadsheet className="w-3 h-3" />, label: "Excel", count: sources.excel, sourceKey: "excel" },
+      { icon: <UserPlus className="w-3 h-3" />, label: "Manual", count: sources.manual, sourceKey: "manual" },
+      { icon: <Megaphone className="w-3 h-3" />, label: "Ads", count: sources.ads, sourceKey: "ads" },
     ];
 
     return (
@@ -78,18 +86,21 @@ export function CustomerCard(props: CustomerCardProps) {
             </div>
           </div>
 
-          {/* Sources breakdown */}
           <div className="pt-2 border-t border-border/50">
             <p className="text-xs text-muted-foreground mb-2">Customer sources:</p>
             <div className="grid grid-cols-2 gap-1.5">
-              {sourceItems.map(({ icon, label, count }) => (
-                <div key={label} className="flex items-center justify-between py-1 px-2 rounded bg-secondary/30">
+              {sourceItems.map(({ icon, label, count, sourceKey }) => (
+                <button
+                  key={label}
+                  onClick={() => handleSourceClick(sourceKey)}
+                  className="flex items-center justify-between py-1 px-2 rounded bg-secondary/30 hover:bg-secondary/50 transition-colors cursor-pointer"
+                >
                   <div className="flex items-center gap-1.5">
                     <span className="text-muted-foreground">{icon}</span>
                     <span className="text-xs text-foreground">{label}</span>
                   </div>
                   <span className="text-xs font-medium text-foreground">{count}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
