@@ -1,5 +1,6 @@
 import { SimpleCard } from "./SimpleCard";
 import { MessageSquare, MousePointerClick, Star } from "lucide-react";
+import { GrowthIndicator } from "./GrowthIndicator";
 
 interface ActivityRowProps {
   icon: React.ReactNode;
@@ -29,6 +30,7 @@ export function EngagementCard() {
       title="Activity"
       cta="Messages & offers"
       delay={0.15}
+      headerRight={<GrowthIndicator value={8} />}
     >
       <div>
         <ActivityRow

@@ -5,6 +5,8 @@ import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
+import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
+import { LiveFeed } from "@/components/dashboard/LiveFeed";
 
 const Index = () => {
   return (
@@ -21,6 +23,12 @@ const Index = () => {
             <Settings className="w-5 h-5" />
           </Button>
         </motion.div>
+
+        {/* Activation banner */}
+        <ActivationBanner completedSteps={2} totalSteps={5} />
+
+        {/* Live feed */}
+        <LiveFeed />
 
         {/* Frequent actions */}
         <QuickActions />
