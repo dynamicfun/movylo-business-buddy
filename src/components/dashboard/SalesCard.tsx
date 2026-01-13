@@ -1,22 +1,19 @@
 import { SimpleCard } from "./SimpleCard";
-import { Ticket, Calendar, ShoppingCart } from "lucide-react";
 
-interface SalesRowProps {
-  icon: React.ReactNode;
+interface SalesMetricProps {
   label: string;
-  value: string | number;
+  count: number;
+  value?: string;
 }
 
-function SalesRow({ icon, label, value }: SalesRowProps) {
+function SalesMetric({ label, count, value }: SalesMetricProps) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground">
-        {icon}
+    <div className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <div className="text-right">
+        <span className="text-sm font-semibold text-foreground">{count}</span>
+        {value && <span className="text-xs text-muted-foreground ml-1.5">({value})</span>}
       </div>
-      <div className="flex-1">
-        <p className="text-sm text-foreground">{label}</p>
-      </div>
-      <span className="text-sm font-medium text-muted-foreground">{value}</span>
     </div>
   );
 }
@@ -24,26 +21,15 @@ function SalesRow({ icon, label, value }: SalesRowProps) {
 export function SalesCard() {
   return (
     <SimpleCard
-      title="Sales"
+      title="My Business"
       cta="Connect sales tools"
       delay={0.2}
     >
-      <div className="space-y-3">
-        <SalesRow
-          icon={<Ticket className="w-4 h-4" />}
-          label="Offers saved"
-          value={0}
-        />
-        <SalesRow
-          icon={<Calendar className="w-4 h-4" />}
-          label="Reservations"
-          value={0}
-        />
-        <SalesRow
-          icon={<ShoppingCart className="w-4 h-4" />}
-          label="Sales"
-          value="—"
-        />
+      <div className="space-y-1">
+        <SalesMetric label="Downloaded offers" count={0} />
+        <SalesMetric label="In-store sales" count={0} value="€0" />
+        <SalesMetric label="Online sales" count={0} value="€0" />
+        <SalesMetric label="Reservations" count={0} value="€0" />
       </div>
     </SimpleCard>
   );

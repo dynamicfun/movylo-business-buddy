@@ -17,17 +17,17 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0 }: Simp
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.3 }}
-      className="bg-card rounded-2xl border border-border p-5 flex flex-col h-full"
+      className="bg-card rounded-2xl border border-border p-5 flex flex-col min-h-[320px]"
     >
       <h2 className="text-base font-semibold text-foreground mb-4">{title}</h2>
       
-      <div className="flex-1 mb-4">
+      <div className="flex-1">
         {children}
       </div>
       
       <Button 
         onClick={onCtaClick}
-        className="w-full justify-between"
+        className="w-full justify-between mt-4"
       >
         {cta}
         <ChevronRight className="w-4 h-4" />

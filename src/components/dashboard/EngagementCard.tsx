@@ -1,21 +1,31 @@
 import { SimpleCard } from "./SimpleCard";
-import { Eye, MessageCircle, Star } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
-interface MetricRowProps {
-  icon: React.ReactNode;
+interface MetricGroupProps {
   label: string;
-  status: string;
+  trend?: number;
+  items: { label: string; value: string | number }[];
 }
 
-function MetricRow({ icon, label, status }: MetricRowProps) {
+function MetricGroup({ label, trend, items }: MetricGroupProps) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground">
-        {icon}
+    <div className="space-y-1.5">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-medium text-foreground">{label}</span>
+        {trend !== undefined && (
+          <span className={`flex items-center gap-0.5 text-xs ${trend >= 0 ? 'text-green-600' : 'text-amber-600'}`}>
+            {trend >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+            {trend >= 0 ? '+' : ''}{trend}%
+          </span>
+        )}
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm text-foreground truncate">{label}</p>
-        <p className="text-xs text-muted-foreground">{status}</p>
+      <div className="flex gap-3">
+        {items.map((item, i) => (
+          <div key={i} className="text-center">
+            <p className="text-sm font-semibold text-foreground">{item.value}</p>
+            <p className="text-[10px] text-muted-foreground">{item.label}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -24,25 +34,47 @@ function MetricRow({ icon, label, status }: MetricRowProps) {
 export function EngagementCard() {
   return (
     <SimpleCard
-      title="Engagement"
+      title="Activity"
       cta="Messages & offers"
       delay={0.15}
     >
-      <div className="space-y-3">
-        <MetricRow
-          icon={<Eye className="w-4 h-4" />}
-          label="Views"
-          status="Waiting for activity"
+      <div className="space-y-4">
+        <MetricGroup
+          label="Messages"
+          trend={11}
+          items={[
+            { label: "Sent", value: 10 },
+            { label: "Opened", value: "50%" },
+            { label: "Clicked", value: "0%" },
+          ]}
         />
-        <MetricRow
-          icon={<MessageCircle className="w-4 h-4" />}
-          label="Contacts"
-          status="No activity yet"
+        
+        <MetricGroup
+          label="Contacts received"
+          items={[
+            { label: "Calls", value: 0 },
+            { label: "Email", value: 0 },
+            { label: "WhatsApp", value: 0 },
+          ]}
         />
-        <MetricRow
-          icon={<Star className="w-4 h-4" />}
-          label="Reviews"
-          status="No activity yet"
+        
+        <MetricGroup
+          label="Social clicks"
+          trend={-21}
+          items={[
+            { label: "Facebook", value: 11 },
+            { label: "Instagram", value: 0 },
+            { label: "Google", value: 0 },
+          ]}
+        />
+        
+        <MetricGroup
+          label="Interactions"
+          items={[
+            { label: "Reviews", value: "0" },
+            { label: "Feedback", value: "0" },
+            { label: "Deliveries", value: "0" },
+          ]}
         />
       </div>
     </SimpleCard>
