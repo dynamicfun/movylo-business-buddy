@@ -54,7 +54,7 @@ export function EngagementCard({
 
   return (
     <SimpleCard
-      title="What customers are doing"
+      title="Activity"
       cta="Messages & offers"
       delay={0.15}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
