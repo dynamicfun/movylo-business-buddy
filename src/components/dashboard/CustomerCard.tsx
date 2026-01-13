@@ -1,5 +1,6 @@
 import { SimpleCard } from "./SimpleCard";
 import { Globe, Users, FileSpreadsheet } from "lucide-react";
+import { GrowthIndicator } from "./GrowthIndicator";
 
 function SourceChip({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
@@ -16,6 +17,7 @@ export function CustomerCard() {
       title="My Customers"
       cta="Find & manage"
       delay={0.1}
+      headerRight={<GrowthIndicator value={12} />}
     >
       <div className="space-y-5">
         {/* Stats */}

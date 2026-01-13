@@ -1,4 +1,5 @@
 import { SimpleCard } from "./SimpleCard";
+import { GrowthIndicator } from "./GrowthIndicator";
 
 interface SalesMetricProps {
   label: string;
@@ -24,6 +25,7 @@ export function SalesCard() {
       title="My Business"
       cta="Connect sales tools"
       delay={0.2}
+      headerRight={<GrowthIndicator value={-5} />}
     >
       <div className="space-y-1">
         <SalesMetric label="Downloaded offers" count={0} />

@@ -9,9 +9,10 @@ interface SimpleCardProps {
   cta: string;
   onCtaClick?: () => void;
   delay?: number;
+  headerRight?: ReactNode;
 }
 
-export function SimpleCard({ title, children, cta, onCtaClick, delay = 0 }: SimpleCardProps) {
+export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, headerRight }: SimpleCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -19,7 +20,10 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0 }: Simp
       transition={{ delay, duration: 0.3 }}
       className="bg-card rounded-2xl border border-border p-5 flex flex-col min-h-[320px]"
     >
-      <h2 className="text-base font-semibold text-foreground mb-4">{title}</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-base font-semibold text-foreground">{title}</h2>
+        {headerRight}
+      </div>
       
       <div className="flex-1">
         {children}
