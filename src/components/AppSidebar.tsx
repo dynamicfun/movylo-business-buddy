@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { 
   Users, 
   Package, 
@@ -11,7 +12,8 @@ import {
   LayoutDashboard,
   MessageSquare,
   Store,
-  ShoppingBag
+  Building2,
+  MoreHorizontal
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -20,6 +22,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -35,8 +38,8 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-// Main navigation items
-const mainItems = [
+// Primary navigation - mirrors dashboard story
+const primaryItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { 
     title: "My Customers", 
@@ -47,12 +50,22 @@ const mainItems = [
       { title: "Sign up page", url: "/customers/signup" },
     ]
   },
-  { title: "My Products/Services", url: "/products", icon: Package },
-  { title: "Promote", url: "/promote", icon: MessageSquare },
-  { title: "AI tools", url: "/ai-tools", icon: Sparkles },
+  { title: "Messages & offers", url: "/messages", icon: MessageSquare },
+  { title: "My business", url: "/business", icon: Store },
+];
+
+// Secondary navigation - business tools (grouped, quieter)
+const businessToolsItems = [
+  { title: "Business details", url: "/business-details", icon: Building2 },
   { title: "Reports", url: "/reports", icon: BarChart3 },
+];
+
+// More section - advanced tools
+const moreItems = [
+  { title: "Products / Services", url: "/products", icon: Package },
+  { title: "AI tools", url: "/ai-tools", icon: Sparkles },
+  { title: "Mobile app", url: "/mobile-app", icon: Smartphone },
   { title: "Preferences", url: "/preferences", icon: Settings },
-  { title: "Mobile App", url: "/mobile-app", icon: Smartphone },
 ];
 
 const bottomMenuItems = [
@@ -61,6 +74,9 @@ const bottomMenuItems = [
 ];
 
 export function AppSidebar() {
+  const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+
   return (
     <Sidebar className="border-r border-border">
       <SidebarContent className="pt-4">
@@ -69,11 +85,11 @@ export function AppSidebar() {
           <h2 className="text-lg font-bold text-foreground">MyBusiness</h2>
         </div>
 
-        {/* Main navigation */}
+        {/* Primary navigation */}
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainItems.map((item) => (
+              {primaryItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   {item.submenu ? (
                     <Collapsible defaultOpen className="w-full">
@@ -121,6 +137,75 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator className="my-3" />
+
+        {/* Business tools - collapsible, quieter */}
+        <SidebarGroup>
+          <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
+            <CollapsibleTrigger asChild>
+              <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                <span>Business tools</span>
+                <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
+              </SidebarGroupLabel>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {businessToolsItems.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <NavLink 
+                          to={item.url}
+                          className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
+                          activeClassName="bg-muted text-primary font-medium"
+                        >
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </Collapsible>
+        </SidebarGroup>
+
+        {/* More section - collapsible */}
+        <SidebarGroup>
+          <Collapsible open={moreOpen} onOpenChange={setMoreOpen}>
+            <CollapsibleTrigger asChild>
+              <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                <div className="flex items-center gap-2">
+                  <MoreHorizontal className="h-3 w-3" />
+                  <span>More</span>
+                </div>
+                <ChevronDown className={`h-3 w-3 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
+              </SidebarGroupLabel>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {moreItems.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <NavLink 
+                          to={item.url}
+                          className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
+                          activeClassName="bg-muted text-primary font-medium"
+                        >
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </Collapsible>
         </SidebarGroup>
       </SidebarContent>
 
