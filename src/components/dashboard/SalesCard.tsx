@@ -1,13 +1,20 @@
 import { SimpleCard } from "./SimpleCard";
 import { GrowthIndicator } from "./GrowthIndicator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface SalesMetricProps {
   label: string;
   value: string;
-  isActivationMode?: boolean;
 }
 
-function SalesMetric({ label, value, isActivationMode = true }: SalesMetricProps) {
+function SalesMetric({ label, value }: SalesMetricProps) {
   return (
     <div className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
       <span className="text-xs text-muted-foreground">{label}</span>
@@ -18,8 +25,49 @@ function SalesMetric({ label, value, isActivationMode = true }: SalesMetricProps
   );
 }
 
-interface SalesCardProps {
-  isActivationMode?: boolean;
+interface MetricItemProps {
+  label: string;
+  value: string | number;
+}
+
+function MetricItem({ label, value }: MetricItemProps) {
+  return (
+    <div className="flex justify-between items-center py-0.5">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-xs font-medium text-foreground">{value}</span>
+    </div>
+  );
+}
+
+interface MetricSectionProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+function MetricSection({ title, children }: MetricSectionProps) {
+  return (
+    <div className="py-2 border-b border-border/50 last:border-0">
+      <span className="text-sm font-medium text-foreground">{title}</span>
+      <div className="mt-1">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+interface Order {
+  customer: string;
+  amount: string;
+  status: string;
+  code: string;
+  source: string;
+  type: string;
+  date: string;
+}
+
+// Activation mode props
+interface ActivationModeProps {
+  isActivationMode?: true;
   salesToolsConnected?: boolean;
   downloadedOffers?: number;
   inStoreSales?: { count: number; value: string };
@@ -27,33 +75,115 @@ interface SalesCardProps {
   reservations?: { count: number; value: string };
 }
 
-export function SalesCard({ 
-  isActivationMode = true,
-  salesToolsConnected = false,
-  downloadedOffers = 0,
-  inStoreSales = { count: 0, value: "€0" },
-  onlineSales = { count: 0, value: "€0" },
-  reservations = { count: 0, value: "€0" }
-}: SalesCardProps) {
-  // Get display value based on activation mode
-  const getDisplayValue = (count: number, value: string, label: string) => {
-    if (isActivationMode) {
-      if (!salesToolsConnected) return "Connect to see this";
-      if (count === 0) return "Not yet";
-      return `${count} (${value})`;
-    }
+// Steady state props
+interface SteadyStateProps {
+  isActivationMode: false;
+  downloadedCoupons: number;
+  inStoreSales: { closed: number; value: string };
+  onlineSales: { closed: number; value: string };
+  reservations: { covers: number; value: string };
+  lastOrders?: Order[];
+}
+
+type SalesCardProps = ActivationModeProps | SteadyStateProps;
+
+export function SalesCard(props: SalesCardProps) {
+  // Check if we're in steady state mode
+  if (props.isActivationMode === false) {
+    const { downloadedCoupons, inStoreSales, onlineSales, reservations, lastOrders = [] } = props;
+
+    return (
+      <SimpleCard
+        title="My Business"
+        cta="Sell"
+        delay={0.2}
+      >
+        <div className="space-y-0 -mt-1">
+          {/* Downloaded coupons */}
+          <div className="py-2 border-b border-border/50">
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-foreground">Downloaded coupons</span>
+              <span className="text-sm font-semibold text-foreground">{downloadedCoupons}</span>
+            </div>
+          </div>
+
+          {/* In-store sales */}
+          <MetricSection title="In-store sales">
+            <MetricItem label="Closed" value={inStoreSales.closed} />
+            <MetricItem label="Value" value={inStoreSales.value} />
+          </MetricSection>
+
+          {/* Online sales */}
+          <MetricSection title="Online sales">
+            <MetricItem label="Closed" value={onlineSales.closed} />
+            <MetricItem label="Value" value={onlineSales.value} />
+          </MetricSection>
+
+          {/* Reservations */}
+          <MetricSection title="Reservations">
+            <MetricItem label="Covers" value={reservations.covers} />
+            <MetricItem label="Value" value={reservations.value} />
+          </MetricSection>
+
+          {/* Last 5 orders table */}
+          {lastOrders.length > 0 && (
+            <div className="pt-2">
+              <span className="text-sm font-medium text-foreground">Last 5 orders</span>
+              <div className="mt-2 -mx-2 overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="text-[10px]">
+                      <TableHead className="h-7 px-2 text-[10px]">Customer</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Amount</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Status</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Code</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Source</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Type</TableHead>
+                      <TableHead className="h-7 px-2 text-[10px]">Date</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {lastOrders.map((order, index) => (
+                      <TableRow key={index} className="text-[10px]">
+                        <TableCell className="py-1 px-2 text-[10px]">{order.customer}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.amount}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.status}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.code}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.source}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.type}</TableCell>
+                        <TableCell className="py-1 px-2 text-[10px]">{order.date}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          )}
+        </div>
+      </SimpleCard>
+    );
+  }
+
+  // Activation mode - simple view (default)
+  const { 
+    salesToolsConnected = false,
+    downloadedOffers = 0,
+    inStoreSales = { count: 0, value: "€0" },
+    onlineSales = { count: 0, value: "€0" },
+    reservations = { count: 0, value: "€0" }
+  } = props;
+
+  const getDisplayValue = (count: number, value: string) => {
+    if (!salesToolsConnected) return "Connect to see this";
+    if (count === 0) return "Not yet";
     return `${count} (${value})`;
   };
 
   const getSimpleDisplayValue = (count: number) => {
-    if (isActivationMode) {
-      if (count === 0) return "Waiting for activity";
-      return count.toString();
-    }
+    if (count === 0) return "Waiting for activity";
     return count.toString();
   };
 
-  // Determine status
   const getStatus = () => {
     if (!salesToolsConnected) return "waiting";
     const totalActivity = downloadedOffers + inStoreSales.count + onlineSales.count + reservations.count;
@@ -66,28 +196,24 @@ export function SalesCard({
       title="My Business"
       cta="Sell"
       delay={0.2}
-      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={isActivationMode} />}
+      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
     >
       <div className="space-y-1">
         <SalesMetric 
           label="Downloaded offers" 
           value={getSimpleDisplayValue(downloadedOffers)}
-          isActivationMode={isActivationMode}
         />
         <SalesMetric 
           label="In-store sales" 
-          value={getDisplayValue(inStoreSales.count, inStoreSales.value, "In-store")}
-          isActivationMode={isActivationMode}
+          value={getDisplayValue(inStoreSales.count, inStoreSales.value)}
         />
         <SalesMetric 
           label="Online sales" 
-          value={getDisplayValue(onlineSales.count, onlineSales.value, "Online")}
-          isActivationMode={isActivationMode}
+          value={getDisplayValue(onlineSales.count, onlineSales.value)}
         />
         <SalesMetric 
           label="Reservations" 
-          value={getDisplayValue(reservations.count, reservations.value, "Reservations")}
-          isActivationMode={isActivationMode}
+          value={getDisplayValue(reservations.count, reservations.value)}
         />
       </div>
     </SimpleCard>
