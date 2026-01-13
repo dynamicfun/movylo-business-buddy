@@ -18,10 +18,10 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, header
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.3 }}
-      className="bg-card rounded-2xl border border-border p-5 flex flex-col min-h-[320px]"
+      className="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex flex-col min-h-[280px] sm:min-h-[320px]"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold text-foreground">{title}</h2>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <h2 className="text-sm sm:text-base font-semibold text-foreground">{title}</h2>
         {headerRight}
       </div>
       
@@ -32,7 +32,8 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, header
       {cta && (
         <Button 
           onClick={onCtaClick}
-          className="w-full justify-between mt-4"
+          className="w-full justify-between mt-3 sm:mt-4 text-sm"
+          size="sm"
         >
           {cta}
           <ChevronRight className="w-4 h-4" />
