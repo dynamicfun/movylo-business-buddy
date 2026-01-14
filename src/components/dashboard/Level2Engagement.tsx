@@ -33,8 +33,8 @@ export function Level2Engagement() {
   return (
     <LevelCard
       level={2}
-      title="What customers are doing"
-      subtitle="See how customers interact with your messages and business"
+      title="Activity"
+      subtitle="What customers are doing"
       delay={0.2}
     >
       <div className="space-y-3 mb-6">

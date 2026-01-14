@@ -12,8 +12,8 @@ export function Level1Customers() {
   return (
     <LevelCard
       level={1}
-      title="Your customers"
-      subtitle="Build your customer base — the foundation of your business"
+      title="My Customers"
+      subtitle="Where everything starts"
       delay={0.1}
     >
       <div className="grid grid-cols-2 gap-6 mb-6">
