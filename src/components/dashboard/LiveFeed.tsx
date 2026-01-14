@@ -40,32 +40,32 @@ export function LiveFeed() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.1 }}
-      className="mb-6"
+      transition={{ delay: 0.1, duration: 0.3 }}
+      className="mb-5"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <Activity className="w-4 h-4 text-muted-foreground" />
-        <h2 className="text-sm font-medium text-muted-foreground">Live feed</h2>
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      <div className="flex items-center gap-2 mb-2.5">
+        <Activity className="w-3.5 h-3.5 text-muted-foreground" />
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Live</span>
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-60"></span>
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-success"></span>
         </span>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {feedItems.map((item, index) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 + index * 0.05 }}
-            className="flex items-center gap-2 bg-card border border-border rounded-lg px-2.5 py-1.5"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.12 + index * 0.04, ease: "easeOut" }}
+            className="flex items-center gap-1.5 bg-card border border-border/70 rounded-lg px-2 py-1.5"
           >
-            <span className={`w-5 h-5 rounded-full flex items-center justify-center ${colorMap[item.type]}`}>
+            <span className={`w-4 h-4 rounded-full flex items-center justify-center ${colorMap[item.type]}`}>
               {iconMap[item.type]}
             </span>
-            <span className="text-xs sm:text-sm text-foreground">{item.text}</span>
-            <span className="text-xs text-muted-foreground">{item.time}</span>
+            <span className="text-xs text-foreground">{item.text}</span>
+            <span className="text-[10px] text-muted-foreground">{item.time}</span>
           </motion.div>
         ))}
       </div>
