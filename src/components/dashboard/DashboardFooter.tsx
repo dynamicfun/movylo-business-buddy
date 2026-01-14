@@ -1,10 +1,36 @@
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const DashboardFooter = () => {
   return (
     <>
+      {/* Plan & SMS Credits */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-6 sm:mt-8 bg-card rounded-2xl p-4 sm:p-6 shadow-sm border border-border/50"
+      >
+        <div className="flex items-center justify-between gap-4">
+          {/* Plan info */}
+          <div className="flex-1 text-center">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">Plan:</p>
+            <p className="font-bold text-foreground text-sm sm:text-base mb-2">Premium Plus</p>
+            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 sm:px-6 text-xs sm:text-sm">
+              Upgrade
+            </Button>
+          </div>
+
+          {/* SMS credit */}
+          <div className="flex-1 text-center">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">SMS credit</p>
+            <p className="font-bold text-foreground text-sm sm:text-base mb-2">19</p>
+            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 sm:px-6 text-xs sm:text-sm">
+              Top Up
+            </Button>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 bg-primary text-primary-foreground py-3 sm:py-4 -mx-3 sm:-mx-4 px-3 sm:px-4">
