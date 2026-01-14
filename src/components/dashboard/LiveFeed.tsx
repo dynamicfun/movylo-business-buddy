@@ -13,8 +13,6 @@ const feedItems: FeedItem[] = [
   { id: "1", type: "signup", text: "New customer signed up", time: "2m ago" },
   { id: "2", type: "opened", text: "Customer opened a message", time: "15m ago" },
   { id: "3", type: "clicked", text: "Customer clicked an offer", time: "1h ago" },
-  { id: "4", type: "contacted", text: "Customer contacted you", time: "2h ago" },
-  { id: "5", type: "saved", text: "Offer saved by a customer", time: "3h ago" },
 ];
 
 const iconMap = {
@@ -54,19 +52,19 @@ export function LiveFeed() {
         </span>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
+      <div className="flex flex-wrap gap-2">
         {feedItems.map((item, index) => (
           <motion.div
             key={item.id}
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 + index * 0.05 }}
-            className="flex-shrink-0 flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2"
+            className="flex items-center gap-2 bg-card border border-border rounded-lg px-2.5 py-1.5"
           >
             <span className={`w-5 h-5 rounded-full flex items-center justify-center ${colorMap[item.type]}`}>
               {iconMap[item.type]}
             </span>
-            <span className="text-sm text-foreground whitespace-nowrap">{item.text}</span>
+            <span className="text-xs sm:text-sm text-foreground">{item.text}</span>
             <span className="text-xs text-muted-foreground">{item.time}</span>
           </motion.div>
         ))}
