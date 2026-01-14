@@ -29,7 +29,7 @@ export function Level3Sales() {
   return (
     <LevelCard
       level={3}
-      title="My business"
+      title="My Sales"
       subtitle="Track the results — sales, reservations, and conversions"
       delay={0.3}
     >

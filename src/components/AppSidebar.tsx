@@ -12,8 +12,7 @@ import {
   LayoutDashboard,
   MessageSquare,
   Store,
-  Building2,
-  MoreHorizontal
+  Building2
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -46,22 +45,18 @@ const primaryItems = [
     url: "/crm", 
     icon: Users,
     submenu: [
-      { title: "My Customer List", url: "/crm/customers" },
+      { title: "My Customers", url: "/crm/customers" },
       { title: "Sign up page", url: "/crm/signup" },
     ]
   },
   { title: "Messages & offers", url: "/messages", icon: MessageSquare },
-  { title: "My business", url: "/business", icon: Store },
+  { title: "My Sales", url: "/sales", icon: Store },
 ];
 
 // Secondary navigation - business tools (grouped, quieter)
 const businessToolsItems = [
-  { title: "Business details", url: "/business-details", icon: Building2 },
+  { title: "My Business Info", url: "/business-info", icon: Building2 },
   { title: "Reports", url: "/reports", icon: BarChart3 },
-];
-
-// More section - advanced tools
-const moreItems = [
   { title: "Products / Services", url: "/products", icon: Package },
   { title: "AI tools", url: "/ai-tools", icon: Sparkles },
   { title: "Mobile app", url: "/mobile-app", icon: Smartphone },
@@ -75,7 +70,6 @@ const bottomMenuItems = [
 
 export function AppSidebar() {
   const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <Sidebar className="border-r border-border">
@@ -173,40 +167,6 @@ export function AppSidebar() {
           </Collapsible>
         </SidebarGroup>
 
-        {/* More section - collapsible */}
-        <SidebarGroup>
-          <Collapsible open={moreOpen} onOpenChange={setMoreOpen}>
-            <CollapsibleTrigger asChild>
-              <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                <div className="flex items-center gap-2">
-                  <MoreHorizontal className="h-3 w-3" />
-                  <span>More</span>
-                </div>
-                <ChevronDown className={`h-3 w-3 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
-              </SidebarGroupLabel>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {moreItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <NavLink 
-                          to={item.url}
-                          className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
-                          activeClassName="bg-muted text-primary font-medium"
-                        >
-                          <item.icon className="h-4 w-4" />
-                          <span>{item.title}</span>
-                        </NavLink>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </CollapsibleContent>
-          </Collapsible>
-        </SidebarGroup>
       </SidebarContent>
 
       {/* Bottom menu */}
