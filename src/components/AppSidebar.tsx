@@ -42,11 +42,11 @@ const primaryItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "My Business Info", url: "/business-info", icon: Building2 },
   { 
-    title: "CRM", 
+    title: "My Customers", 
     url: "/crm", 
     icon: Users,
     submenu: [
-      { title: "My Customers", url: "/crm/customers" },
+      { title: "My Customer List", url: "/crm/customers" },
       { title: "Sign up page", url: "/crm/signup" },
     ]
   },
