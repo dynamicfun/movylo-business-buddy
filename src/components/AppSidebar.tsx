@@ -40,6 +40,7 @@ import {
 // Primary navigation - mirrors dashboard story
 const primaryItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "My Business Info", url: "/business-info", icon: Building2 },
   { 
     title: "CRM", 
     url: "/crm", 
@@ -55,7 +56,6 @@ const primaryItems = [
 
 // Secondary navigation - business tools (grouped, quieter)
 const businessToolsItems = [
-  { title: "My Business Info", url: "/business-info", icon: Building2 },
   { title: "Reports", url: "/reports", icon: BarChart3 },
   { title: "Products / Services", url: "/products", icon: Package },
   { title: "AI tools", url: "/ai-tools", icon: Sparkles },
