@@ -105,6 +105,7 @@ export function EngagementCard(props: EngagementCardProps) {
     return (
       <SimpleCard
         title="Activity"
+        subtitle="What customers are doing"
         cta="Messages & offers"
         delay={0.15}
       >
@@ -158,6 +159,7 @@ export function EngagementCard(props: EngagementCardProps) {
   return (
     <SimpleCard
       title="Activity"
+      subtitle="What customers are doing"
       cta="Messages & offers"
       delay={0.15}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}

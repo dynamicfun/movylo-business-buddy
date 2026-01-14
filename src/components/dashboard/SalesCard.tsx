@@ -75,7 +75,8 @@ export function SalesCard(props: SalesCardProps) {
 
     return (
       <SimpleCard
-        title="My Business"
+        title="My Sales"
+        subtitle="How this turns into real results"
         cta="Sell"
         delay={0.2}
       >
@@ -139,7 +140,8 @@ export function SalesCard(props: SalesCardProps) {
 
   return (
     <SimpleCard
-      title="My Business"
+      title="My Sales"
+      subtitle="How this turns into real results"
       cta="Sell"
       delay={0.2}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
