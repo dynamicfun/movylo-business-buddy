@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 
 interface SimpleCardProps {
   title: string;
+  subtitle?: string;
   children: ReactNode;
   cta?: string;
   onCtaClick?: () => void;
@@ -12,7 +13,7 @@ interface SimpleCardProps {
   headerRight?: ReactNode;
 }
 
-export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, headerRight }: SimpleCardProps) {
+export function SimpleCard({ title, subtitle, children, cta, onCtaClick, delay = 0, headerRight }: SimpleCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -20,8 +21,11 @@ export function SimpleCard({ title, children, cta, onCtaClick, delay = 0, header
       transition={{ delay, duration: 0.3 }}
       className="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex flex-col min-h-[280px] sm:min-h-[320px]"
     >
-      <div className="flex items-center justify-between mb-3 sm:mb-4">
-        <h2 className="text-sm sm:text-base font-semibold text-foreground">{title}</h2>
+      <div className="flex items-start justify-between mb-3 sm:mb-4">
+        <div>
+          <h2 className="text-sm sm:text-base font-semibold text-foreground">{title}</h2>
+          {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+        </div>
         {headerRight}
       </div>
       

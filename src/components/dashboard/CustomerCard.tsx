@@ -75,6 +75,7 @@ export function CustomerCard(props: CustomerCardProps) {
     return (
       <SimpleCard
         title="My Customers"
+        subtitle="Where everything starts"
         cta="Find & manage customers"
         delay={0.1}
       >
@@ -141,6 +142,7 @@ export function CustomerCard(props: CustomerCardProps) {
   return (
     <SimpleCard
       title="My Customers"
+      subtitle="Where everything starts"
       cta="Find & manage customers"
       delay={0.1}
       headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
