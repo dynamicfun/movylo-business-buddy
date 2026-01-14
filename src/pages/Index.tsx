@@ -83,31 +83,32 @@ const Index = () => {
         <AppSidebar />
         
         <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-            {/* Simple header */}
+          <div className="max-w-4xl mx-auto px-3 sm:px-4 py-5 sm:py-6">
+            {/* Clean header */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center justify-between mb-4 sm:mb-6"
+              className="flex items-center justify-between mb-5"
             >
-              <div className="flex items-center gap-2">
-                <SidebarTrigger className="text-muted-foreground" />
-                <h1 className="text-lg sm:text-xl font-bold text-foreground">Dashboard</h1>
+              <div className="flex items-center gap-2.5">
+                <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
+                <h1 className="text-base sm:text-lg font-semibold text-foreground tracking-tight">Dashboard</h1>
               </div>
-              <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-2">
                 {/* Preview toggle */}
-                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 bg-secondary/50 rounded-lg">
+                <div className="flex items-center gap-2 px-2.5 py-1.5 bg-secondary/60 rounded-lg">
                   <Switch
                     id="preview-mode"
                     checked={showSteadyState}
                     onCheckedChange={setShowSteadyState}
+                    className="scale-90"
                   />
-                  <Label htmlFor="preview-mode" className="text-xs text-muted-foreground cursor-pointer hidden sm:inline">
-                    {showSteadyState ? "Steady state" : "New user"}
+                  <Label htmlFor="preview-mode" className="text-[11px] text-muted-foreground cursor-pointer hidden sm:inline">
+                    {showSteadyState ? "Steady" : "New"}
                   </Label>
                 </div>
-                <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8 sm:h-10 sm:w-10">
-                  <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground h-8 w-8">
+                  <Settings className="w-4 h-4" />
                 </Button>
               </div>
             </motion.div>
@@ -122,7 +123,7 @@ const Index = () => {
             <QuickActions />
 
             {/* Three equal cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
               {showSteadyState ? (
                 <>
                   <CustomerCard {...sampleCustomerData} />
