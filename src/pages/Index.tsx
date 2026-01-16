@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
-import { SalesStrip } from "@/components/dashboard/SalesStrip";
+import { SalesCard } from "@/components/dashboard/SalesCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -58,12 +58,6 @@ const sampleCustomerData = {
   },
 };
 
-const sampleSalesData = {
-  mySales: { value: "$9,156", coupons: 22 },
-  inStoreSales: { value: "$25", closed: 3 },
-  onlineSales: { value: "$100", closed: 1 },
-  reservations: { value: "$8,975", covers: 259 },
-};
 
 const Index = () => {
   const [showSteadyState, setShowSteadyState] = useState(true);
@@ -117,28 +111,26 @@ const Index = () => {
             {/* Activation banner - only show in activation mode */}
             {!showSteadyState && <ActivationBanner completedSteps={2} totalSteps={5} />}
 
-            {/* Sales strip - top metrics */}
-            {showSteadyState && <SalesStrip {...sampleSalesData} />}
 
-            {/* Two column layout: Customers (wider) + Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4">
+            {/* Three equal columns: Customers, Activity, Sales */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
               {showSteadyState ? (
                 <>
-                  <div className="lg:col-span-3">
-                    <CustomerCard {...sampleCustomerData} />
-                  </div>
-                  <div className="lg:col-span-2">
-                    <EngagementCard {...sampleActivityData} />
-                  </div>
+                  <CustomerCard {...sampleCustomerData} />
+                  <EngagementCard {...sampleActivityData} />
+                  <SalesCard 
+                    isActivationMode={false}
+                    downloadedCoupons={22}
+                    inStoreSales={{ closed: 3, value: "$25" }}
+                    onlineSales={{ closed: 1, value: "$100" }}
+                    reservations={{ covers: 259, value: "$8,975" }}
+                  />
                 </>
               ) : (
                 <>
-                  <div className="lg:col-span-3">
-                    <CustomerCard />
-                  </div>
-                  <div className="lg:col-span-2">
-                    <EngagementCard />
-                  </div>
+                  <CustomerCard />
+                  <EngagementCard />
+                  <SalesCard />
                 </>
               )}
             </div>

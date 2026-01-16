@@ -1,47 +1,26 @@
-import { SimpleCard } from "./SimpleCard";
+import { motion } from "framer-motion";
+import { ChevronRight, DollarSign, Store, ShoppingCart, CalendarCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { GrowthIndicator } from "./GrowthIndicator";
 
-interface SalesMetricProps {
-  label: string;
-  value: string;
-}
-
-function SalesMetric({ label, value }: SalesMetricProps) {
-  return (
-    <div className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <div className="text-right">
-        <span className="text-sm font-medium text-foreground">{value}</span>
-      </div>
-    </div>
-  );
-}
-
-interface MetricItemProps {
+interface MetricRowProps {
+  icon: React.ReactNode;
+  iconColor: string;
   label: string;
   value: string | number;
+  subValue?: string;
 }
 
-function MetricItem({ label, value }: MetricItemProps) {
+function MetricRow({ icon, iconColor, label, value, subValue }: MetricRowProps) {
   return (
-    <div className="flex justify-between items-center py-0.5">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="text-xs font-medium text-foreground">{value}</span>
-    </div>
-  );
-}
-
-interface MetricSectionProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-function MetricSection({ title, children }: MetricSectionProps) {
-  return (
-    <div className="py-2 border-b border-border/50 last:border-0">
-      <span className="text-sm font-medium text-foreground">{title}</span>
-      <div className="mt-1">
-        {children}
+    <div className="flex items-center justify-between py-2 border-b border-border/40 last:border-0">
+      <div className="flex items-center gap-2">
+        <span className={iconColor}>{icon}</span>
+        <span className="text-sm text-foreground">{label}</span>
+      </div>
+      <div className="text-right">
+        <span className="text-sm font-medium text-foreground">{value}</span>
+        {subValue && <span className="text-xs text-muted-foreground ml-1">({subValue})</span>}
       </div>
     </div>
   );
@@ -57,7 +36,7 @@ interface ActivationModeProps {
   reservations?: { count: number; value: string };
 }
 
-// Steady state props (no orders - moved to OrdersCard)
+// Steady state props
 interface SteadyStateProps {
   isActivationMode: false;
   downloadedCoupons: number;
@@ -74,40 +53,61 @@ export function SalesCard(props: SalesCardProps) {
     const { downloadedCoupons, inStoreSales, onlineSales, reservations } = props;
 
     return (
-      <SimpleCard
-        title="My Sales"
-        subtitle="How this turns into real results"
-        cta="Sell"
-        delay={0.2}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.3 }}
+        className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full"
       >
-        <div className="space-y-0 -mt-1">
-          {/* Downloaded coupons */}
-          <div className="py-2 border-b border-border/50">
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-foreground">Downloaded coupons</span>
-              <span className="text-sm font-semibold text-foreground">{downloadedCoupons}</span>
-            </div>
-          </div>
-
-          {/* In-store sales */}
-          <MetricSection title="In-store sales">
-            <MetricItem label="Closed" value={inStoreSales.closed} />
-            <MetricItem label="Value" value={inStoreSales.value} />
-          </MetricSection>
-
-          {/* Online sales */}
-          <MetricSection title="Online sales">
-            <MetricItem label="Closed" value={onlineSales.closed} />
-            <MetricItem label="Value" value={onlineSales.value} />
-          </MetricSection>
-
-          {/* Reservations */}
-          <MetricSection title="Reservations">
-            <MetricItem label="Covers" value={reservations.covers} />
-            <MetricItem label="Value" value={reservations.value} />
-          </MetricSection>
+        {/* Header */}
+        <div className="mb-4">
+          <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+          <p className="text-xs text-muted-foreground">How this turns into real results</p>
         </div>
-      </SimpleCard>
+
+        {/* Main value highlight */}
+        <div className="bg-emerald-50/80 rounded-xl p-3 mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <DollarSign className="w-4 h-4 text-emerald-600" />
+            <span className="text-xl font-bold text-foreground">{downloadedCoupons}</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Downloaded coupons</p>
+        </div>
+
+        {/* Metrics */}
+        <div className="flex-1">
+          <MetricRow 
+            icon={<Store className="w-3.5 h-3.5" />} 
+            iconColor="text-blue-500" 
+            label="In-store sales" 
+            value={inStoreSales.value}
+            subValue={`${inStoreSales.closed} closed`}
+          />
+          <MetricRow 
+            icon={<ShoppingCart className="w-3.5 h-3.5" />} 
+            iconColor="text-violet-500" 
+            label="Online sales" 
+            value={onlineSales.value}
+            subValue={`${onlineSales.closed} closed`}
+          />
+          <MetricRow 
+            icon={<CalendarCheck className="w-3.5 h-3.5" />} 
+            iconColor="text-amber-500" 
+            label="Reservations" 
+            value={reservations.value}
+            subValue={`${reservations.covers} covers`}
+          />
+        </div>
+
+        {/* CTA */}
+        <Button 
+          className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
+          size="default"
+        >
+          Sell
+          <ChevronRight className="w-4 h-4" />
+        </Button>
+      </motion.div>
     );
   }
 
@@ -121,14 +121,9 @@ export function SalesCard(props: SalesCardProps) {
   } = props;
 
   const getDisplayValue = (count: number, value: string) => {
-    if (!salesToolsConnected) return "Connect to see this";
+    if (!salesToolsConnected) return "Connect to see";
     if (count === 0) return "Not yet";
-    return `${count} (${value})`;
-  };
-
-  const getSimpleDisplayValue = (count: number) => {
-    if (count === 0) return "Waiting for activity";
-    return count.toString();
+    return value;
   };
 
   const getStatus = () => {
@@ -139,31 +134,57 @@ export function SalesCard(props: SalesCardProps) {
   };
 
   return (
-    <SimpleCard
-      title="My Sales"
-      subtitle="How this turns into real results"
-      cta="Sell"
-      delay={0.2}
-      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2, duration: 0.3 }}
+      className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full"
     >
-      <div className="space-y-1">
-        <SalesMetric 
+      {/* Header */}
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+          <p className="text-xs text-muted-foreground">How this turns into real results</p>
+        </div>
+        <GrowthIndicator status={getStatus()} isActivationMode={true} />
+      </div>
+
+      {/* Metrics */}
+      <div className="flex-1">
+        <MetricRow 
+          icon={<DollarSign className="w-3.5 h-3.5" />} 
+          iconColor="text-emerald-500" 
           label="Downloaded offers" 
-          value={getSimpleDisplayValue(downloadedOffers)}
+          value={downloadedOffers === 0 ? "Waiting" : downloadedOffers}
         />
-        <SalesMetric 
+        <MetricRow 
+          icon={<Store className="w-3.5 h-3.5" />} 
+          iconColor="text-blue-500" 
           label="In-store sales" 
           value={getDisplayValue(inStoreSales.count, inStoreSales.value)}
         />
-        <SalesMetric 
+        <MetricRow 
+          icon={<ShoppingCart className="w-3.5 h-3.5" />} 
+          iconColor="text-violet-500" 
           label="Online sales" 
           value={getDisplayValue(onlineSales.count, onlineSales.value)}
         />
-        <SalesMetric 
+        <MetricRow 
+          icon={<CalendarCheck className="w-3.5 h-3.5" />} 
+          iconColor="text-amber-500" 
           label="Reservations" 
           value={getDisplayValue(reservations.count, reservations.value)}
         />
       </div>
-    </SimpleCard>
+
+      {/* CTA */}
+      <Button 
+        className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
+        size="default"
+      >
+        Sell
+        <ChevronRight className="w-4 h-4" />
+      </Button>
+    </motion.div>
   );
 }
