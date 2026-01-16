@@ -54,10 +54,10 @@ export function SalesCard(props: SalesCardProps) {
 
     return (
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.3 }}
-        className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full"
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+        className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
       >
         {/* Header */}
         <div className="mb-4">
@@ -135,10 +135,10 @@ export function SalesCard(props: SalesCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.3 }}
-      className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full"
+      initial={{ opacity: 0, y: 16, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+      className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
