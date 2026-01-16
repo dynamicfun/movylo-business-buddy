@@ -23,16 +23,16 @@ function SalesStripItem({ icon, iconBg, label, value, subValue, delay }: SalesSt
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.3 }}
-      className="bg-card rounded-xl border border-border p-3 sm:p-4 flex items-center gap-3"
+      className="bg-card rounded-2xl border border-border/60 p-4 sm:p-5 flex items-center gap-4 shadow-sm"
     >
-      <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center ${iconBg}`}>
+      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${iconBg}`}>
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{label}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground font-medium truncate mb-0.5">{label}</p>
         <div className="flex items-baseline gap-2">
-          <span className="text-lg sm:text-xl font-bold text-foreground">{value}</span>
-          <span className="text-[10px] sm:text-xs text-muted-foreground">{subValue}</span>
+          <span className="text-xl sm:text-2xl font-bold text-foreground">{value}</span>
+          <span className="text-xs text-muted-foreground">{subValue}</span>
         </div>
       </div>
     </motion.div>
