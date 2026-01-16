@@ -111,6 +111,8 @@ const Index = () => {
             {/* Activation banner - only show in activation mode */}
             {!showSteadyState && <ActivationBanner completedSteps={2} totalSteps={5} />}
 
+            {/* Live feed - above the main cards */}
+            <LiveFeed />
 
             {/* Three equal columns: Customers, Activity, Sales */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
@@ -134,9 +136,6 @@ const Index = () => {
                 </>
               )}
             </div>
-
-            {/* Live feed - below the main cards */}
-            <LiveFeed />
 
             {/* Footer */}
             <DashboardFooter />
