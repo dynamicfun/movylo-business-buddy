@@ -6,114 +6,114 @@
 
 @layer base {
   :root {
-    --background: 30 25% 97%;
-    --foreground: 25 20% 20%;
+    --background: 210 20% 97%;
+    --foreground: 210 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 20% 20%;
+    --card-foreground: 210 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 20% 20%;
+    --popover-foreground: 210 25% 15%;
 
-    --primary: 25 85% 55%;
+    --primary: 207 72% 41%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 20% 94%;
-    --secondary-foreground: 25 20% 20%;
+    --secondary: 210 15% 94%;
+    --secondary-foreground: 210 25% 15%;
 
-    --muted: 30 15% 92%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 210 12% 92%;
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 25 75% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 42 90% 62%;
+    --accent-foreground: 210 25% 15%;
 
     --success: 152 55% 45%;
     --success-foreground: 0 0% 100%;
     --success-light: 152 55% 95%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 42 90% 62%;
+    --warning-foreground: 210 25% 15%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 88%;
-    --input: 30 15% 88%;
-    --ring: 25 85% 55%;
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 207 72% 41%;
 
     --radius: 0.875rem;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 25 20% 20%;
-    --sidebar-primary: 25 85% 55%;
+    --sidebar-foreground: 210 25% 15%;
+    --sidebar-primary: 207 72% 41%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 30 20% 94%;
-    --sidebar-accent-foreground: 25 20% 20%;
-    --sidebar-border: 30 15% 88%;
-    --sidebar-ring: 25 85% 55%;
+    --sidebar-accent: 210 15% 94%;
+    --sidebar-accent-foreground: 210 25% 15%;
+    --sidebar-border: 210 15% 88%;
+    --sidebar-ring: 207 72% 41%;
 
     /* Custom Movylo tokens */
     --banner-success: 152 55% 96%;
     --banner-success-border: 152 45% 85%;
-    --metric-highlight: 25 85% 50%;
-    --metric-muted: 25 15% 55%;
-    --channel-email: 210 75% 55%;
-    --channel-sms: 280 65% 55%;
-    --channel-push: 25 85% 55%;
+    --metric-highlight: 207 72% 41%;
+    --metric-muted: 210 15% 55%;
+    --channel-email: 207 72% 41%;
+    --channel-sms: 42 90% 62%;
+    --channel-push: 207 72% 41%;
   }
 
   .dark {
-    --background: 25 15% 10%;
-    --foreground: 30 20% 95%;
+    --background: 210 20% 10%;
+    --foreground: 210 15% 95%;
 
-    --card: 25 15% 13%;
-    --card-foreground: 30 20% 95%;
+    --card: 210 20% 13%;
+    --card-foreground: 210 15% 95%;
 
-    --popover: 25 15% 13%;
-    --popover-foreground: 30 20% 95%;
+    --popover: 210 20% 13%;
+    --popover-foreground: 210 15% 95%;
 
-    --primary: 25 80% 55%;
-    --primary-foreground: 25 15% 10%;
+    --primary: 207 72% 50%;
+    --primary-foreground: 210 20% 10%;
 
-    --secondary: 25 15% 18%;
-    --secondary-foreground: 30 20% 95%;
+    --secondary: 210 15% 18%;
+    --secondary-foreground: 210 15% 95%;
 
-    --muted: 25 15% 18%;
-    --muted-foreground: 25 15% 55%;
+    --muted: 210 15% 18%;
+    --muted-foreground: 210 15% 55%;
 
-    --accent: 25 70% 55%;
-    --accent-foreground: 25 15% 10%;
+    --accent: 42 90% 62%;
+    --accent-foreground: 210 20% 10%;
 
     --success: 152 55% 50%;
-    --success-foreground: 25 15% 10%;
+    --success-foreground: 210 20% 10%;
     --success-light: 152 40% 18%;
 
-    --warning: 38 92% 55%;
-    --warning-foreground: 25 15% 10%;
+    --warning: 42 90% 62%;
+    --warning-foreground: 210 20% 10%;
 
     --destructive: 0 62% 45%;
-    --destructive-foreground: 30 20% 95%;
+    --destructive-foreground: 210 15% 95%;
 
-    --border: 25 15% 22%;
-    --input: 25 15% 22%;
-    --ring: 25 80% 55%;
+    --border: 210 15% 22%;
+    --input: 210 15% 22%;
+    --ring: 207 72% 50%;
 
-    --sidebar-background: 25 15% 12%;
-    --sidebar-foreground: 30 20% 95%;
-    --sidebar-primary: 25 80% 55%;
-    --sidebar-primary-foreground: 25 15% 10%;
-    --sidebar-accent: 25 15% 18%;
-    --sidebar-accent-foreground: 30 20% 95%;
-    --sidebar-border: 25 15% 22%;
-    --sidebar-ring: 25 80% 55%;
+    --sidebar-background: 210 20% 12%;
+    --sidebar-foreground: 210 15% 95%;
+    --sidebar-primary: 207 72% 50%;
+    --sidebar-primary-foreground: 210 20% 10%;
+    --sidebar-accent: 210 15% 18%;
+    --sidebar-accent-foreground: 210 15% 95%;
+    --sidebar-border: 210 15% 22%;
+    --sidebar-ring: 207 72% 50%;
 
     --banner-success: 152 40% 15%;
     --banner-success-border: 152 35% 25%;
-    --metric-highlight: 25 75% 60%;
-    --metric-muted: 25 15% 50%;
-    --channel-email: 210 65% 60%;
-    --channel-sms: 280 55% 65%;
-    --channel-push: 25 80% 60%;
+    --metric-highlight: 207 72% 55%;
+    --metric-muted: 210 15% 50%;
+    --channel-email: 207 72% 55%;
+    --channel-sms: 42 90% 65%;
+    --channel-push: 207 72% 55%;
   }
 }
 

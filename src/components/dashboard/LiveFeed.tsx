@@ -23,17 +23,9 @@ const feedItems: FeedItem[] = [
     id: "2", 
     type: "message", 
     title: "Message update",
-    description: "Your message is opened by",
+    description: "opened your message.",
     customerName: "Jodi Frank",
     time: "9 hours ago" 
-  },
-  { 
-    id: "3", 
-    type: "offer", 
-    title: "Offer update",
-    description: "clicked on an offer.",
-    customerName: "Tolga Akcay",
-    time: "28 hours ago" 
   },
 ];
 
@@ -52,7 +44,7 @@ export function LiveFeed() {
       className="bg-card rounded-2xl border border-border/50 p-4 mb-4"
     >
       {/* Header + Feed items in horizontal layout */}
-      <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-4">
         {/* Live indicator */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <span className="relative flex h-2 w-2">

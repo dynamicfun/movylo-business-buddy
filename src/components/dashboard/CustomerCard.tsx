@@ -92,10 +92,10 @@ export function CustomerCard({
 
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-orange-50/80 rounded-xl p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Users className="w-4 h-4 text-orange-500 flex-shrink-0" />
-            <span className="text-base font-bold text-foreground tabular-nums">
+        <div className="bg-primary/5 rounded-xl p-3">
+          <div className="flex items-center gap-1 mb-1">
+            <Users className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-sm font-bold text-foreground tabular-nums min-w-[3ch]">
               {isActivationMode || newCustomers === 0 ? "—" : newCustomers.toLocaleString()}
             </span>
             {!isActivationMode && newCustomers > 0 && <GrowthBadge growth={newCustomersGrowth} />}
@@ -103,10 +103,10 @@ export function CustomerCard({
           <p className="text-xs text-muted-foreground">New (30 days)</p>
         </div>
         
-        <div className="bg-violet-50/80 rounded-xl p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Users className="w-4 h-4 text-violet-500 flex-shrink-0" />
-            <span className="text-base font-bold text-foreground tabular-nums">
+        <div className="bg-accent/10 rounded-xl p-3">
+          <div className="flex items-center gap-1 mb-1">
+            <Users className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+            <span className="text-sm font-bold text-foreground tabular-nums min-w-[5ch]">
               {isActivationMode || totalCustomers === 0 ? "—" : totalCustomers.toLocaleString()}
             </span>
             {!isActivationMode && totalCustomers > 0 && <GrowthBadge growth={totalCustomersGrowth} />}
