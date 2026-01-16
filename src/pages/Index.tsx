@@ -7,19 +7,18 @@ import { Label } from "@/components/ui/label";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
-import { SalesCard } from "@/components/dashboard/SalesCard";
-import { OrdersCard } from "@/components/dashboard/OrdersCard";
+import { SalesStrip } from "@/components/dashboard/SalesStrip";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Sample data for steady state preview
 const sampleActivityData = {
-  isActivationMode: false as const,
+  isActivationMode: false,
   messages: {
-    growth: 11,
     sent: 10,
     opened: "50%",
     clicked: "0%",
@@ -30,7 +29,6 @@ const sampleActivityData = {
     whatsapp: 0,
   },
   socialClicks: {
-    growth: -21,
     facebook: 11,
     instagram: 0,
     google: 0,
@@ -43,39 +41,38 @@ const sampleActivityData = {
 };
 
 const sampleCustomerData = {
-  isActivationMode: false as const,
+  isActivationMode: false,
   newCustomers: 24,
+  newCustomersGrowth: 2.4,
   totalCustomers: 156,
+  totalCustomersGrowth: 1.9,
   sources: {
     website: 45,
     facebook: 32,
     instagram: 28,
-    whatsapp: null, // needs activation
+    whatsapp: null,
     qrCodes: 12,
-    excel: null, // needs activation
+    excel: null,
     manual: 10,
-    ads: null, // needs activation
+    ads: null,
   },
 };
 
 const sampleSalesData = {
-  isActivationMode: false as const,
-  downloadedCoupons: 22,
-  inStoreSales: { closed: 3, value: "£ 25" },
-  onlineSales: { closed: 1, value: "£ 100" },
-  reservations: { covers: 359, value: "£ 8,975" },
+  mySales: { value: "$9,156", coupons: 22 },
+  inStoreSales: { value: "$25", closed: 3 },
+  onlineSales: { value: "$100", closed: 1 },
+  reservations: { value: "$8,975", covers: 259 },
 };
 
-const sampleOrdersData = [
-  { customer: "John D.", amount: "£ 45", status: "Completed", code: "ORD001", source: "Website", type: "Dine-in", date: "12 Jan" },
-  { customer: "Sarah M.", amount: "£ 32", status: "Completed", code: "ORD002", source: "App", type: "Takeaway", date: "12 Jan" },
-  { customer: "Mike R.", amount: "£ 78", status: "Pending", code: "ORD003", source: "Phone", type: "Delivery", date: "11 Jan" },
-  { customer: "Emma L.", amount: "£ 25", status: "Completed", code: "ORD004", source: "Walk-in", type: "Dine-in", date: "11 Jan" },
-  { customer: "Chris P.", amount: "£ 56", status: "Completed", code: "ORD005", source: "Website", type: "Takeaway", date: "10 Jan" },
-];
-
 const Index = () => {
-  const [showSteadyState, setShowSteadyState] = useState(false);
+  const [showSteadyState, setShowSteadyState] = useState(true);
+
+  const currentDate = new Date().toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
 
   return (
     <SidebarProvider>
@@ -83,18 +80,25 @@ const Index = () => {
         <AppSidebar />
         
         <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-            {/* Simple header */}
+          <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+            {/* Header with welcome message */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center justify-between mb-4 sm:mb-6"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6"
             >
-              <div className="flex items-center gap-2">
-                <SidebarTrigger className="text-muted-foreground" />
-                <h1 className="text-lg sm:text-xl font-bold text-foreground">Dashboard</h1>
+              <div className="flex items-center gap-3">
+                <SidebarTrigger className="text-muted-foreground sm:hidden" />
+                <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
+                  <AvatarImage src="/placeholder.svg" />
+                  <AvatarFallback className="bg-primary text-primary-foreground font-semibold">MD</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h1 className="text-lg sm:text-xl font-bold text-foreground">Welcome back, MD</h1>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{currentDate}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* Preview toggle */}
                 <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 bg-secondary/50 rounded-lg">
                   <Switch
@@ -106,44 +110,41 @@ const Index = () => {
                     {showSteadyState ? "Steady state" : "New user"}
                   </Label>
                 </div>
-                <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8 sm:h-10 sm:w-10">
-                  <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
+                <QuickActions />
               </div>
             </motion.div>
 
             {/* Activation banner - only show in activation mode */}
             {!showSteadyState && <ActivationBanner completedSteps={2} totalSteps={5} />}
 
-            {/* Live feed */}
-            <LiveFeed />
+            {/* Sales strip - top metrics */}
+            {showSteadyState && <SalesStrip {...sampleSalesData} />}
 
-            {/* Frequent actions */}
-            <QuickActions />
-
-            {/* Three equal cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Two column layout: Customers (wider) + Activity */}
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4">
               {showSteadyState ? (
                 <>
-                  <CustomerCard {...sampleCustomerData} />
-                  <EngagementCard {...sampleActivityData} />
-                  <SalesCard {...sampleSalesData} />
+                  <div className="lg:col-span-3">
+                    <CustomerCard {...sampleCustomerData} />
+                  </div>
+                  <div className="lg:col-span-2">
+                    <EngagementCard {...sampleActivityData} />
+                  </div>
                 </>
               ) : (
                 <>
-                  <CustomerCard />
-                  <EngagementCard />
-                  <SalesCard />
+                  <div className="lg:col-span-3">
+                    <CustomerCard />
+                  </div>
+                  <div className="lg:col-span-2">
+                    <EngagementCard />
+                  </div>
                 </>
               )}
             </div>
 
-            {/* Orders card - only in steady state */}
-            {showSteadyState && (
-              <div className="mt-4">
-                <OrdersCard orders={sampleOrdersData} />
-              </div>
-            )}
+            {/* Live feed - below the main cards */}
+            <LiveFeed />
 
             {/* Footer */}
             <DashboardFooter />

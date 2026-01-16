@@ -7,14 +7,14 @@ export function QuickActions() {
     <motion.div
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex gap-2 mb-4 sm:mb-6"
+      className="flex gap-2"
     >
-      <Button variant="outline" size="sm" className="gap-2 text-xs">
-        <Ticket className="w-3.5 h-3.5" />
+      <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm">
+        <Ticket className="w-4 h-4" />
         Check Coupons
       </Button>
-      <Button variant="outline" size="sm" className="gap-2 text-xs">
-        <Gift className="w-3.5 h-3.5" />
+      <Button size="sm" className="gap-2 text-xs sm:text-sm bg-primary hover:bg-primary/90">
+        <Gift className="w-4 h-4" />
         Assign Points/Rewards
       </Button>
     </motion.div>
