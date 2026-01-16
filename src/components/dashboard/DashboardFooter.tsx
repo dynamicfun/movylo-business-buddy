@@ -5,30 +5,16 @@ import { Button } from "@/components/ui/button";
 export const DashboardFooter = () => {
   return (
     <>
-      {/* Plan & SMS Credits */}
+      {/* Plan & SMS Credits - compact info bar */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-6 sm:mt-8 bg-card rounded-2xl p-4 sm:p-6 shadow-sm border border-border/50"
+        className="mt-6 sm:mt-8 bg-card rounded-xl p-3 sm:p-4 shadow-sm border border-border/50"
       >
-        <div className="flex items-center justify-between gap-4">
-          {/* Plan info */}
-          <div className="flex-1 text-center">
-            <p className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">Plan:</p>
-            <p className="font-bold text-foreground text-sm sm:text-base mb-2">Premium Plus</p>
-            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 sm:px-6 text-xs sm:text-sm">
-              Upgrade
-            </Button>
-          </div>
-
-          {/* SMS credit */}
-          <div className="flex-1 text-center">
-            <p className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">SMS credit</p>
-            <p className="font-bold text-foreground text-sm sm:text-base mb-2">19</p>
-            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 sm:px-6 text-xs sm:text-sm">
-              Top Up
-            </Button>
-          </div>
+        <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+          <span>Plan: <span className="font-medium text-foreground">Premium Plus</span></span>
+          <span className="text-border">|</span>
+          <span>SMS Credit: <span className="font-medium text-foreground">19</span></span>
         </div>
       </motion.div>
 
