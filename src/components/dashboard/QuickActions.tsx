@@ -9,12 +9,12 @@ export function QuickActions() {
       animate={{ opacity: 1, y: 0 }}
       className="flex gap-2"
     >
-      <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm">
-        <Ticket className="w-4 h-4" />
+      <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground">
+        <Ticket className="w-3.5 h-3.5" />
         Check Coupons
       </Button>
-      <Button size="sm" className="gap-2 text-xs sm:text-sm bg-primary hover:bg-primary/90">
-        <Gift className="w-4 h-4" />
+      <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground">
+        <Gift className="w-3.5 h-3.5" />
         Assign Points/Rewards
       </Button>
     </motion.div>
