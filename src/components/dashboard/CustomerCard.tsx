@@ -1,37 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import { SimpleCard } from "./SimpleCard";
-import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone } from "lucide-react";
-import { GrowthIndicator } from "./GrowthIndicator";
-
-function SourceChip({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <button className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium hover:bg-accent/20 transition-colors">
-      {icon}
-      {label}
-    </button>
-  );
-}
+import { motion } from "framer-motion";
+import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface CustomerSource {
   icon: React.ReactNode;
+  iconColor: string;
   label: string;
-  count: number | null; // null means needs activation
+  count: number | null;
   sourceKey: string;
 }
 
-// Activation mode props
-interface ActivationModeProps {
-  isActivationMode?: true;
+interface CustomerCardProps {
+  isActivationMode?: boolean;
   newCustomers?: number;
+  newCustomersGrowth?: number;
   totalCustomers?: number;
-}
-
-// Steady state props with source breakdown
-interface SteadyStateProps {
-  isActivationMode: false;
-  newCustomers: number;
-  totalCustomers: number;
-  sources: {
+  totalCustomersGrowth?: number;
+  sources?: {
     website: number | null;
     facebook: number | null;
     instagram: number | null;
@@ -43,137 +29,134 @@ interface SteadyStateProps {
   };
 }
 
-type CustomerCardProps = ActivationModeProps | SteadyStateProps;
+function GrowthBadge({ growth }: { growth: number }) {
+  const isPositive = growth >= 0;
+  return (
+    <span className={`flex items-center gap-0.5 text-xs font-medium ${isPositive ? 'text-emerald-600' : 'text-rose-500'}`}>
+      <TrendingUp className={`w-3 h-3 ${!isPositive ? 'rotate-180' : ''}`} />
+      {Math.abs(growth)}%
+    </span>
+  );
+}
 
-export function CustomerCard(props: CustomerCardProps) {
+export function CustomerCard({
+  isActivationMode = true,
+  newCustomers = 0,
+  newCustomersGrowth = 2.4,
+  totalCustomers = 0,
+  totalCustomersGrowth = 1.9,
+  sources = {
+    website: null,
+    facebook: null,
+    instagram: null,
+    whatsapp: null,
+    qrCodes: null,
+    excel: null,
+    manual: null,
+    ads: null,
+  },
+}: CustomerCardProps) {
   const navigate = useNavigate();
 
   const handleSourceClick = (sourceKey: string, isActive: boolean) => {
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
-      // Navigate to setup/activation for this source
       navigate(`/settings/integrations?setup=${sourceKey}`);
     }
   };
 
-  // Check if we're in steady state mode
-  if (props.isActivationMode === false) {
-    const { newCustomers, totalCustomers, sources } = props;
-
-    const sourceItems: CustomerSource[] = [
-      { icon: <Globe className="w-3 h-3" />, label: "Website", count: sources.website, sourceKey: "website" },
-      { icon: <Facebook className="w-3 h-3" />, label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
-      { icon: <Instagram className="w-3 h-3" />, label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
-      { icon: <MessageCircle className="w-3 h-3" />, label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
-      { icon: <QrCode className="w-3 h-3" />, label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
-      { icon: <FileSpreadsheet className="w-3 h-3" />, label: "Excel", count: sources.excel, sourceKey: "excel" },
-      { icon: <UserPlus className="w-3 h-3" />, label: "Manual", count: sources.manual, sourceKey: "manual" },
-      { icon: <Megaphone className="w-3 h-3" />, label: "Ads", count: sources.ads, sourceKey: "ads" },
-    ];
-
-    return (
-      <SimpleCard
-        title="My Customers"
-        subtitle="Where everything starts"
-        cta="Find & manage customers"
-        delay={0.1}
-      >
-        <div className="space-y-3 sm:space-y-4">
-          {/* Stats */}
-          <div className="flex justify-between items-baseline">
-            <div>
-              <span className="text-2xl sm:text-3xl font-bold text-foreground">{newCustomers}</span>
-              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">New (30 days)</p>
-            </div>
-            <div className="text-right">
-              <span className="text-2xl sm:text-3xl font-bold text-foreground">{totalCustomers}</span>
-              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">Total</p>
-            </div>
-          </div>
-
-          <div className="pt-2 border-t border-border/50">
-            <p className="text-xs text-muted-foreground mb-2">Add customers from:</p>
-            
-            {/* All sources in single column */}
-            <div className="flex flex-col gap-1">
-              {sourceItems.map(({ icon, label, count, sourceKey }) => {
-                const isActive = count !== null;
-                return (
-                  <button
-                    key={label}
-                    onClick={() => handleSourceClick(sourceKey, isActive)}
-                    className={`flex items-center justify-between py-1.5 px-2 rounded transition-colors cursor-pointer ${
-                      isActive 
-                        ? "bg-secondary/30 hover:bg-secondary/50" 
-                        : "border border-dashed border-border hover:border-accent"
-                    }`}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span className={isActive ? "text-muted-foreground" : "text-muted-foreground/60"}>{icon}</span>
-                      <span className={`text-xs ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{label}</span>
-                    </div>
-                    <span className={`text-xs font-medium ${isActive ? "text-foreground" : "text-muted-foreground/60"}`}>
-                      {isActive ? count : "Activate"}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </SimpleCard>
-    );
-  }
-
-  // Activation mode - simple view (default)
-  const { 
-    newCustomers = 0,
-    totalCustomers = 0 
-  } = props;
-
-  // Determine status based on customer count
-  const getStatus = () => {
-    if (totalCustomers >= 10) return "growing";
-    if (totalCustomers > 0) return "starting";
-    return "waiting";
-  };
+  const sourceItems: CustomerSource[] = [
+    { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Website", count: sources.website, sourceKey: "website" },
+    { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
+    { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
+    { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-green-500", label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
+    { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
+    { icon: <FileSpreadsheet className="w-4 h-4" />, iconColor: "text-emerald-600", label: "Excel", count: sources.excel, sourceKey: "excel" },
+    { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: "Manual", count: sources.manual, sourceKey: "manual" },
+    { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: "Ads", count: sources.ads, sourceKey: "ads" },
+  ];
 
   return (
-    <SimpleCard
-      title="My Customers"
-      subtitle="Where everything starts"
-      cta="Find & manage customers"
-      delay={0.1}
-      headerRight={<GrowthIndicator status={getStatus()} isActivationMode={true} />}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1, duration: 0.3 }}
+      className="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex flex-col"
     >
-      <div className="space-y-4 sm:space-y-5">
-        {/* Stats */}
-        <div className="flex justify-between items-baseline">
-          <div>
-            <span className="text-2xl sm:text-3xl font-bold text-foreground">
-              {newCustomers === 0 ? "—" : newCustomers}
-            </span>
-            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">New (30 days)</p>
-          </div>
-          <div className="text-right">
-            <span className="text-2xl sm:text-3xl font-bold text-foreground">
-              {totalCustomers === 0 ? "—" : totalCustomers}
-            </span>
-            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">Total</p>
-          </div>
-        </div>
+      {/* Header */}
+      <div className="mb-4">
+        <h2 className="text-base sm:text-lg font-semibold text-foreground">My Customers</h2>
+        <p className="text-xs text-muted-foreground">Where everything starts</p>
+      </div>
 
-        {/* Add customers hint */}
-        <div className="pt-2 border-t border-border/50">
-          <p className="text-xs text-muted-foreground mb-2">Add customers from:</p>
-          <div className="flex flex-wrap gap-1.5">
-            <SourceChip icon={<Globe className="w-3 h-3" />} label="Website" />
-            <SourceChip icon={<Facebook className="w-3 h-3" />} label="Social" />
-            <SourceChip icon={<FileSpreadsheet className="w-3 h-3" />} label="Excel" />
+      {/* Stats row */}
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="bg-secondary/30 rounded-xl p-3 border border-border/50">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+              <Users className="w-4 h-4 text-blue-600" />
+            </div>
+            <div className="flex-1 flex items-center justify-between">
+              <span className="text-xl sm:text-2xl font-bold text-foreground">
+                {newCustomers === 0 ? "—" : newCustomers}
+              </span>
+              {!isActivationMode && newCustomers > 0 && <GrowthBadge growth={newCustomersGrowth} />}
+            </div>
           </div>
+          <p className="text-[10px] sm:text-xs text-muted-foreground">Next 30 days</p>
+        </div>
+        
+        <div className="bg-secondary/30 rounded-xl p-3 border border-border/50">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center">
+              <Users className="w-4 h-4 text-violet-600" />
+            </div>
+            <div className="flex-1 flex items-center justify-between">
+              <span className="text-xl sm:text-2xl font-bold text-foreground">
+                {totalCustomers === 0 ? "—" : totalCustomers}
+              </span>
+              {!isActivationMode && totalCustomers > 0 && <GrowthBadge growth={totalCustomersGrowth} />}
+            </div>
+          </div>
+          <p className="text-[10px] sm:text-xs text-muted-foreground">Total</p>
         </div>
       </div>
-    </SimpleCard>
+
+      {/* Sources grid */}
+      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 flex-1">
+        {sourceItems.map(({ icon, iconColor, label, count, sourceKey }) => {
+          const isActive = count !== null;
+          return (
+            <button
+              key={label}
+              onClick={() => handleSourceClick(sourceKey, isActive)}
+              className="flex items-center justify-between py-2 px-1 hover:bg-secondary/30 rounded-lg transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <span className={iconColor}>{icon}</span>
+                <span className="text-sm text-foreground">{label}</span>
+              </div>
+              {isActive ? (
+                <span className="text-sm font-medium text-foreground">{count}</span>
+              ) : (
+                <Button size="sm" className="h-7 px-3 text-xs bg-primary hover:bg-primary/90">
+                  Add
+                </Button>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* CTA */}
+      <Button 
+        className="w-full justify-between mt-4 text-sm"
+        size="sm"
+      >
+        Find & manage customers
+        <ChevronRight className="w-4 h-4" />
+      </Button>
+    </motion.div>
   );
 }
