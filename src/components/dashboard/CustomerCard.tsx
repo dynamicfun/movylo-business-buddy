@@ -82,67 +82,65 @@ export function CustomerCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1, duration: 0.3 }}
-      className="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex flex-col"
+      className="bg-card rounded-2xl border border-border/60 p-5 sm:p-6 flex flex-col shadow-sm"
     >
       {/* Header */}
-      <div className="mb-4">
-        <h2 className="text-base sm:text-lg font-semibold text-foreground">My Customers</h2>
-        <p className="text-xs text-muted-foreground">Where everything starts</p>
+      <div className="mb-5">
+        <h2 className="text-lg sm:text-xl font-bold text-foreground">My Customers</h2>
+        <p className="text-sm text-muted-foreground">Where everything starts</p>
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-secondary/30 rounded-xl p-3 border border-border/50">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-              <Users className="w-4 h-4 text-blue-600" />
+      <div className="grid grid-cols-2 gap-4 mb-5">
+        <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-4 border border-orange-100/60">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-white/80 shadow-sm flex items-center justify-center">
+              <Users className="w-5 h-5 text-orange-500" />
             </div>
-            <div className="flex-1 flex items-center justify-between">
-              <span className="text-xl sm:text-2xl font-bold text-foreground">
+            <div className="flex-1">
+              <span className="text-2xl sm:text-3xl font-bold text-foreground">
                 {newCustomers === 0 ? "—" : newCustomers}
               </span>
               {!isActivationMode && newCustomers > 0 && <GrowthBadge growth={newCustomersGrowth} />}
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs text-muted-foreground">Next 30 days</p>
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium">New (30 days)</p>
         </div>
         
-        <div className="bg-secondary/30 rounded-xl p-3 border border-border/50">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center">
-              <Users className="w-4 h-4 text-violet-600" />
+        <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-4 border border-violet-100/60">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-white/80 shadow-sm flex items-center justify-center">
+              <Users className="w-5 h-5 text-violet-500" />
             </div>
-            <div className="flex-1 flex items-center justify-between">
-              <span className="text-xl sm:text-2xl font-bold text-foreground">
+            <div className="flex-1">
+              <span className="text-2xl sm:text-3xl font-bold text-foreground">
                 {totalCustomers === 0 ? "—" : totalCustomers}
               </span>
               {!isActivationMode && totalCustomers > 0 && <GrowthBadge growth={totalCustomersGrowth} />}
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs text-muted-foreground">Total</p>
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium">Total customers</p>
         </div>
       </div>
 
-      {/* Sources grid */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 flex-1">
+      {/* Sources list */}
+      <div className="space-y-1 flex-1">
         {sourceItems.map(({ icon, iconColor, label, count, sourceKey }) => {
           const isActive = count !== null;
           return (
             <button
               key={label}
               onClick={() => handleSourceClick(sourceKey, isActive)}
-              className="flex items-center justify-between py-2 px-1 hover:bg-secondary/30 rounded-lg transition-colors"
+              className="w-full flex items-center justify-between py-2.5 px-3 hover:bg-secondary/50 rounded-xl transition-all duration-200"
             >
-              <div className="flex items-center gap-2">
-                <span className={iconColor}>{icon}</span>
-                <span className="text-sm text-foreground">{label}</span>
+              <div className="flex items-center gap-3">
+                <span className={`${iconColor} opacity-80`}>{icon}</span>
+                <span className="text-sm font-medium text-foreground">{label}</span>
               </div>
               {isActive ? (
-                <span className="text-sm font-medium text-foreground">{count}</span>
+                <span className="text-sm font-semibold text-foreground bg-secondary px-2.5 py-1 rounded-lg">{count}</span>
               ) : (
-                <Button size="sm" className="h-7 px-3 text-xs bg-primary hover:bg-primary/90">
-                  Add
-                </Button>
+                <span className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">+ Add</span>
               )}
             </button>
           );
@@ -151,8 +149,8 @@ export function CustomerCard({
 
       {/* CTA */}
       <Button 
-        className="w-full justify-between mt-4 text-sm"
-        size="sm"
+        className="w-full justify-between mt-5 text-sm font-semibold h-11 rounded-xl"
+        size="default"
       >
         Find & manage customers
         <ChevronRight className="w-4 h-4" />

@@ -11,12 +11,12 @@ interface MetricRowProps {
 
 function MetricRow({ icon, iconColor, label, value }: MetricRowProps) {
   return (
-    <div className="flex items-center justify-between py-1">
-      <div className="flex items-center gap-2">
-        <span className={iconColor}>{icon}</span>
+    <div className="flex items-center justify-between py-1.5">
+      <div className="flex items-center gap-2.5">
+        <span className={`${iconColor} opacity-80`}>{icon}</span>
         <span className="text-sm text-foreground">{label}</span>
       </div>
-      <span className="text-sm font-medium text-foreground">{value}</span>
+      <span className="text-sm font-semibold text-foreground">{value}</span>
     </div>
   );
 }
@@ -61,120 +61,60 @@ export function EngagementCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15, duration: 0.3 }}
-      className="bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 flex flex-col"
+      className="bg-card rounded-2xl border border-border/60 p-5 sm:p-6 flex flex-col shadow-sm"
     >
       {/* Header */}
-      <div className="mb-4">
-        <h2 className="text-base sm:text-lg font-semibold text-foreground">Activity</h2>
-        <p className="text-xs text-muted-foreground">What customers are doing</p>
+      <div className="mb-5">
+        <h2 className="text-lg sm:text-xl font-bold text-foreground">Activity</h2>
+        <p className="text-sm text-muted-foreground">What customers are doing</p>
       </div>
 
-      <div className="space-y-4 flex-1">
+      <div className="space-y-5 flex-1">
         {/* Messages section */}
-        <div>
-          <h3 className="text-sm font-semibold text-foreground mb-2">Messages</h3>
+        <div className="bg-secondary/40 rounded-xl p-3.5">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">Messages</h3>
           <div className="space-y-0.5">
-            <MetricRow
-              icon={<Send className="w-3.5 h-3.5" />}
-              iconColor="text-blue-500"
-              label="Sent"
-              value={messages.sent}
-            />
-            <MetricRow
-              icon={<Mail className="w-3.5 h-3.5" />}
-              iconColor="text-amber-500"
-              label="Opened"
-              value={messages.opened}
-            />
-            <MetricRow
-              icon={<MousePointerClick className="w-3.5 h-3.5" />}
-              iconColor="text-violet-500"
-              label="Clicked"
-              value={messages.clicked}
-            />
+            <MetricRow icon={<Send className="w-4 h-4" />} iconColor="text-blue-500" label="Sent" value={messages.sent} />
+            <MetricRow icon={<Mail className="w-4 h-4" />} iconColor="text-amber-500" label="Opened" value={messages.opened} />
+            <MetricRow icon={<MousePointerClick className="w-4 h-4" />} iconColor="text-violet-500" label="Clicked" value={messages.clicked} />
           </div>
         </div>
 
         {/* Contacts received */}
-        <div>
-          <h3 className="text-sm font-semibold text-foreground mb-2">Contacts received</h3>
+        <div className="bg-secondary/40 rounded-xl p-3.5">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">Contacts received</h3>
           <div className="space-y-0.5">
-            <MetricRow
-              icon={<Phone className="w-3.5 h-3.5" />}
-              iconColor="text-green-500"
-              label="Calls"
-              value={contacts.calls}
-            />
-            <MetricRow
-              icon={<AtSign className="w-3.5 h-3.5" />}
-              iconColor="text-red-500"
-              label="Email"
-              value={contacts.email}
-            />
-            <MetricRow
-              icon={<MessageCircle className="w-3.5 h-3.5" />}
-              iconColor="text-green-600"
-              label="WhatsApp"
-              value={contacts.whatsapp}
-            />
+            <MetricRow icon={<Phone className="w-4 h-4" />} iconColor="text-green-500" label="Calls" value={contacts.calls} />
+            <MetricRow icon={<AtSign className="w-4 h-4" />} iconColor="text-red-400" label="Email" value={contacts.email} />
+            <MetricRow icon={<MessageCircle className="w-4 h-4" />} iconColor="text-green-600" label="WhatsApp" value={contacts.whatsapp} />
           </div>
         </div>
 
         {/* Social clicks */}
-        <div>
-          <h3 className="text-sm font-semibold text-foreground mb-2">Social clicks</h3>
+        <div className="bg-secondary/40 rounded-xl p-3.5">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">Social clicks</h3>
           <div className="space-y-0.5">
-            <MetricRow
-              icon={<Facebook className="w-3.5 h-3.5" />}
-              iconColor="text-blue-600"
-              label="Facebook"
-              value={socialClicks.facebook}
-            />
-            <MetricRow
-              icon={<Instagram className="w-3.5 h-3.5" />}
-              iconColor="text-pink-500"
-              label="Instagram"
-              value={socialClicks.instagram}
-            />
-            <MetricRow
-              icon={<Search className="w-3.5 h-3.5" />}
-              iconColor="text-blue-500"
-              label="Google"
-              value={socialClicks.google}
-            />
+            <MetricRow icon={<Facebook className="w-4 h-4" />} iconColor="text-blue-600" label="Facebook" value={socialClicks.facebook} />
+            <MetricRow icon={<Instagram className="w-4 h-4" />} iconColor="text-pink-500" label="Instagram" value={socialClicks.instagram} />
+            <MetricRow icon={<Search className="w-4 h-4" />} iconColor="text-sky-500" label="Google" value={socialClicks.google} />
           </div>
         </div>
 
         {/* Interactions */}
-        <div>
-          <h3 className="text-sm font-semibold text-foreground mb-2">Interactions</h3>
+        <div className="bg-secondary/40 rounded-xl p-3.5">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">Interactions</h3>
           <div className="space-y-0.5">
-            <MetricRow
-              icon={<Star className="w-3.5 h-3.5" />}
-              iconColor="text-amber-500"
-              label="Reviews"
-              value={`${interactions.reviews.count} (${interactions.reviews.total})`}
-            />
-            <MetricRow
-              icon={<MessageSquare className="w-3.5 h-3.5" />}
-              iconColor="text-emerald-500"
-              label="Feedback"
-              value={`${interactions.feedback.count} (${interactions.feedback.total})`}
-            />
-            <MetricRow
-              icon={<Truck className="w-3.5 h-3.5" />}
-              iconColor="text-orange-500"
-              label="Deliveries"
-              value={`${interactions.deliveries.count} (${interactions.deliveries.total})`}
-            />
+            <MetricRow icon={<Star className="w-4 h-4" />} iconColor="text-amber-500" label="Reviews" value={`${interactions.reviews.count} (${interactions.reviews.total})`} />
+            <MetricRow icon={<MessageSquare className="w-4 h-4" />} iconColor="text-emerald-500" label="Feedback" value={`${interactions.feedback.count} (${interactions.feedback.total})`} />
+            <MetricRow icon={<Truck className="w-4 h-4" />} iconColor="text-orange-500" label="Deliveries" value={`${interactions.deliveries.count} (${interactions.deliveries.total})`} />
           </div>
         </div>
       </div>
 
       {/* CTA */}
       <Button 
-        className="w-full justify-between mt-4 text-sm"
-        size="sm"
+        className="w-full justify-between mt-5 text-sm font-semibold h-11 rounded-xl"
+        size="default"
       >
         Messages & offers
         <ChevronRight className="w-4 h-4" />
