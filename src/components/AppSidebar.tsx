@@ -12,7 +12,9 @@ import {
   LayoutDashboard,
   MessageSquare,
   Store,
-  Building2
+  Building2,
+  ArrowUpCircle,
+  CreditCard
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -61,6 +63,12 @@ const businessToolsItems = [
   { title: "AI tools", url: "/ai-tools", icon: Sparkles },
   { title: "Mobile app", url: "/mobile-app", icon: Smartphone },
   { title: "Preferences", url: "/preferences", icon: Settings },
+];
+
+// Account actions
+const accountActions = [
+  { title: "Upgrade Plan", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
+  { title: "Top Up SMS", url: "/topup", icon: CreditCard, highlight: true },
 ];
 
 const bottomMenuItems = [
@@ -172,6 +180,24 @@ export function AppSidebar() {
       {/* Bottom menu */}
       <SidebarFooter className="border-t border-border pt-2">
         <SidebarMenu>
+          {/* Upgrade and Top Up actions */}
+          {accountActions.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild>
+                <NavLink 
+                  to={item.url}
+                  className="flex items-center gap-3 px-3 py-1.5 hover:bg-primary/10 text-sm text-primary font-medium"
+                  activeClassName="bg-primary/20 text-primary font-medium"
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span>{item.title}</span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+          
+          <SidebarSeparator className="my-1" />
+          
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
