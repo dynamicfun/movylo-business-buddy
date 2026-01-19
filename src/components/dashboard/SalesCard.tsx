@@ -13,14 +13,14 @@ interface MetricRowProps {
 
 function MetricRow({ icon, iconColor, label, value, subValue }: MetricRowProps) {
   return (
-    <div className="flex items-center justify-between py-2 border-b border-border/40 last:border-0">
+    <div className="flex items-center justify-between py-3 border-b border-border/40 last:border-0">
       <div className="flex items-center gap-2">
         <span className={iconColor}>{icon}</span>
         <span className="text-sm text-foreground">{label}</span>
       </div>
       <div className="text-right">
-        <span className="text-sm font-medium text-foreground">{value}</span>
-        {subValue && <span className="text-xs text-muted-foreground ml-1">({subValue})</span>}
+        <p className="text-sm font-semibold text-foreground">{value}</p>
+        {subValue && <p className="text-xs text-muted-foreground">{subValue}</p>}
       </div>
     </div>
   );
