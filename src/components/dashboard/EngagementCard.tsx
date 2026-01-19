@@ -89,16 +89,16 @@ export function EngagementCard({
       transition={{ delay: 0.15, duration: 0.4, ease: "easeOut" }}
       className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
     >
-      {/* Autopilot warning */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-destructive/10 rounded-lg mb-3">
-        <AlertTriangle className="w-4 h-4 text-destructive" />
-        <span className="text-sm text-destructive font-medium">Autopilot is off</span>
-      </div>
-
       {/* Header */}
-      <div className="mb-4">
+      <div className="mb-3">
         <h2 className="text-base font-semibold text-foreground">Activity</h2>
         <p className="text-xs text-muted-foreground">What customers are doing</p>
+      </div>
+
+      {/* Autopilot notice */}
+      <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 rounded-lg mb-3 border border-border/50">
+        <AlertTriangle className="w-3.5 h-3.5 text-muted-foreground" />
+        <span className="text-xs text-muted-foreground">Autopilot is off</span>
       </div>
 
       {/* Waiting message for activation mode */}
