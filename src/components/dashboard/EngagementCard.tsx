@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock } from "lucide-react";
+import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // TikTok and LinkedIn icons as custom components
@@ -89,6 +89,12 @@ export function EngagementCard({
       transition={{ delay: 0.15, duration: 0.4, ease: "easeOut" }}
       className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
     >
+      {/* Autopilot warning */}
+      <div className="flex items-center gap-2 px-3 py-2 bg-destructive/10 rounded-lg mb-3">
+        <AlertTriangle className="w-4 h-4 text-destructive" />
+        <span className="text-sm text-destructive font-medium">Autopilot is off</span>
+      </div>
+
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-base font-semibold text-foreground">Activity</h2>
