@@ -104,46 +104,66 @@ export function EngagementCard({
         <span className="text-xs text-amber-700 font-medium">Autopilot is off</span>
       </a>
 
-      {/* Waiting message for activation mode */}
-      {isActivationMode && (
-        <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3">
-          <Clock className="w-4 h-4 text-amber-600" />
-          <span className="text-sm text-amber-700 font-medium">Waiting for activity</span>
-        </div>
-      )}
-
       <div className="flex-1 space-y-3">
         {/* Messages section */}
         <div className="bg-primary/5 rounded-xl p-3">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">Messages</h3>
-          <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label="Sent" value={messages.sent} showValue={hasActivity} />
-          <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label="Opened" value={messages.opened} showValue={hasActivity} />
-          <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label="Clicked" value={messages.clicked} showValue={hasActivity} />
+          <div className="flex items-center justify-between mb-1.5">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Messages</h3>
+            {isActivationMode && <span className="text-xs text-amber-600 font-medium">Waiting for activity</span>}
+          </div>
+          {!isActivationMode && (
+            <>
+              <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label="Sent" value={messages.sent} showValue={hasActivity} />
+              <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label="Opened" value={messages.opened} showValue={hasActivity} />
+              <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label="Clicked" value={messages.clicked} showValue={hasActivity} />
+            </>
+          )}
         </div>
 
         {/* Contacts received */}
         <div className="bg-accent/5 rounded-xl p-3">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">Contacts received</h3>
-          <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label="Calls" value={contacts.calls} showValue={hasActivity} />
-          <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label="Email" value={contacts.email} showValue={hasActivity} />
-          <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label="WhatsApp" value={contacts.whatsapp} showValue={hasActivity} />
+          <div className="flex items-center justify-between mb-1.5">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Contacts received</h3>
+            {isActivationMode && <span className="text-xs text-amber-600 font-medium">Waiting for activity</span>}
+          </div>
+          {!isActivationMode && (
+            <>
+              <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label="Calls" value={contacts.calls} showValue={hasActivity} />
+              <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label="Email" value={contacts.email} showValue={hasActivity} />
+              <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label="WhatsApp" value={contacts.whatsapp} showValue={hasActivity} />
+            </>
+          )}
         </div>
 
         {/* Social clicks */}
         <div className="bg-primary/5 rounded-xl p-3">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">Social clicks</h3>
-          <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label="Facebook" value={socialClicks.facebook} showValue={hasActivity} />
-          <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label="Instagram" value={socialClicks.instagram} showValue={hasActivity} />
-          <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label="Google" value={socialClicks.google} showValue={hasActivity} />
-          <MetricRow icon={<TikTokIcon className="w-3.5 h-3.5" />} iconColor="text-foreground" label="TikTok" value={socialClicks.tiktok} showValue={hasActivity} />
-          <MetricRow icon={<LinkedInIcon className="w-3.5 h-3.5" />} iconColor="text-primary" label="LinkedIn" value={socialClicks.linkedin} showValue={hasActivity} />
+          <div className="flex items-center justify-between mb-1.5">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Social clicks</h3>
+            {isActivationMode && <span className="text-xs text-amber-600 font-medium">Waiting for activity</span>}
+          </div>
+          {!isActivationMode && (
+            <>
+              <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label="Facebook" value={socialClicks.facebook} showValue={hasActivity} />
+              <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label="Instagram" value={socialClicks.instagram} showValue={hasActivity} />
+              <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label="Google" value={socialClicks.google} showValue={hasActivity} />
+              <MetricRow icon={<TikTokIcon className="w-3.5 h-3.5" />} iconColor="text-foreground" label="TikTok" value={socialClicks.tiktok} showValue={hasActivity} />
+              <MetricRow icon={<LinkedInIcon className="w-3.5 h-3.5" />} iconColor="text-primary" label="LinkedIn" value={socialClicks.linkedin} showValue={hasActivity} />
+            </>
+          )}
         </div>
 
         {/* Interactions */}
         <div className="bg-accent/5 rounded-xl p-3">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">Interactions</h3>
-          <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label="Reviews" value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
-          <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label="Feedback" value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
+          <div className="flex items-center justify-between mb-1.5">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Interactions</h3>
+            {isActivationMode && <span className="text-xs text-amber-600 font-medium">Waiting for activity</span>}
+          </div>
+          {!isActivationMode && (
+            <>
+              <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label="Reviews" value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
+              <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label="Feedback" value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
+            </>
+          )}
         </div>
       </div>
 

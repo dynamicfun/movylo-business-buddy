@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight } from "lucide-react";
+import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CustomerSource {
@@ -57,6 +58,7 @@ export function CustomerCard({
   },
 }: CustomerCardProps) {
   const navigate = useNavigate();
+  const [showAllSources, setShowAllSources] = useState(false);
 
   const handleSourceClick = (sourceKey: string, isActive: boolean) => {
     if (isActive) {
@@ -66,7 +68,7 @@ export function CustomerCard({
     }
   };
 
-  const sourceItems: CustomerSource[] = [
+  const allSourceItems: CustomerSource[] = [
     { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Website", count: sources.website, sourceKey: "website" },
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
@@ -76,6 +78,9 @@ export function CustomerCard({
     { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: "Manual", count: sources.manual, sourceKey: "manual" },
     { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: "Ads", count: sources.ads, sourceKey: "ads" },
   ];
+
+  // Show top 3 by default, all when expanded
+  const sourceItems = showAllSources ? allSourceItems : allSourceItems.slice(0, 3);
 
   return (
     <motion.div
@@ -138,6 +143,26 @@ export function CustomerCard({
             </button>
           );
         })}
+        
+        {/* Expand/Collapse button */}
+        {!showAllSources && (
+          <button
+            onClick={() => setShowAllSources(true)}
+            className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-primary hover:bg-secondary/60 rounded-lg transition-colors"
+          >
+            <span>Show more sources</span>
+            <ChevronDown className="w-3.5 h-3.5" />
+          </button>
+        )}
+        {showAllSources && (
+          <button
+            onClick={() => setShowAllSources(false)}
+            className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-muted-foreground hover:bg-secondary/60 rounded-lg transition-colors"
+          >
+            <span>Show less</span>
+            <ChevronDown className="w-3.5 h-3.5 rotate-180" />
+          </button>
+        )}
       </div>
 
       {/* CTA */}
