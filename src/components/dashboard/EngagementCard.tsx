@@ -91,7 +91,7 @@ export function EngagementCard({
     >
       {/* Header */}
       <div className="mb-3">
-        <h2 className="text-base font-semibold text-foreground">Activity</h2>
+        <h2 className="text-lg font-bold text-foreground">Activity</h2>
         <p className="text-xs text-muted-foreground">What customers are doing</p>
       </div>
 
