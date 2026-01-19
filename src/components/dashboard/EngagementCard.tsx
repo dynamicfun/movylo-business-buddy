@@ -96,10 +96,13 @@ export function EngagementCard({
       </div>
 
       {/* Autopilot notice */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 rounded-lg mb-3 border border-border/50">
-        <AlertTriangle className="w-3.5 h-3.5 text-muted-foreground" />
-        <span className="text-xs text-muted-foreground">Autopilot is off</span>
-      </div>
+      <a 
+        href="#" 
+        className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3 border border-amber-200/50 hover:bg-amber-100 transition-colors cursor-pointer"
+      >
+        <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+        <span className="text-xs text-amber-700 font-medium">Autopilot is off</span>
+      </a>
 
       {/* Waiting message for activation mode */}
       {isActivationMode && (
