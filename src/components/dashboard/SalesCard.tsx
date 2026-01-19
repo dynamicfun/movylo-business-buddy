@@ -104,8 +104,8 @@ export function SalesCard(props: SalesCardProps) {
 
         {/* CTA */}
         <Button 
-          variant="ghost"
-          className="w-full justify-between mt-4 text-sm h-9 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+          variant="outline"
+          className="w-full justify-between mt-4 text-sm h-9 rounded-xl border-border/60 text-foreground/80 hover:text-foreground hover:bg-secondary/50"
           size="default"
         >
           Sell
@@ -186,8 +186,8 @@ export function SalesCard(props: SalesCardProps) {
 
       {/* CTA */}
       <Button 
-        variant="ghost"
-        className="w-full justify-between mt-4 text-sm h-9 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+        variant="outline"
+        className="w-full justify-between mt-4 text-sm h-9 rounded-xl border-border/60 text-foreground/80 hover:text-foreground hover:bg-secondary/50"
         size="default"
       >
         Sell
