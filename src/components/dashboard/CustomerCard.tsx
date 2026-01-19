@@ -86,7 +86,7 @@ export function CustomerCard({
     >
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-base font-semibold text-foreground">My Customers</h2>
+        <h2 className="text-lg font-bold text-foreground">My Customers</h2>
         <p className="text-xs text-muted-foreground">Where everything starts</p>
       </div>
 
