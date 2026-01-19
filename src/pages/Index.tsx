@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Building2 } from "lucide-react";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
@@ -11,7 +13,6 @@ import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
 // Sample data for steady state preview
 const sampleActivityData = {
   isActivationMode: false,
@@ -75,6 +76,10 @@ const Index = () => {
             >
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="text-muted-foreground sm:hidden" />
+                <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal">
+                  <Building2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">My Business Info</span>
+                </Button>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
                 {/* Preview toggle */}
