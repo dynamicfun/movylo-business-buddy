@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronRight, DollarSign, Store, ShoppingCart, CalendarCheck } from "lucide-react";
+import { ChevronRight, Tag, Store, ShoppingCart, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GrowthIndicator } from "./GrowthIndicator";
 
@@ -71,10 +71,10 @@ export function SalesCard(props: SalesCardProps) {
         {/* Main value highlight */}
         <div className="bg-emerald-50/80 rounded-xl p-3 mb-4">
           <div className="flex items-center gap-2 mb-1">
-            <DollarSign className="w-4 h-4 text-emerald-600" />
+            <Tag className="w-4 h-4 text-emerald-600" />
             <span className="text-xl font-bold text-foreground">{downloadedCoupons}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Downloaded coupons</p>
+          <p className="text-xs text-muted-foreground">Downloaded offers</p>
         </div>
 
         {/* Metrics */}
@@ -158,7 +158,7 @@ export function SalesCard(props: SalesCardProps) {
       {/* Metrics */}
       <div className="flex-1">
         <MetricRow 
-          icon={<DollarSign className="w-3.5 h-3.5" />} 
+          icon={<Tag className="w-3.5 h-3.5" />} 
           iconColor="text-emerald-500" 
           label="Downloaded offers" 
           value={downloadedOffers === 0 ? "Waiting" : downloadedOffers}
