@@ -149,8 +149,7 @@ export function EngagementCard({
 
       {/* CTA */}
       <Button 
-        variant="outline"
-        className="w-full justify-between mt-4 text-sm h-9 rounded-xl border-border/60 text-foreground/80 hover:text-foreground hover:bg-secondary/50"
+        className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
       >
         Messages & offers
