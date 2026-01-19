@@ -101,7 +101,7 @@ export function EngagementCard({
         className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3 border border-amber-200/50 hover:bg-amber-100 transition-colors cursor-pointer"
       >
         <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-        <span className="text-xs text-amber-700 font-medium">Autopilot is off</span>
+        <span className="text-xs text-amber-700 font-medium">Get more customer activity</span>
       </a>
 
       <div className="flex-1 space-y-3">
