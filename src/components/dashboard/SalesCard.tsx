@@ -61,7 +61,10 @@ export function SalesCard(props: SalesCardProps) {
       >
         {/* Header */}
         <div className="mb-4">
-          <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+            <span className="text-xs text-muted-foreground">last 30 days</span>
+          </div>
           <p className="text-xs text-muted-foreground">How this turns into real results</p>
         </div>
 
@@ -143,7 +146,10 @@ export function SalesCard(props: SalesCardProps) {
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-base font-semibold text-foreground">My Sales</h2>
+            <span className="text-xs text-muted-foreground">last 30 days</span>
+          </div>
           <p className="text-xs text-muted-foreground">How this turns into real results</p>
         </div>
         <GrowthIndicator status={getStatus()} isActivationMode={true} />
