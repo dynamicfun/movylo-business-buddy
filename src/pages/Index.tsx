@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { QuickActions } from "@/components/dashboard/QuickActions";
@@ -13,7 +11,6 @@ import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Sample data for steady state preview
 const sampleActivityData = {
@@ -32,19 +29,20 @@ const sampleActivityData = {
     facebook: 11,
     instagram: 0,
     google: 0,
+    tiktok: 0,
+    linkedin: 0,
   },
   interactions: {
     reviews: { count: 0, total: 1 },
     feedback: { count: 0, total: 2 },
-    deliveries: { count: 0, total: 0 },
   },
 };
 
 const sampleCustomerData = {
   isActivationMode: false,
-  newCustomers: 24,
+  newCustomers: 247,
   newCustomersGrowth: 2.4,
-  totalCustomers: 156,
+  totalCustomers: 15689,
   totalCustomersGrowth: 1.9,
   sources: {
     website: 45,
@@ -62,12 +60,6 @@ const sampleCustomerData = {
 const Index = () => {
   const [showSteadyState, setShowSteadyState] = useState(true);
 
-  const currentDate = new Date().toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -75,22 +67,14 @@ const Index = () => {
         
         <main className="flex-1 overflow-x-hidden">
           <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            {/* Header with welcome message */}
+            {/* Compact header with Live Feed prominence */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6"
+              className="flex items-center justify-between gap-4 mb-3"
             >
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="text-muted-foreground sm:hidden" />
-                <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
-                  <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback className="bg-primary text-primary-foreground font-semibold">MD</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h1 className="text-lg sm:text-xl font-bold text-foreground">Welcome back, MD</h1>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{currentDate}</p>
-                </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
                 {/* Preview toggle */}
