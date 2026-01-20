@@ -99,24 +99,17 @@ export default function CustomerList() {
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         <main className="flex-1 p-4 md:p-6 overflow-auto">
-          {/* Hero Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-6 md:p-8 mb-6 border border-primary/10"
+          {/* Header */}
+          <motion.header
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-4"
           >
-            <div className="flex items-start gap-3 mb-2">
-              <div className="h-1 w-8 bg-accent rounded-full mt-3" />
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-                  Manage your customers
-                </h1>
-                <p className="text-muted-foreground mt-2">
-                  Stay in touch with your customers and prospects, below you can update the list.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+            <h1 className="text-xl font-bold text-foreground">My Customer List</h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              Stay in touch with your customers and prospects
+            </p>
+          </motion.header>
 
           {/* Stats & Actions Bar */}
           <motion.div

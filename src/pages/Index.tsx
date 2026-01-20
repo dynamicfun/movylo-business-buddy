@@ -76,9 +76,11 @@ const Index = () => {
             >
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="text-muted-foreground sm:hidden" />
-                <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal">
-                  <Building2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">My Business Info</span>
+                <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal" asChild>
+                  <a href="/business-info/profile">
+                    <Building2 className="h-4 w-4" />
+                    <span className="hidden sm:inline">My Profile</span>
+                  </a>
                 </Button>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
