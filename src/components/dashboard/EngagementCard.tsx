@@ -99,7 +99,7 @@ export function EngagementCard({
 
         {/* Simple waiting message */}
         <div className="flex-1 flex flex-col items-center justify-center py-8 text-center">
-          <Clock className="w-8 h-8 text-muted-foreground/50 mb-3" />
+          <Clock className="w-10 h-10 text-muted-foreground/40 mb-3" />
           <p className="text-sm font-medium text-muted-foreground">Waiting for customer activity</p>
           <p className="text-xs text-muted-foreground/70 mt-1">Messages, contacts, and visits will appear here.</p>
         </div>
