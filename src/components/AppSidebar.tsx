@@ -121,10 +121,14 @@ export function AppSidebar() {
 
   return (
     <Sidebar className="border-r border-border">
-      <SidebarContent className="pt-4">
+      <SidebarContent className="pt-2">
         {/* Logo/Brand area */}
-        <div className="px-4 mb-6">
-          <h2 className="text-lg font-bold text-foreground">MyBusiness</h2>
+        <div className="px-4 mb-2">
+          <img 
+            src="https://www.movylo.com/wp-content/uploads/2022/02/movylo-logo-header-2022.svg" 
+            alt="Movylo" 
+            className="h-7 w-auto"
+          />
         </div>
 
         {/* Primary navigation */}
@@ -181,7 +185,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator className="my-3" />
+        <SidebarSeparator className="my-1" />
 
         {/* Business tools - collapsible, quieter */}
         <SidebarGroup>
