@@ -124,7 +124,7 @@ export function SalesCard(props: SalesCardProps) {
   } = props;
 
   const getDisplayValue = (count: number, value: string) => {
-    if (!salesToolsConnected) return "Connect to see";
+    if (!salesToolsConnected) return "Waiting";
     if (count === 0) return "Not yet";
     return value;
   };
