@@ -131,8 +131,8 @@ export function SalesCard(props: SalesCardProps) {
       {/* Simplified placeholder */}
       <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
         <ShoppingCart className="w-10 h-10 text-muted-foreground/40 mb-3" />
-        <p className="text-sm font-medium text-foreground mb-1">No sales yet</p>
-        <p className="text-xs text-muted-foreground">When your first sale happens, it will appear here.</p>
+        <p className="text-sm font-medium text-muted-foreground">No sales yet</p>
+        <p className="text-xs text-muted-foreground/70 mt-1">When your first sale happens, it will appear here.</p>
       </div>
 
       {/* CTA */}
