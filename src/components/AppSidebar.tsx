@@ -14,7 +14,17 @@ import {
   Store,
   Building2,
   ArrowUpCircle,
-  CreditCard
+  CreditCard,
+  MapPin,
+  UserPlus,
+  Heart,
+  Search,
+  Tag,
+  Mail,
+  Share2,
+  Calendar,
+  ShoppingCart,
+  CalendarCheck
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -42,18 +52,48 @@ import {
 // Primary navigation - mirrors dashboard story
 const primaryItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "My Business Info", url: "/business-info", icon: Building2 },
+  { 
+    title: "My Business Info", 
+    url: "/business-info", 
+    icon: Building2,
+    submenu: [
+      { title: "My details", url: "/business-info/details" },
+      { title: "My Google Profile", url: "/business-info/google-profile" },
+    ]
+  },
   { 
     title: "My Customers", 
     url: "/crm", 
     icon: Users,
     submenu: [
       { title: "My Customer List", url: "/crm/customers" },
-      { title: "Sign up page", url: "/crm/signup" },
+      { title: "Sign up Page", url: "/crm/signup" },
+      { title: "Loyalty Program", url: "/crm/loyalty" },
+      { title: "Find New Customers", url: "/crm/find-customers" },
     ]
   },
-  { title: "Messages & offers", url: "/messages", icon: MessageSquare },
-  { title: "My Sales", url: "/sales", icon: Store },
+  { 
+    title: "Messages & Offers", 
+    url: "/messages", 
+    icon: MessageSquare,
+    submenu: [
+      { title: "Create a Promo", url: "/messages/promo" },
+      { title: "Create a Newsletter", url: "/messages/newsletter" },
+      { title: "Create a social post", url: "/messages/social" },
+      { title: "Campaign Scheduler", url: "/messages/scheduler" },
+    ]
+  },
+  { 
+    title: "My Sales", 
+    url: "/sales", 
+    icon: Store,
+    submenu: [
+      { title: "My Results", url: "/sales/results" },
+      { title: "In-store sales", url: "/sales/in-store" },
+      { title: "Online Sales", url: "/sales/online" },
+      { title: "Reservations", url: "/sales/reservations" },
+    ]
+  },
 ];
 
 // Secondary navigation - business tools (grouped, quieter)

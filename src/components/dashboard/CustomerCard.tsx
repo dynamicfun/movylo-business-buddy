@@ -68,19 +68,28 @@ export function CustomerCard({
     }
   };
 
+  // Default collapsed sources (first 4) - reordered: Share link, QR codes, Facebook, Instagram
+  const collapsedSourceItems: CustomerSource[] = [
+    { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Share your link", count: sources.website, sourceKey: "website" },
+    { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
+    { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
+    { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
+  ];
+
+  // All sources for expanded view
   const allSourceItems: CustomerSource[] = [
-    { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Website", count: sources.website, sourceKey: "website" },
+    { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Share your link", count: sources.website, sourceKey: "website" },
+    { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
     { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-green-500", label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
-    { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "QR codes", count: sources.qrCodes, sourceKey: "qr-codes" },
     { icon: <FileSpreadsheet className="w-4 h-4" />, iconColor: "text-emerald-600", label: "Excel", count: sources.excel, sourceKey: "excel" },
     { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: "Manual", count: sources.manual, sourceKey: "manual" },
     { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: "Ads", count: sources.ads, sourceKey: "ads" },
   ];
 
-  // Show top 3 by default, all when expanded
-  const sourceItems = showAllSources ? allSourceItems : allSourceItems.slice(0, 3);
+  // Show 4 collapsed sources by default, all when expanded
+  const sourceItems = showAllSources ? allSourceItems : collapsedSourceItems;
 
   return (
     <motion.div
