@@ -63,13 +63,13 @@ const primaryItems = [
   },
   { 
     title: "My Customers", 
-    url: "/crm", 
+    url: "/customers", 
     icon: Users,
     submenu: [
-      { title: "My Customer List", url: "/crm/customers" },
-      { title: "Sign up Page", url: "/crm/signup" },
-      { title: "Loyalty Program", url: "/crm/loyalty" },
-      { title: "Find New Customers", url: "/crm/find-customers" },
+      { title: "My Customer List", url: "/customers/list" },
+      { title: "Sign up Page", url: "/customers/signup" },
+      { title: "Loyalty Program", url: "/customers/loyalty" },
+      { title: "Find New Customers", url: "/customers/find" },
     ]
   },
   { 
