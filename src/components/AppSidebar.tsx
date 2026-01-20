@@ -57,7 +57,7 @@ const primaryItems = [
     url: "/business-info", 
     icon: Building2,
     submenu: [
-      { title: "My details", url: "/business-info/details" },
+      { title: "My Profile", url: "/business-info/profile" },
       { title: "My Google Profile", url: "/business-info/google-profile" },
     ]
   },
