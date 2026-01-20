@@ -65,7 +65,7 @@ export function SalesCard(props: SalesCardProps) {
             <h2 className="text-lg font-bold text-foreground">My Sales</h2>
             <span className="text-xs text-muted-foreground">last 30 days</span>
           </div>
-          <p className="text-xs text-muted-foreground">How this turns into real results</p>
+          <p className="text-xs text-muted-foreground">Sales generated for you</p>
         </div>
 
         {/* Main value highlight */}
@@ -150,7 +150,7 @@ export function SalesCard(props: SalesCardProps) {
             <h2 className="text-lg font-bold text-foreground">My Sales</h2>
             <span className="text-xs text-muted-foreground">last 30 days</span>
           </div>
-          <p className="text-xs text-muted-foreground">How this turns into real results</p>
+          <p className="text-xs text-muted-foreground">Sales generated for you</p>
         </div>
         <GrowthIndicator status={getStatus()} isActivationMode={true} />
       </div>
