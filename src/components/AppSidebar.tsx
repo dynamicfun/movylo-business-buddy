@@ -1,4 +1,5 @@
 import { useState } from "react";
+import movyloLogo from "@/assets/movylo-logo.png";
 import { 
   Users, 
   Package, 
@@ -125,7 +126,7 @@ export function AppSidebar() {
         {/* Logo/Brand area */}
         <div className="px-4 mb-2">
           <img 
-            src="https://www.movylo.com/wp-content/uploads/2022/02/movylo-logo-header-2022.svg" 
+            src={movyloLogo} 
             alt="Movylo" 
             className="h-7 w-auto"
           />
