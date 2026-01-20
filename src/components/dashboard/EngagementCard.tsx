@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // TikTok and LinkedIn icons as custom components
 function TikTokIcon({ className }: { className?: string }) {
@@ -130,13 +131,13 @@ export function EngagementCard({
       </div>
 
       {/* Autopilot notice */}
-      <a 
-        href="#" 
+      <Link 
+        to="/autopilot" 
         className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3 border border-amber-200/50 hover:bg-amber-100 transition-colors cursor-pointer"
       >
         <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
         <span className="text-xs text-amber-700 font-medium">Get more customer activity</span>
-      </a>
+      </Link>
 
       <div className="flex-1 space-y-3">
         {/* Messages section */}
