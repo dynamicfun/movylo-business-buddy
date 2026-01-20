@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Gift, Mail, Share2, Calendar, Zap, UserPlus, Clock, Eye, Activity, Lightbulb } from "lucide-react";
+import { ArrowLeft, Gift, Mail, Share2, Calendar, Zap, UserPlus, Clock, Eye, Activity, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -37,50 +37,37 @@ export default function Autopilot() {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-3">Movylo Autopilot</h2>
           <p className="text-muted-foreground">
-            Autopilot keeps your business active with customers over time — without you having to manage daily messages.
+            Autopilot keeps your business active with customers over time — automatically.
           </p>
         </motion.section>
 
-        {/* Why it matters */}
+        {/* Why this matters */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           className="bg-card rounded-2xl border border-border/50 p-6"
         >
-          <h3 className="text-lg font-semibold text-foreground mb-4">Why ongoing customer activity matters</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-4">Why this matters</h3>
           <div className="space-y-4 text-sm text-muted-foreground">
-            <p>Customers rarely come back on their own.</p>
-            <p>Staying visible in a simple, respectful way helps your business stay top of mind.</p>
-            <p className="font-medium text-foreground">Movylo Autopilot is designed to do this quietly in the background.</p>
-            <ul className="space-y-2 pt-2">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                No campaigns to manage.
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                No daily work.
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Just consistent customer activity.
-              </li>
-            </ul>
+            <p>Customers don't always come back on their own.</p>
+            <p>Staying visible helps your business stay top of mind.</p>
+            <p className="font-medium text-foreground">Autopilot is designed to do this quietly in the background.</p>
           </div>
         </motion.section>
 
-        {/* What Autopilot does */}
+        {/* How Autopilot works */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           className="bg-card rounded-2xl border border-border/50 p-6"
         >
-          <h3 className="text-lg font-semibold text-foreground mb-4">What Autopilot does for you</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-4">How Autopilot works</h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Once customers are added, Autopilot takes care of the basics automatically:
+            Once customers are added, Autopilot works on its own.
           </p>
+          <p className="text-sm text-foreground font-medium mb-3">It:</p>
           <div className="space-y-3">
             <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-xl">
               <UserPlus className="w-5 h-5 text-primary mt-0.5" />
@@ -96,43 +83,42 @@ export default function Autopilot() {
             </div>
             <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-xl">
               <Activity className="w-5 h-5 text-accent mt-0.5" />
-              <span className="text-sm text-foreground">Creates ongoing customer activity you can see on your dashboard</span>
+              <span className="text-sm text-foreground">Creates ongoing activity you can see on your dashboard</span>
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-border/50">
-            <p className="text-xs text-muted-foreground">
-              Nothing happens until customers join. Once they do, Autopilot starts working on its own.
+            <p className="text-sm text-muted-foreground">
+              Autopilot runs automatically — but you're always in control.
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Nothing happens until customers join.
             </p>
           </div>
         </motion.section>
 
-        {/* What you can do */}
+        {/* What you can do on top of Autopilot */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
           className="bg-card rounded-2xl border border-border/50 p-6"
         >
-          <h3 className="text-lg font-semibold text-foreground mb-2">What you can do anytime</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-2">What you can do on top of Autopilot</h3>
+          <p className="text-xs text-muted-foreground mb-4">(optional)</p>
           <p className="text-sm text-muted-foreground mb-6">
-            Autopilot runs automatically — but you're always in control.
+            Autopilot keeps things moving by default.<br />
+            If you want to do more, you can also:
           </p>
-          <p className="text-sm text-foreground font-medium mb-4">If you want to do more, you can easily:</p>
           
           <div className="space-y-4">
-            {/* Create a promotion */}
+            {/* Create an offer */}
             <div className="p-4 bg-muted/30 rounded-xl">
               <div className="flex items-start gap-3 mb-3">
                 <Gift className="w-5 h-5 text-primary" />
-                <div>
-                  <h4 className="text-sm font-medium text-foreground">Create a promotion</h4>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Offer a discount, bonus, or special reward to customers.
-                  </p>
-                </div>
+                <h4 className="text-sm font-medium text-foreground">Create an offer for customers</h4>
               </div>
               <Button variant="outline" size="sm" className="w-full rounded-lg">
-                Create a promo
+                Create an offer
               </Button>
             </div>
 
@@ -140,44 +126,29 @@ export default function Autopilot() {
             <div className="p-4 bg-muted/30 rounded-xl">
               <div className="flex items-start gap-3 mb-3">
                 <Mail className="w-5 h-5 text-accent" />
-                <div>
-                  <h4 className="text-sm font-medium text-foreground">Send a newsletter</h4>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Share news, updates, or offers with your customers.
-                  </p>
-                </div>
+                <h4 className="text-sm font-medium text-foreground">Send a newsletter</h4>
               </div>
               <Button variant="outline" size="sm" className="w-full rounded-lg">
-                Create a newsletter
+                Send a newsletter
               </Button>
             </div>
 
-            {/* Post on social media */}
+            {/* Create social posts */}
             <div className="p-4 bg-muted/30 rounded-xl">
               <div className="flex items-start gap-3 mb-3">
                 <Share2 className="w-5 h-5 text-primary" />
-                <div>
-                  <h4 className="text-sm font-medium text-foreground">Post on social media</h4>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Create and schedule social posts from one place.
-                  </p>
-                </div>
+                <h4 className="text-sm font-medium text-foreground">Create social posts</h4>
               </div>
               <Button variant="outline" size="sm" className="w-full rounded-lg">
                 Create a social post
               </Button>
             </div>
 
-            {/* Schedule events */}
+            {/* Schedule messages or events */}
             <div className="p-4 bg-muted/30 rounded-xl">
               <div className="flex items-start gap-3 mb-3">
                 <Calendar className="w-5 h-5 text-accent" />
-                <div>
-                  <h4 className="text-sm font-medium text-foreground">Schedule events or reminders</h4>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Plan messages, promotions, or appointments on your calendar.
-                  </p>
-                </div>
+                <h4 className="text-sm font-medium text-foreground">Schedule messages or events</h4>
               </div>
               <Button variant="outline" size="sm" className="w-full rounded-lg">
                 Open calendar
@@ -186,40 +157,25 @@ export default function Autopilot() {
           </div>
 
           <p className="text-xs text-muted-foreground mt-4 text-center">
-            (All of these are optional. Use only what you need.)
+            (These are optional. Autopilot works even if you don't use them.)
           </p>
         </motion.section>
 
-        {/* How to get started */}
+        {/* Get started */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4 }}
           className="bg-primary/5 rounded-2xl border border-primary/20 p-6 text-center"
         >
-          <h3 className="text-lg font-semibold text-foreground mb-4">How to get started</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-4">Get started</h3>
           <p className="text-sm text-foreground mb-2">Add customers once.</p>
-          <p className="text-sm text-foreground font-medium mb-4">Autopilot takes care of the rest.</p>
-          <p className="text-sm text-muted-foreground mb-6">
-            You can step in anytime — or let it run quietly in the background.
-          </p>
-          <Button className="rounded-xl">
-            Add customers
+          <p className="text-sm text-foreground font-medium mb-6">Autopilot takes care of the rest.</p>
+          <Button className="rounded-xl gap-2">
+            <Settings className="w-4 h-4" />
+            Configure Autopilot
           </Button>
         </motion.section>
-
-        {/* Tip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="flex items-start gap-3 p-4 bg-accent/10 rounded-xl"
-        >
-          <Lightbulb className="w-5 h-5 text-accent flex-shrink-0" />
-          <p className="text-xs text-muted-foreground">
-            <span className="font-medium text-foreground">Tip:</span> The more customers you add, the more activity you'll see.
-          </p>
-        </motion.div>
       </main>
     </div>
   );
