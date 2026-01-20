@@ -30,7 +30,7 @@ export function Level3Sales() {
     <LevelCard
       level={3}
       title="My Sales"
-      subtitle="How this turns into real results"
+      subtitle="Sales generated for you"
       delay={0.3}
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
