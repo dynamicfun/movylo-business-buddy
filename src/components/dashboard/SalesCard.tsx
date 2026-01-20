@@ -114,28 +114,7 @@ export function SalesCard(props: SalesCardProps) {
     );
   }
 
-  // Activation mode - simple view (default)
-  const { 
-    salesToolsConnected = false,
-    downloadedOffers = 0,
-    inStoreSales = { count: 0, value: "€0" },
-    onlineSales = { count: 0, value: "€0" },
-    reservations = { count: 0, value: "€0" }
-  } = props;
-
-  const getDisplayValue = (count: number, value: string) => {
-    if (!salesToolsConnected) return "Waiting";
-    if (count === 0) return "Not yet";
-    return value;
-  };
-
-  const getStatus = () => {
-    if (!salesToolsConnected) return "waiting";
-    const totalActivity = downloadedOffers + inStoreSales.count + onlineSales.count + reservations.count;
-    if (totalActivity > 0) return "starting";
-    return "waiting";
-  };
-
+  // Activation mode - simplified placeholder view
   return (
     <motion.div
       initial={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -144,43 +123,16 @@ export function SalesCard(props: SalesCardProps) {
       className="bg-card rounded-2xl border border-border/50 p-5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
     >
       {/* Header */}
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-bold text-foreground">My Sales</h2>
-            <span className="text-xs text-muted-foreground">last 30 days</span>
-          </div>
-          <p className="text-xs text-muted-foreground">Sales generated for you</p>
-        </div>
-        <GrowthIndicator status={getStatus()} isActivationMode={true} />
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-foreground">My Sales</h2>
+        <p className="text-xs text-muted-foreground">Sales generated for you</p>
       </div>
 
-      {/* Metrics */}
-      <div className="flex-1">
-        <MetricRow 
-          icon={<Tag className="w-3.5 h-3.5" />} 
-          iconColor="text-emerald-500" 
-          label="Downloaded offers" 
-          value={downloadedOffers === 0 ? "Waiting" : downloadedOffers}
-        />
-        <MetricRow 
-          icon={<Store className="w-3.5 h-3.5" />} 
-          iconColor="text-blue-500" 
-          label="In-store sales" 
-          value={getDisplayValue(inStoreSales.count, inStoreSales.value)}
-        />
-        <MetricRow 
-          icon={<ShoppingCart className="w-3.5 h-3.5" />} 
-          iconColor="text-violet-500" 
-          label="Online sales" 
-          value={getDisplayValue(onlineSales.count, onlineSales.value)}
-        />
-        <MetricRow 
-          icon={<CalendarCheck className="w-3.5 h-3.5" />} 
-          iconColor="text-amber-500" 
-          label="Reservations" 
-          value={getDisplayValue(reservations.count, reservations.value)}
-        />
+      {/* Simplified placeholder */}
+      <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
+        <ShoppingCart className="w-10 h-10 text-muted-foreground/40 mb-3" />
+        <p className="text-sm font-medium text-foreground mb-1">No sales yet</p>
+        <p className="text-xs text-muted-foreground">When your first sale happens, it will appear here.</p>
       </div>
 
       {/* CTA */}
