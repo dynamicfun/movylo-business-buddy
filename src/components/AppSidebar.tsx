@@ -128,7 +128,7 @@ export function AppSidebar() {
           <img 
             src={movyloLogo} 
             alt="Movylo" 
-            className="h-10 w-auto"
+            className="h-12 w-auto"
           />
         </div>
 
