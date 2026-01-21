@@ -1,128 +1,135 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Gift, Mail, Share2, Calendar, Zap, UserPlus, Clock, Eye, Activity, Settings } from "lucide-react";
+import { ArrowLeft, Gift, Mail, Share2, Calendar, Zap, UserPlus, Clock, Eye, Activity, Settings, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 
 export default function Autopilot() {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border/50">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="rounded-full"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <h1 className="text-lg font-semibold text-foreground">Autopilot</h1>
-        </div>
-      </header>
-
-      {/* Content */}
-      <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-        {/* Autopilot Hero Box with CTA */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="bg-primary/5 rounded-2xl border border-primary/20 p-6"
-        >
-          <div className="flex items-start gap-4 mb-4">
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 shrink-0">
-              <Zap className="w-6 h-6 text-primary" />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
+        
+        <main className="flex-1 overflow-x-hidden">
+          <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+            {/* Header - consistent with other pages */}
+            <div className="flex items-center gap-4 mb-6">
+              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                <ArrowLeft className="h-5 w-5" />
+              </Link>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">Autopilot</h1>
+                <p className="text-sm text-muted-foreground">Automatic customer engagement that works while you focus on your business</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-foreground mb-1">Movylo Autopilot</h2>
-              <p className="text-sm text-muted-foreground">
-                Autopilot keeps your business active with customers over time — automatically.
-              </p>
+
+            <div className="space-y-6">
+              {/* Hero Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="p-3 rounded-xl bg-primary/10">
+                        <Zap className="h-8 w-8 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h2 className="text-lg font-semibold mb-1">Let Movylo work for you</h2>
+                        <p className="text-sm text-muted-foreground">
+                          Autopilot automatically engages your customers with personalized messages, 
+                          keeping them coming back without any effort on your part.
+                        </p>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                        <span>Welcome new customers automatically</span>
+                      </li>
+                      <li className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                        <span>Send birthday and anniversary offers</span>
+                      </li>
+                      <li className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                        <span>Re-engage customers who haven't visited in a while</span>
+                      </li>
+                      <li className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                        <span>Reward your most loyal customers</span>
+                      </li>
+                    </ul>
+
+                    <Button className="w-full sm:w-auto">
+                      <Sparkles className="h-4 w-4 mr-2" />
+                      Configure Autopilot
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Why This Matters */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-3">Why this matters</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Most customers don't come back simply because they forget about you. 
+                      Autopilot keeps your business top of mind with timely, relevant messages 
+                      that feel personal — not promotional. It's like having a marketing team 
+                      that never sleeps.
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Optional Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">What you can do on top of Autopilot</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Want to take a more hands-on approach? These optional actions let you create 
+                      custom campaigns whenever you want.
+                    </p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <Button variant="outline" className="flex-col h-auto py-4 gap-2">
+                        <Gift className="h-5 w-5 text-primary" />
+                        <span className="text-xs">Send Offer</span>
+                      </Button>
+                      <Button variant="outline" className="flex-col h-auto py-4 gap-2">
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span className="text-xs">Newsletter</span>
+                      </Button>
+                      <Button variant="outline" className="flex-col h-auto py-4 gap-2">
+                        <Share2 className="h-5 w-5 text-primary" />
+                        <span className="text-xs">Social Post</span>
+                      </Button>
+                      <Button variant="outline" className="flex-col h-auto py-4 gap-2">
+                        <Calendar className="h-5 w-5 text-primary" />
+                        <span className="text-xs">Schedule</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </div>
-          
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center gap-3">
-              <UserPlus className="w-4 h-4 text-primary" />
-              <span className="text-sm text-foreground">Welcomes new customers</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-4 h-4 text-primary" />
-              <span className="text-sm text-foreground">Follows up if customers don't return</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Eye className="w-4 h-4 text-primary" />
-              <span className="text-sm text-foreground">Keeps your business visible over time</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Activity className="w-4 h-4 text-primary" />
-              <span className="text-sm text-foreground">Creates ongoing activity on your dashboard</span>
-            </div>
-          </div>
-
-          <Button className="w-full rounded-xl gap-2">
-            <Settings className="w-4 h-4" />
-            Configure Autopilot
-          </Button>
-          
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            Add customers once. Autopilot takes care of the rest.
-          </p>
-        </motion.section>
-
-        {/* Why this matters */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="bg-card rounded-2xl border border-border/50 p-6"
-        >
-          <h3 className="text-base font-semibold text-foreground mb-3">Why this matters</h3>
-          <div className="space-y-2 text-sm text-muted-foreground">
-            <p>Customers don't always come back on their own.</p>
-            <p>Staying visible helps your business stay top of mind.</p>
-            <p className="text-foreground/80">Autopilot is designed to do this quietly in the background.</p>
-          </div>
-        </motion.section>
-
-        {/* What you can do on top of Autopilot */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="bg-card rounded-2xl border border-border/50 p-6"
-        >
-          <h3 className="text-base font-semibold text-foreground mb-1">What you can do on top of Autopilot</h3>
-          <p className="text-xs text-muted-foreground mb-4">
-            Optional — Autopilot works even if you don't use these.
-          </p>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="h-auto flex-col gap-2 p-4 rounded-xl">
-              <Gift className="w-5 h-5 text-primary" />
-              <span className="text-xs">Create an offer</span>
-            </Button>
-
-            <Button variant="outline" className="h-auto flex-col gap-2 p-4 rounded-xl">
-              <Mail className="w-5 h-5 text-accent" />
-              <span className="text-xs">Send newsletter</span>
-            </Button>
-
-            <Button variant="outline" className="h-auto flex-col gap-2 p-4 rounded-xl">
-              <Share2 className="w-5 h-5 text-primary" />
-              <span className="text-xs">Social posts</span>
-            </Button>
-
-            <Button variant="outline" className="h-auto flex-col gap-2 p-4 rounded-xl">
-              <Calendar className="w-5 h-5 text-accent" />
-              <span className="text-xs">Open calendar</span>
-            </Button>
-          </div>
-        </motion.section>
-      </main>
-    </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }
