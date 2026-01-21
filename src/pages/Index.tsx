@@ -13,6 +13,7 @@ import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
 // Sample data for steady state preview
 const sampleActivityData = {
   isActivationMode: false,

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import movyloLogo from "@/assets/movylo-logo.png";
+import { useLocation } from "react-router-dom";
 import { 
   Users, 
   Package, 
@@ -10,22 +11,12 @@ import {
   User,
   Globe,
   ChevronDown,
-  LayoutDashboard,
+  Home,
   MessageSquare,
   Store,
   Building2,
   ArrowUpCircle,
-  CreditCard,
-  MapPin,
-  UserPlus,
-  Heart,
-  Search,
-  Tag,
-  Mail,
-  Share2,
-  Calendar,
-  ShoppingCart,
-  CalendarCheck
+  CreditCard
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -52,8 +43,9 @@ import {
 
 // Primary navigation - mirrors dashboard story
 const primaryItems = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { id: "home", title: "Home", url: "/", icon: Home },
   { 
+    id: "business-info",
     title: "My Business Info", 
     url: "/business-info", 
     icon: Building2,
@@ -63,6 +55,7 @@ const primaryItems = [
     ]
   },
   { 
+    id: "customers",
     title: "My Customers", 
     url: "/customers", 
     icon: Users,
@@ -74,6 +67,7 @@ const primaryItems = [
     ]
   },
   { 
+    id: "messages",
     title: "Messages & Offers", 
     url: "/messages", 
     icon: MessageSquare,
@@ -85,6 +79,7 @@ const primaryItems = [
     ]
   },
   { 
+    id: "sales",
     title: "My Sales", 
     url: "/sales", 
     icon: Store,
@@ -119,6 +114,26 @@ const bottomMenuItems = [
 
 export function AppSidebar() {
   const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
+  const location = useLocation();
+  
+  // Determine which group should be open based on current path
+  const getInitialOpenGroup = () => {
+    for (const item of primaryItems) {
+      if (item.submenu) {
+        if (item.submenu.some(sub => location.pathname.startsWith(sub.url))) {
+          return item.id;
+        }
+      }
+    }
+    return null;
+  };
+  
+  const [openGroupId, setOpenGroupId] = useState<string | null>(getInitialOpenGroup);
+
+  const handleGroupToggle = (groupId: string, isOpen: boolean) => {
+    // Accordion behavior: only one group open at a time
+    setOpenGroupId(isOpen ? groupId : null);
+  };
 
   return (
     <Sidebar className="border-r border-border">
@@ -137,16 +152,20 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {primaryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.id || item.title}>
                   {item.submenu ? (
-                    <Collapsible defaultOpen className="w-full">
+                    <Collapsible 
+                      open={openGroupId === item.id} 
+                      onOpenChange={(isOpen) => handleGroupToggle(item.id!, isOpen)}
+                      className="w-full"
+                    >
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-muted/50 transition-colors">
                           <div className="flex items-center gap-3">
                             <item.icon className="h-4 w-4" />
                             <span>{item.title}</span>
                           </div>
-                          <ChevronDown className="h-3 w-3" />
+                          <ChevronDown className={`h-3 w-3 transition-transform ${openGroupId === item.id ? 'rotate-180' : ''}`} />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
