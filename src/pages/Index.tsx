@@ -96,7 +96,8 @@ const Index = () => {
                     {showSteadyState ? "Steady state" : "New user"}
                   </Label>
                 </div>
-                <QuickActions />
+                {/* Show QuickActions only in steady state */}
+                {showSteadyState && <QuickActions />}
               </div>
             </motion.div>
 
