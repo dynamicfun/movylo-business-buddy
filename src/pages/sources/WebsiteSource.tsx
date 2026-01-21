@@ -16,6 +16,8 @@ type Platform = "wordpress" | "wix" | "manual" | null;
 const WebsiteSource = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>(null);
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [groupIconsOpen, setGroupIconsOpen] = useState(false);
+  const [customCssOpen, setCustomCssOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("signup");
 
   const platforms = [
@@ -217,23 +219,41 @@ const WebsiteSource = () => {
                     You can change this later.
                   </p>
 
-                  {/* Advanced Options */}
-                  <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen} className="mt-6">
-                    <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                      <ChevronDown className={`w-4 h-4 transition-transform ${advancedOpen ? "rotate-180" : ""}`} />
-                      Advanced options
+                  {/* Group Icons */}
+                  <Collapsible open={groupIconsOpen} onOpenChange={setGroupIconsOpen} className="mt-6 border rounded-lg">
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-sm font-medium text-foreground hover:bg-muted/50 transition-colors">
+                      <span>Group Icons</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${groupIconsOpen ? "rotate-180" : ""}`} />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="mt-4 space-y-4 p-4 bg-muted/30 rounded-lg">
-                      <div>
-                        <Label htmlFor="widget-color" className="text-sm font-medium">Widget color</Label>
-                        <Input id="widget-color" type="color" defaultValue="#3b82f6" className="mt-1.5 w-20 h-10" />
+                    <CollapsibleContent className="px-4 pb-4 space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg space-y-3">
+                        <p className="text-sm text-muted-foreground">
+                          Group your widget icons together for a cleaner look.
+                        </p>
+                        <div className="flex items-center gap-3">
+                          <input type="checkbox" id="group-icons" className="w-4 h-4 rounded border-border" />
+                          <Label htmlFor="group-icons" className="text-sm">Enable grouped icons</Label>
+                        </div>
                       </div>
-                      <div>
-                        <Label htmlFor="widget-position" className="text-sm font-medium">Position</Label>
-                        <select id="widget-position" className="mt-1.5 w-full p-2 border rounded-lg bg-background text-sm">
-                          <option>Bottom right</option>
-                          <option>Bottom left</option>
-                        </select>
+                    </CollapsibleContent>
+                  </Collapsible>
+
+                  {/* Custom CSS */}
+                  <Collapsible open={customCssOpen} onOpenChange={setCustomCssOpen} className="border rounded-lg">
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-sm font-medium text-primary hover:bg-muted/50 transition-colors">
+                      <span>Custom CSS</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${customCssOpen ? "rotate-180" : ""}`} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="px-4 pb-4 space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg space-y-3">
+                        <p className="text-sm text-muted-foreground">
+                          Add custom CSS to further customize the widget appearance.
+                        </p>
+                        <textarea 
+                          id="custom-css" 
+                          placeholder=".movylo-widget { /* your styles */ }"
+                          className="w-full p-3 border rounded-lg bg-background text-sm font-mono min-h-[100px]"
+                        />
                       </div>
                     </CollapsibleContent>
                   </Collapsible>
