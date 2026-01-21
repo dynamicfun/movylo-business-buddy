@@ -12,6 +12,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoyaltyProgram from "./pages/LoyaltyProgram";
 import Reservations from "./pages/Reservations";
 import WebsiteSource from "./pages/sources/WebsiteSource";
+import InstagramSource from "./pages/sources/InstagramSource";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/customers/loyalty" element={<LoyaltyProgram />} />
           <Route path="/sales/reservations" element={<Reservations />} />
           <Route path="/sources/website" element={<WebsiteSource />} />
+          <Route path="/sources/instagram" element={<InstagramSource />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
