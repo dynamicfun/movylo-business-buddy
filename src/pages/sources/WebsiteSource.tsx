@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import SourceIntro from "@/components/sources/SourceIntro";
 
 type Platform = "wordpress" | "wix" | "manual" | null;
 
@@ -47,15 +48,23 @@ const WebsiteSource = () => {
                 Back to Home
               </Link>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Globe className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-foreground">Connect your website</h1>
-                  <p className="text-sm text-muted-foreground">This takes a few minutes.</p>
-                </div>
-              </div>
+              <SourceIntro
+                icon={Globe}
+                title="Connect your website"
+                subtitle="Turn website visitors into customers."
+                description="Once connected, Movylo stays in touch with them for you. You can change or remove this anytime."
+                benefits={[
+                  { text: "Visitors can join your business easily" },
+                  { text: "Customers stay connected after they leave" },
+                  { text: "More chances for repeat visits and sales" },
+                ]}
+                customerViewTitle="What customers see"
+                customerViewItems={[
+                  "Customers see a simple way to sign up.",
+                  "They receive updates and rewards over time.",
+                  "Some of them come back or buy again.",
+                ]}
+              />
             </motion.div>
 
             {/* Platform Selection */}
