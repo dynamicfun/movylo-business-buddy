@@ -8,6 +8,7 @@ import Autopilot from "./pages/Autopilot";
 import GoogleProfile from "./pages/GoogleProfile";
 import MyProfile from "./pages/MyProfile";
 import CustomerList from "./pages/CustomerList";
+import SignUpPage from "./pages/SignUpPage";
 import Reservations from "./pages/Reservations";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/business-info/google-profile" element={<GoogleProfile />} />
           <Route path="/business-info/profile" element={<MyProfile />} />
           <Route path="/customers/list" element={<CustomerList />} />
+          <Route path="/customers/signup" element={<SignUpPage />} />
           <Route path="/sales/reservations" element={<Reservations />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

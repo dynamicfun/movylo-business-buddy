@@ -14,6 +14,13 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   UserPlus,
   Upload,
   Download,
@@ -21,6 +28,7 @@ import {
   Filter,
   ChevronUp,
   ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 
 // Mock data for customers
@@ -176,11 +184,144 @@ export default function CustomerList() {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
-                className="mt-4 p-4 bg-muted/50 rounded-lg"
+                className="mt-4 space-y-4"
               >
-                <p className="text-sm text-muted-foreground">
-                  Filter options coming soon...
-                </p>
+                {/* First row of filters */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Gender" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Age (more than)" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="18">18+</SelectItem>
+                      <SelectItem value="25">25+</SelectItem>
+                      <SelectItem value="35">35+</SelectItem>
+                      <SelectItem value="45">45+</SelectItem>
+                      <SelectItem value="55">55+</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Age (less than)" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="25">Under 25</SelectItem>
+                      <SelectItem value="35">Under 35</SelectItem>
+                      <SelectItem value="45">Under 45</SelectItem>
+                      <SelectItem value="55">Under 55</SelectItem>
+                      <SelectItem value="65">Under 65</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Signup" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="last7">Last 7 days</SelectItem>
+                      <SelectItem value="last30">Last 30 days</SelectItem>
+                      <SelectItem value="last90">Last 90 days</SelectItem>
+                      <SelectItem value="thisyear">This year</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Second row of filters */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Has birthday in" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="jan">January</SelectItem>
+                      <SelectItem value="feb">February</SelectItem>
+                      <SelectItem value="mar">March</SelectItem>
+                      <SelectItem value="apr">April</SelectItem>
+                      <SelectItem value="may">May</SelectItem>
+                      <SelectItem value="jun">June</SelectItem>
+                      <SelectItem value="jul">July</SelectItem>
+                      <SelectItem value="aug">August</SelectItem>
+                      <SelectItem value="sep">September</SelectItem>
+                      <SelectItem value="oct">October</SelectItem>
+                      <SelectItem value="nov">November</SelectItem>
+                      <SelectItem value="dec">December</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Reached with promo discount" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="yes">Yes</SelectItem>
+                      <SelectItem value="no">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Using the App" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="yes">Yes</SelectItem>
+                      <SelectItem value="no">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Group of customers" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="vip">VIP</SelectItem>
+                      <SelectItem value="new">New customers</SelectItem>
+                      <SelectItem value="inactive">Inactive</SelectItem>
+                      <SelectItem value="loyal">Loyal</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Third row - Source filter */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="Source" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="website">Website</SelectItem>
+                      <SelectItem value="facebook">Facebook</SelectItem>
+                      <SelectItem value="instagram">Instagram</SelectItem>
+                      <SelectItem value="qrcode">QR Code</SelectItem>
+                      <SelectItem value="manual">Manual entry</SelectItem>
+                      <SelectItem value="import">Import</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Filter links */}
+                <div className="flex flex-col gap-2 pt-2">
+                  <a href="#" className="text-primary hover:underline text-sm inline-flex items-center gap-1">
+                    Create a new public filter
+                    <HelpCircle className="h-3 w-3" />
+                  </a>
+                  <a href="#" className="text-primary hover:underline text-sm inline-flex items-center gap-1">
+                    Create new private filter
+                    <HelpCircle className="h-3 w-3" />
+                  </a>
+                </div>
               </motion.div>
             )}
           </motion.div>
