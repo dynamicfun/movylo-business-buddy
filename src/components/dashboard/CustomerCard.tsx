@@ -61,6 +61,11 @@ export function CustomerCard({
   const [showAllSources, setShowAllSources] = useState(false);
 
   const handleSourceClick = (sourceKey: string, isActive: boolean) => {
+    // Website source has its own dedicated page
+    if (sourceKey === "website-source") {
+      navigate("/sources/website");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
@@ -83,6 +88,7 @@ export function CustomerCard({
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
     { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-green-500", label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
+    { icon: <Globe className="w-4 h-4" />, iconColor: "text-cyan-500", label: "Website", count: sources.website, sourceKey: "website-source" },
     { icon: <FileSpreadsheet className="w-4 h-4" />, iconColor: "text-emerald-600", label: "Excel", count: sources.excel, sourceKey: "excel" },
     { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: "Manual", count: sources.manual, sourceKey: "manual" },
     { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: "Ads", count: sources.ads, sourceKey: "ads" },
