@@ -101,8 +101,15 @@ const Index = () => {
               </div>
             </motion.div>
 
-            {/* Activation banner - only show in activation mode */}
-            {!showSteadyState && <ActivationBanner completedSteps={2} totalSteps={5} />}
+            {/* Activation banner with quick actions - only show in activation mode */}
+            {!showSteadyState && (
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 sm:mb-6">
+                <QuickActions />
+                <div className="flex-1">
+                  <ActivationBanner completedSteps={2} totalSteps={5} />
+                </div>
+              </div>
+            )}
 
             {/* Live feed - above the main cards */}
             <LiveFeed />
