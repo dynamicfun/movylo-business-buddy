@@ -10,8 +10,7 @@ import { Label } from "@/components/ui/label";
 import {
   ArrowLeft,
   Copy,
-  ExternalLink,
-  HelpCircle,
+  Download,
   Plus,
   X,
 } from "lucide-react";
@@ -19,13 +18,13 @@ import {
 export default function SignUpPage() {
   const navigate = useNavigate();
   const [pageTitle, setPageTitle] = useState("Sign up to receive our bonus!");
-  const [menuLink, setMenuLink] = useState("Sign up for special offers");
+  const [buttonText, setButtonText] = useState("Sign up for special offers");
   const [hideImage, setHideImage] = useState(false);
   const [interests, setInterests] = useState<string[]>([]);
   const [newInterest, setNewInterest] = useState("");
 
   // Form fields configuration
-  const [mandatoryFields, setMandatoryFields] = useState({
+  const [requiredFields, setRequiredFields] = useState({
     email: true,
     phone: true,
     firstName: true,
@@ -33,8 +32,8 @@ export default function SignUpPage() {
   });
 
   const [optionalFields, setOptionalFields] = useState({
-    gender: true,
-    dateOfBirth: true,
+    gender: false,
+    dateOfBirth: false,
     requestDiscount: false,
   });
 
@@ -76,17 +75,16 @@ export default function SignUpPage() {
                 <ArrowLeft className="h-4 w-4" />
                 Back to Home
               </Button>
-              <h1 className="text-xl font-bold text-foreground">Sign up page</h1>
+              <h1 className="text-xl font-bold text-foreground">Sign-up Page</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Use this section to customize the information that you ask your customers for on your sign-up page. 
-                You can also add custom fields related to your business, such as "hair color" (for a salon), 
-                "pet type" (for a pet store), "car type" (for a repair shop), "vegetarian" (for a restaurant), etc.
-                <br />
-                Custom fields will generate custom filters, enabling you to more accurately target customers from{" "}
-                <a href="/customers/list" className="text-primary hover:underline">
-                  Manage Customers
-                </a>
-                .
+                Help customers sign up easily
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                This page is where customers join your business.<br />
+                You can customize what they see and choose what information to collect.
+              </p>
+              <p className="text-sm text-muted-foreground mt-2 italic">
+                Keep it simple — you can always add more later.
               </p>
             </motion.header>
 
@@ -97,181 +95,217 @@ export default function SignUpPage() {
               transition={{ delay: 0.1 }}
               className="bg-card rounded-xl border p-6 md:p-8 space-y-8"
             >
-              {/* Page Info Section */}
+              {/* Your sign-up page Section */}
               <section className="space-y-4">
-                <h2 className="text-lg font-semibold text-foreground">Page info</h2>
+                <h2 className="text-lg font-semibold text-foreground">Your sign-up page</h2>
                 
-                <div className="space-y-2">
-                  <Label className="text-sm text-muted-foreground">Your sign-up page:</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      value={signUpUrl}
-                      readOnly
-                      className="flex-1 bg-muted/50"
-                    />
+                <div className="space-y-3">
+                  <Label className="text-sm text-muted-foreground">Link to your sign-up page</Label>
+                  <Input
+                    value={signUpUrl}
+                    readOnly
+                    className="bg-muted/50"
+                  />
+                  
+                  <div className="flex flex-wrap gap-3">
                     <Button variant="outline" onClick={copyLink} className="gap-2">
                       <Copy className="h-4 w-4" />
                       Copy link
                     </Button>
+                    <Button variant="outline" className="gap-2">
+                      <Download className="h-4 w-4" />
+                      Download QR code
+                    </Button>
                   </div>
-                  <a href="#" className="text-primary hover:underline text-sm inline-flex items-center gap-1">
-                    Click here to download the QR code
-                  </a>
+                  
+                  <p className="text-sm text-muted-foreground">
+                    (Share this link or QR code to let customers sign up.)
+                  </p>
                 </div>
               </section>
 
-              {/* Section 1 - Title and Menu Link */}
+              {/* Section 1 - Page appearance */}
               <section className="space-y-4">
                 <h3 className="text-primary font-medium flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm flex items-center justify-center">1</span>
-                  Change the title and the menu link
+                  Page appearance
                 </h3>
 
-                <div className="space-y-4 pl-8">
-                  <p className="text-sm text-muted-foreground">
-                    Customize the image at the top of the page
-                  </p>
-
-                  <div className="flex items-center gap-4">
-                    <Label className="text-sm">Customize the image</Label>
-                    <Button variant="outline" size="sm">
-                      Choose file image
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="hideImage"
-                      checked={hideImage}
-                      onCheckedChange={(checked) => setHideImage(checked as boolean)}
-                    />
-                    <Label htmlFor="hideImage" className="text-sm">Hide the image</Label>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label className="text-sm text-muted-foreground">Change the page title</Label>
-                    <div className="flex gap-2">
-                      <Input
-                        value={pageTitle}
-                        onChange={(e) => setPageTitle(e.target.value)}
-                        className="flex-1"
-                      />
-                      <Button variant="outline" size="sm" onClick={() => setPageTitle("Sign up to receive our bonus!")}>
-                        Restore default
-                      </Button>
+                <div className="pl-8 space-y-6">
+                  {/* Page header subsection */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium text-foreground">Page header</h4>
+                    
+                    {/* Top image */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Top image</Label>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Button variant="outline" size="sm">
+                          Upload an image
+                        </Button>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="hideImage"
+                            checked={hideImage}
+                            onCheckedChange={(checked) => setHideImage(checked as boolean)}
+                          />
+                          <Label htmlFor="hideImage" className="text-sm">Hide image</Label>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label className="text-sm text-muted-foreground">Change the menu link</Label>
-                    <div className="flex gap-2">
-                      <Input
-                        value={menuLink}
-                        onChange={(e) => setMenuLink(e.target.value)}
-                        className="flex-1"
-                      />
-                      <Button variant="outline" size="sm" onClick={() => setMenuLink("Sign up for special offers")}>
-                        Restore default
-                      </Button>
+                    {/* Page title */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Page title</Label>
+                      <p className="text-xs text-muted-foreground">Default: Sign up to receive our bonus!</p>
+                      <div className="flex gap-2">
+                        <Input
+                          value={pageTitle}
+                          onChange={(e) => setPageTitle(e.target.value)}
+                          className="flex-1"
+                        />
+                        <Button variant="ghost" size="sm" className="text-primary">
+                          Edit
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-muted-foreground"
+                          onClick={() => setPageTitle("Sign up to receive our bonus!")}
+                        >
+                          Restore default
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Button text */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Button text</Label>
+                      <p className="text-xs text-muted-foreground">Default: Sign up for special offers</p>
+                      <div className="flex gap-2">
+                        <Input
+                          value={buttonText}
+                          onChange={(e) => setButtonText(e.target.value)}
+                          className="flex-1"
+                        />
+                        <Button variant="ghost" size="sm" className="text-primary">
+                          Edit
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-muted-foreground"
+                          onClick={() => setButtonText("Sign up for special offers")}
+                        >
+                          Restore default
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              {/* Section 2 - Form Fields */}
+              {/* Section 2 - Information to collect */}
               <section className="space-y-4">
                 <h3 className="text-primary font-medium flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm flex items-center justify-center">2</span>
-                  Select what to show on the sign-up page.
+                  Information to collect
                 </h3>
 
-                <div className="pl-8 grid md:grid-cols-2 gap-6">
-                  {/* Mandatory Fields */}
-                  <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
-                    <h4 className="font-medium text-foreground mb-4">Mandatory fields</h4>
+                <div className="pl-8 space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Choose what customers must fill in when they sign up.
+                  </p>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Required Fields */}
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="email"
-                          checked={mandatoryFields.email}
-                          onCheckedChange={(checked) =>
-                            setMandatoryFields({ ...mandatoryFields, email: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="email" className="text-sm">E-mail</Label>
+                      <h4 className="font-medium text-foreground">Required fields</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="email"
+                            checked={requiredFields.email}
+                            onCheckedChange={(checked) =>
+                              setRequiredFields({ ...requiredFields, email: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="email" className="text-sm">Email</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="phone"
+                            checked={requiredFields.phone}
+                            onCheckedChange={(checked) =>
+                              setRequiredFields({ ...requiredFields, phone: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="phone" className="text-sm">Phone</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="firstName"
+                            checked={requiredFields.firstName}
+                            onCheckedChange={(checked) =>
+                              setRequiredFields({ ...requiredFields, firstName: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="firstName" className="text-sm">First name</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="lastName"
+                            checked={requiredFields.lastName}
+                            onCheckedChange={(checked) =>
+                              setRequiredFields({ ...requiredFields, lastName: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="lastName" className="text-sm">Last name</Label>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="phone"
-                          checked={mandatoryFields.phone}
-                          onCheckedChange={(checked) =>
-                            setMandatoryFields({ ...mandatoryFields, phone: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="phone" className="text-sm">Phone</Label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="firstName"
-                          checked={mandatoryFields.firstName}
-                          onCheckedChange={(checked) =>
-                            setMandatoryFields({ ...mandatoryFields, firstName: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="firstName" className="text-sm">First Name</Label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="lastName"
-                          checked={mandatoryFields.lastName}
-                          onCheckedChange={(checked) =>
-                            setMandatoryFields({ ...mandatoryFields, lastName: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="lastName" className="text-sm">Last Name</Label>
+                    </div>
+
+                    {/* Optional Fields */}
+                    <div className="space-y-3">
+                      <h4 className="font-medium text-foreground">Optional fields</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="gender"
+                            checked={optionalFields.gender}
+                            onCheckedChange={(checked) =>
+                              setOptionalFields({ ...optionalFields, gender: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="gender" className="text-sm">Gender</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="dateOfBirth"
+                            checked={optionalFields.dateOfBirth}
+                            onCheckedChange={(checked) =>
+                              setOptionalFields({ ...optionalFields, dateOfBirth: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="dateOfBirth" className="text-sm">Date of birth</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="requestDiscount"
+                            checked={optionalFields.requestDiscount}
+                            onCheckedChange={(checked) =>
+                              setOptionalFields({ ...optionalFields, requestDiscount: checked as boolean })
+                            }
+                          />
+                          <Label htmlFor="requestDiscount" className="text-sm">Request a discount</Label>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Optional Fields */}
-                  <div className="bg-muted/30 rounded-lg p-4 border">
-                    <h4 className="font-medium text-foreground mb-4">Optional fields</h4>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="gender"
-                          checked={optionalFields.gender}
-                          onCheckedChange={(checked) =>
-                            setOptionalFields({ ...optionalFields, gender: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="gender" className="text-sm">Gender</Label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="dateOfBirth"
-                          checked={optionalFields.dateOfBirth}
-                          onCheckedChange={(checked) =>
-                            setOptionalFields({ ...optionalFields, dateOfBirth: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="dateOfBirth" className="text-sm flex items-center gap-1">
-                          Date of birth
-                          <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                        </Label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="requestDiscount"
-                          checked={optionalFields.requestDiscount}
-                          onCheckedChange={(checked) =>
-                            setOptionalFields({ ...optionalFields, requestDiscount: checked as boolean })
-                          }
-                        />
-                        <Label htmlFor="requestDiscount" className="text-sm">Request discount</Label>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="text-sm text-muted-foreground italic">
+                    (Tip: fewer fields = more sign-ups.)
+                  </p>
                 </div>
               </section>
 
@@ -279,82 +313,103 @@ export default function SignUpPage() {
               <section className="space-y-4">
                 <h3 className="text-primary font-medium flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm flex items-center justify-center">3</span>
-                  Customize your sign-up page.
+                  Ask custom questions (optional)
                 </h3>
 
                 <div className="pl-8 space-y-6">
-                  {/* Simple answer question */}
-                  <div className="space-y-2">
-                    <Label className="font-medium flex items-center gap-1">
-                      Simple answer question.
-                      <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                    </Label>
+                  <p className="text-sm text-muted-foreground">
+                    Use custom questions to better understand your customers and send more relevant offers.
+                  </p>
+
+                  {/* Single-choice question */}
+                  <div className="space-y-3">
+                    <h4 className="font-medium text-foreground">Single-choice question</h4>
                     <p className="text-sm text-muted-foreground">
-                      Use this if you want your customers to select only 1 of the available options 
-                      (e.g. what's the color of your hair? Brunette, Blonde, Red).
+                      Use this when customers should pick one option.
                     </p>
-                    <Button variant="default" size="sm" className="gap-2">
+                    <div className="text-sm text-muted-foreground space-y-1">
+                      <p className="font-medium">Examples</p>
+                      <ul className="list-disc list-inside ml-2 space-y-1">
+                        <li>Hair color (Brunette, Blonde, Red)</li>
+                        <li>Pet type (Dog, Cat, Other)</li>
+                        <li>Car type</li>
+                      </ul>
+                    </div>
+                    <Button variant="outline" size="sm" className="gap-2">
                       <Plus className="h-4 w-4" />
-                      Add
+                      Add question
                     </Button>
                   </div>
 
-                  {/* Multiple answer questions */}
-                  <div className="space-y-2">
-                    <Label className="font-medium flex items-center gap-1">
-                      Multiple answer questions
-                      <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                    </Label>
+                  {/* Multiple-choice question */}
+                  <div className="space-y-3">
+                    <h4 className="font-medium text-foreground">Multiple-choice question (interests)</h4>
                     <p className="text-sm text-muted-foreground">
-                      Create a list of interests (tags) that are relevant to your business. 
-                      Customers will be able to select them (one or more) and if they do so, 
-                      you'll then be able to reach and to send them specific promotions, based on their interests.
+                      Let customers select one or more interests.
                     </p>
-                    <p className="text-sm text-muted-foreground">
-                      Use this if you want your customers to select more than one option available to the question 
-                      "I'm interested in ..." (e.g. dinner, lunch, breakfast, night events, ...).
-                    </p>
-
-                    <div className="flex gap-2 mt-3">
-                      <Input
-                        placeholder="Enter an interest..."
-                        value={newInterest}
-                        onChange={(e) => setNewInterest(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && addInterest()}
-                        className="max-w-xs"
-                      />
-                      <Button variant="outline" size="sm" onClick={addInterest}>
-                        Add
-                      </Button>
+                    <div className="text-sm text-muted-foreground space-y-1">
+                      <p className="font-medium">Examples</p>
+                      <ul className="list-disc list-inside ml-2 space-y-1">
+                        <li>Lunch</li>
+                        <li>Dinner</li>
+                        <li>Events</li>
+                        <li>Promotions</li>
+                      </ul>
                     </div>
+                    <p className="text-sm text-muted-foreground italic">
+                      These interests help you target messages later.
+                    </p>
 
-                    {interests.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {interests.map((interest) => (
-                          <span
-                            key={interest}
-                            className="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                          >
-                            {interest}
-                            <button
-                              onClick={() => removeInterest(interest)}
-                              className="hover:text-destructive"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </span>
-                        ))}
+                    <div className="space-y-3 pt-2">
+                      <Label className="text-sm">Enter an interest</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Enter an interest..."
+                          value={newInterest}
+                          onChange={(e) => setNewInterest(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && addInterest()}
+                          className="max-w-xs"
+                        />
+                        <Button variant="outline" size="sm" onClick={addInterest}>
+                          Add
+                        </Button>
                       </div>
-                    )}
+
+                      {interests.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {interests.map((interest) => (
+                            <span
+                              key={interest}
+                              className="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+                            >
+                              {interest}
+                              <button
+                                onClick={() => removeInterest(interest)}
+                                className="hover:text-destructive"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </section>
 
-              {/* Save Button */}
-              <div className="pt-4">
-                <Button className="w-full md:w-auto px-8" size="lg">
+              {/* Save Changes */}
+              <div className="pt-4 border-t">
+                <h3 className="font-medium text-foreground mb-4">Save changes</h3>
+                <Button className="px-8" size="lg">
                   Save
                 </Button>
+              </div>
+
+              {/* Footer reassurance */}
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p>You can change this page anytime.</p>
+                <p>Your customers will always see the latest version.</p>
               </div>
             </motion.div>
           </div>
