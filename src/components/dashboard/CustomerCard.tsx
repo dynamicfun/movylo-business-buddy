@@ -61,9 +61,13 @@ export function CustomerCard({
   const [showAllSources, setShowAllSources] = useState(false);
 
   const handleSourceClick = (sourceKey: string, isActive: boolean) => {
-    // Website source has its own dedicated page
+    // Source pages have their own dedicated routes
     if (sourceKey === "website-source") {
       navigate("/sources/website");
+      return;
+    }
+    if (sourceKey === "instagram") {
+      navigate("/sources/instagram");
       return;
     }
     if (isActive) {
