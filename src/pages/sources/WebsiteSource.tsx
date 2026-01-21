@@ -4,49 +4,25 @@ import { ArrowLeft, Globe, Check, Eye, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 
 type Platform = "wordpress" | "wix" | "manual" | null;
 
-interface WidgetOption {
-  id: string;
-  label: string;
-  enabled: boolean;
-}
-
 const WebsiteSource = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>(null);
-  const [isConnected, setIsConnected] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [widgetOptions, setWidgetOptions] = useState<WidgetOption[]>([
-    { id: "signup", label: "Sign-up form", enabled: true },
-    { id: "contact", label: "Contact button", enabled: true },
-    { id: "chat", label: "Chat", enabled: false },
-    { id: "bookings", label: "Bookings", enabled: false },
-  ]);
+  const [activeTab, setActiveTab] = useState("signup");
 
   const platforms = [
     { id: "wordpress" as Platform, name: "WordPress", icon: "W" },
     { id: "wix" as Platform, name: "Wix", icon: "W" },
     { id: "manual" as Platform, name: "Manual setup", icon: "⚙" },
   ];
-
-  const toggleWidget = (id: string) => {
-    setWidgetOptions(prev =>
-      prev.map(opt => (opt.id === id ? { ...opt, enabled: !opt.enabled } : opt))
-    );
-  };
-
-  const handleConnect = () => {
-    if (selectedPlatform) {
-      setIsConnected(true);
-    }
-  };
 
   return (
     <SidebarProvider>
@@ -124,7 +100,7 @@ const WebsiteSource = () => {
 
                   {/* Technical fields for manual setup */}
                   {selectedPlatform === "manual" && (
-                    <div className="space-y-4 p-4 bg-muted/30 rounded-lg mb-6">
+                    <div className="space-y-4 p-4 bg-muted/30 rounded-lg">
                       <div>
                         <Label htmlFor="website-url" className="text-sm font-medium">Website URL</Label>
                         <Input id="website-url" placeholder="https://yourwebsite.com" className="mt-1.5" />
@@ -140,110 +116,154 @@ const WebsiteSource = () => {
                       </div>
                     </div>
                   )}
-
-                  {!isConnected ? (
-                    <Button
-                      onClick={handleConnect}
-                      disabled={!selectedPlatform}
-                      className="w-full sm:w-auto"
-                    >
-                      Connect website
-                    </Button>
-                  ) : (
-                    <div className="flex items-center gap-2 text-success">
-                      <Check className="w-5 h-5" />
-                      <span className="font-medium">Connected</span>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             </motion.div>
 
-            {/* Widget Options - shown after connection */}
-            {isConnected && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Card className="mb-6">
-                  <CardContent className="p-6">
-                    <h2 className="text-lg font-semibold text-foreground mb-2">
-                      What shows on your website
-                    </h2>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Choose what visitors can see:
-                    </p>
+            {/* Widget Options - Tabs */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="mb-6">
+                <CardContent className="p-6">
+                  <h2 className="text-lg font-semibold text-foreground mb-2">
+                    What shows on your website
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Choose what visitors can see:
+                  </p>
 
-                    <div className="space-y-3 mb-4">
-                      {widgetOptions.map((option) => (
-                        <div key={option.id} className="flex items-center gap-3">
-                          <Checkbox
-                            id={option.id}
-                            checked={option.enabled}
-                            onCheckedChange={() => toggleWidget(option.id)}
-                          />
-                          <Label htmlFor={option.id} className="text-sm font-medium cursor-pointer">
-                            {option.label}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
+                  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                    <TabsList className="grid w-full grid-cols-4 mb-6">
+                      <TabsTrigger value="signup">Sign-up form</TabsTrigger>
+                      <TabsTrigger value="contact">Contact button</TabsTrigger>
+                      <TabsTrigger value="chat">Chat</TabsTrigger>
+                      <TabsTrigger value="bookings">Bookings</TabsTrigger>
+                    </TabsList>
 
-                    <p className="text-xs text-muted-foreground">
-                      You can change this later.
-                    </p>
+                    <TabsContent value="signup" className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h3 className="text-sm font-medium text-foreground mb-3">Sign-up form settings</h3>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="signup-title" className="text-sm">Form title</Label>
+                            <Input id="signup-title" placeholder="Join our community" className="mt-1.5" />
+                          </div>
+                          <div>
+                            <Label htmlFor="signup-button" className="text-sm">Button text</Label>
+                            <Input id="signup-button" placeholder="Sign up" className="mt-1.5" />
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
 
-                    {/* Advanced Options */}
-                    <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen} className="mt-6">
-                      <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={`w-4 h-4 transition-transform ${advancedOpen ? "rotate-180" : ""}`} />
-                        Advanced options
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="mt-4 space-y-4 p-4 bg-muted/30 rounded-lg">
-                        <div>
-                          <Label htmlFor="widget-color" className="text-sm font-medium">Widget color</Label>
-                          <Input id="widget-color" type="color" defaultValue="#3b82f6" className="mt-1.5 w-20 h-10" />
+                    <TabsContent value="contact" className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h3 className="text-sm font-medium text-foreground mb-3">Contact button settings</h3>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="contact-label" className="text-sm">Button label</Label>
+                            <Input id="contact-label" placeholder="Contact us" className="mt-1.5" />
+                          </div>
+                          <div>
+                            <Label htmlFor="contact-email" className="text-sm">Email address</Label>
+                            <Input id="contact-email" type="email" placeholder="hello@yourbusiness.com" className="mt-1.5" />
+                          </div>
                         </div>
-                        <div>
-                          <Label htmlFor="widget-position" className="text-sm font-medium">Position</Label>
-                          <select id="widget-position" className="mt-1.5 w-full p-2 border rounded-lg bg-background text-sm">
-                            <option>Bottom right</option>
-                            <option>Bottom left</option>
-                          </select>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="chat" className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h3 className="text-sm font-medium text-foreground mb-3">Chat settings</h3>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="chat-greeting" className="text-sm">Welcome message</Label>
+                            <Input id="chat-greeting" placeholder="Hi! How can we help you today?" className="mt-1.5" />
+                          </div>
+                          <div>
+                            <Label htmlFor="chat-availability" className="text-sm">Availability hours</Label>
+                            <Input id="chat-availability" placeholder="9am - 5pm" className="mt-1.5" />
+                          </div>
                         </div>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="bookings" className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h3 className="text-sm font-medium text-foreground mb-3">Bookings settings</h3>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="booking-label" className="text-sm">Button label</Label>
+                            <Input id="booking-label" placeholder="Book an appointment" className="mt-1.5" />
+                          </div>
+                          <div>
+                            <Label htmlFor="booking-duration" className="text-sm">Default duration</Label>
+                            <select id="booking-duration" className="mt-1.5 w-full p-2 border rounded-lg bg-background text-sm">
+                              <option>15 minutes</option>
+                              <option>30 minutes</option>
+                              <option>45 minutes</option>
+                              <option>1 hour</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+
+                  <p className="text-xs text-muted-foreground mt-4">
+                    You can change this later.
+                  </p>
+
+                  {/* Advanced Options */}
+                  <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen} className="mt-6">
+                    <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      <ChevronDown className={`w-4 h-4 transition-transform ${advancedOpen ? "rotate-180" : ""}`} />
+                      Advanced options
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="mt-4 space-y-4 p-4 bg-muted/30 rounded-lg">
+                      <div>
+                        <Label htmlFor="widget-color" className="text-sm font-medium">Widget color</Label>
+                        <Input id="widget-color" type="color" defaultValue="#3b82f6" className="mt-1.5 w-20 h-10" />
+                      </div>
+                      <div>
+                        <Label htmlFor="widget-position" className="text-sm font-medium">Position</Label>
+                        <select id="widget-position" className="mt-1.5 w-full p-2 border rounded-lg bg-background text-sm">
+                          <option>Bottom right</option>
+                          <option>Bottom left</option>
+                        </select>
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Preview Section */}
-            {isConnected && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Card>
-                  <CardContent className="p-6">
-                    <h2 className="text-lg font-semibold text-foreground mb-2">
-                      Preview
-                    </h2>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      This is how it will look to customers.<br />
-                      You can update it anytime.
-                    </p>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Card>
+                <CardContent className="p-6">
+                  <h2 className="text-lg font-semibold text-foreground mb-2">
+                    Preview
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    This is how it will look to customers.<br />
+                    You can update it anytime.
+                  </p>
 
-                    <Button variant="outline" className="gap-2">
-                      <Eye className="w-4 h-4" />
-                      Show preview
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+                  <Button variant="outline" className="gap-2">
+                    <Eye className="w-4 h-4" />
+                    Show preview
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </main>
       </div>
