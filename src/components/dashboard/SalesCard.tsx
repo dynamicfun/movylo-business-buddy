@@ -62,10 +62,10 @@ export function SalesCard(props: SalesCardProps) {
         {/* Header */}
         <div className="mb-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-foreground">My Sales</h2>
-            <span className="text-xs text-muted-foreground">last 30 days</span>
+            <h2 className="text-lg font-bold text-foreground">Le Mie Vendite</h2>
+            <span className="text-xs text-muted-foreground">ultimi 30 giorni</span>
           </div>
-          <p className="text-xs text-muted-foreground">Sales generated for you</p>
+          <p className="text-xs text-muted-foreground">Vendite generate per te</p>
         </div>
 
         {/* Main value highlight */}
@@ -74,7 +74,7 @@ export function SalesCard(props: SalesCardProps) {
             <Tag className="w-4 h-4 text-emerald-600" />
             <span className="text-xl font-bold text-foreground">{downloadedCoupons}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Downloaded offers</p>
+          <p className="text-xs text-muted-foreground">Offerte scaricate</p>
         </div>
 
         {/* Metrics */}
@@ -82,23 +82,23 @@ export function SalesCard(props: SalesCardProps) {
           <MetricRow 
             icon={<Store className="w-3.5 h-3.5" />} 
             iconColor="text-blue-500" 
-            label="In-store sales" 
+            label="Vendite in negozio" 
             value={inStoreSales.value}
-            subValue={`${inStoreSales.closed} closed`}
+            subValue={`${inStoreSales.closed} chiuse`}
           />
           <MetricRow 
             icon={<ShoppingCart className="w-3.5 h-3.5" />} 
             iconColor="text-violet-500" 
-            label="Online sales" 
+            label="Vendite online" 
             value={onlineSales.value}
-            subValue={`${onlineSales.closed} closed`}
+            subValue={`${onlineSales.closed} chiuse`}
           />
           <MetricRow 
             icon={<CalendarCheck className="w-3.5 h-3.5" />} 
             iconColor="text-amber-500" 
-            label="Reservations" 
+            label="Prenotazioni" 
             value={reservations.value}
-            subValue={`${reservations.covers} covers`}
+            subValue={`${reservations.covers} coperti`}
           />
         </div>
 
@@ -107,7 +107,7 @@ export function SalesCard(props: SalesCardProps) {
           className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
           size="default"
         >
-          Sell
+          Vendi
           <ChevronRight className="w-4 h-4" />
         </Button>
       </motion.div>
@@ -124,15 +124,15 @@ export function SalesCard(props: SalesCardProps) {
     >
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-lg font-bold text-foreground">My Sales</h2>
-        <p className="text-xs text-muted-foreground">Sales generated for you</p>
+        <h2 className="text-lg font-bold text-foreground">Le Mie Vendite</h2>
+        <p className="text-xs text-muted-foreground">Vendite generate per te</p>
       </div>
 
       {/* Simplified placeholder */}
       <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
         <ShoppingCart className="w-10 h-10 text-muted-foreground/40 mb-3" />
-        <p className="text-sm font-medium text-muted-foreground">No sales yet</p>
-        <p className="text-xs text-muted-foreground/70 mt-1">When your first sale happens, it will appear here.</p>
+        <p className="text-sm font-medium text-muted-foreground">Nessuna vendita ancora</p>
+        <p className="text-xs text-muted-foreground/70 mt-1">Quando avverrà la tua prima vendita, apparirà qui.</p>
       </div>
 
       {/* CTA */}
@@ -140,7 +140,7 @@ export function SalesCard(props: SalesCardProps) {
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
       >
-        Sell
+        Vendi
         <ChevronRight className="w-4 h-4" />
       </Button>
     </motion.div>

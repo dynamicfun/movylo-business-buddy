@@ -24,14 +24,14 @@ export function ActivationBanner({ completedSteps = 2, totalSteps = 5 }: Activat
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1 sm:mb-1.5">
-            <h3 className="text-xs sm:text-sm font-semibold text-foreground">Complete your setup</h3>
-            <span className="text-[10px] sm:text-xs text-muted-foreground">{completedSteps}/{totalSteps} done</span>
+            <h3 className="text-xs sm:text-sm font-semibold text-foreground">Completa la configurazione</h3>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">{completedSteps}/{totalSteps} completati</span>
           </div>
           <Progress value={progress} className="h-1 sm:h-1.5" />
         </div>
 
         <Button size="sm" className="gap-1 flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
-          Continue
+          Continua
           <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </Button>
       </div>

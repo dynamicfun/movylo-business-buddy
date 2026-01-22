@@ -11,11 +11,11 @@ export function QuickActions() {
     >
       <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground">
         <Ticket className="w-3.5 h-3.5" />
-        Check Coupons
+        Verifica Coupon
       </Button>
       <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground">
         <Gift className="w-3.5 h-3.5" />
-        Assign Points/Rewards
+        Assegna Punti/Premi
       </Button>
     </motion.div>
   );
