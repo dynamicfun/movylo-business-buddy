@@ -14,18 +14,18 @@ const feedItems: FeedItem[] = [
   { 
     id: "1", 
     type: "signup", 
-    title: "New customer",
-    description: "just signed up.",
+    title: "Nuovo cliente",
+    description: "si è iscritto.",
     customerName: "Carlo Mercado",
-    time: "4 hours ago" 
+    time: "4 ore fa" 
   },
   { 
     id: "2", 
     type: "message", 
-    title: "Message update",
-    description: "opened your message.",
+    title: "Aggiornamento messaggio",
+    description: "ha aperto il tuo messaggio.",
     customerName: "Jodi Frank",
-    time: "9 hours ago" 
+    time: "9 ore fa" 
   },
 ];
 

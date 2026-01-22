@@ -93,7 +93,7 @@ const Index = () => {
                     onCheckedChange={setShowSteadyState}
                   />
                   <Label htmlFor="preview-mode" className="text-xs text-muted-foreground cursor-pointer hidden sm:inline">
-                    {showSteadyState ? "Steady state" : "New user"}
+                    {showSteadyState ? "Stato normale" : "Nuovo utente"}
                   </Label>
                 </div>
                 {/* Show QuickActions only in steady state */}
