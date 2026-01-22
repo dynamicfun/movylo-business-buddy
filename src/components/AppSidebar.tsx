@@ -46,70 +46,70 @@ const primaryItems = [
   { id: "home", title: "Home", url: "/", icon: Home },
   { 
     id: "business-info",
-    title: "My Business Info", 
+    title: "La Mia Attività", 
     url: "/business-info", 
     icon: Building2,
     submenu: [
-      { title: "My Profile", url: "/business-info/profile" },
-      { title: "My Google Profile", url: "/business-info/google-profile" },
+      { title: "Il Mio Profilo", url: "/business-info/profile" },
+      { title: "Il Mio Profilo Google", url: "/business-info/google-profile" },
     ]
   },
   { 
     id: "customers",
-    title: "My Customers", 
+    title: "I Miei Clienti", 
     url: "/customers", 
     icon: Users,
     submenu: [
-      { title: "My Customer List", url: "/customers/list" },
-      { title: "Sign up Page", url: "/customers/signup" },
-      { title: "Loyalty Program", url: "/customers/loyalty" },
-      { title: "Find New Customers", url: "/customers/find" },
+      { title: "Lista Clienti", url: "/customers/list" },
+      { title: "Pagina di Iscrizione", url: "/customers/signup" },
+      { title: "Programma Fedeltà", url: "/customers/loyalty" },
+      { title: "Trova Nuovi Clienti", url: "/customers/find" },
     ]
   },
   { 
     id: "messages",
-    title: "Messages & Offers", 
+    title: "Messaggi e Offerte", 
     url: "/messages", 
     icon: MessageSquare,
     submenu: [
-      { title: "Create a Promo", url: "/messages/promo" },
-      { title: "Create a Newsletter", url: "/messages/newsletter" },
-      { title: "Create a social post", url: "/messages/social" },
-      { title: "Campaign Scheduler", url: "/messages/scheduler" },
+      { title: "Crea una Promo", url: "/messages/promo" },
+      { title: "Crea una Newsletter", url: "/messages/newsletter" },
+      { title: "Crea un post social", url: "/messages/social" },
+      { title: "Pianifica Campagne", url: "/messages/scheduler" },
     ]
   },
   { 
     id: "sales",
-    title: "My Sales", 
+    title: "Le Mie Vendite", 
     url: "/sales", 
     icon: Store,
     submenu: [
-      { title: "My Results", url: "/sales/results" },
-      { title: "In-store sales", url: "/sales/in-store" },
-      { title: "Online Sales", url: "/sales/online" },
-      { title: "Reservations", url: "/sales/reservations" },
+      { title: "I Miei Risultati", url: "/sales/results" },
+      { title: "Vendite in Negozio", url: "/sales/in-store" },
+      { title: "Vendite Online", url: "/sales/online" },
+      { title: "Prenotazioni", url: "/sales/reservations" },
     ]
   },
 ];
 
 // Secondary navigation - business tools (grouped, quieter)
 const businessToolsItems = [
-  { title: "Reports", url: "/reports", icon: BarChart3 },
-  { title: "Products / Services", url: "/products", icon: Package },
-  { title: "AI tools", url: "/ai-tools", icon: Sparkles },
-  { title: "Mobile app", url: "/mobile-app", icon: Smartphone },
-  { title: "Preferences", url: "/preferences", icon: Settings },
+  { title: "Report", url: "/reports", icon: BarChart3 },
+  { title: "Prodotti / Servizi", url: "/products", icon: Package },
+  { title: "Strumenti AI", url: "/ai-tools", icon: Sparkles },
+  { title: "App Mobile", url: "/mobile-app", icon: Smartphone },
+  { title: "Preferenze", url: "/preferences", icon: Settings },
 ];
 
 // Account actions
 const accountActions = [
-  { title: "Upgrade Plan", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
-  { title: "Top Up SMS", url: "/topup", icon: CreditCard, highlight: true },
+  { title: "Upgrade Piano", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
+  { title: "Ricarica SMS", url: "/topup", icon: CreditCard, highlight: true },
 ];
 
 const bottomMenuItems = [
-  { title: "My Account", url: "/account", icon: User },
-  { title: "Language", url: "/language", icon: Globe },
+  { title: "Il Mio Account", url: "/account", icon: User },
+  { title: "Lingua", url: "/language", icon: Globe },
 ];
 
 export function AppSidebar() {
@@ -212,7 +212,7 @@ export function AppSidebar() {
           <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
             <CollapsibleTrigger asChild>
               <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                <span>Business tools</span>
+                <span>Strumenti Business</span>
                 <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
               </SidebarGroupLabel>
             </CollapsibleTrigger>
