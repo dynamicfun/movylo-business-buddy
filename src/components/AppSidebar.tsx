@@ -20,6 +20,7 @@ import {
   Check
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import {
   Sidebar,
@@ -47,80 +48,70 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const languages = [
-  { code: "it", label: "Italiano", flag: "🇮🇹" },
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-];
-
-// Primary navigation - mirrors dashboard story
-const primaryItems = [
-  { id: "home", title: "Home", url: "/", icon: Home },
-  { id: "profile", title: "Il Mio Profilo", url: "/business-info/profile", icon: Building2 },
-  { 
-    id: "customers",
-    title: "I Miei Clienti", 
-    url: "/customers", 
-    icon: Users,
-    submenu: [
-      { title: "Lista Clienti", url: "/customers/list" },
-      { title: "Pagina di Iscrizione", url: "/customers/signup" },
-      { title: "Programma Fedeltà", url: "/customers/loyalty" },
-      { title: "Trova Nuovi Clienti", url: "/customers/find" },
-    ]
-  },
-  { 
-    id: "messages",
-    title: "Messaggi e Offerte", 
-    url: "/messages", 
-    icon: MessageSquare,
-    submenu: [
-      { title: "Crea una Promo", url: "/messages/promo" },
-      { title: "Crea una Newsletter", url: "/messages/newsletter" },
-      { title: "Crea un post social", url: "/messages/social" },
-      { title: "Pianifica Campagne", url: "/messages/scheduler" },
-    ]
-  },
-  { 
-    id: "sales",
-    title: "Le Mie Vendite", 
-    url: "/sales", 
-    icon: Store,
-    submenu: [
-      { title: "I Miei Risultati", url: "/sales/results" },
-      { title: "Vendite in Negozio", url: "/sales/in-store" },
-      { title: "Vendite Online", url: "/sales/online" },
-      { title: "Prenotazioni", url: "/sales/reservations" },
-    ]
-  },
-];
-
-// Secondary navigation - business tools (grouped, quieter)
-const businessToolsItems = [
-  { title: "Report", url: "/reports", icon: BarChart3 },
-  { title: "Prodotti / Servizi", url: "/products", icon: Package },
-  { title: "Strumenti AI", url: "/ai-tools", icon: Sparkles },
-  { title: "App Mobile", url: "/mobile-app", icon: Smartphone },
-  { title: "Preferenze", url: "/preferences", icon: Settings },
-];
-
-// Account actions
-const accountActions = [
-  { title: "Upgrade Piano", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
-  { title: "Ricarica SMS", url: "/topup", icon: CreditCard, highlight: true },
-];
-
-const bottomMenuItems = [
-  { title: "Il Mio Account", url: "/account", icon: User },
-];
-
 export function AppSidebar() {
   const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("it");
   const [languageOpen, setLanguageOpen] = useState(false);
   const location = useLocation();
+  const { currentLanguage, setLanguage, t, languages } = useLanguage();
+
+  // Build navigation items using translations
+  const primaryItems = [
+    { id: "home", title: t.home, url: "/", icon: Home },
+    { id: "profile", title: t.myProfile, url: "/business-info/profile", icon: Building2 },
+    { 
+      id: "customers",
+      title: t.myCustomers, 
+      url: "/customers", 
+      icon: Users,
+      submenu: [
+        { title: t.customerList, url: "/customers/list" },
+        { title: t.signUpPage, url: "/customers/signup" },
+        { title: t.loyaltyProgram, url: "/customers/loyalty" },
+        { title: t.findNewCustomers, url: "/customers/find" },
+      ]
+    },
+    { 
+      id: "messages",
+      title: t.messagesOffers, 
+      url: "/messages", 
+      icon: MessageSquare,
+      submenu: [
+        { title: t.createPromo, url: "/messages/promo" },
+        { title: t.createNewsletter, url: "/messages/newsletter" },
+        { title: t.createSocialPost, url: "/messages/social" },
+        { title: t.scheduleCampaigns, url: "/messages/scheduler" },
+      ]
+    },
+    { 
+      id: "sales",
+      title: t.mySales, 
+      url: "/sales", 
+      icon: Store,
+      submenu: [
+        { title: t.myResults, url: "/sales/results" },
+        { title: t.inStoreSales, url: "/sales/in-store" },
+        { title: t.onlineSales, url: "/sales/online" },
+        { title: t.reservations, url: "/sales/reservations" },
+      ]
+    },
+  ];
+
+  const businessToolsItems = [
+    { title: t.reports, url: "/reports", icon: BarChart3 },
+    { title: t.productsServices, url: "/products", icon: Package },
+    { title: t.aiTools, url: "/ai-tools", icon: Sparkles },
+    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
+    { title: t.preferences, url: "/preferences", icon: Settings },
+  ];
+
+  const accountActions = [
+    { title: t.upgradePlan, url: "/upgrade", icon: ArrowUpCircle, highlight: true },
+    { title: t.topUpSms, url: "/topup", icon: CreditCard, highlight: true },
+  ];
+
+  const bottomMenuItems = [
+    { title: t.myAccount, url: "/account", icon: User },
+  ];
   
   // Determine which group should be open based on current path
   const getInitialOpenGroup = () => {
@@ -141,10 +132,9 @@ export function AppSidebar() {
     setOpenGroupId(isOpen ? groupId : null);
   };
 
-  const handleLanguageChange = (langCode: string) => {
-    setCurrentLanguage(langCode);
+  const handleLanguageChange = (langCode: typeof currentLanguage) => {
+    setLanguage(langCode);
     setLanguageOpen(false);
-    // Here you could add actual i18n logic or store preference
   };
 
   const selectedLanguage = languages.find(l => l.code === currentLanguage);
@@ -226,7 +216,7 @@ export function AppSidebar() {
           <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
             <CollapsibleTrigger asChild>
               <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                <span>Strumenti Business</span>
+                <span>{t.businessTools}</span>
                 <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
               </SidebarGroupLabel>
             </CollapsibleTrigger>
@@ -298,7 +288,7 @@ export function AppSidebar() {
                 <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground cursor-pointer">
                   <div className="flex items-center gap-3">
                     <Globe className="h-4 w-4" />
-                    <span>Lingua</span>
+                    <span>{t.language}</span>
                   </div>
                   <span className="text-xs">{selectedLanguage?.flag} {selectedLanguage?.code.toUpperCase()}</span>
                 </SidebarMenuButton>
