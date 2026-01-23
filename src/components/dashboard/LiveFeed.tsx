@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { UserPlus, Mail, Gift } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface FeedItem {
   id: string;
@@ -10,25 +11,6 @@ interface FeedItem {
   customerName?: string;
 }
 
-const feedItems: FeedItem[] = [
-  { 
-    id: "1", 
-    type: "signup", 
-    title: "Nuovo cliente",
-    description: "si è iscritto.",
-    customerName: "Carlo Mercado",
-    time: "4 ore fa" 
-  },
-  { 
-    id: "2", 
-    type: "message", 
-    title: "Aggiornamento messaggio",
-    description: "ha aperto il tuo messaggio.",
-    customerName: "Jodi Frank",
-    time: "9 ore fa" 
-  },
-];
-
 const iconMap = {
   signup: <UserPlus className="w-4 h-4 text-muted-foreground" />,
   message: <Mail className="w-4 h-4 text-muted-foreground" />,
@@ -36,6 +18,45 @@ const iconMap = {
 };
 
 export function LiveFeed() {
+  const { t, currentLanguage } = useLanguage();
+
+  // Feed items with translations
+  const feedItems: FeedItem[] = currentLanguage === "it" ? [
+    { 
+      id: "1", 
+      type: "signup", 
+      title: "Nuovo cliente",
+      description: "si è iscritto.",
+      customerName: "Carlo Mercado",
+      time: "4 ore fa" 
+    },
+    { 
+      id: "2", 
+      type: "message", 
+      title: "Aggiornamento messaggio",
+      description: "ha aperto il tuo messaggio.",
+      customerName: "Jodi Frank",
+      time: "9 ore fa" 
+    },
+  ] : [
+    { 
+      id: "1", 
+      type: "signup", 
+      title: "New customer",
+      description: "signed up.",
+      customerName: "Carlo Mercado",
+      time: "4 hours ago" 
+    },
+    { 
+      id: "2", 
+      type: "message", 
+      title: "Message update",
+      description: "opened your message.",
+      customerName: "Jodi Frank",
+      time: "9 hours ago" 
+    },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -8 }}
@@ -51,7 +72,7 @@ export function LiveFeed() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
           </span>
-          <span className="text-sm font-bold text-foreground whitespace-nowrap uppercase tracking-wide">Live</span>
+          <span className="text-sm font-bold text-foreground whitespace-nowrap uppercase tracking-wide">{t.liveFeed}</span>
         </div>
 
         <div className="h-6 w-px bg-border flex-shrink-0" />

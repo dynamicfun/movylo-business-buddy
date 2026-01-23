@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // TikTok and LinkedIn icons as custom components
 function TikTokIcon({ className }: { className?: string }) {
@@ -75,6 +76,8 @@ export function EngagementCard({
     feedback: { count: 0, total: 0 },
   },
 }: EngagementCardProps) {
+  const { t } = useLanguage();
+  
   // Check if there's any activity
   const hasActivity = !isActivationMode && (
     messages.sent > 0 || 
@@ -94,15 +97,15 @@ export function EngagementCard({
       >
         {/* Header */}
         <div className="mb-3">
-          <h2 className="text-lg font-bold text-foreground">Attività</h2>
-          <p className="text-xs text-muted-foreground">Cosa stanno facendo i clienti</p>
+          <h2 className="text-lg font-bold text-foreground">{t.engagement}</h2>
+          <p className="text-xs text-muted-foreground">{t.interactions}</p>
         </div>
 
         {/* Simple waiting message */}
         <div className="flex-1 flex flex-col items-center justify-center py-8 text-center">
           <Clock className="w-10 h-10 text-muted-foreground/40 mb-3" />
-          <p className="text-sm font-medium text-muted-foreground">In attesa di attività dei clienti</p>
-          <p className="text-xs text-muted-foreground/70 mt-1">Messaggi, contatti e visite appariranno qui.</p>
+          <p className="text-sm font-medium text-muted-foreground">{t.waitingForActivity}</p>
+          <p className="text-xs text-muted-foreground/70 mt-1">{t.messages}, {t.contacts.toLowerCase()}</p>
         </div>
 
         {/* CTA */}
@@ -110,7 +113,7 @@ export function EngagementCard({
           className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
           size="default"
         >
-          Messaggi e offerte
+          {t.messagesOffers}
           <ChevronRight className="w-4 h-4" />
         </Button>
       </motion.div>
@@ -126,8 +129,8 @@ export function EngagementCard({
     >
       {/* Header */}
       <div className="mb-3">
-        <h2 className="text-lg font-bold text-foreground">Attività</h2>
-        <p className="text-xs text-muted-foreground">Cosa stanno facendo i clienti</p>
+        <h2 className="text-lg font-bold text-foreground">{t.engagement}</h2>
+        <p className="text-xs text-muted-foreground">{t.interactions}</p>
       </div>
 
       {/* Autopilot notice */}
@@ -136,38 +139,38 @@ export function EngagementCard({
         className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3 border border-amber-200/50 hover:bg-amber-100 transition-colors cursor-pointer"
       >
         <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-        <span className="text-xs text-amber-700 font-medium">Ottieni più attività dai clienti</span>
+        <span className="text-xs text-amber-700 font-medium">{t.activateAutopilot}</span>
       </Link>
 
       <div className="flex-1 space-y-3">
         {/* Messages section */}
         <div className="bg-primary/5 rounded-xl p-3">
           <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Messaggi</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.messages}</h3>
           </div>
-          <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label="Inviati" value={messages.sent} showValue={hasActivity} />
-          <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label="Aperti" value={messages.opened} showValue={hasActivity} />
-          <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label="Cliccati" value={messages.clicked} showValue={hasActivity} />
+          <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.sent} value={messages.sent} showValue={hasActivity} />
+          <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.opened} value={messages.opened} showValue={hasActivity} />
+          <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.clicked} value={messages.clicked} showValue={hasActivity} />
         </div>
 
         {/* Contacts received */}
         <div className="bg-accent/5 rounded-xl p-3">
           <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Contatti ricevuti</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.contacts}</h3>
           </div>
-          <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label="Chiamate" value={contacts.calls} showValue={hasActivity} />
-          <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label="Email" value={contacts.email} showValue={hasActivity} />
-          <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label="WhatsApp" value={contacts.whatsapp} showValue={hasActivity} />
+          <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.calls} value={contacts.calls} showValue={hasActivity} />
+          <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.email} value={contacts.email} showValue={hasActivity} />
+          <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.whatsapp} value={contacts.whatsapp} showValue={hasActivity} />
         </div>
 
         {/* Social clicks */}
         <div className="bg-primary/5 rounded-xl p-3">
           <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Click social</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.socialClicks}</h3>
           </div>
-          <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label="Facebook" value={socialClicks.facebook} showValue={hasActivity} />
-          <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label="Instagram" value={socialClicks.instagram} showValue={hasActivity} />
-          <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label="Google" value={socialClicks.google} showValue={hasActivity} />
+          <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.facebook} value={socialClicks.facebook} showValue={hasActivity} />
+          <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.instagram} value={socialClicks.instagram} showValue={hasActivity} />
+          <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.google} value={socialClicks.google} showValue={hasActivity} />
           <MetricRow icon={<TikTokIcon className="w-3.5 h-3.5" />} iconColor="text-foreground" label="TikTok" value={socialClicks.tiktok} showValue={hasActivity} />
           <MetricRow icon={<LinkedInIcon className="w-3.5 h-3.5" />} iconColor="text-primary" label="LinkedIn" value={socialClicks.linkedin} showValue={hasActivity} />
         </div>
@@ -175,10 +178,10 @@ export function EngagementCard({
         {/* Interactions */}
         <div className="bg-accent/5 rounded-xl p-3">
           <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Interazioni</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.interactions}</h3>
           </div>
-          <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label="Recensioni" value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
-          <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label="Feedback" value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
+          <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.reviews} value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
+          <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.feedback} value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
         </div>
       </div>
 
@@ -187,7 +190,7 @@ export function EngagementCard({
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
       >
-        Messaggi e offerte
+        {t.messagesOffers}
         <ChevronRight className="w-4 h-4" />
       </Button>
     </motion.div>

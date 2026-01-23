@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Tag, Store, ShoppingCart, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GrowthIndicator } from "./GrowthIndicator";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface MetricRowProps {
   icon: React.ReactNode;
@@ -48,6 +49,8 @@ interface SteadyStateProps {
 type SalesCardProps = ActivationModeProps | SteadyStateProps;
 
 export function SalesCard(props: SalesCardProps) {
+  const { t } = useLanguage();
+  
   // Check if we're in steady state mode
   if (props.isActivationMode === false) {
     const { downloadedCoupons, inStoreSales, onlineSales, reservations } = props;
@@ -62,10 +65,10 @@ export function SalesCard(props: SalesCardProps) {
         {/* Header */}
         <div className="mb-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-foreground">Le Mie Vendite</h2>
-            <span className="text-xs text-muted-foreground">ultimi 30 giorni</span>
+            <h2 className="text-lg font-bold text-foreground">{t.mySales}</h2>
+            <span className="text-xs text-muted-foreground">30 days</span>
           </div>
-          <p className="text-xs text-muted-foreground">Vendite generate per te</p>
+          <p className="text-xs text-muted-foreground">{t.sales}</p>
         </div>
 
         {/* Main value highlight */}
@@ -74,7 +77,7 @@ export function SalesCard(props: SalesCardProps) {
             <Tag className="w-4 h-4 text-emerald-600" />
             <span className="text-xl font-bold text-foreground">{downloadedCoupons}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Offerte scaricate</p>
+          <p className="text-xs text-muted-foreground">{t.downloadedCoupons}</p>
         </div>
 
         {/* Metrics */}
@@ -82,23 +85,23 @@ export function SalesCard(props: SalesCardProps) {
           <MetricRow 
             icon={<Store className="w-3.5 h-3.5" />} 
             iconColor="text-blue-500" 
-            label="Vendite in negozio" 
+            label={t.inStore} 
             value={inStoreSales.value}
-            subValue={`${inStoreSales.closed} chiuse`}
+            subValue={`${inStoreSales.closed} ${t.closed.toLowerCase()}`}
           />
           <MetricRow 
             icon={<ShoppingCart className="w-3.5 h-3.5" />} 
             iconColor="text-violet-500" 
-            label="Vendite online" 
+            label={t.online} 
             value={onlineSales.value}
-            subValue={`${onlineSales.closed} chiuse`}
+            subValue={`${onlineSales.closed} ${t.closed.toLowerCase()}`}
           />
           <MetricRow 
             icon={<CalendarCheck className="w-3.5 h-3.5" />} 
             iconColor="text-amber-500" 
-            label="Prenotazioni" 
+            label={t.reservations} 
             value={reservations.value}
-            subValue={`${reservations.covers} coperti`}
+            subValue={`${reservations.covers} ${t.covers.toLowerCase()}`}
           />
         </div>
 
@@ -107,7 +110,7 @@ export function SalesCard(props: SalesCardProps) {
           className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
           size="default"
         >
-          Vendi
+          {t.createOffer}
           <ChevronRight className="w-4 h-4" />
         </Button>
       </motion.div>
@@ -124,15 +127,15 @@ export function SalesCard(props: SalesCardProps) {
     >
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-lg font-bold text-foreground">Le Mie Vendite</h2>
-        <p className="text-xs text-muted-foreground">Vendite generate per te</p>
+        <h2 className="text-lg font-bold text-foreground">{t.mySales}</h2>
+        <p className="text-xs text-muted-foreground">{t.sales}</p>
       </div>
 
       {/* Simplified placeholder */}
       <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
         <ShoppingCart className="w-10 h-10 text-muted-foreground/40 mb-3" />
-        <p className="text-sm font-medium text-muted-foreground">Nessuna vendita ancora</p>
-        <p className="text-xs text-muted-foreground/70 mt-1">Quando avverrà la tua prima vendita, apparirà qui.</p>
+        <p className="text-sm font-medium text-muted-foreground">{t.noRecentActivity}</p>
+        <p className="text-xs text-muted-foreground/70 mt-1">{t.sales}</p>
       </div>
 
       {/* CTA */}
@@ -140,7 +143,7 @@ export function SalesCard(props: SalesCardProps) {
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
       >
-        Vendi
+        {t.createOffer}
         <ChevronRight className="w-4 h-4" />
       </Button>
     </motion.div>

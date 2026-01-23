@@ -13,6 +13,7 @@ import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Sample data for steady state preview
 const sampleActivityData = {
@@ -61,6 +62,7 @@ const sampleCustomerData = {
 
 const Index = () => {
   const [showSteadyState, setShowSteadyState] = useState(true);
+  const { t } = useLanguage();
 
   return (
     <SidebarProvider>
@@ -93,7 +95,7 @@ const Index = () => {
                     onCheckedChange={setShowSteadyState}
                   />
                   <Label htmlFor="preview-mode" className="text-xs text-muted-foreground cursor-pointer hidden sm:inline">
-                    {showSteadyState ? "Stato normale" : "Nuovo utente"}
+                    {showSteadyState ? t.steadyState : t.newUser}
                   </Label>
                 </div>
                 {/* Show QuickActions only in steady state */}
