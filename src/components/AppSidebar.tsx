@@ -44,15 +44,7 @@ import {
 // Primary navigation - mirrors dashboard story
 const primaryItems = [
   { id: "home", title: "Home", url: "/", icon: Home },
-  { 
-    id: "business-info",
-    title: "La Mia Attività", 
-    url: "/business-info", 
-    icon: Building2,
-    submenu: [
-      { title: "Il Mio Profilo", url: "/business-info/profile" },
-    ]
-  },
+  { id: "profile", title: "Il Mio Profilo", url: "/business-info/profile", icon: Building2 },
   { 
     id: "customers",
     title: "I Miei Clienti", 
