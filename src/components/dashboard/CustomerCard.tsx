@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown } from "lucide-react";
+import { Globe, Facebook, Instagram, MessageCircle, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CustomerSource {
@@ -70,6 +70,10 @@ export function CustomerCard({
       navigate("/sources/instagram");
       return;
     }
+    if (sourceKey === "google") {
+      navigate("/business-info/google-profile");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
@@ -77,10 +81,11 @@ export function CustomerCard({
     }
   };
 
-  // Default collapsed sources (first 4) - reordered: Share link, QR codes, Facebook, Instagram
+  // Default collapsed sources (first 5) - reordered: Share link, QR codes, Google, Facebook, Instagram
   const collapsedSourceItems: CustomerSource[] = [
     { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Condividi il tuo link", count: sources.website, sourceKey: "website" },
     { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "Codici QR", count: sources.qrCodes, sourceKey: "qr-codes" },
+    { icon: <MapPin className="w-4 h-4" />, iconColor: "text-red-500", label: "Google", count: null, sourceKey: "google" },
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
   ];
@@ -89,6 +94,7 @@ export function CustomerCard({
   const allSourceItems: CustomerSource[] = [
     { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: "Condividi il tuo link", count: sources.website, sourceKey: "website" },
     { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: "Codici QR", count: sources.qrCodes, sourceKey: "qr-codes" },
+    { icon: <MapPin className="w-4 h-4" />, iconColor: "text-red-500", label: "Google", count: null, sourceKey: "google" },
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: "Facebook", count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: "Instagram", count: sources.instagram, sourceKey: "instagram" },
     { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-green-500", label: "WhatsApp", count: sources.whatsapp, sourceKey: "whatsapp" },
