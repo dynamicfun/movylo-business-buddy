@@ -16,7 +16,8 @@ import {
   Store,
   Building2,
   ArrowUpCircle,
-  CreditCard
+  CreditCard,
+  Check
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -40,6 +41,19 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+const languages = [
+  { code: "it", label: "Italiano", flag: "🇮🇹" },
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+];
 
 // Primary navigation - mirrors dashboard story
 const primaryItems = [
@@ -100,11 +114,12 @@ const accountActions = [
 
 const bottomMenuItems = [
   { title: "Il Mio Account", url: "/account", icon: User },
-  { title: "Lingua", url: "/language", icon: Globe },
 ];
 
 export function AppSidebar() {
   const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState("it");
+  const [languageOpen, setLanguageOpen] = useState(false);
   const location = useLocation();
   
   // Determine which group should be open based on current path
@@ -125,6 +140,14 @@ export function AppSidebar() {
     // Accordion behavior: only one group open at a time
     setOpenGroupId(isOpen ? groupId : null);
   };
+
+  const handleLanguageChange = (langCode: string) => {
+    setCurrentLanguage(langCode);
+    setLanguageOpen(false);
+    // Here you could add actual i18n logic or store preference
+  };
+
+  const selectedLanguage = languages.find(l => l.code === currentLanguage);
 
   return (
     <Sidebar className="border-r border-border">
@@ -267,6 +290,44 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+          
+          {/* Language Selector */}
+          <SidebarMenuItem>
+            <Popover open={languageOpen} onOpenChange={setLanguageOpen}>
+              <PopoverTrigger asChild>
+                <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground cursor-pointer">
+                  <div className="flex items-center gap-3">
+                    <Globe className="h-4 w-4" />
+                    <span>Lingua</span>
+                  </div>
+                  <span className="text-xs">{selectedLanguage?.flag} {selectedLanguage?.code.toUpperCase()}</span>
+                </SidebarMenuButton>
+              </PopoverTrigger>
+              <PopoverContent 
+                side="right" 
+                align="end" 
+                className="w-48 p-1 bg-popover border border-border shadow-lg z-50"
+              >
+                <div className="flex flex-col">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => handleLanguageChange(lang.code)}
+                      className="flex items-center justify-between px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors text-left"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span>{lang.flag}</span>
+                        <span>{lang.label}</span>
+                      </div>
+                      {currentLanguage === lang.code && (
+                        <Check className="h-4 w-4 text-primary" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
