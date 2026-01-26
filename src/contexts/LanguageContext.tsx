@@ -50,8 +50,9 @@ interface Translations {
   google: string;
   addCustomers: string;
   waitingForActivity: string;
-  // Engagement Card
-  engagement: string;
+  // Activity Card
+  activity: string;
+  activitySubtitle: string;
   messages: string;
   sent: string;
   opened: string;
@@ -63,7 +64,7 @@ interface Translations {
   interactions: string;
   reviews: string;
   feedback: string;
-  activateAutopilot: string;
+  getMoreActivity: string;
   // Sales Card
   sales: string;
   downloadedCoupons: string;
@@ -126,8 +127,9 @@ const translations: Record<LanguageCode, Translations> = {
     google: "Google",
     addCustomers: "Aggiungi clienti",
     waitingForActivity: "In attesa di attività dei clienti",
-    // Engagement Card
-    engagement: "Engagement",
+    // Activity Card
+    activity: "Attività",
+    activitySubtitle: "Come interagiscono i tuoi clienti",
     messages: "Messaggi",
     sent: "Inviati",
     opened: "Aperti",
@@ -139,7 +141,7 @@ const translations: Record<LanguageCode, Translations> = {
     interactions: "Interazioni",
     reviews: "Recensioni",
     feedback: "Feedback",
-    activateAutopilot: "Attiva Autopilot",
+    getMoreActivity: "Ottieni più attività dai clienti",
     // Sales Card
     sales: "Vendite",
     downloadedCoupons: "Coupon Scaricati",
@@ -200,8 +202,9 @@ const translations: Record<LanguageCode, Translations> = {
     google: "Google",
     addCustomers: "Add customers",
     waitingForActivity: "Waiting for customer activity",
-    // Engagement Card
-    engagement: "Engagement",
+    // Activity Card
+    activity: "Activity",
+    activitySubtitle: "How your customers engage",
     messages: "Messages",
     sent: "Sent",
     opened: "Opened",
@@ -213,7 +216,7 @@ const translations: Record<LanguageCode, Translations> = {
     interactions: "Interactions",
     reviews: "Reviews",
     feedback: "Feedback",
-    activateAutopilot: "Activate Autopilot",
+    getMoreActivity: "Get more customer activity",
     // Sales Card
     sales: "Sales",
     downloadedCoupons: "Downloaded Coupons",
@@ -274,8 +277,9 @@ const translations: Record<LanguageCode, Translations> = {
     google: "Google",
     addCustomers: "Agregar clientes",
     waitingForActivity: "Esperando actividad de clientes",
-    // Engagement Card
-    engagement: "Engagement",
+    // Activity Card
+    activity: "Actividad",
+    activitySubtitle: "Cómo interactúan tus clientes",
     messages: "Mensajes",
     sent: "Enviados",
     opened: "Abiertos",
@@ -287,7 +291,7 @@ const translations: Record<LanguageCode, Translations> = {
     interactions: "Interacciones",
     reviews: "Reseñas",
     feedback: "Feedback",
-    activateAutopilot: "Activar Autopilot",
+    getMoreActivity: "Obtén más actividad de clientes",
     // Sales Card
     sales: "Ventas",
     downloadedCoupons: "Cupones Descargados",
@@ -348,8 +352,9 @@ const translations: Record<LanguageCode, Translations> = {
     google: "Google",
     addCustomers: "Ajouter des clients",
     waitingForActivity: "En attente d'activité des clients",
-    // Engagement Card
-    engagement: "Engagement",
+    // Activity Card
+    activity: "Activité",
+    activitySubtitle: "Comment vos clients interagissent",
     messages: "Messages",
     sent: "Envoyés",
     opened: "Ouverts",
@@ -361,7 +366,7 @@ const translations: Record<LanguageCode, Translations> = {
     interactions: "Interactions",
     reviews: "Avis",
     feedback: "Feedback",
-    activateAutopilot: "Activer Autopilot",
+    getMoreActivity: "Obtenez plus d'activité clients",
     // Sales Card
     sales: "Ventes",
     downloadedCoupons: "Coupons Téléchargés",
@@ -422,8 +427,9 @@ const translations: Record<LanguageCode, Translations> = {
     google: "Google",
     addCustomers: "Kunden hinzufügen",
     waitingForActivity: "Warte auf Kundenaktivität",
-    // Engagement Card
-    engagement: "Engagement",
+    // Activity Card
+    activity: "Aktivität",
+    activitySubtitle: "Wie Ihre Kunden interagieren",
     messages: "Nachrichten",
     sent: "Gesendet",
     opened: "Geöffnet",
@@ -435,7 +441,7 @@ const translations: Record<LanguageCode, Translations> = {
     interactions: "Interaktionen",
     reviews: "Bewertungen",
     feedback: "Feedback",
-    activateAutopilot: "Autopilot aktivieren",
+    getMoreActivity: "Mehr Kundenaktivität erhalten",
     // Sales Card
     sales: "Verkäufe",
     downloadedCoupons: "Heruntergeladene Coupons",

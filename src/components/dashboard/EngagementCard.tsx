@@ -97,8 +97,8 @@ export function EngagementCard({
       >
         {/* Header */}
         <div className="mb-3">
-          <h2 className="text-lg font-bold text-foreground">{t.engagement}</h2>
-          <p className="text-xs text-muted-foreground">{t.interactions}</p>
+          <h2 className="text-lg font-bold text-foreground">{t.activity}</h2>
+          <p className="text-xs text-muted-foreground">{t.activitySubtitle}</p>
         </div>
 
         {/* Simple waiting message */}
@@ -129,8 +129,8 @@ export function EngagementCard({
     >
       {/* Header */}
       <div className="mb-3">
-        <h2 className="text-lg font-bold text-foreground">{t.engagement}</h2>
-        <p className="text-xs text-muted-foreground">{t.interactions}</p>
+        <h2 className="text-lg font-bold text-foreground">{t.activity}</h2>
+        <p className="text-xs text-muted-foreground">{t.activitySubtitle}</p>
       </div>
 
       {/* Autopilot notice */}
@@ -139,7 +139,7 @@ export function EngagementCard({
         className="flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-3 border border-amber-200/50 hover:bg-amber-100 transition-colors cursor-pointer"
       >
         <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-        <span className="text-xs text-amber-700 font-medium">{t.activateAutopilot}</span>
+        <span className="text-xs text-amber-700 font-medium">{t.getMoreActivity}</span>
       </Link>
 
       <div className="flex-1 space-y-3">
