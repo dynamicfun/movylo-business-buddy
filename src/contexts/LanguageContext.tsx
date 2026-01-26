@@ -7,6 +7,7 @@ interface Translations {
   home: string;
   myProfile: string;
   myCustomers: string;
+  customersSubtitle: string;
   customerList: string;
   signUpPage: string;
   loyaltyProgram: string;
@@ -17,6 +18,7 @@ interface Translations {
   createSocialPost: string;
   scheduleCampaigns: string;
   mySales: string;
+  salesSubtitle: string;
   myResults: string;
   inStoreSales: string;
   onlineSales: string;
@@ -34,6 +36,7 @@ interface Translations {
   // Dashboard
   steadyState: string;
   newUser: string;
+  last30Days: string;
   // Customer Card
   customers: string;
   newCustomers: string;
@@ -65,9 +68,10 @@ interface Translations {
   reviews: string;
   feedback: string;
   getMoreActivity: string;
+  activityWillAppear: string;
   // Sales Card
   sales: string;
-  downloadedCoupons: string;
+  downloadedOffers: string;
   inStore: string;
   online: string;
   closed: string;
@@ -84,6 +88,7 @@ const translations: Record<LanguageCode, Translations> = {
     home: "Home",
     myProfile: "Il Mio Profilo",
     myCustomers: "I Miei Clienti",
+    customersSubtitle: "Clienti connessi alla tua attività",
     customerList: "Lista Clienti",
     signUpPage: "Pagina di Iscrizione",
     loyaltyProgram: "Programma Fedeltà",
@@ -94,6 +99,7 @@ const translations: Record<LanguageCode, Translations> = {
     createSocialPost: "Crea un post social",
     scheduleCampaigns: "Pianifica Campagne",
     mySales: "Le Mie Vendite",
+    salesSubtitle: "Vendite generate per te",
     myResults: "I Miei Risultati",
     inStoreSales: "Vendite in Negozio",
     onlineSales: "Vendite Online",
@@ -111,6 +117,7 @@ const translations: Record<LanguageCode, Translations> = {
     // Dashboard
     steadyState: "Stato normale",
     newUser: "Nuovo utente",
+    last30Days: "ultimi 30 giorni",
     // Customer Card
     customers: "Clienti",
     newCustomers: "Nuovi Clienti",
@@ -129,7 +136,7 @@ const translations: Record<LanguageCode, Translations> = {
     waitingForActivity: "In attesa di attività dei clienti",
     // Activity Card
     activity: "Attività",
-    activitySubtitle: "Come interagiscono i tuoi clienti",
+    activitySubtitle: "Cosa fanno i tuoi clienti",
     messages: "Messaggi",
     sent: "Inviati",
     opened: "Aperti",
@@ -142,9 +149,10 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Recensioni",
     feedback: "Feedback",
     getMoreActivity: "Ottieni più attività dai clienti",
+    activityWillAppear: "Messaggi, contatti e visite appariranno qui",
     // Sales Card
     sales: "Vendite",
-    downloadedCoupons: "Coupon Scaricati",
+    downloadedOffers: "Offerte Scaricate",
     inStore: "In Negozio",
     online: "Online",
     closed: "Chiuse",
@@ -159,6 +167,7 @@ const translations: Record<LanguageCode, Translations> = {
     home: "Home",
     myProfile: "My Profile",
     myCustomers: "My Customers",
+    customersSubtitle: "Customers connected to your business",
     customerList: "Customer List",
     signUpPage: "Sign Up Page",
     loyaltyProgram: "Loyalty Program",
@@ -169,6 +178,7 @@ const translations: Record<LanguageCode, Translations> = {
     createSocialPost: "Create a social post",
     scheduleCampaigns: "Schedule Campaigns",
     mySales: "My Sales",
+    salesSubtitle: "Sales generated for you",
     myResults: "My Results",
     inStoreSales: "In-Store Sales",
     onlineSales: "Online Sales",
@@ -184,8 +194,9 @@ const translations: Record<LanguageCode, Translations> = {
     myAccount: "My Account",
     language: "Language",
     // Dashboard
-    steadyState: "Steady state",
-    newUser: "New user",
+    steadyState: "Steady State",
+    newUser: "New User",
+    last30Days: "last 30 days",
     // Customer Card
     customers: "Customers",
     newCustomers: "New Customers",
@@ -204,7 +215,7 @@ const translations: Record<LanguageCode, Translations> = {
     waitingForActivity: "Waiting for customer activity",
     // Activity Card
     activity: "Activity",
-    activitySubtitle: "How your customers engage",
+    activitySubtitle: "What customers are doing",
     messages: "Messages",
     sent: "Sent",
     opened: "Opened",
@@ -217,9 +228,10 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Reviews",
     feedback: "Feedback",
     getMoreActivity: "Get more customer activity",
+    activityWillAppear: "Messages, contacts, and visits will appear here",
     // Sales Card
     sales: "Sales",
-    downloadedCoupons: "Downloaded Coupons",
+    downloadedOffers: "Downloaded offers",
     inStore: "In-Store",
     online: "Online",
     closed: "Closed",
@@ -234,6 +246,7 @@ const translations: Record<LanguageCode, Translations> = {
     home: "Inicio",
     myProfile: "Mi Perfil",
     myCustomers: "Mis Clientes",
+    customersSubtitle: "Clientes conectados a tu negocio",
     customerList: "Lista de Clientes",
     signUpPage: "Página de Registro",
     loyaltyProgram: "Programa de Fidelidad",
@@ -244,6 +257,7 @@ const translations: Record<LanguageCode, Translations> = {
     createSocialPost: "Crear un post social",
     scheduleCampaigns: "Programar Campañas",
     mySales: "Mis Ventas",
+    salesSubtitle: "Ventas generadas para ti",
     myResults: "Mis Resultados",
     inStoreSales: "Ventas en Tienda",
     onlineSales: "Ventas Online",
@@ -261,6 +275,7 @@ const translations: Record<LanguageCode, Translations> = {
     // Dashboard
     steadyState: "Estado normal",
     newUser: "Nuevo usuario",
+    last30Days: "últimos 30 días",
     // Customer Card
     customers: "Clientes",
     newCustomers: "Nuevos Clientes",
@@ -279,7 +294,7 @@ const translations: Record<LanguageCode, Translations> = {
     waitingForActivity: "Esperando actividad de clientes",
     // Activity Card
     activity: "Actividad",
-    activitySubtitle: "Cómo interactúan tus clientes",
+    activitySubtitle: "Qué están haciendo tus clientes",
     messages: "Mensajes",
     sent: "Enviados",
     opened: "Abiertos",
@@ -292,9 +307,10 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Reseñas",
     feedback: "Feedback",
     getMoreActivity: "Obtén más actividad de clientes",
+    activityWillAppear: "Mensajes, contactos y visitas aparecerán aquí",
     // Sales Card
     sales: "Ventas",
-    downloadedCoupons: "Cupones Descargados",
+    downloadedOffers: "Ofertas descargadas",
     inStore: "En Tienda",
     online: "Online",
     closed: "Cerradas",
@@ -309,6 +325,7 @@ const translations: Record<LanguageCode, Translations> = {
     home: "Accueil",
     myProfile: "Mon Profil",
     myCustomers: "Mes Clients",
+    customersSubtitle: "Clients connectés à votre entreprise",
     customerList: "Liste des Clients",
     signUpPage: "Page d'Inscription",
     loyaltyProgram: "Programme de Fidélité",
@@ -319,6 +336,7 @@ const translations: Record<LanguageCode, Translations> = {
     createSocialPost: "Créer un post social",
     scheduleCampaigns: "Planifier des Campagnes",
     mySales: "Mes Ventes",
+    salesSubtitle: "Ventes générées pour vous",
     myResults: "Mes Résultats",
     inStoreSales: "Ventes en Magasin",
     onlineSales: "Ventes en Ligne",
@@ -336,6 +354,7 @@ const translations: Record<LanguageCode, Translations> = {
     // Dashboard
     steadyState: "État normal",
     newUser: "Nouvel utilisateur",
+    last30Days: "30 derniers jours",
     // Customer Card
     customers: "Clients",
     newCustomers: "Nouveaux Clients",
@@ -354,7 +373,7 @@ const translations: Record<LanguageCode, Translations> = {
     waitingForActivity: "En attente d'activité des clients",
     // Activity Card
     activity: "Activité",
-    activitySubtitle: "Comment vos clients interagissent",
+    activitySubtitle: "Ce que font vos clients",
     messages: "Messages",
     sent: "Envoyés",
     opened: "Ouverts",
@@ -367,9 +386,10 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Avis",
     feedback: "Feedback",
     getMoreActivity: "Obtenez plus d'activité clients",
+    activityWillAppear: "Messages, contacts et visites apparaîtront ici",
     // Sales Card
     sales: "Ventes",
-    downloadedCoupons: "Coupons Téléchargés",
+    downloadedOffers: "Offres téléchargées",
     inStore: "En Magasin",
     online: "En Ligne",
     closed: "Fermées",
@@ -384,6 +404,7 @@ const translations: Record<LanguageCode, Translations> = {
     home: "Startseite",
     myProfile: "Mein Profil",
     myCustomers: "Meine Kunden",
+    customersSubtitle: "Kunden, die mit Ihrem Unternehmen verbunden sind",
     customerList: "Kundenliste",
     signUpPage: "Anmeldeseite",
     loyaltyProgram: "Treueprogramm",
@@ -394,6 +415,7 @@ const translations: Record<LanguageCode, Translations> = {
     createSocialPost: "Social Post erstellen",
     scheduleCampaigns: "Kampagnen planen",
     mySales: "Meine Verkäufe",
+    salesSubtitle: "Für Sie generierte Verkäufe",
     myResults: "Meine Ergebnisse",
     inStoreSales: "Verkäufe im Geschäft",
     onlineSales: "Online-Verkäufe",
@@ -411,6 +433,7 @@ const translations: Record<LanguageCode, Translations> = {
     // Dashboard
     steadyState: "Normaler Zustand",
     newUser: "Neuer Benutzer",
+    last30Days: "letzte 30 Tage",
     // Customer Card
     customers: "Kunden",
     newCustomers: "Neue Kunden",
@@ -429,7 +452,7 @@ const translations: Record<LanguageCode, Translations> = {
     waitingForActivity: "Warte auf Kundenaktivität",
     // Activity Card
     activity: "Aktivität",
-    activitySubtitle: "Wie Ihre Kunden interagieren",
+    activitySubtitle: "Was Ihre Kunden tun",
     messages: "Nachrichten",
     sent: "Gesendet",
     opened: "Geöffnet",
@@ -442,9 +465,10 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Bewertungen",
     feedback: "Feedback",
     getMoreActivity: "Mehr Kundenaktivität erhalten",
+    activityWillAppear: "Nachrichten, Kontakte und Besuche werden hier angezeigt",
     // Sales Card
     sales: "Verkäufe",
-    downloadedCoupons: "Heruntergeladene Coupons",
+    downloadedOffers: "Heruntergeladene Angebote",
     inStore: "Im Geschäft",
     online: "Online",
     closed: "Geschlossen",
