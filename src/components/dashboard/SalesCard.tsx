@@ -66,9 +66,9 @@ export function SalesCard(props: SalesCardProps) {
         <div className="mb-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-foreground">{t.mySales}</h2>
-            <span className="text-xs text-muted-foreground">30 days</span>
+            <span className="text-xs text-muted-foreground">{t.last30Days}</span>
           </div>
-          <p className="text-xs text-muted-foreground">{t.sales}</p>
+          <p className="text-xs text-muted-foreground">{t.salesSubtitle}</p>
         </div>
 
         {/* Main value highlight */}
@@ -77,7 +77,7 @@ export function SalesCard(props: SalesCardProps) {
             <Tag className="w-4 h-4 text-emerald-600" />
             <span className="text-xl font-bold text-foreground">{downloadedCoupons}</span>
           </div>
-          <p className="text-xs text-muted-foreground">{t.downloadedCoupons}</p>
+          <p className="text-xs text-muted-foreground">{t.downloadedOffers}</p>
         </div>
 
         {/* Metrics */}
@@ -128,7 +128,7 @@ export function SalesCard(props: SalesCardProps) {
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-foreground">{t.mySales}</h2>
-        <p className="text-xs text-muted-foreground">{t.sales}</p>
+        <p className="text-xs text-muted-foreground">{t.salesSubtitle}</p>
       </div>
 
       {/* Simplified placeholder */}

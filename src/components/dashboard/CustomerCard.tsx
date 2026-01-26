@@ -119,7 +119,7 @@ export function CustomerCard({
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-foreground">{t.myCustomers}</h2>
-        <p className="text-xs text-muted-foreground">{t.customers}</p>
+        <p className="text-xs text-muted-foreground">{t.customersSubtitle}</p>
       </div>
 
       {/* Stats row */}
