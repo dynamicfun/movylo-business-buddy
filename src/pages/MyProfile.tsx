@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,10 +18,8 @@ import {
   ChevronDown,
   Plus,
   Trash2,
-  Twitter,
-  ArrowLeft
+  Twitter
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import {
   Collapsible,
   CollapsibleContent,
@@ -37,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 
 const businessCategories = [
   "Restaurant",
@@ -82,31 +79,25 @@ const MyProfile = () => {
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
-        <AppSidebar />
-        
-        <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            {/* Header - consistent with other pages */}
-            <div className="flex items-center gap-4 mb-6">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">My Business Profile</h1>
-                <p className="text-sm text-muted-foreground">Manage your business information</p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              {/* SECTION 1 — Business Identity */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Building2 className="h-5 w-5 text-primary" />
-                    Business Identity
-                  </CardTitle>
+    <InnerPageTemplate
+      title="My Business Profile"
+      subtitle="Manage your business information"
+      icon={Building2}
+      whyDescription="Your business profile is the foundation of how customers perceive you. Complete and accurate information builds trust and makes it easier for customers to find and connect with you."
+      whatToExpectItems={[
+        "Fill in your basic business details and contact information",
+        "Set your business hours so customers know when you're available",
+        "Add your locations and social media links"
+      ]}
+      whatToDoDescription="Complete each section below. Don't worry — you can always come back and update your information later."
+    >
+      {/* SECTION 1 — Business Identity */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Building2 className="h-5 w-5 text-primary" />
+            Business Identity
+          </CardTitle>
                   <CardDescription>Who you are</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -388,19 +379,15 @@ const MyProfile = () => {
                     </CardContent>
                   </CollapsibleContent>
                 </Card>
-              </Collapsible>
+      </Collapsible>
 
-              {/* SECTION 7 — Save */}
-              <div className="flex justify-end pt-4 pb-8">
-                <Button size="lg" className="px-8">
-                  Save changes
-                </Button>
-              </div>
-            </div>
-          </div>
-        </main>
+      {/* SECTION 7 — Save */}
+      <div className="flex justify-end pt-4 pb-8">
+        <Button size="lg" className="px-8">
+          Save changes
+        </Button>
       </div>
-    </SidebarProvider>
+    </InnerPageTemplate>
   );
 };
 
