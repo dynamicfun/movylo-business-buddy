@@ -80,6 +80,9 @@ interface Translations {
   // Live Feed
   liveFeed: string;
   noRecentActivity: string;
+  // Quick Actions
+  checkCoupon: string;
+  assignLoyaltyPoints: string;
 }
 
 const translations: Record<LanguageCode, Translations> = {
@@ -161,6 +164,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Live Feed
     liveFeed: "Live Feed",
     noRecentActivity: "Nessuna attività recente",
+    // Quick Actions
+    checkCoupon: "Verifica Coupon",
+    assignLoyaltyPoints: "Assegna Punti/Premi",
   },
   en: {
     // Sidebar
@@ -240,6 +246,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Live Feed
     liveFeed: "Live Feed",
     noRecentActivity: "No recent activity",
+    // Quick Actions
+    checkCoupon: "Check Coupon",
+    assignLoyaltyPoints: "Assign Loyalty Points",
   },
   es: {
     // Sidebar
@@ -319,6 +328,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Live Feed
     liveFeed: "Feed en Vivo",
     noRecentActivity: "Sin actividad reciente",
+    // Quick Actions
+    checkCoupon: "Verificar Cupón",
+    assignLoyaltyPoints: "Asignar Puntos/Premios",
   },
   fr: {
     // Sidebar
@@ -398,6 +410,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Live Feed
     liveFeed: "Flux en Direct",
     noRecentActivity: "Aucune activité récente",
+    // Quick Actions
+    checkCoupon: "Vérifier Coupon",
+    assignLoyaltyPoints: "Attribuer Points/Récompenses",
   },
   de: {
     // Sidebar
@@ -477,6 +492,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Live Feed
     liveFeed: "Live-Feed",
     noRecentActivity: "Keine aktuelle Aktivität",
+    // Quick Actions
+    checkCoupon: "Coupon prüfen",
+    assignLoyaltyPoints: "Punkte/Prämien zuweisen",
   },
 };
 
