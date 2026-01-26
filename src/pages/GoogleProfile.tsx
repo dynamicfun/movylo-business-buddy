@@ -35,7 +35,7 @@ const GoogleProfile = () => {
         <AppSidebar />
         
         <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">

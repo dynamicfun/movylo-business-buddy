@@ -34,6 +34,10 @@ import {
   Copy,
   ExternalLink,
   ArrowLeft,
+  CalendarDays,
+  BookOpen,
+  MessageCircle,
+  CalendarX,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -72,7 +76,7 @@ const Reservations = () => {
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         <main className="flex-1 overflow-auto">
-          <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
+          <div className="max-w-[1200px] mx-auto px-4 py-8 space-y-6">
             {/* Page Header */}
             <motion.header
               initial={{ opacity: 0, y: -10 }}
@@ -126,6 +130,53 @@ const Reservations = () => {
                   transition={{ duration: 0.3 }}
                   className="space-y-6"
                 >
+                  {/* Quick Action Buttons - Very Visible */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Button 
+                      variant="outline" 
+                      className="h-auto py-4 flex flex-col items-center gap-2 border-2 border-primary/30 bg-primary/5 hover:bg-primary/10"
+                    >
+                      <CalendarDays className="h-6 w-6 text-primary" />
+                      <span className="font-medium">See your calendar</span>
+                      <span className="text-xs text-muted-foreground">Where reservations are</span>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="h-auto py-4 flex flex-col items-center gap-2 border-2 border-border hover:bg-muted/50"
+                      asChild
+                    >
+                      <a href="https://help.movylo.com/reservations" target="_blank" rel="noopener noreferrer">
+                        <BookOpen className="h-6 w-6 text-muted-foreground" />
+                        <span className="font-medium">How to configure it</span>
+                        <span className="text-xs text-muted-foreground">Step-by-step guide</span>
+                      </a>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="h-auto py-4 flex flex-col items-center gap-2 border-2 border-accent/50 bg-accent/5 hover:bg-accent/10"
+                    >
+                      <MessageCircle className="h-6 w-6 text-accent-foreground" />
+                      <span className="font-medium">Talk with AI</span>
+                      <span className="text-xs text-muted-foreground">Configure by voice</span>
+                    </Button>
+                  </div>
+
+                  {/* Block Specific Dates - Most Used Action, Very Visible */}
+                  <div className="bg-card border-2 border-destructive/30 rounded-xl p-6 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-destructive/10">
+                        <CalendarX className="h-6 w-6 text-destructive" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground">Block specific dates or times</h3>
+                        <p className="text-sm text-muted-foreground">Prevent bookings during holidays, events, or when you're unavailable.</p>
+                      </div>
+                      <Button variant="default" className="gap-2">
+                        <CalendarX className="h-4 w-4" />
+                        Block dates
+                      </Button>
+                    </div>
+                  </div>
                   {/* SECTION 2: Quick Setup */}
                   <div className="bg-card border border-border rounded-xl p-6 space-y-6">
                     <div className="space-y-1">
@@ -235,9 +286,6 @@ const Reservations = () => {
                           <span className="text-sm text-muted-foreground">Using your business hours.</span>
                           <Button variant="outline" size="sm">Edit availability</Button>
                         </div>
-                        <button className="text-sm text-primary hover:underline">
-                          Block specific dates or times
-                        </button>
                       </CollapsibleContent>
                     </div>
                   </Collapsible>

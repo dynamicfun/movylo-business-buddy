@@ -106,7 +106,8 @@ export default function CustomerList() {
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
-        <main className="flex-1 p-4 md:p-6 overflow-auto">
+        <main className="flex-1 overflow-auto">
+          <div className="max-w-[1200px] mx-auto p-4 md:p-6">
           {/* Header */}
           <motion.header
             initial={{ opacity: 0 }}
@@ -430,6 +431,7 @@ export default function CustomerList() {
               </TableBody>
             </Table>
           </motion.div>
+          </div>
         </main>
       </div>
     </SidebarProvider>
