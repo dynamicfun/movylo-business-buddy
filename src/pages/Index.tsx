@@ -11,7 +11,6 @@ import { SalesCard } from "@/components/dashboard/SalesCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
-import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -70,7 +69,7 @@ const Index = () => {
         <AppSidebar />
         
         <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             {/* Compact header with Live Feed prominence */}
             <motion.div 
               initial={{ opacity: 0 }}
@@ -138,9 +137,6 @@ const Index = () => {
                 </>
               )}
             </div>
-
-            {/* Footer */}
-            <DashboardFooter />
           </div>
         </main>
       </div>
