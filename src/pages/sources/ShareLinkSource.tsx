@@ -77,26 +77,24 @@ const ShareLinkSource = () => {
                       <span className="text-sm text-foreground font-mono flex-1 truncate">{businessLink}</span>
                     </div>
 
-                    {/* Share buttons - equal weight */}
+                    {/* Share buttons - with color accents */}
                     <div className="flex flex-wrap gap-3 mb-4">
                       <Button 
-                        variant="outline" 
                         onClick={handleShareWhatsApp}
-                        className="flex-1 min-w-[140px]"
+                        className="flex-1 min-w-[140px] bg-emerald-600 hover:bg-emerald-700 text-white"
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
                         Share on WhatsApp
                       </Button>
                       <Button 
-                        variant="outline" 
                         onClick={handleShareTelegram}
-                        className="flex-1 min-w-[140px]"
+                        className="flex-1 min-w-[140px] bg-sky-500 hover:bg-sky-600 text-white"
                       >
                         <Send className="h-4 w-4 mr-2" />
                         Share on Telegram
                       </Button>
                       <Button 
-                        variant="outline" 
+                        variant="outline"
                         onClick={handleCopyLink}
                         className="flex-1 min-w-[140px]"
                       >
