@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -10,6 +11,8 @@ import {
   ChevronRight
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 
@@ -103,12 +106,13 @@ function ReportCard({
 export default function ReportsIndex() {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [showData, setShowData] = useState(true);
 
   const reports = [
     {
       icon: Users,
       title: t.reportCustomers,
-      hasData: mockData.hasCustomers,
+      hasData: showData && mockData.hasCustomers,
       dataLine: `${mockData.customersCount} customers connected`,
       dataSubline: `Most joined from ${mockData.customersSources}.`,
       emptyLine: "No customers yet",
@@ -119,7 +123,7 @@ export default function ReportsIndex() {
     {
       icon: DollarSign,
       title: t.reportSales,
-      hasData: mockData.hasSales,
+      hasData: showData && mockData.hasSales,
       dataLine: `${mockData.salesAmount} in sales generated`,
       dataSubline: `Sales came mainly from ${mockData.salesSource}.`,
       emptyLine: "No sales yet",
@@ -130,7 +134,7 @@ export default function ReportsIndex() {
     {
       icon: Gift,
       title: t.reportPromotions,
-      hasData: mockData.hasPromotions,
+      hasData: showData && mockData.hasPromotions,
       dataLine: `${mockData.promotionsCount} promotions active`,
       dataSubline: mockData.promotionNote,
       emptyLine: "No promotions yet",
@@ -141,7 +145,7 @@ export default function ReportsIndex() {
     {
       icon: Mail,
       title: t.reportNewsletters,
-      hasData: mockData.hasNewsletters,
+      hasData: showData && mockData.hasNewsletters,
       dataLine: "Your last update reached customers",
       dataSubline: mockData.newsletterNote,
       emptyLine: "No updates yet",
@@ -152,7 +156,7 @@ export default function ReportsIndex() {
     {
       icon: UserPlus,
       title: t.reportContacts,
-      hasData: mockData.hasContacts,
+      hasData: showData && mockData.hasContacts,
       dataLine: `${mockData.contactsCount} new contacts received`,
       dataSubline: `Most came from ${mockData.contactsSources}.`,
       emptyLine: "No contacts yet",
@@ -163,7 +167,7 @@ export default function ReportsIndex() {
     {
       icon: Star,
       title: t.reportReviews,
-      hasData: mockData.hasFeedback,
+      hasData: showData && mockData.hasFeedback,
       dataLine: "Recent feedback is positive",
       dataSubline: mockData.feedbackNote,
       emptyLine: "No feedback yet",
@@ -175,6 +179,12 @@ export default function ReportsIndex() {
 
   return (
     <InnerPageTemplate title={t.reports} subtitle="A simple overview of what's happening in your business.">
+      <div className="flex items-center gap-2 mb-4 p-3 bg-muted/50 rounded-lg border border-dashed border-muted-foreground/30">
+        <Switch id="dev-toggle" checked={showData} onCheckedChange={setShowData} />
+        <Label htmlFor="dev-toggle" className="text-sm text-muted-foreground cursor-pointer">
+          Show data (dev toggle)
+        </Label>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {reports.map((report, index) => (
           <ReportCard
