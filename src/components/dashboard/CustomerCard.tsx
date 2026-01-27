@@ -76,6 +76,10 @@ export function CustomerCard({
       navigate("/business-info/google-profile");
       return;
     }
+    if (sourceKey === "share-link") {
+      navigate("/sources/share-link");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
