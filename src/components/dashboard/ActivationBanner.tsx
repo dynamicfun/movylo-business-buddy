@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Zap, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ActivationBannerProps {
   completedSteps?: number;
@@ -9,6 +10,7 @@ interface ActivationBannerProps {
 }
 
 export function ActivationBanner({ completedSteps = 2, totalSteps = 5 }: ActivationBannerProps) {
+  const { t } = useLanguage();
   const progress = (completedSteps / totalSteps) * 100;
 
   return (
@@ -24,14 +26,14 @@ export function ActivationBanner({ completedSteps = 2, totalSteps = 5 }: Activat
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1 sm:mb-1.5">
-            <h3 className="text-xs sm:text-sm font-semibold text-foreground">Completa la configurazione</h3>
-            <span className="text-[10px] sm:text-xs text-muted-foreground">{completedSteps}/{totalSteps} completati</span>
+            <h3 className="text-xs sm:text-sm font-semibold text-foreground">{t.completeSetup}</h3>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">{completedSteps}/{totalSteps} {t.completed}</span>
           </div>
           <Progress value={progress} className="h-1 sm:h-1.5" />
         </div>
 
         <Button size="sm" className="gap-1 flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
-          Continua
+          {t.continue}
           <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </Button>
       </div>
