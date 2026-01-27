@@ -70,6 +70,7 @@ interface Translations {
   feedback: string;
   getMoreActivity: string;
   activityWillAppear: string;
+  activityWillAppearSubtitle: string;
   // Sales Card
   sales: string;
   downloadedOffers: string;
@@ -78,6 +79,8 @@ interface Translations {
   closed: string;
   covers: string;
   createOffer: string;
+  salesWillAppear: string;
+  salesWillAppearSubtitle: string;
   // Live Feed
   liveFeed: string;
   noRecentActivity: string;
@@ -157,7 +160,8 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Recensioni",
     feedback: "Feedback",
     getMoreActivity: "Ottieni più attività dai clienti",
-    activityWillAppear: "Messaggi, contatti e visite appariranno qui",
+    activityWillAppear: "L'attività dei clienti apparirà qui",
+    activityWillAppearSubtitle: "Quando i clienti si iscrivono o interagiscono, lo vedrai qui.",
     // Sales Card
     sales: "Vendite",
     downloadedOffers: "Offerte Scaricate",
@@ -166,6 +170,8 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Chiuse",
     covers: "Coperti",
     createOffer: "Crea offerta",
+    salesWillAppear: "Le vendite appariranno qui",
+    salesWillAppearSubtitle: "Quando i clienti effettuano un acquisto o riscattano un'offerta.",
     // Live Feed
     liveFeed: "Live Feed",
     noRecentActivity: "Nessuna attività recente",
@@ -243,7 +249,8 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Reviews",
     feedback: "Feedback",
     getMoreActivity: "Get more customer activity",
-    activityWillAppear: "Messages, contacts, and visits will appear here",
+    activityWillAppear: "Customer activity will appear here",
+    activityWillAppearSubtitle: "When customers sign up or interact, you'll see it here.",
     // Sales Card
     sales: "Sales",
     downloadedOffers: "Downloaded offers",
@@ -252,6 +259,8 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Closed",
     covers: "Covers",
     createOffer: "Create offer",
+    salesWillAppear: "Sales will appear here",
+    salesWillAppearSubtitle: "When customers make a purchase or redeem an offer.",
     // Live Feed
     liveFeed: "Live Feed",
     noRecentActivity: "No recent activity",
@@ -329,7 +338,8 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Reseñas",
     feedback: "Feedback",
     getMoreActivity: "Obtén más actividad de clientes",
-    activityWillAppear: "Mensajes, contactos y visitas aparecerán aquí",
+    activityWillAppear: "La actividad de los clientes aparecerá aquí",
+    activityWillAppearSubtitle: "Cuando los clientes se registren o interactúen, lo verás aquí.",
     // Sales Card
     sales: "Ventas",
     downloadedOffers: "Ofertas descargadas",
@@ -338,6 +348,8 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Cerradas",
     covers: "Cubiertos",
     createOffer: "Crear oferta",
+    salesWillAppear: "Las ventas aparecerán aquí",
+    salesWillAppearSubtitle: "Cuando los clientes realicen una compra o canjeen una oferta.",
     // Live Feed
     liveFeed: "Feed en Vivo",
     noRecentActivity: "Sin actividad reciente",
@@ -415,7 +427,8 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Avis",
     feedback: "Feedback",
     getMoreActivity: "Obtenez plus d'activité clients",
-    activityWillAppear: "Messages, contacts et visites apparaîtront ici",
+    activityWillAppear: "L'activité des clients apparaîtra ici",
+    activityWillAppearSubtitle: "Lorsque les clients s'inscrivent ou interagissent, vous le verrez ici.",
     // Sales Card
     sales: "Ventes",
     downloadedOffers: "Offres téléchargées",
@@ -424,6 +437,8 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Fermées",
     covers: "Couverts",
     createOffer: "Créer une offre",
+    salesWillAppear: "Les ventes apparaîtront ici",
+    salesWillAppearSubtitle: "Lorsque les clients effectuent un achat ou utilisent une offre.",
     // Live Feed
     liveFeed: "Flux en Direct",
     noRecentActivity: "Aucune activité récente",
@@ -501,7 +516,8 @@ const translations: Record<LanguageCode, Translations> = {
     reviews: "Bewertungen",
     feedback: "Feedback",
     getMoreActivity: "Mehr Kundenaktivität erhalten",
-    activityWillAppear: "Nachrichten, Kontakte und Besuche werden hier angezeigt",
+    activityWillAppear: "Kundenaktivität wird hier angezeigt",
+    activityWillAppearSubtitle: "Wenn Kunden sich anmelden oder interagieren, sehen Sie es hier.",
     // Sales Card
     sales: "Verkäufe",
     downloadedOffers: "Heruntergeladene Angebote",
@@ -510,6 +526,8 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Geschlossen",
     covers: "Gedecke",
     createOffer: "Angebot erstellen",
+    salesWillAppear: "Verkäufe werden hier angezeigt",
+    salesWillAppearSubtitle: "Wenn Kunden einen Kauf tätigen oder ein Angebot einlösen.",
     // Live Feed
     liveFeed: "Live-Feed",
     noRecentActivity: "Keine aktuelle Aktivität",
