@@ -134,8 +134,8 @@ export function SalesCard(props: SalesCardProps) {
       {/* Simplified placeholder */}
       <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
         <ShoppingCart className="w-10 h-10 text-muted-foreground/40 mb-3" />
-        <p className="text-sm font-medium text-muted-foreground">{t.noRecentActivity}</p>
-        <p className="text-xs text-muted-foreground/70 mt-1">{t.sales}</p>
+        <p className="text-sm font-medium text-muted-foreground">{t.salesWillAppear}</p>
+        <p className="text-xs text-muted-foreground/70 mt-1">{t.salesWillAppearSubtitle}</p>
       </div>
 
       {/* CTA */}

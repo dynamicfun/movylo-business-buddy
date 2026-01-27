@@ -104,8 +104,8 @@ export function EngagementCard({
         {/* Simple waiting message */}
         <div className="flex-1 flex flex-col items-center justify-center py-8 text-center">
           <Clock className="w-10 h-10 text-muted-foreground/40 mb-3" />
-          <p className="text-sm font-medium text-muted-foreground">{t.waitingForActivity}</p>
-          <p className="text-xs text-muted-foreground/70 mt-1">{t.messages}, {t.contacts.toLowerCase()}</p>
+          <p className="text-sm font-medium text-muted-foreground">{t.activityWillAppear}</p>
+          <p className="text-xs text-muted-foreground/70 mt-1">{t.activityWillAppearSubtitle}</p>
         </div>
 
         {/* CTA */}
