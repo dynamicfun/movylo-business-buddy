@@ -15,6 +15,7 @@ import Reservations from "./pages/Reservations";
 import WebsiteSource from "./pages/sources/WebsiteSource";
 import InstagramSource from "./pages/sources/InstagramSource";
 import ShareLinkSource from "./pages/sources/ShareLinkSource";
+import QRCodeSource from "./pages/sources/QRCodeSource";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/sources/website" element={<WebsiteSource />} />
             <Route path="/sources/instagram" element={<InstagramSource />} />
             <Route path="/sources/share-link" element={<ShareLinkSource />} />
+            <Route path="/sources/qr-codes" element={<QRCodeSource />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
