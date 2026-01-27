@@ -84,6 +84,9 @@ interface Translations {
   // Quick Actions
   checkCoupon: string;
   assignLoyaltyPoints: string;
+  // Common UI
+  showMore: string;
+  showLess: string;
 }
 
 const translations: Record<LanguageCode, Translations> = {
@@ -169,6 +172,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Verifica Coupon",
     assignLoyaltyPoints: "Assegna Punti/Premi",
+    // Common UI
+    showMore: "Mostra altro",
+    showLess: "Mostra meno",
   },
   en: {
     // Sidebar
@@ -252,6 +258,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Check Coupon",
     assignLoyaltyPoints: "Assign Loyalty Points",
+    // Common UI
+    showMore: "Show more",
+    showLess: "Show less",
   },
   es: {
     // Sidebar
@@ -335,6 +344,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Verificar Cupón",
     assignLoyaltyPoints: "Asignar Puntos/Premios",
+    // Common UI
+    showMore: "Mostrar más",
+    showLess: "Mostrar menos",
   },
   fr: {
     // Sidebar
@@ -418,6 +430,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Vérifier Coupon",
     assignLoyaltyPoints: "Attribuer Points/Récompenses",
+    // Common UI
+    showMore: "Afficher plus",
+    showLess: "Afficher moins",
   },
   de: {
     // Sidebar
@@ -501,6 +516,9 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Coupon prüfen",
     assignLoyaltyPoints: "Punkte/Prämien zuweisen",
+    // Common UI
+    showMore: "Mehr anzeigen",
+    showLess: "Weniger anzeigen",
   },
 };
 

@@ -174,7 +174,7 @@ export function CustomerCard({
             onClick={() => setShowAllSources(true)}
             className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-primary hover:bg-secondary/60 rounded-lg transition-colors"
           >
-            <span>{t.sources}</span>
+            <span>{t.showMore}</span>
             <ChevronDown className="w-3.5 h-3.5" />
           </button>
         )}
@@ -183,7 +183,7 @@ export function CustomerCard({
             onClick={() => setShowAllSources(false)}
             className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-muted-foreground hover:bg-secondary/60 rounded-lg transition-colors"
           >
-            <span>{t.sources}</span>
+            <span>{t.showLess}</span>
             <ChevronDown className="w-3.5 h-3.5 rotate-180" />
           </button>
         )}
