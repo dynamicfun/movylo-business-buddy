@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, MapPin, CheckCircle2, ExternalLink, ChevronDown, Search, Star, MessageSquare } from "lucide-react";
+import { ArrowLeft, MapPin, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -102,97 +102,77 @@ const GoogleProfile = () => {
                     </ul>
                   </CardContent>
                 </Card>
-
-                {/* What this helps with */}
-                <Card>
-                  <CardContent className="p-5">
-                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">What this helps with</h3>
-                    <ul className="space-y-2.5">
-                      <li className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                        <Search className="h-4 w-4 mt-0.5 shrink-0" />
-                        <span>Searches turn into customers</span>
-                      </li>
-                      <li className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                        <Star className="h-4 w-4 mt-0.5 shrink-0" />
-                        <span>Customers remember your business</span>
-                      </li>
-                      <li className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                        <MessageSquare className="h-4 w-4 mt-0.5 shrink-0" />
-                        <span>Some come back or get in touch</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
               </div>
 
-              {/* Right column - What to do / Connection */}
+              {/* Right column - Connection */}
               <div className="lg:col-span-2 space-y-4">
-                {/* What to do section */}
-                {!isConnected && (
+                {/* Connect Google section */}
+                {!isConnected && !isConnecting && (
                   <Card>
                     <CardContent className="p-5">
-                      <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">What to do</h3>
-                      <p className="text-sm text-foreground mb-4">
-                        Connect your Google Business Profile below.
+                      <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">Connect Google</h3>
+                      
+                      <Button onClick={handleConnectGoogle} className="w-full sm:w-auto mb-3">
+                        <MapPin className="h-4 w-4 mr-2" />
+                        Connect Google
+                      </Button>
+
+                      <p className="text-xs text-muted-foreground">
                         You can change or disconnect this anytime.
                       </p>
+                    </CardContent>
+                  </Card>
+                )}
 
-                      {!isConnecting && (
-                        <Button onClick={handleConnectGoogle} className="w-full sm:w-auto">
-                          <MapPin className="h-4 w-4 mr-2" />
-                          Connect Google
-                        </Button>
-                      )}
+                {/* Profile selection */}
+                {isConnecting && !isConnected && (
+                  <Card>
+                    <CardContent className="p-5">
+                      <div className="mb-4">
+                        <h4 className="font-medium text-sm mb-1">Select your Google Business Profile</h4>
+                        <p className="text-xs text-muted-foreground">Choose the profile you want to connect.</p>
+                      </div>
+                      
+                      <Select value={selectedProfileId} onValueChange={setSelectedProfileId}>
+                        <SelectTrigger className="w-full mb-4">
+                          <SelectValue placeholder="Select a profile" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {mockGoogleProfiles.map((profile) => (
+                            <SelectItem key={profile.id} value={profile.id}>
+                              <div className="flex flex-col items-start">
+                                <span className="font-medium">{profile.name}</span>
+                                <span className="text-xs text-muted-foreground">{profile.address}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
 
-                      {isConnecting && (
-                        <div className="space-y-4 pt-2">
-                          <div className="p-4 bg-muted/30 rounded-lg border">
-                            <h4 className="font-medium text-sm mb-1">Select your Google Business Profile</h4>
-                            <p className="text-xs text-muted-foreground mb-3">Choose the profile you want to connect.</p>
-                            
-                            <Select value={selectedProfileId} onValueChange={setSelectedProfileId}>
-                              <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select a profile" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {mockGoogleProfiles.map((profile) => (
-                                  <SelectItem key={profile.id} value={profile.id}>
-                                    <div className="flex flex-col items-start">
-                                      <span className="font-medium">{profile.name}</span>
-                                      <span className="text-xs text-muted-foreground">{profile.address}</span>
-                                    </div>
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
+                      <Button 
+                        onClick={handleConnectProfile} 
+                        disabled={!selectedProfileId}
+                        className="w-full sm:w-auto mb-3"
+                      >
+                        Connect profile
+                      </Button>
 
-                          <Button 
-                            onClick={handleConnectProfile} 
-                            disabled={!selectedProfileId}
-                            className="w-full sm:w-auto"
-                          >
-                            Connect profile
-                          </Button>
-
-                          <p className="text-xs text-muted-foreground">
-                            If you manage more than one profile, you can choose.
-                          </p>
-                        </div>
-                      )}
+                      <p className="text-xs text-muted-foreground">
+                        If you manage more than one profile, you can choose.
+                      </p>
                     </CardContent>
                   </Card>
                 )}
 
                 {/* Connected Google Profile */}
                 {isConnected && selectedProfile && (
-                  <Card className="border-green-200 bg-green-50/50">
+                  <Card className="border-primary/20 bg-primary/5">
                     <CardContent className="p-5">
                       <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">Connected Google Profile</h3>
                       
                       <div className="flex items-start gap-4 p-4 bg-background rounded-lg border">
-                        <div className="p-2.5 rounded-lg bg-red-100">
-                          <MapPin className="h-5 w-5 text-red-600" />
+                        <div className="p-2.5 rounded-lg bg-primary/10">
+                          <MapPin className="h-5 w-5 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs text-muted-foreground mb-0.5">Google Business Profile</p>
