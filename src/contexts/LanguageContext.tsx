@@ -51,6 +51,7 @@ interface Translations {
   manual: string;
   ads: string;
   google: string;
+  shareLink: string;
   addCustomers: string;
   waitingForActivity: string;
   // Activity Card
@@ -135,6 +136,7 @@ const translations: Record<LanguageCode, Translations> = {
     manual: "Manuale",
     ads: "Ads",
     google: "Google",
+    shareLink: "Condividi un link",
     addCustomers: "Aggiungi clienti",
     waitingForActivity: "In attesa di attività dei clienti",
     // Activity Card
@@ -217,6 +219,7 @@ const translations: Record<LanguageCode, Translations> = {
     manual: "Manual",
     ads: "Ads",
     google: "Google",
+    shareLink: "Share a link",
     addCustomers: "Add customers",
     waitingForActivity: "Waiting for customer activity",
     // Activity Card
@@ -299,6 +302,7 @@ const translations: Record<LanguageCode, Translations> = {
     manual: "Manual",
     ads: "Anuncios",
     google: "Google",
+    shareLink: "Compartir un enlace",
     addCustomers: "Agregar clientes",
     waitingForActivity: "Esperando actividad de clientes",
     // Activity Card
@@ -381,6 +385,7 @@ const translations: Record<LanguageCode, Translations> = {
     manual: "Manuel",
     ads: "Publicités",
     google: "Google",
+    shareLink: "Partager un lien",
     addCustomers: "Ajouter des clients",
     waitingForActivity: "En attente d'activité des clients",
     // Activity Card
@@ -463,6 +468,7 @@ const translations: Record<LanguageCode, Translations> = {
     manual: "Manuell",
     ads: "Werbung",
     google: "Google",
+    shareLink: "Link teilen",
     addCustomers: "Kunden hinzufügen",
     waitingForActivity: "Warte auf Kundenaktivität",
     // Activity Card
