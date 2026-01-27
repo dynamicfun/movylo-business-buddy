@@ -33,6 +33,15 @@ interface Translations {
   topUpSms: string;
   myAccount: string;
   language: string;
+  // Reports
+  reportCustomers: string;
+  reportOrders: string;
+  reportSales: string;
+  reportContacts: string;
+  reportPromotions: string;
+  reportNewsletters: string;
+  reportReviews: string;
+  reportSatisfaction: string;
   // Dashboard
   steadyState: string;
   newUser: string;
@@ -124,6 +133,15 @@ const translations: Record<LanguageCode, Translations> = {
     topUpSms: "Ricarica SMS",
     myAccount: "Il Mio Account",
     language: "Lingua",
+    // Reports
+    reportCustomers: "Clienti",
+    reportOrders: "Ordini",
+    reportSales: "Vendite",
+    reportContacts: "Contatti",
+    reportPromotions: "Promozioni",
+    reportNewsletters: "Newsletter",
+    reportReviews: "Recensioni",
+    reportSatisfaction: "Soddisfazione Clienti",
     // Dashboard
     steadyState: "Stato normale",
     newUser: "Nuovo utente",
@@ -213,6 +231,15 @@ const translations: Record<LanguageCode, Translations> = {
     topUpSms: "Top Up SMS",
     myAccount: "My Account",
     language: "Language",
+    // Reports
+    reportCustomers: "Customers",
+    reportOrders: "Orders",
+    reportSales: "Sales",
+    reportContacts: "Contacts",
+    reportPromotions: "Promotions",
+    reportNewsletters: "Newsletters",
+    reportReviews: "Reviews",
+    reportSatisfaction: "Customer Satisfaction",
     // Dashboard
     steadyState: "Steady State",
     newUser: "New User",
@@ -302,6 +329,15 @@ const translations: Record<LanguageCode, Translations> = {
     topUpSms: "Recargar SMS",
     myAccount: "Mi Cuenta",
     language: "Idioma",
+    // Reports
+    reportCustomers: "Clientes",
+    reportOrders: "Pedidos",
+    reportSales: "Ventas",
+    reportContacts: "Contactos",
+    reportPromotions: "Promociones",
+    reportNewsletters: "Newsletters",
+    reportReviews: "Reseñas",
+    reportSatisfaction: "Satisfacción del Cliente",
     // Dashboard
     steadyState: "Estado normal",
     newUser: "Nuevo usuario",
@@ -391,6 +427,15 @@ const translations: Record<LanguageCode, Translations> = {
     topUpSms: "Recharger SMS",
     myAccount: "Mon Compte",
     language: "Langue",
+    // Reports
+    reportCustomers: "Clients",
+    reportOrders: "Commandes",
+    reportSales: "Ventes",
+    reportContacts: "Contacts",
+    reportPromotions: "Promotions",
+    reportNewsletters: "Newsletters",
+    reportReviews: "Avis",
+    reportSatisfaction: "Satisfaction Client",
     // Dashboard
     steadyState: "État normal",
     newUser: "Nouvel utilisateur",
@@ -480,6 +525,15 @@ const translations: Record<LanguageCode, Translations> = {
     topUpSms: "SMS aufladen",
     myAccount: "Mein Konto",
     language: "Sprache",
+    // Reports
+    reportCustomers: "Kunden",
+    reportOrders: "Bestellungen",
+    reportSales: "Verkäufe",
+    reportContacts: "Kontakte",
+    reportPromotions: "Aktionen",
+    reportNewsletters: "Newsletter",
+    reportReviews: "Bewertungen",
+    reportSatisfaction: "Kundenzufriedenheit",
     // Dashboard
     steadyState: "Normaler Zustand",
     newUser: "Neuer Benutzer",

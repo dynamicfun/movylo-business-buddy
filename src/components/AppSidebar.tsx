@@ -50,6 +50,7 @@ import {
 
 export function AppSidebar() {
   const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
+  const [reportsOpen, setReportsOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const location = useLocation();
   const { currentLanguage, setLanguage, t, languages } = useLanguage();
@@ -96,8 +97,18 @@ export function AppSidebar() {
     },
   ];
 
+  const reportsItems = [
+    { title: t.reportCustomers || "Customers", url: "/reports/customers" },
+    { title: t.reportOrders || "Orders", url: "/reports/orders" },
+    { title: t.reportSales || "Sales", url: "/reports/sales" },
+    { title: t.reportContacts || "Contacts", url: "/reports/contacts" },
+    { title: t.reportPromotions || "Promotions", url: "/reports/promotions" },
+    { title: t.reportNewsletters || "Newsletters", url: "/reports/newsletters" },
+    { title: t.reportReviews || "Reviews", url: "/reports/reviews" },
+    { title: t.reportSatisfaction || "Customer Satisfaction", url: "/reports/satisfaction" },
+  ];
+
   const businessToolsItems = [
-    { title: t.reports, url: "/reports", icon: BarChart3 },
     { title: t.productsServices, url: "/products", icon: Package },
     { title: t.aiTools, url: "/ai-tools", icon: Sparkles },
     { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
@@ -223,6 +234,42 @@ export function AppSidebar() {
             <CollapsibleContent>
               <SidebarGroupContent>
                 <SidebarMenu>
+                  {/* Reports with submenu */}
+                  <SidebarMenuItem>
+                    <Collapsible 
+                      open={reportsOpen} 
+                      onOpenChange={setReportsOpen}
+                      className="w-full"
+                    >
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground">
+                          <div className="flex items-center gap-3">
+                            <BarChart3 className="h-4 w-4" />
+                            <span>{t.reports}</span>
+                          </div>
+                          <ChevronDown className={`h-3 w-3 transition-transform ${reportsOpen ? 'rotate-180' : ''}`} />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {reportsItems.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton asChild>
+                                <NavLink 
+                                  to={subItem.url}
+                                  className="text-sm text-muted-foreground hover:text-foreground"
+                                  activeClassName="text-primary font-medium"
+                                >
+                                  {subItem.title}
+                                </NavLink>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </SidebarMenuItem>
+                  
                   {businessToolsItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
