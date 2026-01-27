@@ -96,6 +96,10 @@ interface Translations {
   // Quick Actions
   checkCoupon: string;
   assignLoyaltyPoints: string;
+  // Activation Banner
+  completeSetup: string;
+  completed: string;
+  continue: string;
   // Common UI
   showMore: string;
   showLess: string;
@@ -196,6 +200,10 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Verifica Coupon",
     assignLoyaltyPoints: "Assegna Punti/Premi",
+    // Activation Banner
+    completeSetup: "Completa la configurazione",
+    completed: "completati",
+    continue: "Continua",
     // Common UI
     showMore: "Mostra altro",
     showLess: "Mostra meno",
@@ -294,6 +302,10 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Check Coupon",
     assignLoyaltyPoints: "Assign Loyalty Points",
+    // Activation Banner
+    completeSetup: "Complete your setup",
+    completed: "completed",
+    continue: "Continue",
     // Common UI
     showMore: "Show more",
     showLess: "Show less",
@@ -392,6 +404,10 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Verificar Cupón",
     assignLoyaltyPoints: "Asignar Puntos/Premios",
+    // Activation Banner
+    completeSetup: "Completa tu configuración",
+    completed: "completados",
+    continue: "Continuar",
     // Common UI
     showMore: "Mostrar más",
     showLess: "Mostrar menos",
@@ -490,6 +506,10 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Vérifier Coupon",
     assignLoyaltyPoints: "Attribuer Points/Récompenses",
+    // Activation Banner
+    completeSetup: "Complétez votre configuration",
+    completed: "terminés",
+    continue: "Continuer",
     // Common UI
     showMore: "Afficher plus",
     showLess: "Afficher moins",
@@ -588,6 +608,10 @@ const translations: Record<LanguageCode, Translations> = {
     // Quick Actions
     checkCoupon: "Coupon prüfen",
     assignLoyaltyPoints: "Punkte/Prämien zuweisen",
+    // Activation Banner
+    completeSetup: "Einrichtung abschließen",
+    completed: "abgeschlossen",
+    continue: "Weiter",
     // Common UI
     showMore: "Mehr anzeigen",
     showLess: "Weniger anzeigen",
