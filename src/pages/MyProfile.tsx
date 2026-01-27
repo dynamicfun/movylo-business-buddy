@@ -83,13 +83,13 @@ const MyProfile = () => {
       title="My Business Profile"
       subtitle="Manage your business information"
       icon={Building2}
-      whyDescription="Your business profile is the foundation of how customers perceive you. Complete and accurate information builds trust and makes it easier for customers to find and connect with you."
+      whyDescription="This helps customers recognize your business and trust what they see. Clear information makes it easier for them to connect with you."
       whatToExpectItems={[
-        "Fill in your basic business details and contact information",
-        "Set your business hours so customers know when you're available",
-        "Add your locations and social media links"
+        "Add basic information customers will see",
+        "Choose how customers can reach you",
+        "Keep details up to date over time"
       ]}
-      whatToDoDescription="Complete each section below. Don't worry — you can always come back and update your information later."
+      whatToDoDescription="Fill in what you can below. You can always come back and update this later."
     >
       {/* SECTION 1 — Business Identity */}
       <Card>
