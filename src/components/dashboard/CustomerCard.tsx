@@ -80,6 +80,10 @@ export function CustomerCard({
       navigate("/sources/share-link");
       return;
     }
+    if (sourceKey === "qr-codes") {
+      navigate("/sources/qr-codes");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
