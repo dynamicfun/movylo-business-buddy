@@ -9,6 +9,8 @@ import { AppSidebar } from "@/components/AppSidebar";
 interface InnerPageTemplateProps {
   title: string;
   subtitle: string;
+  helperText?: string;
+  introText?: string;
   icon?: LucideIcon;
   backTo?: string;
   // Intro section props
@@ -25,6 +27,8 @@ interface InnerPageTemplateProps {
 export function InnerPageTemplate({
   title,
   subtitle,
+  helperText,
+  introText,
   icon: Icon,
   backTo = "/",
   whyTitle = "Why this matters",
@@ -58,9 +62,17 @@ export function InnerPageTemplate({
                 <div>
                   <h1 className="text-xl font-bold text-foreground">{title}</h1>
                   <p className="text-sm text-muted-foreground">{subtitle}</p>
+                  {helperText && (
+                    <p className="text-xs text-muted-foreground/70 mt-1">{helperText}</p>
+                  )}
                 </div>
               </div>
             </div>
+
+            {/* Intro Text */}
+            {introText && (
+              <p className="text-sm text-muted-foreground mb-6">{introText}</p>
+            )}
 
             <div className="space-y-6">
               {/* Intro Section */}
