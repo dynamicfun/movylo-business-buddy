@@ -35,15 +35,18 @@ const ShareLinkSource = () => {
     <InnerPageTemplate
       title="Share a link"
       subtitle="Turn messages and conversations into customers"
+      helperText="Nothing happens until customers choose to join."
       introText="Share a simple link so people you talk to can join your business and stay in touch."
+      icon={Link2}
+      backTo="/"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left column - Info boxes */}
         <div className="space-y-4">
           {/* Why this matters */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Why this matters</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Many customers connect with businesses through messages. This link helps turn those conversations into customers you can stay connected with.
               </p>
