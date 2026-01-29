@@ -46,7 +46,8 @@ const GoogleProfile = () => {
     <InnerPageTemplate
       title="Google"
       subtitle="Turn people who find you on Google into customers"
-      introText="Connect your Google Business Profile so people can join your business and stay in touch."
+      helperText="Nothing happens until customers choose to join."
+      introText="Connect your Google Business Profile so people who find you on Google can join your business and stay in touch."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left column - Info boxes */}
@@ -55,9 +56,11 @@ const GoogleProfile = () => {
           <Card>
             <CardContent className="p-6">
               <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Many people discover local businesses on Google. This helps turn those searches into customers you can stay connected with.
-              </p>
+              <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                <p>Many people discover local businesses on Google.</p>
+                <p>When they find your business, they can choose to join and stay connected.</p>
+                <p>This helps turn those visits into customers you can stay connected with.</p>
+              </div>
             </CardContent>
           </Card>
 
@@ -72,13 +75,21 @@ const GoogleProfile = () => {
                 </li>
                 <li className="flex items-start gap-3 text-sm text-muted-foreground">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>Customers stay connected after they leave Google</span>
+                  <span>Movylo shares occasional updates for you</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm text-muted-foreground">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>Activity appears naturally over time</span>
+                  <span>You can review or change this anytime</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>Customers stay connected after they leave Google</span>
                 </li>
               </ul>
+              <p className="text-xs text-muted-foreground mt-4">
+                Want to adjust this? You can review posts anytime in{" "}
+                <a href="/autopilot" className="text-primary hover:underline">Autopilot</a>.
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -91,13 +102,17 @@ const GoogleProfile = () => {
               <CardContent className="p-6">
                 <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">Connect Google</h3>
                 
-                <Button onClick={handleConnectGoogle} className="mb-3">
+                <Button onClick={handleConnectGoogle} className="mb-4">
                   <MapPin className="h-4 w-4 mr-2" />
                   Connect Google
                 </Button>
 
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-4">
                   You can change or disconnect this anytime.
+                </p>
+
+                <p className="text-xs text-muted-foreground">
+                  This works quietly in the background.
                 </p>
               </CardContent>
             </Card>
