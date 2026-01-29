@@ -1,15 +1,22 @@
-import { useState } from "react";
-import { Instagram, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Instagram, CheckCircle2, Link as LinkIcon } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
-const InstagramSource = () => {
+export default function InstagramSource() {
   const [isConnected, setIsConnected] = useState(false);
 
-  const handleConnectInstagram = () => {
-    // Placeholder for Instagram connection logic
+  const handleConnect = () => {
+    // Simulate connection
     setIsConnected(true);
+    toast.success("Instagram connected successfully!");
+  };
+
+  const handleDisconnect = () => {
+    setIsConnected(false);
+    toast.success("Instagram disconnected");
   };
 
   return (
@@ -19,45 +26,49 @@ const InstagramSource = () => {
       helperText="Nothing happens until customers choose to join."
       introText="Connect your Instagram account so people who follow you there can join your business and stay in touch."
       icon={Instagram}
+      backTo="/"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left column - Info boxes */}
+        {/* Left Column - Why this matters */}
         <div className="space-y-4">
-          {/* Why this matters */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
-              <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                <p>Many customers discover local businesses on Instagram.</p>
-                <p>When they follow your account, they see your updates in their feed.</p>
-                <p>This helps turn those people into customers you can stay connected with.</p>
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
+                Why this matters
+              </h3>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <p>
+                  Many customers discover local businesses on Instagram.
+                </p>
+                <p>
+                  When they follow your account, they see your updates in their feed.
+                </p>
+                <p>
+                  This helps turn those people into customers you can stay connected with.
+                </p>
               </div>
             </CardContent>
           </Card>
 
-          {/* What to expect */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">What to expect</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>People who find you on Instagram can join your business</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>Movylo shares occasional updates for you</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>You can review or change this anytime</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                  <span>Customers stay connected after they leave Instagram</span>
-                </li>
+          <Card className="border-muted">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
+                What to expect
+              </h3>
+              <ul className="space-y-2.5">
+                {[
+                  "People who find you on Instagram can join your business",
+                  "Movylo shares occasional updates for you",
+                  "You can review or change this anytime",
+                  "Customers stay connected after they leave Instagram"
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
-              <p className="text-xs text-muted-foreground mt-4">
+              <p className="text-xs text-muted-foreground/70 mt-4">
                 Want to adjust this? You can review posts anytime in{" "}
                 <a href="/autopilot" className="text-primary hover:underline">Autopilot</a>.
               </p>
@@ -65,53 +76,66 @@ const InstagramSource = () => {
           </Card>
         </div>
 
-        {/* Right column - CTA */}
+        {/* Right Column - Connect Instagram */}
         <div className="space-y-4">
-          {!isConnected ? (
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">Connect Instagram</h3>
-                
-                <Button onClick={handleConnectInstagram} className="mb-4">
-                  <Instagram className="h-4 w-4 mr-2" />
-                  Connect Instagram
-                </Button>
+          <Card className="border-primary/20">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
+                Connect Instagram
+              </h3>
 
-                <p className="text-sm text-muted-foreground mb-4">
-                  You can change or disconnect this anytime.
-                </p>
-
-                <p className="text-xs text-muted-foreground">
-                  This works quietly in the background.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card className="border-primary/20 bg-primary/5">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold text-sm text-primary">Instagram Connected</h3>
+              {!isConnected ? (
+                <>
+                  <Button 
+                    onClick={handleConnect}
+                    className="w-full mb-3"
+                  >
+                    <Instagram className="h-4 w-4 mr-2" />
+                    Connect Instagram
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    You can change or disconnect this anytime.
+                  </p>
+                </>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
+                    <div className="p-2 rounded-full bg-primary/10">
+                      <Instagram className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-foreground">Your Instagram Account</p>
+                      <p className="text-xs text-muted-foreground truncate">Connected</p>
+                    </div>
+                    <a 
+                      href="https://instagram.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-xs text-primary hover:underline flex items-center gap-1"
+                    >
+                      <LinkIcon className="h-3 w-3" />
+                      View
+                    </a>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleDisconnect}
+                    className="w-full"
+                  >
+                    Disconnect
+                  </Button>
                 </div>
-                
-                <p className="text-sm text-muted-foreground mb-4">
-                  Your Instagram account is connected. People who follow you can now join your business.
-                </p>
+              )}
+            </CardContent>
+          </Card>
 
-                <Button variant="outline" size="sm" onClick={() => setIsConnected(false)}>
-                  Disconnect
-                </Button>
-
-                <p className="text-xs text-muted-foreground mt-4">
-                  This works quietly in the background.
-                </p>
-              </CardContent>
-            </Card>
-          )}
+          {/* Background reassurance */}
+          <p className="text-xs text-muted-foreground/70 text-center">
+            This works quietly in the background.
+          </p>
         </div>
       </div>
     </InnerPageTemplate>
   );
-};
-
-export default InstagramSource;
+}
