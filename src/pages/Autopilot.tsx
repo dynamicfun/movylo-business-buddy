@@ -262,94 +262,101 @@ export default function Autopilot() {
                 </Card>
               </motion.div>
 
-              {/* Autopilot Moments */}
+              {/* Autopilot Moments - Collapsible */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
               >
-                <div className="mb-4">
-                  <h3 className="font-semibold text-foreground mb-1">Autopilot moments</h3>
-                  <p className="text-sm text-primary font-medium mb-3">When messages are sent</p>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Below are the moments Autopilot uses to stay in touch.
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Each moment runs automatically once customers join.
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Inside each one, you can:
-                  </p>
-                  <ul className="text-sm text-muted-foreground space-y-1 mb-3 ml-4">
-                    <li>• see what happens</li>
-                    <li>• turn it on or off</li>
-                    <li>• adjust details if you want</li>
-                  </ul>
-                  <p className="text-sm text-muted-foreground">
-                    If you don't change anything, Autopilot keeps working as it is.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <AutopilotMomentCard
-                    icon={<UserPlus className="h-4 w-4 text-primary" />}
-                    title="Welcome new customers"
-                    description="Sends a short welcome after someone joins."
-                    isOn={moments.welcome}
-                    onToggle={() => toggleMoment('welcome')}
-                    delay={0.3}
-                  />
-                  <AutopilotMomentCard
-                    icon={<RefreshCw className="h-4 w-4 text-primary" />}
-                    title="Bring customers back"
-                    description="Reaches out after a quiet period."
-                    isOn={moments.bringBack}
-                    onToggle={() => toggleMoment('bringBack')}
-                    delay={0.35}
-                  />
-                  <AutopilotMomentCard
-                    icon={<Heart className="h-4 w-4 text-primary" />}
-                    title="Thank loyal customers"
-                    description="Sends a small thank-you to returning customers."
-                    isOn={moments.thankLoyal}
-                    onToggle={() => toggleMoment('thankLoyal')}
-                    delay={0.4}
-                  />
-                  <AutopilotMomentCard
-                    icon={<Star className="h-4 w-4 text-primary" />}
-                    title="Ask for a review"
-                    description="Invites customers to leave a review at the right time."
-                    isOn={moments.askReview}
-                    onToggle={() => toggleMoment('askReview')}
-                    delay={0.45}
-                  />
-                  
-                  {/* Custom moments card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <Card className="border border-dashed border-border/70 bg-muted/20">
-                      <CardContent className="p-4">
+                <Collapsible>
+                  <Card>
+                    <CollapsibleTrigger asChild>
+                      <CardContent className="p-4 cursor-pointer hover:bg-muted/30 transition-colors">
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-muted shrink-0">
-                              <Plus className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                            <div>
-                              <h4 className="font-medium text-foreground text-sm">Custom moments</h4>
-                              <p className="text-xs text-muted-foreground">Create your own reminders or events.</p>
-                            </div>
+                          <div>
+                            <h3 className="font-semibold text-foreground">Autopilot moments</h3>
+                            <p className="text-sm text-muted-foreground">When messages are sent</p>
                           </div>
-                          <Button variant="outline" size="sm">
-                            Create a moment
-                          </Button>
+                          <ChevronDown className="h-5 w-5 text-muted-foreground" />
                         </div>
                       </CardContent>
-                    </Card>
-                  </motion.div>
-                </div>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="px-4 pb-4 border-t border-border/50">
+                        <div className="pt-4 mb-4">
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Below are the moments Autopilot uses to stay in touch.
+                          </p>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            Each moment runs automatically once customers join.
+                          </p>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Inside each one, you can:
+                          </p>
+                          <ul className="text-sm text-muted-foreground space-y-1 mb-3 ml-4">
+                            <li>• see what happens</li>
+                            <li>• turn it on or off</li>
+                            <li>• adjust details if you want</li>
+                          </ul>
+                          <p className="text-sm text-muted-foreground">
+                            If you don't change anything, Autopilot keeps working as it is.
+                          </p>
+                        </div>
+
+                        <div className="space-y-3">
+                          <AutopilotMomentCard
+                            icon={<UserPlus className="h-4 w-4 text-primary" />}
+                            title="Welcome new customers"
+                            description="Sends a short welcome after someone joins."
+                            isOn={moments.welcome}
+                            onToggle={() => toggleMoment('welcome')}
+                          />
+                          <AutopilotMomentCard
+                            icon={<RefreshCw className="h-4 w-4 text-primary" />}
+                            title="Bring customers back"
+                            description="Reaches out after a quiet period."
+                            isOn={moments.bringBack}
+                            onToggle={() => toggleMoment('bringBack')}
+                          />
+                          <AutopilotMomentCard
+                            icon={<Heart className="h-4 w-4 text-primary" />}
+                            title="Thank loyal customers"
+                            description="Sends a small thank-you to returning customers."
+                            isOn={moments.thankLoyal}
+                            onToggle={() => toggleMoment('thankLoyal')}
+                          />
+                          <AutopilotMomentCard
+                            icon={<Star className="h-4 w-4 text-primary" />}
+                            title="Ask for a review"
+                            description="Invites customers to leave a review at the right time."
+                            isOn={moments.askReview}
+                            onToggle={() => toggleMoment('askReview')}
+                          />
+                          
+                          {/* Custom moments card */}
+                          <Card className="border border-dashed border-border/70 bg-muted/20">
+                            <CardContent className="p-4">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="p-2 rounded-lg bg-muted shrink-0">
+                                    <Plus className="h-4 w-4 text-muted-foreground" />
+                                  </div>
+                                  <div>
+                                    <h4 className="font-medium text-foreground text-sm">Custom moments</h4>
+                                    <p className="text-xs text-muted-foreground">Create your own reminders or events.</p>
+                                  </div>
+                                </div>
+                                <Button variant="outline" size="sm">
+                                  Create a moment
+                                </Button>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+                    </CollapsibleContent>
+                  </Card>
+                </Collapsible>
               </motion.div>
 
               {/* What you'll see in your dashboard */}
