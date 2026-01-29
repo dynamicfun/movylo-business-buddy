@@ -41,7 +41,10 @@ export default function FacebookSource() {
                   Many customers discover local businesses on Facebook.
                 </p>
                 <p>
-                  This helps turn visits and messages into customers you can stay connected with.
+                  When they follow your page, they see your updates in their feed.
+                </p>
+                <p>
+                  This helps turn those people into customers you can stay connected with.
                 </p>
               </div>
             </CardContent>
