@@ -84,6 +84,10 @@ export function CustomerCard({
       navigate("/sources/qr-codes");
       return;
     }
+    if (sourceKey === "facebook") {
+      navigate("/sources/facebook");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
