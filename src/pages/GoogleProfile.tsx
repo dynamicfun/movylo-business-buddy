@@ -46,6 +46,8 @@ const GoogleProfile = () => {
     <InnerPageTemplate
       title="Google"
       subtitle="Turn people who find you on Google into customers"
+      helperText="Nothing happens until customers choose to join."
+      introText="Connect your Google Business Profile so people who find you on Google can join your business and stay in touch."
       whyTitle="Why this matters"
       whyDescription="Many people discover local businesses on Google. This helps turn those visits into customers you can stay connected with."
       whatToExpectTitle="What to expect"
