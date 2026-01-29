@@ -16,6 +16,7 @@ import WebsiteSource from "./pages/sources/WebsiteSource";
 import InstagramSource from "./pages/sources/InstagramSource";
 import ShareLinkSource from "./pages/sources/ShareLinkSource";
 import QRCodeSource from "./pages/sources/QRCodeSource";
+import FacebookSource from "./pages/sources/FacebookSource";
 import CustomersReport from "./pages/reports/CustomersReport";
 import ReportsIndex from "./pages/reports/ReportsIndex";
 import NotFound from "./pages/NotFound";
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/sources/instagram" element={<InstagramSource />} />
             <Route path="/sources/share-link" element={<ShareLinkSource />} />
             <Route path="/sources/qr-codes" element={<QRCodeSource />} />
+            <Route path="/sources/facebook" element={<FacebookSource />} />
             <Route path="/reports" element={<ReportsIndex />} />
             <Route path="/reports/customers" element={<CustomersReport />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
