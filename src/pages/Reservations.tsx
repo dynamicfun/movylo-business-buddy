@@ -105,12 +105,12 @@ const Reservations = () => {
                 </p>
               </div>
 
-              <div className="flex items-center justify-between py-3 px-4 bg-muted/30 rounded-lg">
-                <span className="font-medium text-foreground">Reservations</span>
+              <div className="flex items-center gap-3 py-3 px-4 bg-muted/30 rounded-lg">
                 <Switch
                   checked={reservationsEnabled}
                   onCheckedChange={setReservationsEnabled}
                 />
+                <span className="font-medium text-foreground">Reservations</span>
               </div>
 
               <p className="text-sm text-muted-foreground">
