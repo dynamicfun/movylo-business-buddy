@@ -67,7 +67,6 @@ export function AppSidebar() {
         { title: t.customerList, url: "/customers/list" },
         { title: t.signUpPage, url: "/customers/signup" },
         { title: t.loyaltyProgram, url: "/customers/loyalty" },
-        { title: t.findNewCustomers, url: "/customers/find" },
       ]
     },
     { 
@@ -76,6 +75,7 @@ export function AppSidebar() {
       url: "/messages", 
       icon: MessageSquare,
       submenu: [
+        { title: t.autopilot, url: "/autopilot" },
         { title: t.createPromo, url: "/messages/promo" },
         { title: t.createNewsletter, url: "/messages/newsletter" },
         { title: t.createSocialPost, url: "/messages/social" },

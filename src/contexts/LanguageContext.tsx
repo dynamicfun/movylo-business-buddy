@@ -11,7 +11,7 @@ interface Translations {
   customerList: string;
   signUpPage: string;
   loyaltyProgram: string;
-  findNewCustomers: string;
+  autopilot: string;
   messagesOffers: string;
   createPromo: string;
   createNewsletter: string;
@@ -115,7 +115,7 @@ const translations: Record<LanguageCode, Translations> = {
     customerList: "Lista Clienti",
     signUpPage: "Pagina di Iscrizione",
     loyaltyProgram: "Programma Fedeltà",
-    findNewCustomers: "Trova Nuovi Clienti",
+    autopilot: "Autopilot",
     messagesOffers: "Messaggi e Offerte",
     createPromo: "Crea una Promo",
     createNewsletter: "Crea una Newsletter",
@@ -217,7 +217,7 @@ const translations: Record<LanguageCode, Translations> = {
     customerList: "Customer List",
     signUpPage: "Sign Up Page",
     loyaltyProgram: "Loyalty Program",
-    findNewCustomers: "Find New Customers",
+    autopilot: "Autopilot",
     messagesOffers: "Messages & Offers",
     createPromo: "Create a Promo",
     createNewsletter: "Create a Newsletter",
@@ -319,7 +319,7 @@ const translations: Record<LanguageCode, Translations> = {
     customerList: "Lista de Clientes",
     signUpPage: "Página de Registro",
     loyaltyProgram: "Programa de Fidelidad",
-    findNewCustomers: "Encontrar Nuevos Clientes",
+    autopilot: "Autopilot",
     messagesOffers: "Mensajes y Ofertas",
     createPromo: "Crear una Promo",
     createNewsletter: "Crear un Newsletter",
@@ -421,7 +421,7 @@ const translations: Record<LanguageCode, Translations> = {
     customerList: "Liste des Clients",
     signUpPage: "Page d'Inscription",
     loyaltyProgram: "Programme de Fidélité",
-    findNewCustomers: "Trouver de Nouveaux Clients",
+    autopilot: "Autopilot",
     messagesOffers: "Messages et Offres",
     createPromo: "Créer une Promo",
     createNewsletter: "Créer une Newsletter",
@@ -523,7 +523,7 @@ const translations: Record<LanguageCode, Translations> = {
     customerList: "Kundenliste",
     signUpPage: "Anmeldeseite",
     loyaltyProgram: "Treueprogramm",
-    findNewCustomers: "Neue Kunden finden",
+    autopilot: "Autopilot",
     messagesOffers: "Nachrichten & Angebote",
     createPromo: "Promo erstellen",
     createNewsletter: "Newsletter erstellen",
