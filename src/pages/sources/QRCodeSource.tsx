@@ -84,10 +84,10 @@ const QRCodeSource = () => {
                 Choose how you want to use it.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <div className="flex flex-col gap-3 mb-4">
                 <Button 
                   onClick={handleDownloadQR}
-                  className="flex-1"
+                  className="w-full"
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Download QR code
@@ -95,7 +95,7 @@ const QRCodeSource = () => {
                 <Button 
                   variant="outline"
                   onClick={handleDownloadDesign}
-                  className="flex-1"
+                  className="w-full"
                 >
                   <FileImage className="h-4 w-4 mr-2" />
                   Download ready-to-print design
