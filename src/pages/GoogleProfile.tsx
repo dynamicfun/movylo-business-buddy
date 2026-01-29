@@ -46,18 +46,17 @@ const GoogleProfile = () => {
     <InnerPageTemplate
       title="Google"
       subtitle="Turn people who find you on Google into customers"
-      helperText="Nothing happens until customers choose to join."
-      introText="Connect your Google Business Profile so people who find you on Google can join your business and stay in touch."
+      introText="Connect your Google Business Profile so people can join your business and stay in touch."
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left column - Info boxes */}
-        <div className="lg:col-span-2 space-y-4">
+        <div className="space-y-4">
           {/* Why this matters */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary mb-2">Why this matters</h3>
-              <p className="text-sm text-muted-foreground">
-                Many people discover local businesses on Google. This helps turn those visits into customers you can stay connected with.
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Many people discover local businesses on Google. This helps turn those searches into customers you can stay connected with.
               </p>
             </CardContent>
           </Card>
@@ -65,18 +64,18 @@ const GoogleProfile = () => {
           {/* What to expect */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary mb-2">What to expect</h3>
-              <ul className="space-y-1.5">
-                <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">•</span>
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">What to expect</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span>People who find you on Google can join your business</span>
                 </li>
-                <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">•</span>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span>Customers stay connected after they leave Google</span>
                 </li>
-                <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">•</span>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span>Activity appears naturally over time</span>
                 </li>
               </ul>
@@ -85,19 +84,19 @@ const GoogleProfile = () => {
         </div>
 
         {/* Right column - CTA */}
-        <div className="lg:col-span-1">
+        <div>
           {/* Connect Google section */}
           {!isConnected && !isConnecting && (
             <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">Connect Google</h3>
                 
-                <Button onClick={handleConnectGoogle} className="w-full mb-3">
+                <Button onClick={handleConnectGoogle} className="mb-3">
                   <MapPin className="h-4 w-4 mr-2" />
                   Connect Google
                 </Button>
 
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   You can change or disconnect this anytime.
                 </p>
               </CardContent>
@@ -108,10 +107,9 @@ const GoogleProfile = () => {
           {isConnecting && !isConnected && (
             <Card>
               <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-medium text-sm mb-1">Select your Google Business Profile</h4>
-                  <p className="text-xs text-muted-foreground">Choose the profile you want to connect.</p>
-                </div>
+                <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">Select Profile</h3>
+                
+                <p className="text-sm text-muted-foreground mb-3">Choose the profile you want to connect.</p>
                 
                 <Select value={selectedProfileId} onValueChange={setSelectedProfileId}>
                   <SelectTrigger className="w-full mb-4">
@@ -132,12 +130,12 @@ const GoogleProfile = () => {
                 <Button 
                   onClick={handleConnectProfile} 
                   disabled={!selectedProfileId}
-                  className="w-full mb-3"
+                  className="mb-3"
                 >
                   Connect profile
                 </Button>
 
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   If you manage more than one profile, you can choose.
                 </p>
               </CardContent>
