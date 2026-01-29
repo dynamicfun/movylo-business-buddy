@@ -48,14 +48,16 @@ const GoogleProfile = () => {
       subtitle="Turn people who find you on Google into customers"
       helperText="Nothing happens until customers choose to join."
       introText="Connect your Google Business Profile so people who find you on Google can join your business and stay in touch."
+      icon={MapPin}
+      backTo="/"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left column - Info boxes */}
         <div className="space-y-4">
           {/* Why this matters */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Why this matters</h3>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>Many people discover local businesses on Google.</p>
                 <p>When they find your business, they can choose to join and stay connected.</p>
