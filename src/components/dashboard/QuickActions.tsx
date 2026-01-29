@@ -4,10 +4,12 @@ import { Ticket, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CheckCouponModal } from "./CheckCouponModal";
+import { AssignPointsModal } from "./AssignPointsModal";
 
 export function QuickActions() {
   const { t } = useLanguage();
   const [checkCouponOpen, setCheckCouponOpen] = useState(false);
+  const [assignPointsOpen, setAssignPointsOpen] = useState(false);
   
   return (
     <>
@@ -25,7 +27,12 @@ export function QuickActions() {
           <Ticket className="w-3.5 h-3.5" />
           {t.checkCoupon}
         </Button>
-        <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground"
+          onClick={() => setAssignPointsOpen(true)}
+        >
           <Gift className="w-3.5 h-3.5" />
           {t.assignLoyaltyPoints}
         </Button>
@@ -34,6 +41,10 @@ export function QuickActions() {
       <CheckCouponModal 
         open={checkCouponOpen} 
         onOpenChange={setCheckCouponOpen} 
+      />
+      <AssignPointsModal 
+        open={assignPointsOpen} 
+        onOpenChange={setAssignPointsOpen} 
       />
     </>
   );
