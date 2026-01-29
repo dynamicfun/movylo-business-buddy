@@ -88,6 +88,10 @@ export function CustomerCard({
       navigate("/sources/facebook");
       return;
     }
+    if (sourceKey === "manual") {
+      navigate("/sources/manual");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
