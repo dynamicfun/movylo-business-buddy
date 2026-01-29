@@ -214,7 +214,7 @@ export function CustomerCard({
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
       >
-        {t.findNewCustomers}
+        {t.addCustomers}
         <ChevronRight className="w-4 h-4" />
       </Button>
     </motion.div>
