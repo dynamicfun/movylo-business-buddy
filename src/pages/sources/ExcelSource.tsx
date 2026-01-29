@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileSpreadsheet, CheckCircle2, Upload } from "lucide-react";
+import { FileSpreadsheet, CheckCircle2, Upload, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -33,15 +33,15 @@ const ExcelSource = () => {
       title="Excel"
       subtitle="Upload a list of customers"
       helperText="Only upload customers who have agreed to hear from you."
-      introText="Upload a file if you already have a list of customers. This is useful if your contacts are saved in Excel or a similar file."
+      introText="Already have a customer list in Excel? You can upload it to Movylo in a simple and safe way."
       icon={FileSpreadsheet}
       backTo="/"
     >
       <div className="space-y-6">
-        {/* What to expect */}
+        {/* What happens next */}
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
           <CardContent className="p-5">
-            <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What to expect</h3>
+            <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What happens next</h3>
             <div className="space-y-2">
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
@@ -49,62 +49,116 @@ const ExcelSource = () => {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">Activity appears naturally over time</p>
+                <p className="text-sm text-muted-foreground">Nothing is sent right away</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                <p className="text-sm text-muted-foreground">Activity appears over time</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Upload section */}
+        {/* 1. Download template */}
         <Card>
           <CardContent className="p-5">
-            <h3 className="font-semibold text-foreground mb-2">Upload your file</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Choose a file from your computer to get started.
+            <h3 className="font-semibold text-foreground mb-1">1. Download the template</h3>
+            <p className="text-sm text-muted-foreground mb-1">
+              Use our template to prepare your file.
             </p>
+            <p className="text-sm text-muted-foreground mb-4">
+              This helps us read customer details correctly.
+            </p>
+            <Button variant="outline" className="gap-2">
+              <Download className="w-4 h-4" />
+              Download template
+            </Button>
+          </CardContent>
+        </Card>
 
-            <div className="space-y-4">
-              <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
-                <input
-                  type="file"
-                  accept=".xlsx,.xls,.csv"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  id="file-upload"
-                />
-                <label htmlFor="file-upload" className="cursor-pointer">
-                  <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  {file ? (
-                    <p className="text-sm font-medium text-foreground">{file.name}</p>
-                  ) : (
-                    <>
-                      <p className="text-sm font-medium text-foreground mb-1">Click to upload</p>
-                      <p className="text-xs text-muted-foreground">Excel (.xlsx, .xls) or CSV</p>
-                    </>
-                  )}
-                </label>
+        {/* 2. Confirm consent */}
+        <Card>
+          <CardContent className="p-5">
+            <h3 className="font-semibold text-foreground mb-4">2. Confirm consent</h3>
+            <div className="flex items-start gap-3">
+              <Checkbox 
+                id="consent" 
+                checked={consent}
+                onCheckedChange={(checked) => setConsent(checked as boolean)}
+              />
+              <div>
+                <Label htmlFor="consent" className="text-sm font-normal cursor-pointer">
+                  I confirm that all customers I'm uploading have given explicit consent (opt-in) to receive my communications
+                </Label>
+                <p className="text-xs text-muted-foreground/70 mt-2">
+                  This helps protect you and your customers.
+                </p>
               </div>
-
-              {!file && (
-                <Button className="w-full" asChild>
-                  <label htmlFor="file-upload" className="cursor-pointer">
-                    <Upload className="w-4 h-4 mr-2" />
-                    Upload file
-                  </label>
-                </Button>
-              )}
             </div>
           </CardContent>
         </Card>
 
-        {/* Column mapping - shown after file upload */}
+        {/* 3. Upload file */}
+        <Card>
+          <CardContent className="p-5">
+            <h3 className="font-semibold text-foreground mb-1">3. Upload the file</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Choose the Excel file from your computer.
+            </p>
+
+            {consent ? (
+              <div className="space-y-4">
+                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+                  <input
+                    type="file"
+                    accept=".xlsx,.xls,.csv"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="file-upload"
+                  />
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                    {file ? (
+                      <p className="text-sm font-medium text-foreground">{file.name}</p>
+                    ) : (
+                      <>
+                        <p className="text-sm font-medium text-foreground mb-1">Click to upload</p>
+                        <p className="text-xs text-muted-foreground">Excel (.xlsx, .xls) or CSV</p>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                {!file && (
+                  <Button className="w-full" asChild>
+                    <label htmlFor="file-upload" className="cursor-pointer">
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload file
+                    </label>
+                  </Button>
+                )}
+
+                <p className="text-xs text-muted-foreground/70">
+                  Supported formats: Excel (.xlsx, .xls) or CSV
+                </p>
+              </div>
+            ) : (
+              <div className="p-4 bg-muted/30 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  To start the upload, please confirm consent in step 2.
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Match fields - shown after file upload */}
         {file && (
           <Card>
             <CardContent className="p-5">
-              <h3 className="font-semibold text-foreground mb-1">Match your columns</h3>
+              <h3 className="font-semibold text-foreground mb-1">Match fields</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Tell us what each column contains.<br />
-                We'll use this to add customers correctly.
+                Tell us what each column contains.
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
@@ -116,7 +170,7 @@ const ExcelSource = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone">Mobile number</SelectItem>
+                      <SelectItem value="phone">Phone number</SelectItem>
                       <SelectItem value="firstName">First name</SelectItem>
                       <SelectItem value="lastName">Last name</SelectItem>
                       <SelectItem value="skip">Skip</SelectItem>
@@ -131,7 +185,7 @@ const ExcelSource = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone">Mobile number</SelectItem>
+                      <SelectItem value="phone">Phone number</SelectItem>
                       <SelectItem value="firstName">First name</SelectItem>
                       <SelectItem value="lastName">Last name</SelectItem>
                       <SelectItem value="skip">Skip</SelectItem>
@@ -146,7 +200,7 @@ const ExcelSource = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone">Mobile number</SelectItem>
+                      <SelectItem value="phone">Phone number</SelectItem>
                       <SelectItem value="firstName">First name</SelectItem>
                       <SelectItem value="lastName">Last name</SelectItem>
                       <SelectItem value="skip">Skip</SelectItem>
@@ -161,7 +215,7 @@ const ExcelSource = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone">Mobile number</SelectItem>
+                      <SelectItem value="phone">Phone number</SelectItem>
                       <SelectItem value="firstName">First name</SelectItem>
                       <SelectItem value="lastName">Last name</SelectItem>
                       <SelectItem value="skip">Skip</SelectItem>
@@ -170,41 +224,18 @@ const ExcelSource = () => {
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground/70">You can leave columns empty if you don't need them.</p>
+              <p className="text-xs text-muted-foreground/70">You can leave fields empty if you don't need them.</p>
             </CardContent>
           </Card>
         )}
 
-        {/* Consent - shown after file upload */}
+        {/* Preview - shown after file upload */}
         {file && (
           <Card>
             <CardContent className="p-5">
-              <div className="flex items-start gap-3">
-                <Checkbox 
-                  id="consent" 
-                  checked={consent}
-                  onCheckedChange={(checked) => setConsent(checked as boolean)}
-                />
-                <div>
-                  <Label htmlFor="consent" className="text-sm font-normal cursor-pointer">
-                    I confirm that the customers in this file have agreed to receive my messages
-                  </Label>
-                  <p className="text-xs text-muted-foreground/70 mt-1">
-                    (This helps keep your account in good standing.)
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Preview - shown after consent */}
-        {file && consent && (
-          <Card>
-            <CardContent className="p-5">
-              <h3 className="font-semibold text-foreground mb-1">Preview customers</h3>
+              <h3 className="font-semibold text-foreground mb-1">Customer preview</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Review a few entries to make sure everything looks right.
+                Review a few entries before saving.
               </p>
 
               <div className="border rounded-lg overflow-hidden mb-4">
