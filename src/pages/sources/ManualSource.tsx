@@ -44,10 +44,6 @@ const ManualSource = () => {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">They won't receive anything immediately</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <p className="text-sm text-muted-foreground">Activity appears naturally over time</p>
               </div>
             </div>
