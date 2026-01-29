@@ -92,6 +92,10 @@ export function CustomerCard({
       navigate("/sources/manual");
       return;
     }
+    if (sourceKey === "excel") {
+      navigate("/sources/excel");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
