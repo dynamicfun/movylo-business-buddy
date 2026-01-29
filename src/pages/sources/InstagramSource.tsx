@@ -1,172 +1,116 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft, Instagram, Eye, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Instagram, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
-import SourceIntro from "@/components/sources/SourceIntro";
-
-type LinkPlacement = "bio" | "stories" | "messages";
+import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 
 const InstagramSource = () => {
-  const [selectedPlacements, setSelectedPlacements] = useState<LinkPlacement[]>([]);
+  const [isConnected, setIsConnected] = useState(false);
 
-  const placements = [
-    { id: "bio" as LinkPlacement, name: "Bio link", description: "Add to your profile bio" },
-    { id: "stories" as LinkPlacement, name: "Story highlights", description: "Pin in your highlights" },
-    { id: "messages" as LinkPlacement, name: "Messages", description: "Send via DM" },
-  ];
-
-  const togglePlacement = (id: LinkPlacement) => {
-    setSelectedPlacements((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
-    );
+  const handleConnectInstagram = () => {
+    // Placeholder for Instagram connection logic
+    setIsConnected(true);
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
-        <AppSidebar />
+    <InnerPageTemplate
+      title="Instagram"
+      subtitle="Turn people who follow you on Instagram into customers"
+      helperText="Nothing happens until customers choose to join."
+      introText="Connect your Instagram account so people who follow you there can join your business and stay in touch."
+      icon={Instagram}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Left column - Info boxes */}
+        <div className="space-y-4">
+          {/* Why this matters */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+              <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                <p>Many customers discover local businesses on Instagram.</p>
+                <p>When they follow your account, they see your updates in their feed.</p>
+                <p>This helps turn those people into customers you can stay connected with.</p>
+              </div>
+            </CardContent>
+          </Card>
 
-        <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6"
-            >
-              <Link
-                to="/"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Home
-              </Link>
+          {/* What to expect */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">What to expect</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>People who find you on Instagram can join your business</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>Movylo shares occasional updates for you</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>You can review or change this anytime</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>Customers stay connected after they leave Instagram</span>
+                </li>
+              </ul>
+              <p className="text-xs text-muted-foreground mt-4">
+                Want to adjust this? You can review posts anytime in{" "}
+                <a href="/autopilot" className="text-primary hover:underline">Autopilot</a>.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-              <SourceIntro
-                icon={Instagram}
-                title="Connect your Instagram"
-                subtitle="Turn Instagram followers into customers."
-                description="Once connected, Movylo keeps them in touch with your business. You can change or remove this anytime."
-                benefits={[
-                  { text: "Followers can join your business in one step" },
-                  { text: "Customers stay connected after they leave Instagram" },
-                  { text: "More chances for repeat visits and sales" },
-                ]}
-                customerViewTitle="What customers see"
-                customerViewItems={[
-                  "Customers see a simple link on your Instagram profile.",
-                  "They can join your business in a few seconds.",
-                  "Some of them come back or buy again.",
-                ]}
-              />
-            </motion.div>
+        {/* Right column - CTA */}
+        <div className="space-y-4">
+          {!isConnected ? (
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">Connect Instagram</h3>
+                
+                <Button onClick={handleConnectInstagram} className="mb-4">
+                  <Instagram className="h-4 w-4 mr-2" />
+                  Connect Instagram
+                </Button>
 
-            {/* Connection Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <Card className="mb-6">
-                <CardContent className="p-6">
-                  <h2 className="text-lg font-semibold text-foreground mb-2">
-                    Connect your Instagram
-                  </h2>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    This takes a moment.
-                  </p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  You can change or disconnect this anytime.
+                </p>
 
-                  <p className="text-sm text-muted-foreground mb-6">
-                    Connect your Instagram account to Movylo.<br />
-                    Choose where the sign-up link appears.
-                  </p>
+                <p className="text-xs text-muted-foreground">
+                  This works quietly in the background.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-primary/20 bg-primary/5">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold text-sm text-primary">Instagram Connected</h3>
+                </div>
+                
+                <p className="text-sm text-muted-foreground mb-4">
+                  Your Instagram account is connected. People who follow you can now join your business.
+                </p>
 
-                  <Button className="gap-2">
-                    <Instagram className="w-4 h-4" />
-                    Connect Instagram
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
+                <Button variant="outline" size="sm" onClick={() => setIsConnected(false)}>
+                  Disconnect
+                </Button>
 
-            {/* Link Placement */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Card className="mb-6">
-                <CardContent className="p-6">
-                  <h2 className="text-lg font-semibold text-foreground mb-2">
-                    Where the link appears
-                  </h2>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Choose where customers can find you:
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                    {placements.map((placement) => (
-                      <button
-                        key={placement.id}
-                        onClick={() => togglePlacement(placement.id)}
-                        className={`relative p-4 rounded-xl border-2 transition-all text-left ${
-                          selectedPlacements.includes(placement.id)
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-primary/40 hover:bg-muted/50"
-                        }`}
-                      >
-                        <div className="flex flex-col gap-1">
-                          <span className="font-medium text-foreground">{placement.name}</span>
-                          <span className="text-xs text-muted-foreground">{placement.description}</span>
-                        </div>
-                        {selectedPlacements.includes(placement.id) && (
-                          <div className="absolute top-2 right-2">
-                            <Check className="w-4 h-4 text-primary" />
-                          </div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-
-                  <p className="text-xs text-muted-foreground">
-                    You can change this later.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Preview Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <Card>
-                <CardContent className="p-6">
-                  <h2 className="text-lg font-semibold text-foreground mb-2">
-                    Preview
-                  </h2>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    This is how it will look to customers.<br />
-                    You can update it anytime.
-                  </p>
-
-                  <Button variant="outline" className="gap-2">
-                    <Eye className="w-4 h-4" />
-                    Show preview
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </main>
+                <p className="text-xs text-muted-foreground mt-4">
+                  This works quietly in the background.
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
-    </SidebarProvider>
+    </InnerPageTemplate>
   );
 };
 
