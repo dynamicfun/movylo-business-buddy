@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { ArrowLeft, Link2, CheckCircle2, MessageCircle, Send, Copy, Check, Search, Star, MessageSquare } from "lucide-react";
+import { Link2, CheckCircle2, MessageCircle, Send, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 const ShareLinkSource = () => {
   const [copied, setCopied] = useState(false);
   const businessLink = "https://movylo.com/your-business";
+  const [suggestedMessage, setSuggestedMessage] = useState(
+    `Hi 👋\nThis is the easiest way to stay in touch with us.\nYou'll only hear from us occasionally.`
+  );
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(businessLink);
@@ -19,115 +21,134 @@ const ShareLinkSource = () => {
   };
 
   const handleShareWhatsApp = () => {
-    const message = encodeURIComponent(`Join our business! ${businessLink}`);
-    window.open(`https://wa.me/?text=${message}`, "_blank");
+    const fullMessage = `${suggestedMessage}\n\n${businessLink}`;
+    const encoded = encodeURIComponent(fullMessage);
+    window.open(`https://wa.me/?text=${encoded}`, "_blank");
   };
 
   const handleShareTelegram = () => {
-    const message = encodeURIComponent(`Join our business! ${businessLink}`);
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(businessLink)}&text=${message}`, "_blank");
+    const fullMessage = `${suggestedMessage}`;
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(businessLink)}&text=${encodeURIComponent(fullMessage)}`, "_blank");
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
-        <AppSidebar />
-        
-        <main className="flex-1 overflow-x-hidden">
-          <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            {/* Header */}
-            <div className="flex items-center gap-4 mb-6">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
+    <InnerPageTemplate
+      title="Share a link"
+      subtitle="Turn messages and conversations into customers"
+      introText="Share a simple link so people you talk to can join your business and stay in touch."
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Left column - Info boxes */}
+        <div className="space-y-4">
+          {/* Why this matters */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Many customers connect with businesses through messages. This link helps turn those conversations into customers you can stay connected with.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* What to expect */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="font-semibold text-sm text-primary uppercase tracking-wide mb-3">What to expect</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>People can join your business from the link</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>Customers stay connected after the conversation ends</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span>Activity appears naturally over time</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Background reassurance */}
+          <p className="text-xs text-muted-foreground px-1">
+            This works quietly in the background.
+          </p>
+        </div>
+
+        {/* Right column - Link and actions */}
+        <div>
+          <Card>
+            <CardContent className="p-6 space-y-6">
+              {/* Your sign-up link */}
               <div>
-                <h1 className="text-xl font-bold text-foreground">Share a link</h1>
-                <p className="text-sm text-muted-foreground">Turn messages and conversations into customers</p>
-              </div>
-            </div>
-
-            {/* Intro text */}
-            <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
-              Share a simple link so people can join your business and stay in touch.
-            </p>
-
-            <div className="grid lg:grid-cols-3 gap-6">
-              {/* Left column - Why this matters */}
-              <div className="lg:col-span-1">
-                <Card>
-                  <CardContent className="p-5">
-                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">Why this matters</h3>
-                    <p className="text-sm text-foreground leading-relaxed">
-                      Many customers connect with businesses through messages.
-                      This link helps turn those conversations into customers you can stay connected with.
-                    </p>
-                  </CardContent>
-                </Card>
+                <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">Your sign-up link</h3>
+                
+                <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border">
+                  <Link2 className="h-4 w-4 text-primary shrink-0" />
+                  <span className="text-sm text-foreground font-mono flex-1 truncate">{businessLink}</span>
+                </div>
               </div>
 
-              {/* Right column - Link and actions */}
-              <div className="lg:col-span-2 space-y-4">
-                {/* Your sign-up link */}
-                <Card>
-                  <CardContent className="p-5">
-                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-3">Your sign-up link</h3>
-                    
-                    <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border mb-4">
-                      <Link2 className="h-4 w-4 text-primary shrink-0" />
-                      <span className="text-sm text-foreground font-mono flex-1 truncate">{businessLink}</span>
-                    </div>
-
-                    {/* Share buttons - with color accents */}
-                    <div className="flex flex-wrap gap-3 mb-4">
-                      <Button 
-                        onClick={handleShareWhatsApp}
-                        className="flex-1 min-w-[140px] bg-emerald-600 hover:bg-emerald-700 text-white"
-                      >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        Share on WhatsApp
-                      </Button>
-                      <Button 
-                        onClick={handleShareTelegram}
-                        className="flex-1 min-w-[140px] bg-sky-500 hover:bg-sky-600 text-white"
-                      >
-                        <Send className="h-4 w-4 mr-2" />
-                        Share on Telegram
-                      </Button>
-                      <Button 
-                        variant="outline"
-                        onClick={handleCopyLink}
-                        className="flex-1 min-w-[140px]"
-                      >
-                        {copied ? (
-                          <>
-                            <Check className="h-4 w-4 mr-2" />
-                            Copied!
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="h-4 w-4 mr-2" />
-                            Copy link
-                          </>
-                        )}
-                      </Button>
-                    </div>
-
-                    <p className="text-xs text-muted-foreground">
-                      You can use this link in messages, emails, or anywhere you talk to customers.
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Helper text */}
-                <p className="text-xs text-muted-foreground">
-                  This works quietly in the background.
+              {/* Suggested message */}
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Suggested message
+                  <span className="text-xs ml-1">(You can edit this before sharing)</span>
                 </p>
+                <Textarea
+                  value={suggestedMessage}
+                  onChange={(e) => setSuggestedMessage(e.target.value)}
+                  className="min-h-[100px] text-sm resize-none"
+                />
               </div>
-            </div>
-          </div>
-        </main>
+
+              {/* Share buttons */}
+              <div className="space-y-3">
+                <div className="flex flex-wrap gap-3">
+                  <Button 
+                    onClick={handleShareWhatsApp}
+                    className="flex-1 min-w-[140px] bg-emerald-600 hover:bg-emerald-700 text-white"
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    Share on WhatsApp
+                  </Button>
+                  <Button 
+                    onClick={handleShareTelegram}
+                    className="flex-1 min-w-[140px] bg-sky-500 hover:bg-sky-600 text-white"
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Share on Telegram
+                  </Button>
+                </div>
+                <Button 
+                  variant="outline"
+                  onClick={handleCopyLink}
+                  className="w-full"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 mr-2" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy link
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                You can use this link in messages, emails, or anywhere you talk to customers.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </SidebarProvider>
+    </InnerPageTemplate>
   );
 };
 
