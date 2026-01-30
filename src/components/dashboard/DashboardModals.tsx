@@ -40,7 +40,7 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
 
         <div className="space-y-3 mt-4">
           <Button 
-            className="w-full h-11 rounded-xl"
+            className="w-full h-11 rounded-xl justify-start"
             onClick={() => handleNavigate("/customers/list")}
           >
             <Users className="w-4 h-4 mr-2" />
@@ -48,7 +48,7 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
           </Button>
           
           <Button 
-            className="w-full h-11 rounded-xl"
+            className="w-full h-11 rounded-xl justify-start"
             onClick={() => handleNavigate("/customers/signup")}
           >
             <UserPlus className="w-4 h-4 mr-2" />
@@ -62,7 +62,7 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
 
         <div className="space-y-3 mt-2">
           <Button 
-            className="w-full h-11 rounded-xl"
+            className="w-full h-11 rounded-xl justify-start"
             onClick={() => handleNavigate("/sources")}
           >
             <Plus className="w-4 h-4 mr-2" />
