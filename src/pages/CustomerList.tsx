@@ -127,35 +127,38 @@ export default function CustomerList() {
             transition={{ delay: 0.1 }}
             className="bg-card rounded-xl border p-4 md:p-6 mb-6"
           >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-lg text-muted-foreground">Total customers:</span>
-                  <span className="text-3xl font-bold text-accent">{mockCustomers.length}</span>
-                </div>
-
-                <Button className="gap-2">
-                  <UserPlus className="h-4 w-4" />
-                  Add a new customer
-                </Button>
-
-                <Button variant="link" className="gap-2 text-primary">
-                  <Upload className="h-4 w-4" />
-                  Import an Excel file
-                </Button>
-
-                <Button variant="link" className="gap-2 text-primary">
-                  <Download className="h-4 w-4" />
-                  Export via: xlsx
-                </Button>
+            {/* Stats Row */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-foreground">{mockCustomers.length}</span>
+                <span className="text-muted-foreground">customers</span>
               </div>
-
-              <div className="text-sm text-muted-foreground">
-                Your plan can contain max <strong>2500 customers</strong> |{" "}
-                <a href="#" className="text-primary hover:underline">
-                  Upgrade now!
+              
+              <div className="text-xs text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
+                {mockCustomers.length} / 2,500 in your plan
+                <span className="mx-1.5">·</span>
+                <a href="#" className="text-primary hover:underline font-medium">
+                  Upgrade
                 </a>
               </div>
+            </div>
+
+            {/* Actions Row */}
+            <div className="flex flex-wrap items-center gap-2 mb-6">
+              <Button size="sm" className="gap-2 rounded-lg">
+                <UserPlus className="h-4 w-4" />
+                Add customer
+              </Button>
+
+              <Button variant="outline" size="sm" className="gap-2 rounded-lg">
+                <Upload className="h-4 w-4" />
+                Import Excel
+              </Button>
+
+              <Button variant="outline" size="sm" className="gap-2 rounded-lg">
+                <Download className="h-4 w-4" />
+                Export
+              </Button>
             </div>
 
             {/* Filters & Search */}
