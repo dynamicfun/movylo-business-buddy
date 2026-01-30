@@ -76,7 +76,7 @@ export function AppSidebar() {
       icon: MessageSquare,
       submenu: [
         { title: t.autopilot, url: "/autopilot" },
-        { title: t.createPromo, url: "/messages/promo" },
+        { title: t.createPromo, url: "/messages/create-promo" },
         { title: t.createNewsletter, url: "/messages/newsletter" },
         { title: t.createSocialPost, url: "/messages/social" },
         { title: t.scheduleCampaigns, url: "/messages/scheduler" },
