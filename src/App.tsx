@@ -13,6 +13,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoyaltyProgram from "./pages/LoyaltyProgram";
 import Reservations from "./pages/Reservations";
 import CreatePromo from "./pages/CreatePromo";
+import CreatePromoAI from "./pages/CreatePromoAI";
 import WebsiteSource from "./pages/sources/WebsiteSource";
 import InstagramSource from "./pages/sources/InstagramSource";
 import ShareLinkSource from "./pages/sources/ShareLinkSource";
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/customers/loyalty" element={<LoyaltyProgram />} />
             <Route path="/sales/reservations" element={<Reservations />} />
             <Route path="/messages/create-promo" element={<CreatePromo />} />
+            <Route path="/messages/create-promo/ai" element={<CreatePromoAI />} />
             <Route path="/sources/website" element={<WebsiteSource />} />
             <Route path="/sources/instagram" element={<InstagramSource />} />
             <Route path="/sources/share-link" element={<ShareLinkSource />} />

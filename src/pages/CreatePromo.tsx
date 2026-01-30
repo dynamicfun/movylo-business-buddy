@@ -57,7 +57,7 @@ export default function CreatePromo() {
           icon={<Tag className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />}
           title="Create a promotion for your customers"
           description="Create and send promotions to your customers, in real time!"
-          onStart={() => navigate("/autopilot")}
+          onStart={() => navigate("/messages/create-promo/ai")}
           delay={0.1}
         />
         
