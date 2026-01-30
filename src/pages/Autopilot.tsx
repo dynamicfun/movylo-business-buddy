@@ -186,6 +186,7 @@ const defaultMomentConfig: MomentConfig = {
 export default function Autopilot() {
   const [autopilotEnabled, setAutopilotEnabled] = useState(true);
   const [selectedIncentive, setSelectedIncentive] = useState<IncentiveType>('percent');
+  const [incentiveValue, setIncentiveValue] = useState('');
   const [moments, setMoments] = useState({
     welcome: { ...defaultMomentConfig, timing: 'immediately' },
     bringBack: { ...defaultMomentConfig, timing: 'when-quiet' },
@@ -313,8 +314,66 @@ export default function Autopilot() {
                       </button>
                     ))}
                   </div>
+
+                  {/* Incentive Value Input Form */}
+                  {selectedIncentive !== 'none' && (
+                    <div className="mt-4 p-4 rounded-lg border border-border bg-muted/30">
+                      <Label htmlFor="incentive-value" className="text-sm font-medium text-foreground mb-2 block">
+                        {selectedIncentive === 'percent' && 'Enter discount percentage'}
+                        {selectedIncentive === 'dollar' && 'Enter amount off'}
+                        {selectedIncentive === 'vip' && 'Describe the VIP perk'}
+                      </Label>
+                      <div className="flex items-center gap-2">
+                        {selectedIncentive === 'percent' && (
+                          <>
+                            <Input
+                              id="incentive-value"
+                              type="number"
+                              min="1"
+                              max="100"
+                              placeholder="10"
+                              value={incentiveValue}
+                              onChange={(e) => setIncentiveValue(e.target.value)}
+                              className="max-w-[120px]"
+                            />
+                            <span className="text-sm text-muted-foreground">%</span>
+                          </>
+                        )}
+                        {selectedIncentive === 'dollar' && (
+                          <>
+                            <span className="text-sm text-muted-foreground">$</span>
+                            <Input
+                              id="incentive-value"
+                              type="number"
+                              min="1"
+                              placeholder="5"
+                              value={incentiveValue}
+                              onChange={(e) => setIncentiveValue(e.target.value)}
+                              className="max-w-[120px]"
+                            />
+                            <span className="text-sm text-muted-foreground">off</span>
+                          </>
+                        )}
+                        {selectedIncentive === 'vip' && (
+                          <Input
+                            id="incentive-value"
+                            type="text"
+                            placeholder="e.g., Free dessert, Priority seating..."
+                            value={incentiveValue}
+                            onChange={(e) => setIncentiveValue(e.target.value)}
+                            className="flex-1"
+                          />
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        {selectedIncentive === 'percent' && 'This percentage will be applied to their next purchase.'}
+                        {selectedIncentive === 'dollar' && 'This amount will be deducted from their next purchase.'}
+                        {selectedIncentive === 'vip' && 'Describe a special perk for returning customers.'}
+                      </p>
+                    </div>
+                  )}
                   
-                  <p className="text-xs text-muted-foreground/70">
+                  <p className="text-xs text-muted-foreground/70 mt-4">
                     You can change this anytime. Customers only see it if they choose to use it.
                   </p>
                 </CardContent>
