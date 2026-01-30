@@ -1,22 +1,75 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Play, Pause, Settings, UserPlus, RefreshCw, Heart, Star, Percent, DollarSign, Crown, X, Plus, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle2, Play, Pause, Settings, UserPlus, RefreshCw, Heart, Star, Percent, DollarSign, Crown, X, Plus, ChevronDown, ChevronUp, Mail, Share2, MessageSquare, Image, Type, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+type IncentiveType = 'percent' | 'dollar' | 'vip' | 'none';
+type BonusOverride = 'standard' | 'custom';
+
+interface MomentConfig {
+  isOn: boolean;
+  messageText: string;
+  tone: string;
+  image: string;
+  bonusType: BonusOverride;
+  customBonus: IncentiveType;
+  channels: {
+    email: boolean;
+    social: boolean;
+    whatsapp: boolean;
+  };
+  timing: string;
+}
 
 interface AutopilotMomentCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
-  isOn: boolean;
-  onToggle: () => void;
+  config: MomentConfig;
+  onConfigChange: (config: MomentConfig) => void;
 }
 
-function AutopilotMomentCard({ icon, title, description, isOn, onToggle }: AutopilotMomentCardProps) {
+function AutopilotMomentCard({ icon, title, description, config, onConfigChange }: AutopilotMomentCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [localConfig, setLocalConfig] = useState(config);
+
+  const handleSave = () => {
+    onConfigChange(localConfig);
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setLocalConfig(config);
+    setIsOpen(false);
+  };
+
+  const incentiveOptions: { type: IncentiveType; label: string }[] = [
+    { type: 'percent', label: '% Discount' },
+    { type: 'dollar', label: '$ Off' },
+    { type: 'vip', label: 'VIP perk' },
+    { type: 'none', label: 'No incentive' },
+  ];
+
+  const timingOptions = [
+    { value: 'immediately', label: 'Right after they join' },
+    { value: 'after-1-day', label: 'A day after joining' },
+    { value: 'after-1-week', label: 'About a week later' },
+    { value: 'after-2-weeks', label: 'After a couple of weeks' },
+    { value: 'after-1-month', label: 'About a month later' },
+    { value: 'when-quiet', label: 'When they haven\'t visited in a while' },
+    { value: 'after-multiple-visits', label: 'After they\'ve visited a few times' },
+  ];
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -32,9 +85,10 @@ function AutopilotMomentCard({ icon, title, description, isOn, onToggle }: Autop
                 <p className="text-xs text-muted-foreground">{description}</p>
               </div>
               <div className="flex items-center gap-2">
-                <span className={`text-xs px-2 py-0.5 rounded-full ${isOn ? 'bg-green-500/20 text-green-600' : 'bg-muted text-muted-foreground'}`}>
-                  {isOn ? 'On' : 'Paused'}
+                <span className={`text-xs px-2 py-0.5 rounded-full ${config.isOn ? 'bg-green-500/20 text-green-600' : 'bg-muted text-muted-foreground'}`}>
+                  {config.isOn ? 'On' : 'Paused'}
                 </span>
+                <span className="text-xs text-primary">Customize</span>
                 {isOpen ? (
                   <ChevronUp className="h-4 w-4 text-muted-foreground" />
                 ) : (
@@ -46,17 +100,207 @@ function AutopilotMomentCard({ icon, title, description, isOn, onToggle }: Autop
         </CollapsibleTrigger>
         <CollapsibleContent>
           <div className="px-4 pb-4 pt-0 border-t border-border/50">
-            <div className="flex items-center justify-between pt-3">
-              <div className="flex items-center gap-2">
-                <Switch checked={isOn} onCheckedChange={onToggle} />
-                <span className="text-sm text-muted-foreground">
-                  {isOn ? 'On' : 'Paused'}
-                </span>
+            <div className="pt-4 space-y-6">
+              <h4 className="font-semibold text-foreground">Customize: {title}</h4>
+              
+              {/* Message Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Type className="h-4 w-4" />
+                  Message
+                </div>
+                
+                <div className="space-y-3 pl-6">
+                  <div>
+                    <Label htmlFor={`text-${title}`} className="text-xs text-muted-foreground">Text</Label>
+                    <Textarea
+                      id={`text-${title}`}
+                      value={localConfig.messageText}
+                      onChange={(e) => setLocalConfig({ ...localConfig, messageText: e.target.value })}
+                      placeholder="Write your message here..."
+                      className="mt-1"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor={`tone-${title}`} className="text-xs text-muted-foreground">Tone (if available)</Label>
+                    <Select value={localConfig.tone} onValueChange={(value) => setLocalConfig({ ...localConfig, tone: value })}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Select tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="friendly">Friendly</SelectItem>
+                        <SelectItem value="professional">Professional</SelectItem>
+                        <SelectItem value="casual">Casual</SelectItem>
+                        <SelectItem value="warm">Warm</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor={`image-${title}`} className="text-xs text-muted-foreground">Image (optional)</Label>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Input
+                        id={`image-${title}`}
+                        type="text"
+                        value={localConfig.image}
+                        onChange={(e) => setLocalConfig({ ...localConfig, image: e.target.value })}
+                        placeholder="Image URL or upload"
+                        className="flex-1"
+                      />
+                      <Button variant="outline" size="sm">
+                        <Image className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <Button variant="outline" size="sm">
-                <Settings className="w-4 h-4 mr-1.5" />
-                Customize
-              </Button>
+
+              {/* Bonus Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Sparkles className="h-4 w-4" />
+                  Bonus
+                </div>
+                
+                <div className="space-y-3 pl-6">
+                  <RadioGroup
+                    value={localConfig.bonusType}
+                    onValueChange={(value: BonusOverride) => setLocalConfig({ ...localConfig, bonusType: value })}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="standard" id={`bonus-standard-${title}`} />
+                      <Label htmlFor={`bonus-standard-${title}`} className="text-sm">Uses standard bonus by default</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="custom" id={`bonus-custom-${title}`} />
+                      <Label htmlFor={`bonus-custom-${title}`} className="text-sm">Override for this moment</Label>
+                    </div>
+                  </RadioGroup>
+                  
+                  {localConfig.bonusType === 'custom' && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+                      {incentiveOptions.map((option) => (
+                        <button
+                          key={option.type}
+                          onClick={() => setLocalConfig({ ...localConfig, customBonus: option.type })}
+                          className={`flex items-center justify-center gap-2 p-2 rounded-lg border text-xs transition-all ${
+                            localConfig.customBonus === option.type
+                              ? 'border-primary bg-primary/10 text-primary'
+                              : 'border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Where it's sent Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Share2 className="h-4 w-4" />
+                  Where it's sent
+                </div>
+                
+                <div className="space-y-3 pl-6">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`channel-email-${title}`}
+                      checked={localConfig.channels.email}
+                      onCheckedChange={(checked) => setLocalConfig({ 
+                        ...localConfig, 
+                        channels: { ...localConfig.channels, email: checked as boolean } 
+                      })}
+                    />
+                    <Label htmlFor={`channel-email-${title}`} className="text-sm flex items-center gap-2">
+                      <Mail className="h-4 w-4" /> Email
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`channel-social-${title}`}
+                      checked={localConfig.channels.social}
+                      onCheckedChange={(checked) => setLocalConfig({ 
+                        ...localConfig, 
+                        channels: { ...localConfig.channels, social: checked as boolean } 
+                      })}
+                    />
+                    <Label htmlFor={`channel-social-${title}`} className="text-sm flex items-center gap-2">
+                      <Share2 className="h-4 w-4" /> Social
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`channel-whatsapp-${title}`}
+                      checked={localConfig.channels.whatsapp}
+                      onCheckedChange={(checked) => setLocalConfig({ 
+                        ...localConfig, 
+                        channels: { ...localConfig.channels, whatsapp: checked as boolean } 
+                      })}
+                    />
+                    <Label htmlFor={`channel-whatsapp-${title}`} className="text-sm flex items-center gap-2">
+                      <MessageSquare className="h-4 w-4" /> WhatsApp / SMS (if enabled)
+                    </Label>
+                  </div>
+                </div>
+              </div>
+
+              {/* When it runs Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Settings className="h-4 w-4" />
+                  When it runs
+                </div>
+                
+                <div className="pl-6">
+                  <Select value={localConfig.timing} onValueChange={(value) => setLocalConfig({ ...localConfig, timing: value })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select timing" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timingOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Status Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  {localConfig.isOn ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                  Status
+                </div>
+                
+                <div className="flex items-center gap-3 pl-6">
+                  <Switch 
+                    checked={localConfig.isOn} 
+                    onCheckedChange={(checked) => setLocalConfig({ ...localConfig, isOn: checked })} 
+                  />
+                  <span className={`text-sm ${localConfig.isOn ? 'text-green-600' : 'text-muted-foreground'}`}>
+                    {localConfig.isOn ? 'On' : 'Paused'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex items-center gap-3 pt-2">
+                <Button onClick={handleSave}>
+                  Save changes
+                </Button>
+                <Button variant="outline" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground/70">
+                Nothing changes until you save.
+              </p>
             </div>
           </div>
         </CollapsibleContent>
@@ -65,22 +309,33 @@ function AutopilotMomentCard({ icon, title, description, isOn, onToggle }: Autop
   );
 }
 
-type IncentiveType = 'percent' | 'dollar' | 'vip' | 'none';
+const defaultMomentConfig: MomentConfig = {
+  isOn: true,
+  messageText: '',
+  tone: 'friendly',
+  image: '',
+  bonusType: 'standard',
+  customBonus: 'percent',
+  channels: {
+    email: true,
+    social: false,
+    whatsapp: false,
+  },
+  timing: 'immediately',
+};
 
 export default function Autopilot() {
   const [autopilotEnabled, setAutopilotEnabled] = useState(true);
   const [selectedIncentive, setSelectedIncentive] = useState<IncentiveType>('percent');
-  const [customizationOpen, setCustomizationOpen] = useState(false);
-  const [momentsOpen, setMomentsOpen] = useState(false);
   const [moments, setMoments] = useState({
-    welcome: true,
-    bringBack: true,
-    thankLoyal: true,
-    askReview: true,
+    welcome: { ...defaultMomentConfig, timing: 'immediately' },
+    bringBack: { ...defaultMomentConfig, timing: 'when-quiet' },
+    thankLoyal: { ...defaultMomentConfig, timing: 'after-multiple-visits' },
+    askReview: { ...defaultMomentConfig, timing: 'after-multiple-visits' },
   });
 
-  const toggleMoment = (key: keyof typeof moments) => {
-    setMoments(prev => ({ ...prev, [key]: !prev[key] }));
+  const updateMoment = (key: keyof typeof moments, config: MomentConfig) => {
+    setMoments(prev => ({ ...prev, [key]: config }));
   };
 
   const incentiveOptions: { type: IncentiveType; icon: React.ReactNode; label: string }[] = [
@@ -160,208 +415,167 @@ export default function Autopilot() {
           </Card>
         </motion.div>
 
-        {/* Standard configuration - Encourage customers to come back */}
+        {/* Tabs Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
         >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold mb-1 text-foreground">Encourage customers to come back</h3>
-              <p className="text-xs text-muted-foreground/70 mb-4">(optional)</p>
-              <p className="text-sm text-muted-foreground mb-4">
-                A small incentive can be included in messages sent over time.
-              </p>
-              <p className="text-sm text-muted-foreground mb-3">Choose what you'd like to include:</p>
-              
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-                {incentiveOptions.map((option) => (
-                  <button
-                    key={option.type}
-                    onClick={() => setSelectedIncentive(option.type)}
-                    className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-all ${
-                      selectedIncentive === option.type
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {option.icon}
-                    <span className="text-xs font-medium">{option.label}</span>
-                  </button>
-                ))}
+          <Tabs defaultValue="autopilot" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="autopilot">Autopilot</TabsTrigger>
+              <TabsTrigger value="customize">Customize Autopilot</TabsTrigger>
+            </TabsList>
+            
+            {/* Autopilot Tab - Standard Configuration */}
+            <TabsContent value="autopilot" className="mt-4">
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-1 text-foreground">Encourage customers to come back</h3>
+                  <p className="text-xs text-muted-foreground/70 mb-4">(optional)</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    A small incentive can be included in messages sent over time.
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-3">Choose what you'd like to include:</p>
+                  
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                    {incentiveOptions.map((option) => (
+                      <button
+                        key={option.type}
+                        onClick={() => setSelectedIncentive(option.type)}
+                        className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-all ${
+                          selectedIncentive === option.type
+                            ? 'border-primary bg-primary/10 text-primary'
+                            : 'border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        {option.icon}
+                        <span className="text-xs font-medium">{option.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <p className="text-xs text-muted-foreground/70">
+                    You can change this anytime. Customers only see it if they choose to use it.
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Customize Autopilot Tab */}
+            <TabsContent value="customize" className="mt-4 space-y-6">
+              {/* Customization Intro */}
+              <Card className="border-dashed">
+                <CardContent className="p-6">
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Autopilot works as it is.<br />
+                    If you want, you can customize how individual moments work.
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-2">Here you can:</p>
+                  <ul className="space-y-1.5 mb-4">
+                    <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>manage single moments</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>decide how and when social posts are shared</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>add or remove channels like SMS or WhatsApp</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>change message tone or images</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>create your own custom moments</span>
+                    </li>
+                  </ul>
+                  <p className="text-xs text-muted-foreground/70">
+                    This is optional. Autopilot keeps working even if you don't change anything.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Autopilot Moments */}
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Autopilot moments</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  These are the moments Autopilot uses to stay in touch.
+                </p>
+                <p className="text-sm text-muted-foreground mb-2">Each moment:</p>
+                <ul className="text-sm text-muted-foreground space-y-1 mb-4 ml-4">
+                  <li>• runs automatically once customers join</li>
+                  <li>• can be turned on or off</li>
+                  <li>• can be customized if needed</li>
+                </ul>
               </div>
-              
-              <p className="text-xs text-muted-foreground/70">
-                You can change this anytime. Customers only see it if they choose to use it.
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
 
-        {/* Customization entry point - Collapsible */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Collapsible open={customizationOpen} onOpenChange={setCustomizationOpen}>
-            <Card className="border-dashed">
-              <CollapsibleTrigger asChild>
-                <CardContent className="p-4 cursor-pointer hover:bg-muted/30 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold text-foreground">Customize Autopilot</h3>
-                      <p className="text-xs text-muted-foreground">(optional)</p>
-                    </div>
-                    {customizationOpen ? (
-                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
-                    )}
-                  </div>
-                </CardContent>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <div className="px-6 pb-6 border-t border-border/50">
-                  <div className="pt-4">
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Autopilot works as it is.<br />
-                      If you want, you can customize how individual moments work.
-                    </p>
-                    <p className="text-sm text-muted-foreground mb-2">Here you can:</p>
-                    <ul className="space-y-1.5 mb-4">
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <span>manage single moments</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <span>decide how and when social posts are shared</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <span>add or remove channels like SMS or WhatsApp</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <span>change message tone or images</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <span>create your own custom moments</span>
-                      </li>
-                    </ul>
-                    <p className="text-xs text-muted-foreground/70">
-                      This is optional. Autopilot keeps working even if you don't change anything.
-                    </p>
-                  </div>
-                </div>
-              </CollapsibleContent>
-            </Card>
-          </Collapsible>
-        </motion.div>
-
-        {/* Autopilot Moments - Collapsible */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-        >
-          <Collapsible open={momentsOpen} onOpenChange={setMomentsOpen}>
-            <Card>
-              <CollapsibleTrigger asChild>
-                <CardContent className="p-4 cursor-pointer hover:bg-muted/30 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold text-foreground">Autopilot moments</h3>
-                      <p className="text-sm text-muted-foreground">These are the moments Autopilot uses to stay in touch.</p>
-                    </div>
-                    {momentsOpen ? (
-                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
-                    )}
-                  </div>
-                </CardContent>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <div className="px-4 pb-4 border-t border-border/50">
-                  <div className="pt-4 mb-4">
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Each moment:
-                    </p>
-                    <ul className="text-sm text-muted-foreground space-y-1 mb-4 ml-4">
-                      <li>• runs automatically once customers join</li>
-                      <li>• can be turned on or off</li>
-                      <li>• can be customized if needed</li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3">
-                    <AutopilotMomentCard
-                      icon={<UserPlus className="h-4 w-4 text-primary" />}
-                      title="Welcome new customers"
-                      description="Sends a short welcome when someone joins."
-                      isOn={moments.welcome}
-                      onToggle={() => toggleMoment('welcome')}
-                    />
-                    <AutopilotMomentCard
-                      icon={<RefreshCw className="h-4 w-4 text-primary" />}
-                      title="Bring customers back"
-                      description="Reaches out after a quiet period."
-                      isOn={moments.bringBack}
-                      onToggle={() => toggleMoment('bringBack')}
-                    />
-                    <AutopilotMomentCard
-                      icon={<Heart className="h-4 w-4 text-primary" />}
-                      title="Thank loyal customers"
-                      description="Sends a small thank-you to returning customers."
-                      isOn={moments.thankLoyal}
-                      onToggle={() => toggleMoment('thankLoyal')}
-                    />
-                    <AutopilotMomentCard
-                      icon={<Star className="h-4 w-4 text-primary" />}
-                      title="Ask for a review"
-                      description="Invites customers to leave a review at the right time."
-                      isOn={moments.askReview}
-                      onToggle={() => toggleMoment('askReview')}
-                    />
-                    
-                    {/* Custom moments card */}
-                    <Card className="border border-dashed border-border/70 bg-muted/20">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-muted shrink-0">
-                              <Plus className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                            <div>
-                              <h4 className="font-medium text-foreground text-sm">Custom moments</h4>
-                              <p className="text-xs text-muted-foreground">Create your own reminders or events.</p>
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            Create a moment
-                          </Button>
+              <div className="space-y-3">
+                <AutopilotMomentCard
+                  icon={<UserPlus className="h-4 w-4 text-primary" />}
+                  title="Welcome new customers"
+                  description="Sends a short welcome when someone joins."
+                  config={moments.welcome}
+                  onConfigChange={(config) => updateMoment('welcome', config)}
+                />
+                <AutopilotMomentCard
+                  icon={<RefreshCw className="h-4 w-4 text-primary" />}
+                  title="Bring customers back"
+                  description="Reaches out after a quiet period."
+                  config={moments.bringBack}
+                  onConfigChange={(config) => updateMoment('bringBack', config)}
+                />
+                <AutopilotMomentCard
+                  icon={<Heart className="h-4 w-4 text-primary" />}
+                  title="Thank loyal customers"
+                  description="Sends a small thank-you to returning customers."
+                  config={moments.thankLoyal}
+                  onConfigChange={(config) => updateMoment('thankLoyal', config)}
+                />
+                <AutopilotMomentCard
+                  icon={<Star className="h-4 w-4 text-primary" />}
+                  title="Ask for a review"
+                  description="Invites customers to leave a review at the right time."
+                  config={moments.askReview}
+                  onConfigChange={(config) => updateMoment('askReview', config)}
+                />
+                
+                {/* Custom moments card */}
+                <Card className="border border-dashed border-border/70 bg-muted/20">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-muted shrink-0">
+                          <Plus className="h-4 w-4 text-muted-foreground" />
                         </div>
-                        <p className="text-xs text-muted-foreground/70 mt-3 ml-11">
-                          Optional. Use this only if you want.
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </CollapsibleContent>
-            </Card>
-          </Collapsible>
+                        <div>
+                          <h4 className="font-medium text-foreground text-sm">Custom moments</h4>
+                          <p className="text-xs text-muted-foreground">Create your own reminders or events.</p>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm">
+                        Create a moment
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground/70 mt-3 ml-11">
+                      Optional. Use this only if you want.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
         </motion.div>
 
         {/* Bottom reassurance */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.2 }}
           className="text-center pt-4"
         >
           <p className="text-xs text-muted-foreground/60">
