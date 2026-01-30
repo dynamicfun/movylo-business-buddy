@@ -114,7 +114,7 @@ export function ActivityModal({ open, onOpenChange }: DashboardModalProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-2.5 mt-4 max-h-[300px] overflow-y-auto pr-1">
+        <div className="space-y-2.5 mt-4">
           {actions.map(({ icon: Icon, label, path }) => (
             <Button 
               key={label}
