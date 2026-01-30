@@ -91,7 +91,7 @@ function AutopilotMomentCard({ icon, title, description, config, onConfigChange 
         </div>
         
         <CollapsibleContent>
-          <div className="bg-primary/5 px-4 pb-4 pt-2 border-t border-border/30">
+          <div className="bg-gradient-to-br from-primary/5 to-background px-5 pb-5 pt-4 border-t border-border/30">
             {/* Header description */}
             <div className="mb-6">
               <h3 className="font-semibold text-foreground mb-1">{title}</h3>
@@ -100,7 +100,7 @@ function AutopilotMomentCard({ icon, title, description, config, onConfigChange 
             
             {/* Step 1: Configure the event */}
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-2xl font-bold text-amber-500">1.</span>
+              <span className="text-2xl font-bold text-primary">1.</span>
               <span className="font-medium text-foreground flex-1">Configure the event</span>
               <Button variant="default" size="sm">
                 Customize
@@ -108,83 +108,58 @@ function AutopilotMomentCard({ icon, title, description, config, onConfigChange 
             </div>
 
             {/* Step 2: Select where to send the messages */}
-            <div className="mb-6">
+            <div>
               <div className="flex items-center gap-4 mb-4">
-                <span className="text-2xl font-bold text-amber-500">2.</span>
+                <span className="text-2xl font-bold text-primary">2.</span>
                 <span className="font-medium text-foreground">Select where to send the messages</span>
               </div>
               
               <div className="flex flex-wrap gap-3 ml-9">
                 {/* Email channel */}
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.email ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${config.channels.email ? 'bg-card border-primary/30' : 'bg-muted/30 border-border'}`}>
                   <Checkbox 
                     checked={config.channels.email}
                     onCheckedChange={(checked) => handleChannelToggle('email', checked as boolean)}
                   />
                   <div className="flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-blue-500" />
-                    <span className="text-sm font-medium text-blue-600">EMAIL</span>
+                    <Mail className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium text-primary">EMAIL</span>
                   </div>
-                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                  <Button variant="outline" size="sm" className="ml-2 h-7 px-3 text-xs">
                     Edit
                   </Button>
                 </div>
 
                 {/* Social channel */}
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.social ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${config.channels.social ? 'bg-card border-primary/30' : 'bg-muted/30 border-border'}`}>
                   <Checkbox 
                     checked={config.channels.social}
                     onCheckedChange={(checked) => handleChannelToggle('social', checked as boolean)}
                   />
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-1">
-                      <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">f</span>
-                      </div>
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
-                        <span className="text-white text-xs">📷</span>
-                      </div>
-                      <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">G</span>
-                      </div>
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground ml-1">Social</span>
+                  <div className="flex items-center gap-2">
+                    <Share2 className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium text-muted-foreground">Social</span>
                   </div>
-                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                  <Button variant="outline" size="sm" className="ml-2 h-7 px-3 text-xs">
                     Edit
                   </Button>
                 </div>
 
                 {/* WhatsApp/SMS channel */}
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.whatsapp ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${config.channels.whatsapp ? 'bg-card border-primary/30' : 'bg-muted/30 border-border'}`}>
                   <Checkbox 
                     checked={config.channels.whatsapp}
                     onCheckedChange={(checked) => handleChannelToggle('whatsapp', checked as boolean)}
                   />
-                  <div className="flex items-center gap-1">
-                    <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
-                      <MessageSquare className="h-3 w-3 text-white" />
-                    </div>
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
-                      <MessageSquare className="h-3 w-3 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground ml-1">WhatsApp / SMS</span>
+                  <div className="flex items-center gap-2">
+                    <MessageSquare className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium text-muted-foreground">WhatsApp / SMS</span>
                   </div>
-                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                  <Button variant="outline" size="sm" className="ml-2 h-7 px-3 text-xs">
                     Edit
                   </Button>
                 </div>
               </div>
-            </div>
-
-            {/* Step 3: Enable or disable the event */}
-            <div className="flex items-center gap-4">
-              <span className="text-2xl font-bold text-amber-500">3.</span>
-              <span className="font-medium text-foreground">Enable or disable the event</span>
-              <Switch 
-                checked={config.isOn} 
-                onCheckedChange={handleToggle}
-              />
             </div>
           </div>
         </CollapsibleContent>
