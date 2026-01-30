@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ActivityModal } from "./DashboardModals";
 
 // TikTok and LinkedIn icons as custom components
 function TikTokIcon({ className }: { className?: string }) {
@@ -77,6 +79,7 @@ export function EngagementCard({
   },
 }: EngagementCardProps) {
   const { t } = useLanguage();
+  const [showModal, setShowModal] = useState(false);
   
   // Check if there's any activity
   const hasActivity = !isActivationMode && (
@@ -112,10 +115,13 @@ export function EngagementCard({
         <Button 
           className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
           size="default"
+          onClick={() => setShowModal(true)}
         >
           {t.messagesOffers}
           <ChevronRight className="w-4 h-4" />
         </Button>
+
+        <ActivityModal open={showModal} onOpenChange={setShowModal} />
       </motion.div>
     );
   }
@@ -189,10 +195,13 @@ export function EngagementCard({
       <Button 
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
+        onClick={() => setShowModal(true)}
       >
         {t.messagesOffers}
         <ChevronRight className="w-4 h-4" />
       </Button>
+
+      <ActivityModal open={showModal} onOpenChange={setShowModal} />
     </motion.div>
   );
 }
