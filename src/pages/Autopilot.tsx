@@ -42,265 +42,149 @@ interface AutopilotMomentCardProps {
 
 function AutopilotMomentCard({ icon, title, description, config, onConfigChange }: AutopilotMomentCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [localConfig, setLocalConfig] = useState(config);
 
-  const handleSave = () => {
-    onConfigChange(localConfig);
-    setIsOpen(false);
+  const handleToggle = (checked: boolean) => {
+    onConfigChange({ ...config, isOn: checked });
   };
 
-  const handleCancel = () => {
-    setLocalConfig(config);
-    setIsOpen(false);
+  const handleChannelToggle = (channel: 'email' | 'social' | 'whatsapp', checked: boolean) => {
+    onConfigChange({
+      ...config,
+      channels: { ...config.channels, [channel]: checked }
+    });
   };
-
-  const incentiveOptions: { type: IncentiveType; label: string }[] = [
-    { type: 'percent', label: '% Discount' },
-    { type: 'dollar', label: '$ Off' },
-    { type: 'vip', label: 'VIP perk' },
-    { type: 'none', label: 'No incentive' },
-  ];
-
-  const timingOptions = [
-    { value: 'immediately', label: 'Right after they join' },
-    { value: 'after-1-day', label: 'A day after joining' },
-    { value: 'after-1-week', label: 'About a week later' },
-    { value: 'after-2-weeks', label: 'After a couple of weeks' },
-    { value: 'after-1-month', label: 'About a month later' },
-    { value: 'when-quiet', label: 'When they haven\'t visited in a while' },
-    { value: 'after-multiple-visits', label: 'After they\'ve visited a few times' },
-  ];
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <Card className="border border-border/50">
-        <CollapsibleTrigger asChild>
-          <CardContent className="p-4 cursor-pointer hover:bg-muted/30 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/10 shrink-0">
-                {icon}
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-foreground text-sm">{title}</h4>
-                <p className="text-xs text-muted-foreground">{description}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className={`text-xs px-2 py-0.5 rounded-full ${config.isOn ? 'bg-green-500/20 text-green-600' : 'bg-muted text-muted-foreground'}`}>
-                  {config.isOn ? 'On' : 'Paused'}
-                </span>
-                <span className="text-xs text-primary">Customize</span>
+      <Card className="border border-border/50 overflow-hidden">
+        {/* Header bar with toggle */}
+        <div className="flex items-center gap-3 p-4">
+          <div className="p-2 rounded-lg bg-primary/10 shrink-0">
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-foreground text-sm">{title}</h4>
+            <p className="text-xs text-muted-foreground">{description}</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Switch 
+              checked={config.isOn} 
+              onCheckedChange={handleToggle}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <CollapsibleTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-xs text-primary hover:text-primary hover:bg-primary/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Customize
                 {isOpen ? (
-                  <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  <ChevronUp className="h-3 w-3 ml-1" />
                 ) : (
-                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  <ChevronDown className="h-3 w-3 ml-1" />
                 )}
+              </Button>
+            </CollapsibleTrigger>
+          </div>
+        </div>
+        
+        <CollapsibleContent>
+          <div className="bg-primary/5 px-4 pb-4 pt-2 border-t border-border/30">
+            {/* Header description */}
+            <div className="mb-6">
+              <h3 className="font-semibold text-foreground mb-1">{title}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </div>
+            
+            {/* Step 1: Configure the event */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-2xl font-bold text-amber-500">1.</span>
+              <span className="font-medium text-foreground flex-1">Configure the event</span>
+              <Button variant="default" size="sm">
+                Customize
+              </Button>
+            </div>
+
+            {/* Step 2: Select where to send the messages */}
+            <div className="mb-6">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-2xl font-bold text-amber-500">2.</span>
+                <span className="font-medium text-foreground">Select where to send the messages</span>
+              </div>
+              
+              <div className="flex flex-wrap gap-3 ml-9">
+                {/* Email channel */}
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.email ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                  <Checkbox 
+                    checked={config.channels.email}
+                    onCheckedChange={(checked) => handleChannelToggle('email', checked as boolean)}
+                  />
+                  <div className="flex items-center gap-2">
+                    <Mail className="h-5 w-5 text-blue-500" />
+                    <span className="text-sm font-medium text-blue-600">EMAIL</span>
+                  </div>
+                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                    Edit
+                  </Button>
+                </div>
+
+                {/* Social channel */}
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.social ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                  <Checkbox 
+                    checked={config.channels.social}
+                    onCheckedChange={(checked) => handleChannelToggle('social', checked as boolean)}
+                  />
+                  <div className="flex items-center gap-1">
+                    <div className="flex -space-x-1">
+                      <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">f</span>
+                      </div>
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
+                        <span className="text-white text-xs">📷</span>
+                      </div>
+                      <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">G</span>
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium text-muted-foreground ml-1">Social</span>
+                  </div>
+                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                    Edit
+                  </Button>
+                </div>
+
+                {/* WhatsApp/SMS channel */}
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${config.channels.whatsapp ? 'bg-white border-primary/30' : 'bg-background border-border'}`}>
+                  <Checkbox 
+                    checked={config.channels.whatsapp}
+                    onCheckedChange={(checked) => handleChannelToggle('whatsapp', checked as boolean)}
+                  />
+                  <div className="flex items-center gap-1">
+                    <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
+                      <MessageSquare className="h-3 w-3 text-white" />
+                    </div>
+                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                      <MessageSquare className="h-3 w-3 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-muted-foreground ml-1">WhatsApp / SMS</span>
+                  </div>
+                  <Button variant="default" size="sm" className="ml-2 bg-amber-400 hover:bg-amber-500 text-foreground h-7 px-3">
+                    Edit
+                  </Button>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <div className="px-4 pb-4 pt-0 border-t border-border/50">
-            <div className="pt-4 space-y-6">
-              <h4 className="font-semibold text-foreground">Customize: {title}</h4>
-              
-              {/* Message Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <Type className="h-4 w-4" />
-                  Message
-                </div>
-                
-                <div className="space-y-3 pl-6">
-                  <div>
-                    <Label htmlFor={`text-${title}`} className="text-xs text-muted-foreground">Text</Label>
-                    <Textarea
-                      id={`text-${title}`}
-                      value={localConfig.messageText}
-                      onChange={(e) => setLocalConfig({ ...localConfig, messageText: e.target.value })}
-                      placeholder="Write your message here..."
-                      className="mt-1"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor={`tone-${title}`} className="text-xs text-muted-foreground">Tone (if available)</Label>
-                    <Select value={localConfig.tone} onValueChange={(value) => setLocalConfig({ ...localConfig, tone: value })}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Select tone" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="friendly">Friendly</SelectItem>
-                        <SelectItem value="professional">Professional</SelectItem>
-                        <SelectItem value="casual">Casual</SelectItem>
-                        <SelectItem value="warm">Warm</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor={`image-${title}`} className="text-xs text-muted-foreground">Image (optional)</Label>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Input
-                        id={`image-${title}`}
-                        type="text"
-                        value={localConfig.image}
-                        onChange={(e) => setLocalConfig({ ...localConfig, image: e.target.value })}
-                        placeholder="Image URL or upload"
-                        className="flex-1"
-                      />
-                      <Button variant="outline" size="sm">
-                        <Image className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Bonus Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <Sparkles className="h-4 w-4" />
-                  Bonus
-                </div>
-                
-                <div className="space-y-3 pl-6">
-                  <RadioGroup
-                    value={localConfig.bonusType}
-                    onValueChange={(value: BonusOverride) => setLocalConfig({ ...localConfig, bonusType: value })}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="standard" id={`bonus-standard-${title}`} />
-                      <Label htmlFor={`bonus-standard-${title}`} className="text-sm">Uses standard bonus by default</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="custom" id={`bonus-custom-${title}`} />
-                      <Label htmlFor={`bonus-custom-${title}`} className="text-sm">Override for this moment</Label>
-                    </div>
-                  </RadioGroup>
-                  
-                  {localConfig.bonusType === 'custom' && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
-                      {incentiveOptions.map((option) => (
-                        <button
-                          key={option.type}
-                          onClick={() => setLocalConfig({ ...localConfig, customBonus: option.type })}
-                          className={`flex items-center justify-center gap-2 p-2 rounded-lg border text-xs transition-all ${
-                            localConfig.customBonus === option.type
-                              ? 'border-primary bg-primary/10 text-primary'
-                              : 'border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
-                          }`}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Where it's sent Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <Share2 className="h-4 w-4" />
-                  Where it's sent
-                </div>
-                
-                <div className="space-y-3 pl-6">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`channel-email-${title}`}
-                      checked={localConfig.channels.email}
-                      onCheckedChange={(checked) => setLocalConfig({ 
-                        ...localConfig, 
-                        channels: { ...localConfig.channels, email: checked as boolean } 
-                      })}
-                    />
-                    <Label htmlFor={`channel-email-${title}`} className="text-sm flex items-center gap-2">
-                      <Mail className="h-4 w-4" /> Email
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`channel-social-${title}`}
-                      checked={localConfig.channels.social}
-                      onCheckedChange={(checked) => setLocalConfig({ 
-                        ...localConfig, 
-                        channels: { ...localConfig.channels, social: checked as boolean } 
-                      })}
-                    />
-                    <Label htmlFor={`channel-social-${title}`} className="text-sm flex items-center gap-2">
-                      <Share2 className="h-4 w-4" /> Social
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`channel-whatsapp-${title}`}
-                      checked={localConfig.channels.whatsapp}
-                      onCheckedChange={(checked) => setLocalConfig({ 
-                        ...localConfig, 
-                        channels: { ...localConfig.channels, whatsapp: checked as boolean } 
-                      })}
-                    />
-                    <Label htmlFor={`channel-whatsapp-${title}`} className="text-sm flex items-center gap-2">
-                      <MessageSquare className="h-4 w-4" /> WhatsApp / SMS (if enabled)
-                    </Label>
-                  </div>
-                </div>
-              </div>
-
-              {/* When it runs Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <Settings className="h-4 w-4" />
-                  When it runs
-                </div>
-                
-                <div className="pl-6">
-                  <Select value={localConfig.timing} onValueChange={(value) => setLocalConfig({ ...localConfig, timing: value })}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select timing" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {timingOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              {/* Status Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  {localConfig.isOn ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-                  Status
-                </div>
-                
-                <div className="flex items-center gap-3 pl-6">
-                  <Switch 
-                    checked={localConfig.isOn} 
-                    onCheckedChange={(checked) => setLocalConfig({ ...localConfig, isOn: checked })} 
-                  />
-                  <span className={`text-sm ${localConfig.isOn ? 'text-green-600' : 'text-muted-foreground'}`}>
-                    {localConfig.isOn ? 'On' : 'Paused'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Buttons */}
-              <div className="flex items-center gap-3 pt-2">
-                <Button onClick={handleSave}>
-                  Save changes
-                </Button>
-                <Button variant="outline" onClick={handleCancel}>
-                  Cancel
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground/70">
-                Nothing changes until you save.
-              </p>
+            {/* Step 3: Enable or disable the event */}
+            <div className="flex items-center gap-4">
+              <span className="text-2xl font-bold text-amber-500">3.</span>
+              <span className="font-medium text-foreground">Enable or disable the event</span>
+              <Switch 
+                checked={config.isOn} 
+                onCheckedChange={handleToggle}
+              />
             </div>
           </div>
         </CollapsibleContent>
