@@ -15,33 +15,38 @@ interface SourceCardProps {
 }
 
 const SourceCard = ({ icon, title, description, details, buttonLabel, onClick }: SourceCardProps) => (
-  <Card className="bg-card hover:shadow-md transition-shadow border-border/50">
-    <CardContent className="p-5">
+  <Card className="bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-200 border-border/50 flex flex-col h-full">
+    <CardContent className="p-5 flex flex-col flex-1">
+      {/* Header - fixed */}
       <div className="flex items-start gap-3 mb-3">
-        <div className="p-2 bg-primary/10 rounded-lg">
+        <div className="p-2.5 bg-gradient-to-br from-primary/15 to-primary/5 rounded-xl shrink-0">
           {icon}
         </div>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-foreground">{title}</h3>
           <p className="text-sm text-muted-foreground mt-1">{description}</p>
         </div>
       </div>
       
-      {details.length > 0 && (
-        <ul className="text-sm text-muted-foreground space-y-1 mb-4 ml-1">
-          {details.map((detail, index) => (
-            <li key={index} className="flex items-center gap-2">
-              <span className="text-primary/60">•</span>
-              {detail}
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* Details - grows to fill space */}
+      <div className="flex-1 mb-4">
+        {details.length > 0 && (
+          <ul className="text-sm text-muted-foreground space-y-1.5">
+            {details.map((detail, index) => (
+              <li key={index} className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
+                {detail}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       
+      {/* Button - always at bottom */}
       <Button 
-        variant="outline" 
+        variant="default" 
         size="sm" 
-        className="w-full"
+        className="w-full mt-auto"
         onClick={onClick}
       >
         {buttonLabel}
@@ -156,8 +161,8 @@ export default function SourcesHub() {
             </div>
 
             {/* Intro */}
-            <div className="p-5 bg-muted/30 rounded-xl border border-border/50">
-              <p className="text-foreground">
+            <div className="p-5 bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-xl border border-primary/20">
+              <p className="text-foreground font-medium">
                 Customers can join your business in different ways.
               </p>
               <p className="text-muted-foreground mt-2 text-sm">
@@ -176,7 +181,7 @@ export default function SourcesHub() {
             </div>
 
             {/* Sources Grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {sources.map((source, index) => (
                 <SourceCard
                   key={index}
@@ -191,7 +196,7 @@ export default function SourcesHub() {
             </div>
 
             {/* Bottom Reassurance */}
-            <div className="p-5 bg-gradient-to-br from-primary/5 to-background rounded-xl border border-border/50">
+            <div className="p-5 bg-gradient-to-br from-accent/30 to-background rounded-xl border border-accent/30">
               <p className="font-medium text-foreground">You don't need to set everything up.</p>
               <p className="text-sm text-muted-foreground mt-1">
                 Start with one source.<br />
