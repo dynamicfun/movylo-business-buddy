@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Globe, Facebook, Instagram, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown, MapPin, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { CustomersModal } from "./DashboardModals";
 
 interface CustomerSource {
   icon: React.ReactNode;
@@ -60,6 +61,7 @@ export function CustomerCard({
 }: CustomerCardProps) {
   const navigate = useNavigate();
   const [showAllSources, setShowAllSources] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { t } = useLanguage();
 
   const handleSourceClick = (sourceKey: string, isActive: boolean) => {
@@ -213,10 +215,13 @@ export function CustomerCard({
       <Button 
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
+        onClick={() => setShowModal(true)}
       >
         {t.addCustomers}
         <ChevronRight className="w-4 h-4" />
       </Button>
+
+      <CustomersModal open={showModal} onOpenChange={setShowModal} />
     </motion.div>
   );
 }

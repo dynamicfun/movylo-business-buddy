@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Tag, Store, ShoppingCart, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GrowthIndicator } from "./GrowthIndicator";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SalesModal } from "./DashboardModals";
 
 interface MetricRowProps {
   icon: React.ReactNode;
@@ -50,6 +52,7 @@ type SalesCardProps = ActivationModeProps | SteadyStateProps;
 
 export function SalesCard(props: SalesCardProps) {
   const { t } = useLanguage();
+  const [showModal, setShowModal] = useState(false);
   
   // Check if we're in steady state mode
   if (props.isActivationMode === false) {
@@ -109,10 +112,13 @@ export function SalesCard(props: SalesCardProps) {
         <Button 
           className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
           size="default"
+          onClick={() => setShowModal(true)}
         >
           {t.createOffer}
           <ChevronRight className="w-4 h-4" />
         </Button>
+
+        <SalesModal open={showModal} onOpenChange={setShowModal} />
       </motion.div>
     );
   }
@@ -142,10 +148,13 @@ export function SalesCard(props: SalesCardProps) {
       <Button 
         className="w-full justify-between mt-4 text-sm h-10 rounded-xl"
         size="default"
+        onClick={() => setShowModal(true)}
       >
         {t.createOffer}
         <ChevronRight className="w-4 h-4" />
       </Button>
+
+      <SalesModal open={showModal} onOpenChange={setShowModal} />
     </motion.div>
   );
 }
