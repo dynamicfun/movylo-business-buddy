@@ -88,6 +88,7 @@ interface Translations {
   closed: string;
   covers: string;
   createOffer: string;
+  sell: string;
   salesWillAppear: string;
   salesWillAppearSubtitle: string;
   // Live Feed
@@ -192,6 +193,7 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Chiuse",
     covers: "Coperti",
     createOffer: "Crea offerta",
+    sell: "Vendi",
     salesWillAppear: "Le vendite appariranno qui",
     salesWillAppearSubtitle: "Quando i clienti effettuano un acquisto o riscattano un'offerta.",
     // Live Feed
@@ -294,6 +296,7 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Closed",
     covers: "Covers",
     createOffer: "Create offer",
+    sell: "Sell",
     salesWillAppear: "Sales will appear here",
     salesWillAppearSubtitle: "When customers make a purchase or redeem an offer.",
     // Live Feed
@@ -396,6 +399,7 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Cerradas",
     covers: "Cubiertos",
     createOffer: "Crear oferta",
+    sell: "Vender",
     salesWillAppear: "Las ventas aparecerán aquí",
     salesWillAppearSubtitle: "Cuando los clientes realicen una compra o canjeen una oferta.",
     // Live Feed
@@ -498,6 +502,7 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Fermées",
     covers: "Couverts",
     createOffer: "Créer une offre",
+    sell: "Vendre",
     salesWillAppear: "Les ventes apparaîtront ici",
     salesWillAppearSubtitle: "Lorsque les clients effectuent un achat ou utilisent une offre.",
     // Live Feed
@@ -600,6 +605,7 @@ const translations: Record<LanguageCode, Translations> = {
     closed: "Geschlossen",
     covers: "Gedecke",
     createOffer: "Angebot erstellen",
+    sell: "Verkaufen",
     salesWillAppear: "Verkäufe werden hier angezeigt",
     salesWillAppearSubtitle: "Wenn Kunden einen Kauf tätigen oder ein Angebot einlösen.",
     // Live Feed
