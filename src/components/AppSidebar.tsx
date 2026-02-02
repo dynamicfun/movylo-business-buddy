@@ -88,20 +88,19 @@ export function AppSidebar() {
       url: "/sales", 
       icon: Store,
       submenu: [
-        { title: t.myResults, url: "/sales/results" },
+        { title: t.productsServices, url: "/products" },
         { title: t.inStoreSales, url: "/sales/in-store" },
         { title: t.onlineSales, url: "/sales/online" },
         { title: t.reservations, url: "/sales/reservations" },
       ]
     },
+    { id: "reports", title: t.reports, url: "/reports", icon: BarChart3 },
   ];
 
 
   const businessToolsItems = [
-    { title: t.productsServices, url: "/products", icon: Package },
     { title: t.aiTools, url: "/ai-tools", icon: Sparkles },
     { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
-    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
 
   const accountActions = [
@@ -111,6 +110,7 @@ export function AppSidebar() {
 
   const bottomMenuItems = [
     { title: t.myAccount, url: "/account", icon: User },
+    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
   
   // Determine which group should be open based on current path
@@ -223,20 +223,6 @@ export function AppSidebar() {
             <CollapsibleContent>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {/* Reports - single link */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink 
-                        to="/reports"
-                        className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
-                        activeClassName="bg-muted text-primary font-medium"
-                      >
-                        <BarChart3 className="h-4 w-4" />
-                        <span>{t.reports}</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  
                   {businessToolsItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
