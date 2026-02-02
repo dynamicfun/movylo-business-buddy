@@ -70,7 +70,7 @@ export default function CampaignScheduler() {
   return (
     <InnerPageTemplate
       title="Schedule Campaigns"
-      subtitle="Plan your promotions and messages ahead of time"
+      subtitle="Schedule your promotions, messages and social posts in advance"
       backTo="/"
     >
       <div className="space-y-5">
