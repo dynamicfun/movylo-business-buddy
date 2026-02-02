@@ -69,7 +69,7 @@ export default function CreatePromo() {
           icon={<ShoppingBag className="w-5 h-5 text-primary" />}
           title="Promote one of your products or services"
           description="Promote a product or service from the ones you have uploaded"
-          onStart={() => navigate("/autopilot")}
+          onStart={() => navigate("/messages/create-promo/products")}
           delay={0.2}
         />
       </div>
