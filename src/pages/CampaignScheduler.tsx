@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Plus, Tag, Mail, Share2 } from "lucide-react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
-import { it } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -21,21 +20,21 @@ interface ScheduledEvent {
 }
 
 const TIME_SLOTS = [
-  "0:00 - 2:00", "2:00 - 4:00", "4:00 - 6:00", "6:00 - 8:00",
-  "8:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00",
-  "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00", "22:00 - 00:00"
+  "12am - 2am", "2am - 4am", "4am - 6am", "6am - 8am",
+  "8am - 10am", "10am - 12pm", "12pm - 2pm", "2pm - 4pm",
+  "4pm - 6pm", "6pm - 8pm", "8pm - 10pm", "10pm - 12am"
 ];
 
 const mockEvents: ScheduledEvent[] = [
-  { id: "1", type: "promo", title: "Sconto 20%", date: new Date(2026, 1, 3, 10), timeSlot: 5 },
-  { id: "2", type: "newsletter", title: "Newsletter febbraio", date: new Date(2026, 1, 5, 14), timeSlot: 7 },
-  { id: "3", type: "social", title: "Post Instagram", date: new Date(2026, 1, 6, 18), timeSlot: 9 },
+  { id: "1", type: "promo", title: "20% Off Sale", date: new Date(2026, 1, 3, 10), timeSlot: 5 },
+  { id: "2", type: "newsletter", title: "February Update", date: new Date(2026, 1, 5, 14), timeSlot: 7 },
+  { id: "3", type: "social", title: "Instagram Post", date: new Date(2026, 1, 6, 18), timeSlot: 9 },
 ];
 
 const eventTypeConfig = {
-  promo: { icon: Tag, label: "Promozione", color: "bg-primary/20 text-primary border-primary/30" },
-  newsletter: { icon: Mail, label: "Newsletter", color: "bg-accent/20 text-accent-foreground border-accent/30" },
-  social: { icon: Share2, label: "Social Post", color: "bg-emerald-500/20 text-emerald-700 border-emerald-500/30" },
+  promo: { icon: Tag, label: "Promotion", color: "bg-primary/15 text-primary border-primary/20" },
+  newsletter: { icon: Mail, label: "Newsletter", color: "bg-amber-500/15 text-amber-700 border-amber-500/20" },
+  social: { icon: Share2, label: "Social Post", color: "bg-emerald-500/15 text-emerald-700 border-emerald-500/20" },
 };
 
 export default function CampaignScheduler() {
@@ -65,24 +64,22 @@ export default function CampaignScheduler() {
 
   const handleTypeSelect = (type: "promo" | "newsletter" | "social") => {
     setShowTypeDialog(false);
-    // In a real app, this would navigate to the creation page or open a form
     console.log("Create", type, "for", selectedSlot);
   };
 
   return (
     <InnerPageTemplate
-      title="Pianifica campagne"
-      subtitle="Organizza le tue attività promozionali nel tempo"
+      title="Schedule Campaigns"
+      subtitle="Plan your promotions and messages ahead of time"
       backTo="/"
     >
       <div className="space-y-5">
         {/* Intro Card */}
-        <Card className="border-border/50 bg-gradient-to-br from-primary/5 to-accent/5">
+        <Card className="border-border/50">
           <CardContent className="p-5">
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Pianifica le tue promozioni e i tuoi messaggi nel tempo: fare questo ti permetterà di organizzare 
-              cosa inviare e a chi, senza doverlo per forza fare in tempo reale. Pianificare più attività 
-              promozionali in una volta sola ti aiuta a risparmiare tempo prezioso!
+              Schedule your promotions and messages in advance. This allows you to organize what to send and to whom, 
+              without having to do it in real time. Planning multiple promotional activities at once helps you save valuable time!
             </p>
           </CardContent>
         </Card>
@@ -93,32 +90,32 @@ export default function CampaignScheduler() {
             variant="outline"
             size="sm"
             onClick={() => navigateWeek("prev")}
-            className="gap-1"
+            className="gap-1.5 rounded-lg"
           >
             <ChevronLeft className="h-4 w-4" />
-            Indietro
+            <span className="hidden sm:inline">Previous</span>
           </Button>
-          <h3 className="text-sm font-medium text-foreground">
-            {format(weekDays[0], "d MMM", { locale: it })} - {format(weekDays[6], "d MMM yyyy", { locale: it })}
+          <h3 className="text-sm font-semibold text-foreground">
+            {format(weekDays[0], "MMM d")} – {format(weekDays[6], "MMM d, yyyy")}
           </h3>
           <Button
             variant="outline"
             size="sm"
             onClick={() => navigateWeek("next")}
-            className="gap-1"
+            className="gap-1.5 rounded-lg"
           >
-            Avanti
+            <span className="hidden sm:inline">Next</span>
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
 
         {/* Calendar Grid */}
-        <div className="border border-border/50 rounded-xl overflow-hidden">
+        <div className="border border-border/50 rounded-xl overflow-hidden bg-card">
           <div className="overflow-x-auto">
             <div className="min-w-[800px]">
               {/* Header Row - Days */}
-              <div className="grid grid-cols-[100px_repeat(7,1fr)] bg-muted/30 border-b border-border/50">
-                <div className="p-3 text-xs font-medium text-muted-foreground">Orario</div>
+              <div className="grid grid-cols-[80px_repeat(7,1fr)] bg-muted/40 border-b border-border/50">
+                <div className="p-3 text-xs font-medium text-muted-foreground">Time</div>
                 {weekDays.map((day) => (
                   <div
                     key={day.toISOString()}
@@ -126,11 +123,11 @@ export default function CampaignScheduler() {
                       isSameDay(day, new Date()) ? "bg-primary/10" : ""
                     }`}
                   >
-                    <div className="text-xs font-medium text-foreground capitalize">
-                      {format(day, "EEEE", { locale: it })}
+                    <div className="text-xs font-semibold text-foreground">
+                      {format(day, "EEE")}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {format(day, "d MMM", { locale: it })}
+                      {format(day, "MMM d")}
                     </div>
                   </div>
                 ))}
@@ -140,9 +137,9 @@ export default function CampaignScheduler() {
               {TIME_SLOTS.map((slot, slotIndex) => (
                 <div
                   key={slot}
-                  className="grid grid-cols-[100px_repeat(7,1fr)] border-b border-border/30 last:border-b-0"
+                  className="grid grid-cols-[80px_repeat(7,1fr)] border-b border-border/30 last:border-b-0"
                 >
-                  <div className="p-2 text-xs text-muted-foreground flex items-center">
+                  <div className="p-2 text-[11px] text-muted-foreground flex items-center justify-center">
                     {slot}
                   </div>
                   {weekDays.map((day) => {
@@ -150,7 +147,7 @@ export default function CampaignScheduler() {
                     return (
                       <div
                         key={`${day.toISOString()}-${slotIndex}`}
-                        className="border-l border-border/30 p-1 min-h-[48px] hover:bg-muted/20 cursor-pointer transition-colors group relative"
+                        className="border-l border-border/30 p-1 min-h-[44px] hover:bg-muted/30 cursor-pointer transition-colors group relative"
                         onClick={() => handleSlotClick(day, slotIndex)}
                       >
                         {slotEvents.map((event) => {
@@ -159,17 +156,17 @@ export default function CampaignScheduler() {
                           return (
                             <div
                               key={event.id}
-                              className={`text-xs p-1.5 rounded border ${config.color} truncate flex items-center gap-1`}
+                              className={`text-[11px] p-1.5 rounded-md border ${config.color} truncate flex items-center gap-1`}
                               onClick={(e) => e.stopPropagation()}
                             >
                               <Icon className="h-3 w-3 flex-shrink-0" />
-                              <span className="truncate">{event.title}</span>
+                              <span className="truncate font-medium">{event.title}</span>
                             </div>
                           );
                         })}
                         {slotEvents.length === 0 && (
                           <div className="absolute inset-1 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Plus className="h-4 w-4 text-muted-foreground" />
+                            <Plus className="h-4 w-4 text-muted-foreground/60" />
                           </div>
                         )}
                       </div>
@@ -186,8 +183,8 @@ export default function CampaignScheduler() {
           {Object.entries(eventTypeConfig).map(([type, config]) => {
             const Icon = config.icon;
             return (
-              <div key={type} className="flex items-center gap-1.5">
-                <div className={`p-1 rounded ${config.color}`}>
+              <div key={type} className="flex items-center gap-2">
+                <div className={`p-1.5 rounded-md border ${config.color}`}>
                   <Icon className="h-3 w-3" />
                 </div>
                 <span className="text-muted-foreground">{config.label}</span>
@@ -201,7 +198,7 @@ export default function CampaignScheduler() {
       <Dialog open={showTypeDialog} onOpenChange={setShowTypeDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Cosa vuoi programmare?</DialogTitle>
+            <DialogTitle>What would you like to schedule?</DialogTitle>
           </DialogHeader>
           <div className="grid gap-3 py-4">
             {Object.entries(eventTypeConfig).map(([type, config]) => {
@@ -210,13 +207,13 @@ export default function CampaignScheduler() {
                 <Button
                   key={type}
                   variant="outline"
-                  className="justify-start gap-3 h-auto py-3"
+                  className="justify-start gap-3 h-auto py-3 rounded-xl border-border/50 hover:border-primary/30"
                   onClick={() => handleTypeSelect(type as "promo" | "newsletter" | "social")}
                 >
-                  <div className={`p-2 rounded-lg ${config.color}`}>
+                  <div className={`p-2 rounded-lg border ${config.color}`}>
                     <Icon className="h-4 w-4" />
                   </div>
-                  <span>{config.label}</span>
+                  <span className="font-medium">{config.label}</span>
                 </Button>
               );
             })}
