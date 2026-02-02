@@ -29,40 +29,48 @@ export default function CreatePromoAI() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Card className="bg-card">
+        <Card className="border-border/50">
           <CardContent className="p-6 sm:p-8">
-            {/* Header with underline accent */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-foreground">Create with AI</h2>
-              <div className="w-16 h-1 bg-amber-400 rounded-full mt-2" />
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10">
+                <Sparkles className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Create with AI</h2>
+                <p className="text-sm text-muted-foreground">Let AI help you craft the perfect message</p>
+              </div>
             </div>
 
             {/* Form */}
-            <div className="space-y-6 max-w-2xl mx-auto">
+            <div className="space-y-5">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">
-                  What do you want to talk about? (optional)
+                  What do you want to talk about? <span className="text-muted-foreground font-normal">(optional)</span>
                 </label>
                 <Textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder="Describe your promotion idea..."
-                  className="min-h-[180px] resize-none"
+                  placeholder="Describe your promotion idea, target audience, or any specific details..."
+                  className="min-h-[160px] resize-none border-border/50 focus:border-primary/30"
                 />
               </div>
 
               <Button 
-                className="w-full h-12 text-base rounded-xl"
+                className="w-full h-11 rounded-xl gap-2"
                 onClick={handleGenerate}
                 disabled={isGenerating}
               >
                 {isGenerating ? (
                   <>
-                    <Sparkles className="w-5 h-5 mr-2 animate-pulse" />
+                    <Sparkles className="w-4 h-4 animate-pulse" />
                     Generating...
                   </>
                 ) : (
-                  "Generate a Promotion"
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Generate a Promotion
+                  </>
                 )}
               </Button>
             </div>

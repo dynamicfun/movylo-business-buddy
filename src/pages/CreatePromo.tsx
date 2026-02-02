@@ -20,23 +20,27 @@ function PromoOptionCard({ icon, title, description, onStart, delay = 0 }: Promo
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay, duration: 0.4, ease: "easeOut" }}
     >
-      <Card className="h-full hover:shadow-lg hover:border-primary/30 transition-all duration-200 bg-card">
-        <CardContent className="p-6 sm:p-8 flex flex-col items-center text-center h-full">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-5">
-            {icon}
+      <Card className="h-full hover:shadow-md hover:border-primary/20 transition-all duration-200 border-border/50">
+        <CardContent className="p-5 sm:p-6 flex flex-col h-full">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center flex-shrink-0">
+              {icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-semibold text-foreground mb-1 leading-snug">
+                {title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {description}
+              </p>
+            </div>
           </div>
           
-          <h3 className="text-lg sm:text-xl font-semibold text-primary mb-3 leading-snug">
-            {title}
-          </h3>
-          
-          <p className="text-sm text-muted-foreground mb-6 flex-1">
-            {description}
-          </p>
-          
-          <Button className="w-full max-w-[180px] rounded-xl h-11" onClick={onStart}>
-            Start now
-          </Button>
+          <div className="mt-auto pt-4">
+            <Button className="w-full rounded-xl h-10" onClick={onStart}>
+              Start now
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </motion.div>
@@ -54,7 +58,7 @@ export default function CreatePromo() {
     >
       <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
         <PromoOptionCard
-          icon={<Tag className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />}
+          icon={<Tag className="w-5 h-5 text-primary" />}
           title="Create a promotion for your customers"
           description="Create and send promotions to your customers, in real time!"
           onStart={() => navigate("/messages/create-promo/ai")}
@@ -62,7 +66,7 @@ export default function CreatePromo() {
         />
         
         <PromoOptionCard
-          icon={<ShoppingBag className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />}
+          icon={<ShoppingBag className="w-5 h-5 text-primary" />}
           title="Promote one of your products or services"
           description="Promote a product or service from the ones you have uploaded"
           onStart={() => navigate("/autopilot")}
