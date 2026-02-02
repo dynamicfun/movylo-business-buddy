@@ -16,6 +16,7 @@ import CreatePromo from "./pages/CreatePromo";
 import CreatePromoAI from "./pages/CreatePromoAI";
 import CreateNewsletter from "./pages/CreateNewsletter";
 import SelectProducts from "./pages/SelectProducts";
+import CampaignScheduler from "./pages/CampaignScheduler";
 import WebsiteSource from "./pages/sources/WebsiteSource";
 import InstagramSource from "./pages/sources/InstagramSource";
 import ShareLinkSource from "./pages/sources/ShareLinkSource";
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/messages/create-promo/ai" element={<CreatePromoAI />} />
             <Route path="/messages/create-promo/products" element={<SelectProducts />} />
             <Route path="/messages/newsletter" element={<CreateNewsletter />} />
+            <Route path="/messages/scheduler" element={<CampaignScheduler />} />
             <Route path="/sources/website" element={<WebsiteSource />} />
             <Route path="/sources/instagram" element={<InstagramSource />} />
             <Route path="/sources/share-link" element={<ShareLinkSource />} />
