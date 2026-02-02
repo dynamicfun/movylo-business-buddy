@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Sparkles } from "lucide-react";
+import { Search, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,23 +22,32 @@ interface Product {
   sku?: string;
 }
 
-const mockProducts: Product[] = [
-  { id: "1", name: "Margherita Pizza", price: 12.99, category: "Pizza", sku: "PIZ-001" },
-  { id: "2", name: "Pepperoni Pizza", price: 14.99, category: "Pizza", sku: "PIZ-002" },
-  { id: "3", name: "Caesar Salad", price: 8.99, category: "Salads", sku: "SAL-001" },
-  { id: "4", name: "Tiramisu", price: 6.99, category: "Desserts", sku: "DES-001" },
-  { id: "5", name: "Espresso", price: 3.50, category: "Beverages", sku: "BEV-001" },
-  { id: "6", name: "Lasagna", price: 15.99, category: "Pasta", sku: "PAS-001" },
-  { id: "7", name: "Caprese Salad", price: 9.99, category: "Salads", sku: "SAL-002" },
-  { id: "8", name: "Carbonara", price: 14.50, category: "Pasta", sku: "PAS-002" },
-  { id: "9", name: "Gelato", price: 5.99, category: "Desserts", sku: "DES-002" },
-  { id: "10", name: "Cappuccino", price: 4.50, category: "Beverages", sku: "BEV-002" },
-];
+// Generate more mock products to demonstrate pagination
+const mockProducts: Product[] = Array.from({ length: 47 }, (_, i) => {
+  const categories = ["Pizza", "Salads", "Desserts", "Beverages", "Pasta", "Appetizers"];
+  const names = [
+    "Margherita Pizza", "Pepperoni Pizza", "Caesar Salad", "Tiramisu", "Espresso",
+    "Lasagna", "Caprese Salad", "Carbonara", "Gelato", "Cappuccino", "Bruschetta",
+    "Minestrone Soup", "Risotto", "Panna Cotta", "Limoncello"
+  ];
+  const category = categories[i % categories.length];
+  const name = names[i % names.length];
+  return {
+    id: String(i + 1),
+    name: i >= names.length ? `${name} #${Math.floor(i / names.length) + 1}` : name,
+    price: Math.round((8 + Math.random() * 12) * 100) / 100,
+    category,
+    sku: `${category.substring(0, 3).toUpperCase()}-${String(i + 1).padStart(3, "0")}`,
+  };
+});
+
+const ITEMS_PER_PAGE = 10;
 
 export default function SelectProducts() {
   const navigate = useNavigate();
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) return mockProducts;
@@ -51,6 +60,19 @@ export default function SelectProducts() {
     );
   }, [searchQuery]);
 
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  // Reset to page 1 when search changes
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
   const toggleProduct = (productId: string) => {
     setSelectedProducts((prev) =>
       prev.includes(productId)
@@ -60,10 +82,13 @@ export default function SelectProducts() {
   };
 
   const toggleAll = () => {
-    if (selectedProducts.length === filteredProducts.length) {
-      setSelectedProducts([]);
+    const pageIds = paginatedProducts.map((p) => p.id);
+    const allPageSelected = pageIds.every((id) => selectedProducts.includes(id));
+    
+    if (allPageSelected) {
+      setSelectedProducts((prev) => prev.filter((id) => !pageIds.includes(id)));
     } else {
-      setSelectedProducts(filteredProducts.map((p) => p.id));
+      setSelectedProducts((prev) => [...new Set([...prev, ...pageIds])]);
     }
   };
 
@@ -77,8 +102,9 @@ export default function SelectProducts() {
     });
   };
 
-  const allSelected = filteredProducts.length > 0 && selectedProducts.length === filteredProducts.length;
-  const someSelected = selectedProducts.length > 0 && selectedProducts.length < filteredProducts.length;
+  const pageIds = paginatedProducts.map((p) => p.id);
+  const allPageSelected = pageIds.length > 0 && pageIds.every((id) => selectedProducts.includes(id));
+  const somePageSelected = pageIds.some((id) => selectedProducts.includes(id)) && !allPageSelected;
 
   return (
     <InnerPageTemplate
@@ -94,7 +120,7 @@ export default function SelectProducts() {
             <Input
               placeholder="Search products..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="pl-9 h-10 rounded-lg"
             />
           </div>
@@ -122,9 +148,9 @@ export default function SelectProducts() {
               <TableRow className="bg-muted/30 hover:bg-muted/30">
                 <TableHead className="w-12">
                   <Checkbox
-                    checked={allSelected}
+                    checked={allPageSelected}
                     ref={(el) => {
-                      if (el) (el as any).indeterminate = someSelected;
+                      if (el) (el as any).indeterminate = somePageSelected;
                     }}
                     onCheckedChange={toggleAll}
                   />
@@ -136,7 +162,7 @@ export default function SelectProducts() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredProducts.map((product) => {
+              {paginatedProducts.map((product) => {
                 const isSelected = selectedProducts.includes(product.id);
                 return (
                   <TableRow
@@ -165,7 +191,7 @@ export default function SelectProducts() {
                   </TableRow>
                 );
               })}
-              {filteredProducts.length === 0 && (
+              {paginatedProducts.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
                     No products found
@@ -176,11 +202,58 @@ export default function SelectProducts() {
           </Table>
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-2">
+        {/* Footer with pagination */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
           <p className="text-xs text-muted-foreground">
-            Showing {filteredProducts.length} of {mockProducts.length} products
+            Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length)} of {filteredProducts.length} products
           </p>
+          
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((page) => {
+                  if (totalPages <= 5) return true;
+                  if (page === 1 || page === totalPages) return true;
+                  return Math.abs(page - currentPage) <= 1;
+                })
+                .map((page, idx, arr) => (
+                  <span key={page} className="flex items-center">
+                    {idx > 0 && arr[idx - 1] !== page - 1 && (
+                      <span className="px-1 text-muted-foreground">...</span>
+                    )}
+                    <Button
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setCurrentPage(page)}
+                      className="h-8 w-8 p-0"
+                    >
+                      {page}
+                    </Button>
+                  </span>
+                ))}
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+          
           <Button
             onClick={handleCreatePromo}
             disabled={selectedProducts.length === 0}
