@@ -99,8 +99,9 @@ export function AppSidebar() {
 
 
   const businessToolsItems = [
-    { title: t.aiTools, url: "/ai-tools", icon: Sparkles },
+    { title: t.aiAssistant, url: "/ai-assistant", icon: Sparkles },
     { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
+    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
 
   const accountActions = [
@@ -110,7 +111,6 @@ export function AppSidebar() {
 
   const bottomMenuItems = [
     { title: t.myAccount, url: "/account", icon: User },
-    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
   
   // Determine which group should be open based on current path

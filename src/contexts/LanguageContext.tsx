@@ -26,7 +26,7 @@ interface Translations {
   businessTools: string;
   reports: string;
   productsServices: string;
-  aiTools: string;
+  aiAssistant: string;
   mobileApp: string;
   preferences: string;
   upgradePlan: string;
@@ -131,7 +131,7 @@ const translations: Record<LanguageCode, Translations> = {
     businessTools: "Strumenti Business",
     reports: "Report",
     productsServices: "Prodotti / Servizi",
-    aiTools: "Strumenti AI",
+    aiAssistant: "Assistente AI",
     mobileApp: "App Mobile",
     preferences: "Preferenze",
     upgradePlan: "Upgrade Piano",
@@ -234,7 +234,7 @@ const translations: Record<LanguageCode, Translations> = {
     businessTools: "Business Tools",
     reports: "Reports",
     productsServices: "Products / Services",
-    aiTools: "AI Tools",
+    aiAssistant: "AI Assistant",
     mobileApp: "Mobile App",
     preferences: "Preferences",
     upgradePlan: "Upgrade Plan",
@@ -337,7 +337,7 @@ const translations: Record<LanguageCode, Translations> = {
     businessTools: "Herramientas de Negocio",
     reports: "Reportes",
     productsServices: "Productos / Servicios",
-    aiTools: "Herramientas IA",
+    aiAssistant: "Asistente IA",
     mobileApp: "App Móvil",
     preferences: "Preferencias",
     upgradePlan: "Mejorar Plan",
@@ -440,7 +440,7 @@ const translations: Record<LanguageCode, Translations> = {
     businessTools: "Outils Business",
     reports: "Rapports",
     productsServices: "Produits / Services",
-    aiTools: "Outils IA",
+    aiAssistant: "Assistant IA",
     mobileApp: "App Mobile",
     preferences: "Préférences",
     upgradePlan: "Améliorer le Plan",
@@ -543,7 +543,7 @@ const translations: Record<LanguageCode, Translations> = {
     businessTools: "Business Tools",
     reports: "Berichte",
     productsServices: "Produkte / Dienstleistungen",
-    aiTools: "KI-Tools",
+    aiAssistant: "KI-Assistent",
     mobileApp: "Mobile App",
     preferences: "Einstellungen",
     upgradePlan: "Plan upgraden",

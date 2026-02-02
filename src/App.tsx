@@ -28,6 +28,7 @@ import ExcelSource from "./pages/sources/ExcelSource";
 import SourcesHub from "./pages/sources/SourcesHub";
 import CustomersReport from "./pages/reports/CustomersReport";
 import ReportsIndex from "./pages/reports/ReportsIndex";
+import AIAssistant from "./pages/AIAssistant";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/sources" element={<SourcesHub />} />
             <Route path="/reports" element={<ReportsIndex />} />
             <Route path="/reports/customers" element={<CustomersReport />} />
+            <Route path="/ai-assistant" element={<AIAssistant />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
