@@ -89,8 +89,9 @@ export function AppSidebar() {
       icon: Store,
       submenu: [
         { title: t.productsServices, url: "/products" },
+        { title: "Digital Menu", url: "/sales/menu" },
         { title: t.inStoreSales, url: "/sales/in-store" },
-        { title: t.onlineSales, url: "/sales/online" },
+        { title: t.onlineSales, url: "/sales/sell-online" },
         { title: t.reservations, url: "/sales/reservations" },
       ]
     },
