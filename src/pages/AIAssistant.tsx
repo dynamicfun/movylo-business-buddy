@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Bot, Eye, MessageCircle, Percent, Plus, List, ExternalLink, AlertCircle } from "lucide-react";
+import { Bot, Eye, MessageCircle, Percent, Plus, List, ExternalLink, AlertCircle, ArrowLeft } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -40,13 +41,15 @@ export default function AIAssistant() {
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
-              <SidebarTrigger className="md:hidden" />
+              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                <ArrowLeft className="h-5 w-5" />
+              </Link>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
                   <Bot className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">AI Assistant</h1>
+                  <h1 className="text-xl font-bold text-foreground">AI Assistant</h1>
                   <p className="text-muted-foreground text-sm">
                     Add the AI-powered chatbot to your website
                   </p>

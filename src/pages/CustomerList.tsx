@@ -29,7 +29,9 @@ import {
   ChevronUp,
   ChevronDown,
   HelpCircle,
+  ArrowLeft,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Mock data for customers
 const mockCustomers = [
@@ -112,12 +114,17 @@ export default function CustomerList() {
           <motion.header
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mb-4"
+            className="flex items-center gap-4 mb-4"
           >
-            <h1 className="text-xl font-bold text-foreground">My Customer List</h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Stay in touch with your customers and prospects
-            </p>
+            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+            <div>
+              <h1 className="text-xl font-bold text-foreground">My Customer List</h1>
+              <p className="text-sm text-muted-foreground mt-1">
+                Stay in touch with your customers and prospects
+              </p>
+            </div>
           </motion.header>
 
           {/* Stats & Actions Bar */}

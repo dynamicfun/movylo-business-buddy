@@ -81,12 +81,20 @@ const Reservations = () => {
             <motion.header
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="space-y-1"
+              className="flex items-center gap-4"
             >
-              <h1 className="text-xl font-semibold text-foreground">Reservations</h1>
-              <p className="text-sm text-muted-foreground">
-                Let customers book time with your business — automatically.
-              </p>
+              <button 
+                onClick={() => navigate("/")} 
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </button>
+              <div>
+                <h1 className="text-xl font-semibold text-foreground">Reservations</h1>
+                <p className="text-sm text-muted-foreground">
+                  Let customers book time with your business — automatically.
+                </p>
+              </div>
             </motion.header>
 
             {/* SECTION 1: Enable Reservations */}
