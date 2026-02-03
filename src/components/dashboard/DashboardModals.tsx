@@ -85,11 +85,11 @@ export function ActivityModal({ open, onOpenChange }: DashboardModalProps) {
 
   const actions = [
     { icon: Zap, label: "Autopilot", path: "/autopilot" },
-    { icon: Bot, label: "AI Assistant", path: "/autopilot" },
-    { icon: Tag, label: "Create a Promo", path: "/autopilot" },
-    { icon: Mail, label: "Create a Newsletter", path: "/autopilot" },
-    { icon: Share2, label: "Create a Social Post", path: "/autopilot" },
-    { icon: Calendar, label: "Campaign Scheduler", path: "/autopilot" },
+    { icon: Bot, label: "AI Assistant", path: "/ai-assistant" },
+    { icon: Tag, label: "Create a Promo", path: "/messages/create-promo" },
+    { icon: Mail, label: "Create a Newsletter", path: "/messages/newsletter" },
+    { icon: Share2, label: "Create a Social Post", path: "/messages/social" },
+    { icon: Calendar, label: "Campaign Scheduler", path: "/messages/scheduler" },
     { icon: Award, label: "Loyalty Program", path: "/customers/loyalty" },
   ];
 
@@ -142,9 +142,9 @@ export function SalesModal({ open, onOpenChange }: DashboardModalProps) {
 
   const actions = [
     { icon: CalendarCheck, label: "Manage Reservations", path: "/sales/reservations" },
-    { icon: UtensilsCrossed, label: "Digital Menu", path: "/sales/reservations" },
-    { icon: Package, label: "Upload Products", path: "/sales/reservations" },
-    { icon: Store, label: "Sell Online", path: "/sales/reservations" },
+    { icon: UtensilsCrossed, label: "Digital Menu", path: "/sales/menu" },
+    { icon: Package, label: "Upload Products", path: "/sales/products" },
+    { icon: Store, label: "Sell Online", path: "/sales/sell-online" },
   ];
 
   return (
