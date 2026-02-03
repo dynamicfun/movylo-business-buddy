@@ -1,122 +1,159 @@
 import { useState } from "react";
-import { MessageCircle, CheckCircle2, Users, Zap } from "lucide-react";
+import { MessageCircle, CheckCircle2, Link2, Users, Radio, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const WhatsAppSource = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleConnect = () => {
+    setIsConnected(true);
+    toast.success("WhatsApp connected successfully!");
+  };
 
   return (
     <InnerPageTemplate
       title="WhatsApp"
-      subtitle="Turn conversations into connected customers"
-      helperText="Nothing happens until customers choose to join"
-      introText="Connect WhatsApp to capture customers from your business conversations. Every chat becomes an opportunity to build your list."
+      subtitle="Turn WhatsApp conversations into customers"
+      helperText="Nothing is sent unless you choose to send it."
+      introText="If you already talk to customers on WhatsApp, you can use those conversations to help them join your business and stay in touch. Customers always choose whether to join."
     >
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Left Column - Info */}
-        <div className="space-y-6">
-          {/* Why this matters */}
-          <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl p-5 border border-border/50">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
-              Why this matters
-            </h3>
-            <p className="text-sm text-foreground leading-relaxed">
-              Your WhatsApp conversations are already happening. This turns those chats into lasting customer relationships, so you can stay connected long after the conversation ends.
+      <div className="space-y-6">
+        {/* Option 1 - Connect WhatsApp */}
+        <div className="bg-card rounded-xl border border-border/50 p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">Recommended</span>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-foreground mb-1">Connect your WhatsApp account</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Connecting WhatsApp lets Movylo work with your conversations securely and prepares your account for future features.
+            </p>
+            <p className="text-sm text-muted-foreground mt-2 font-medium">
+              This does not send any messages.
             </p>
           </div>
 
-          {/* What to expect */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              What to expect
-            </h3>
-            <ul className="space-y-2.5">
-              {[
-                "Customers can join your list directly from WhatsApp",
-                "Send updates and promos to interested contacts",
-                "Track who joined from WhatsApp conversations",
-                "Works quietly in the background"
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Right Column - Action */}
-        <div className="space-y-6">
           {!isConnected ? (
-            <div className="bg-card rounded-xl border border-border/50 p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-emerald-500" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Connect WhatsApp</h3>
-                  <p className="text-xs text-muted-foreground">Link your WhatsApp Business account</p>
-                </div>
-              </div>
-              
+            <>
               <Button 
                 className="w-full bg-emerald-500 hover:bg-emerald-600"
-                onClick={() => setIsConnected(true)}
+                onClick={handleConnect}
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Connect WhatsApp
               </Button>
               
               <p className="text-xs text-muted-foreground text-center">
-                This works quietly in the background
+                You stay in control. Messages are only sent when you choose.
               </p>
-            </div>
+            </>
           ) : (
-            <div className="bg-card rounded-xl border border-emerald-500/30 p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-500" />
-                </div>
+            <div className="space-y-3">
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-foreground">WhatsApp Connected</h3>
-                  <p className="text-xs text-muted-foreground">Your account is linked and active</p>
+                  <p className="text-sm font-medium text-foreground">WhatsApp Connected</p>
+                  <p className="text-xs text-muted-foreground">Your account is linked and ready</p>
                 </div>
               </div>
-
-              <div className="bg-secondary/50 rounded-lg p-4 space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Status</span>
-                  <span className="text-emerald-500 font-medium">Active</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Customers from WhatsApp</span>
-                  <span className="font-semibold">—</span>
-                </div>
-              </div>
-
               <Button variant="outline" className="w-full" onClick={() => setIsConnected(false)}>
                 Disconnect
               </Button>
             </div>
           )}
+        </div>
 
-          {/* Quick stats placeholder */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-secondary/30 rounded-xl p-4 text-center">
-              <Users className="w-5 h-5 text-primary mx-auto mb-1" />
-              <p className="text-lg font-bold text-foreground">—</p>
-              <p className="text-xs text-muted-foreground">Customers</p>
-            </div>
-            <div className="bg-secondary/30 rounded-xl p-4 text-center">
-              <Zap className="w-5 h-5 text-amber-500 mx-auto mb-1" />
-              <p className="text-lg font-bold text-foreground">—</p>
-              <p className="text-xs text-muted-foreground">This month</p>
+        {/* Option 2 - Invite during conversations */}
+        <div className="bg-card rounded-xl border border-border/50 p-5 space-y-4">
+          <div>
+            <h3 className="font-semibold text-foreground mb-1">Invite customers while chatting</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              When you talk to customers on WhatsApp, you can easily share your sign-up link so they can join your business.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">This works well:</p>
+            <ul className="space-y-1.5">
+              {["after a job", "after a booking", "after a question is answered"].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-secondary/50 rounded-lg p-3">
+            <p className="text-xs text-muted-foreground flex items-center gap-2">
+              <Link2 className="w-3.5 h-3.5" />
+              Your sign-up link is available in <button onClick={() => navigate('/sources/share-link')} className="text-primary hover:underline font-medium">Share a link</button>.
+            </p>
+          </div>
+        </div>
+
+        {/* Option 3 - Reach more people */}
+        <div className="bg-card rounded-xl border border-border/50 p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground bg-secondary px-2 py-0.5 rounded">Optional</span>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-foreground mb-1">Reach more customers with WhatsApp</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              If you want to invite more people at once, you can use WhatsApp's built-in tools:
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Choose how you want to reach people</p>
+            <div className="space-y-2">
+              <div className="flex items-start gap-3 p-3 bg-secondary/30 rounded-lg">
+                <Radio className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Channel</p>
+                  <p className="text-xs text-muted-foreground">share updates publicly with followers</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-secondary/30 rounded-lg">
+                <Users className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Broadcast list</p>
+                  <p className="text-xs text-muted-foreground">send a message to selected contacts</p>
+                </div>
+              </div>
             </div>
           </div>
+
+          <p className="text-sm text-muted-foreground">
+            Movylo helps you include an invite to join your business.<br />
+            You decide what to send and when.
+          </p>
+        </div>
+
+        {/* What to expect */}
+        <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl p-5 border border-border/50">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+            What to expect
+          </h3>
+          <ul className="space-y-2.5">
+            {[
+              "Customers can join your business from WhatsApp",
+              "Conversations stay personal and familiar",
+              "You decide when messages are sent",
+              "You can disconnect WhatsApp anytime"
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </InnerPageTemplate>
