@@ -1,15 +1,21 @@
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Instagram, CheckCircle2, Link as LinkIcon } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Instagram, CheckCircle2, Link as LinkIcon, Copy, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function InstagramSource() {
   const [isConnected, setIsConnected] = useState(false);
+  const signupLink = "https://movylo.com/signup/your-business";
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(signupLink);
+    toast.success("Link copied to clipboard!");
+  };
 
   const handleConnect = () => {
-    // Simulate connection
     setIsConnected(true);
     toast.success("Instagram connected successfully!");
   };
@@ -29,24 +35,50 @@ export default function InstagramSource() {
       backTo="/"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left Column - Why this matters */}
+        {/* Left Column - Link in Bio */}
         <div className="space-y-4">
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
             <CardContent className="p-5">
-              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
-                Why this matters
-              </h3>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <p>
-                  Many customers discover local businesses on Instagram.
-                </p>
-                <p>
-                  When they follow your account, they see your updates in their feed.
-                </p>
-                <p>
-                  This helps turn those people into customers you can stay connected with.
-                </p>
+              <div className="flex items-center gap-2 mb-3">
+                <LinkIcon className="h-4 w-4 text-primary" />
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-wide">
+                  Add a Link in Bio
+                </h3>
               </div>
+              
+              <h4 className="font-medium text-foreground mb-2">
+                Engage with Customers via Instagram
+              </h4>
+              
+              <p className="text-sm text-muted-foreground mb-4">
+                Copy this link and add it to the field 'Website' in your Instagram profile. This will help you sign up customers via Instagram.
+              </p>
+
+              <div className="flex gap-2">
+                <Input 
+                  value={signupLink} 
+                  readOnly 
+                  className="text-sm bg-background"
+                />
+                <Button 
+                  variant="outline" 
+                  size="icon"
+                  onClick={handleCopyLink}
+                  className="flex-shrink-0"
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-3"
+              >
+                <ExternalLink className="h-3 w-3" />
+                Open Instagram to add link
+              </a>
             </CardContent>
           </Card>
 
@@ -68,21 +100,24 @@ export default function InstagramSource() {
                   </li>
                 ))}
               </ul>
-              <p className="text-xs text-muted-foreground/70 mt-4">
-                Want to adjust this? You can review posts anytime in{" "}
-                <a href="/autopilot" className="text-primary hover:underline">Autopilot</a>.
-              </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Right Column - Connect Instagram */}
+        {/* Right Column - Connect Instagram to Post */}
         <div className="space-y-4">
           <Card className="border-primary/20">
             <CardContent className="p-5">
-              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
-                Connect Instagram
-              </h3>
+              <div className="flex items-center gap-2 mb-3">
+                <Instagram className="h-4 w-4 text-primary" />
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-wide">
+                  Connect Instagram to Post
+                </h3>
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-4">
+                Connect your Instagram page, so that Movylo can post on it and invite your viewers and those who like your page to sign up to be on your Customer List. You can customize the frequency and the content of the posts at any time. Movylo will not post until you activate them.
+              </p>
 
               {!isConnected ? (
                 <>
@@ -113,7 +148,7 @@ export default function InstagramSource() {
                       rel="noopener noreferrer"
                       className="text-xs text-primary hover:underline flex items-center gap-1"
                     >
-                      <LinkIcon className="h-3 w-3" />
+                      <ExternalLink className="h-3 w-3" />
                       View
                     </a>
                   </div>
@@ -127,6 +162,11 @@ export default function InstagramSource() {
                   </Button>
                 </div>
               )}
+
+              <p className="text-xs text-muted-foreground/70 mt-4">
+                Want to adjust posts? You can review them anytime in{" "}
+                <a href="/autopilot" className="text-primary hover:underline">Autopilot</a>.
+              </p>
             </CardContent>
           </Card>
 
