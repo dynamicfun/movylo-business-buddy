@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Facebook, Instagram, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown, MapPin, Link2 } from "lucide-react";
+import { Globe, Facebook, Instagram, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown, MapPin, Link2, MessageCircle, Wifi, Tablet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CustomersModal } from "./DashboardModals";
@@ -74,6 +74,10 @@ export function CustomerCard({
       navigate("/sources/instagram");
       return;
     }
+    if (sourceKey === "whatsapp") {
+      navigate("/sources/whatsapp");
+      return;
+    }
     if (sourceKey === "google") {
       navigate("/business-info/google-profile");
       return;
@@ -98,6 +102,14 @@ export function CustomerCard({
       navigate("/sources/excel");
       return;
     }
+    if (sourceKey === "wifi") {
+      navigate("/sources/wifi");
+      return;
+    }
+    if (sourceKey === "tablet") {
+      navigate("/sources/tablet");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
@@ -105,20 +117,23 @@ export function CustomerCard({
     }
   };
 
-  // Default visible sources: Google, Share a link, QR codes, Facebook, Instagram
+  // Default visible sources: Google, Share a link, QR codes, Facebook, Instagram, WhatsApp
   const collapsedSourceItems: CustomerSource[] = [
     { icon: <MapPin className="w-4 h-4" />, iconColor: "text-red-500", label: t.google, count: null, sourceKey: "google" },
     { icon: <Link2 className="w-4 h-4" />, iconColor: "text-primary", label: t.shareLink, count: null, sourceKey: "share-link" },
     { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: t.qrCodes, count: sources.qrCodes, sourceKey: "qr-codes" },
     { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: t.facebook, count: sources.facebook, sourceKey: "facebook" },
     { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: t.instagram, count: sources.instagram, sourceKey: "instagram" },
+    { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-emerald-500", label: t.whatsapp, count: sources.whatsapp, sourceKey: "whatsapp" },
   ];
 
-  // Hidden sources (shown when expanded): Website, Manual, Excel, Ads
+  // Hidden sources (shown when expanded): Website, Manual, Excel, WiFi, Tablet, Ads
   const expandedSourceItems: CustomerSource[] = [
     { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: t.website, count: sources.website, sourceKey: "website-source" },
     { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: t.manual, count: sources.manual, sourceKey: "manual" },
     { icon: <FileSpreadsheet className="w-4 h-4" />, iconColor: "text-emerald-600", label: t.excel, count: sources.excel, sourceKey: "excel" },
+    { icon: <Wifi className="w-4 h-4" />, iconColor: "text-sky-500", label: t.wifi, count: null, sourceKey: "wifi" },
+    { icon: <Tablet className="w-4 h-4" />, iconColor: "text-violet-500", label: t.tablet, count: null, sourceKey: "tablet" },
     { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: t.ads, count: sources.ads, sourceKey: "ads" },
   ];
 
