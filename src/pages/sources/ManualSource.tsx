@@ -32,23 +32,41 @@ const ManualSource = () => {
       icon={UserPlus}
       backTo="/"
     >
-      <div className="space-y-6">
-        {/* What to expect */}
-        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
-          <CardContent className="p-5">
-            <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What to expect</h3>
-            <div className="space-y-2">
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">Customers are added to your list</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">Activity appears naturally over time</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Left Column - Info */}
+        <div className="space-y-4">
+          {/* Why this matters */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                You may already have customers who want to hear from you. Adding them manually means you can stay connected without waiting for them to sign up again.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* What to expect */}
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What to expect</h3>
+              <ul className="space-y-2.5">
+                {[
+                  "Customers are added to your list",
+                  "Activity appears naturally over time",
+                  "You can edit or remove customers anytime"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column - Forms */}
+        <div className="space-y-6">
 
         {/* Primary CTA intro */}
         <Card>
@@ -220,12 +238,13 @@ const ManualSource = () => {
             <p className="text-xs text-muted-foreground/70 mt-4">Nothing is sent until customers are added.</p>
           </CardContent>
         </Card>
-
-        {/* Background reassurance */}
-        <p className="text-xs text-muted-foreground/70 text-center">
-          This works quietly in the background.
-        </p>
+        </div>
       </div>
+
+      {/* Background reassurance */}
+      <p className="text-xs text-muted-foreground/70 text-center mt-6">
+        This works quietly in the background.
+      </p>
     </InnerPageTemplate>
   );
 };

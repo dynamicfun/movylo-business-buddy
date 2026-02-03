@@ -34,9 +34,43 @@ export default function InstagramSource() {
       icon={Instagram}
       backTo="/"
     >
-      <div className="space-y-6">
-        {/* Option 1 - Link in Bio */}
-        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Left Column - Info */}
+        <div className="space-y-4">
+          {/* Why this matters */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Why this matters</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Many customers discover local businesses on Instagram. When they follow you, they see your updates in their feed. This helps turn those people into customers you can stay connected with.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* What to expect */}
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What to expect</h3>
+              <ul className="space-y-2.5">
+                {[
+                  "People who find you on Instagram can join your business",
+                  "Customers stay connected even after they leave Instagram",
+                  "You can change this anytime"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column - Options */}
+        <div className="space-y-4">
+          {/* Option 1 - Link in Bio */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-3">
               <LinkIcon className="h-4 w-4 text-primary" />
@@ -80,27 +114,9 @@ export default function InstagramSource() {
               Open Instagram to add link
             </a>
 
-            <p className="text-xs text-muted-foreground/80 mb-4">
+            <p className="text-xs text-muted-foreground/80">
               Customers decide if they want to join.
             </p>
-
-            <div className="border-t border-border/50 pt-4">
-              <h5 className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">
-                What to expect
-              </h5>
-              <ul className="space-y-2">
-                {[
-                  "People who find you on Instagram can join your business",
-                  "Customers stay connected even after they leave Instagram",
-                  "You can change this anytime"
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </CardContent>
         </Card>
 
@@ -181,13 +197,14 @@ export default function InstagramSource() {
             </p>
           </CardContent>
         </Card>
-
-        {/* Final Reassurance */}
-        <p className="text-sm text-muted-foreground text-center">
-          You're always in control.
-          Customers choose to join, and you decide how visible you want to be.
-        </p>
+        </div>
       </div>
+
+      {/* Final Reassurance */}
+      <p className="text-sm text-muted-foreground text-center mt-6">
+        You're always in control.
+        Customers choose to join, and you decide how visible you want to be.
+      </p>
     </InnerPageTemplate>
   );
 }

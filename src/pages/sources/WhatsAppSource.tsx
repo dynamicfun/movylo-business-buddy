@@ -21,9 +21,44 @@ const WhatsAppSource = () => {
       helperText="Nothing is sent unless you choose to send it."
       introText="If you already talk to customers on WhatsApp, you can use those conversations to help them join your business and stay in touch. Customers always choose whether to join."
     >
-      <div className="space-y-6">
-        {/* Option 1 - Connect WhatsApp */}
-        <div className="bg-card rounded-xl border border-border/50 p-5 space-y-4">
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Left Column - Info */}
+        <div className="space-y-4">
+          {/* Why this matters */}
+          <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl p-5 border border-border/50">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+              Why this matters
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Many customers already talk to businesses on WhatsApp. Connecting your account helps turn those conversations into customers you can stay connected with — naturally and without pressure.
+            </p>
+          </div>
+
+          {/* What to expect */}
+          <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl p-5 border border-border/50">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+              What to expect
+            </h3>
+            <ul className="space-y-2.5">
+              {[
+                "Customers can join your business from WhatsApp",
+                "Conversations stay personal and familiar",
+                "You decide when messages are sent",
+                "You can disconnect WhatsApp anytime"
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Right Column - Options */}
+        <div className="space-y-4">
+          {/* Option 1 - Connect WhatsApp */}
+          <div className="bg-card rounded-xl border border-border/50 p-5 space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">Recommended</span>
           </div>
@@ -136,24 +171,6 @@ const WhatsAppSource = () => {
           </p>
         </div>
 
-        {/* What to expect */}
-        <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl p-5 border border-border/50">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
-            What to expect
-          </h3>
-          <ul className="space-y-2.5">
-            {[
-              "Customers can join your business from WhatsApp",
-              "Conversations stay personal and familiar",
-              "You decide when messages are sent",
-              "You can disconnect WhatsApp anytime"
-            ].map((item, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </InnerPageTemplate>
