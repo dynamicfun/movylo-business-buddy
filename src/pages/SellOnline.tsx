@@ -30,6 +30,32 @@ export default function SellOnline() {
       backTo="/"
     >
       <div className="space-y-6">
+        {/* Currency Section - Top Level */}
+        <Card className="border-primary/20">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="text-sm font-medium text-foreground">Currency</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  This is the currency customers will pay in.
+                </p>
+              </div>
+              <Select value={currency} onValueChange={setCurrency}>
+                <SelectTrigger className="w-[160px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="usd">U.S. Dollar</SelectItem>
+                  <SelectItem value="eur">Euro</SelectItem>
+                  <SelectItem value="gbp">British Pound</SelectItem>
+                  <SelectItem value="cad">Canadian Dollar</SelectItem>
+                  <SelectItem value="aud">Australian Dollar</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Option 1 - Pay in Store */}
         <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-background">
           <CardContent className="p-6">
@@ -177,26 +203,6 @@ export default function SellOnline() {
                     className="max-w-sm"
                   />
                 </div>
-              </div>
-
-              {/* Currency Section */}
-              <div className="space-y-3 pt-4 border-t border-border/40">
-                <h4 className="text-sm font-medium text-foreground">Currency</h4>
-                <p className="text-xs text-muted-foreground/70">
-                  This is the currency customers will pay in.
-                </p>
-                <Select value={currency} onValueChange={setCurrency}>
-                  <SelectTrigger className="max-w-[200px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="usd">U.S. Dollar</SelectItem>
-                    <SelectItem value="eur">Euro</SelectItem>
-                    <SelectItem value="gbp">British Pound</SelectItem>
-                    <SelectItem value="cad">Canadian Dollar</SelectItem>
-                    <SelectItem value="aud">Australian Dollar</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
             </div>
           </CardContent>
