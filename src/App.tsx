@@ -12,6 +12,7 @@ import CustomerList from "./pages/CustomerList";
 import SignUpPage from "./pages/SignUpPage";
 import LoyaltyProgram from "./pages/LoyaltyProgram";
 import Reservations from "./pages/Reservations";
+import SellOnline from "./pages/SellOnline";
 import CreatePromo from "./pages/CreatePromo";
 import CreatePromoAI from "./pages/CreatePromoAI";
 import CreateNewsletter from "./pages/CreateNewsletter";
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/customers/signup" element={<SignUpPage />} />
             <Route path="/customers/loyalty" element={<LoyaltyProgram />} />
             <Route path="/sales/reservations" element={<Reservations />} />
+            <Route path="/sales/sell-online" element={<SellOnline />} />
             <Route path="/messages/create-promo" element={<CreatePromo />} />
             <Route path="/messages/create-promo/ai" element={<CreatePromoAI />} />
             <Route path="/messages/create-promo/products" element={<SelectProducts />} />
