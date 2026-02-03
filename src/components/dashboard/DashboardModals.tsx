@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Users, Zap, ShoppingBag, UserSearch, UserPlus, Plus, Bot, Tag, Mail, Share2, Calendar, Award, CalendarCheck, UtensilsCrossed, Package, Store } from "lucide-react";
+import { Users, Zap, ShoppingBag, UserSearch, UserPlus, Plus, Bot, Tag, Mail, Share2, Calendar, Award, CalendarCheck, UtensilsCrossed, Package, Store, Smartphone } from "lucide-react";
 
 interface DashboardModalProps {
   open: boolean;
@@ -141,10 +141,11 @@ export function SalesModal({ open, onOpenChange }: DashboardModalProps) {
   };
 
   const actions = [
-    { icon: CalendarCheck, label: "Manage Reservations", path: "/sales/reservations" },
+    { icon: Package, label: "Products / Menu", path: "/products" },
     { icon: UtensilsCrossed, label: "Digital Menu", path: "/sales/menu" },
-    { icon: Package, label: "Upload Products", path: "/sales/products" },
-    { icon: Store, label: "Sell Online", path: "/sales/sell-online" },
+    { icon: CalendarCheck, label: "Reservations", path: "/sales/reservations" },
+    { icon: Store, label: "Sell Online / Payments", path: "/sales/sell-online" },
+    { icon: Smartphone, label: "Movylo Mobile App", path: "/mobile-app" },
   ];
 
   return (

@@ -90,9 +90,9 @@ export function AppSidebar() {
       submenu: [
         { title: t.productsServices, url: "/products" },
         { title: "Digital Menu", url: "/sales/menu" },
-        { title: t.inStoreSales, url: "/sales/in-store" },
-        { title: t.onlineSales, url: "/sales/sell-online" },
         { title: t.reservations, url: "/sales/reservations" },
+        { title: "Sell Online / Payments", url: "/sales/sell-online" },
+        { title: t.mobileApp, url: "/mobile-app" },
       ]
     },
     { id: "reports", title: t.reports, url: "/reports", icon: BarChart3 },
