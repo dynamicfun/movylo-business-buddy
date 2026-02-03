@@ -59,6 +59,8 @@ interface Translations {
   excel: string;
   manual: string;
   ads: string;
+  wifi: string;
+  tablet: string;
   google: string;
   shareLink: string;
   addCustomers: string;
@@ -164,6 +166,8 @@ const translations: Record<LanguageCode, Translations> = {
     excel: "Excel",
     manual: "Manuale",
     ads: "Ads",
+    wifi: "WiFi",
+    tablet: "Tablet",
     google: "Google",
     shareLink: "Condividi un link",
     addCustomers: "Aggiungi clienti",
@@ -267,6 +271,8 @@ const translations: Record<LanguageCode, Translations> = {
     excel: "Excel",
     manual: "Manual",
     ads: "Ads",
+    wifi: "WiFi",
+    tablet: "Tablet",
     google: "Google",
     shareLink: "Share a link",
     addCustomers: "Add customers",
@@ -370,6 +376,8 @@ const translations: Record<LanguageCode, Translations> = {
     excel: "Excel",
     manual: "Manual",
     ads: "Anuncios",
+    wifi: "WiFi",
+    tablet: "Tablet",
     google: "Google",
     shareLink: "Compartir un enlace",
     addCustomers: "Agregar clientes",
@@ -473,6 +481,8 @@ const translations: Record<LanguageCode, Translations> = {
     excel: "Excel",
     manual: "Manuel",
     ads: "Publicités",
+    wifi: "WiFi",
+    tablet: "Tablette",
     google: "Google",
     shareLink: "Partager un lien",
     addCustomers: "Ajouter des clients",
@@ -576,6 +586,8 @@ const translations: Record<LanguageCode, Translations> = {
     excel: "Excel",
     manual: "Manuell",
     ads: "Werbung",
+    wifi: "WiFi",
+    tablet: "Tablet",
     google: "Google",
     shareLink: "Link teilen",
     addCustomers: "Kunden hinzufügen",
