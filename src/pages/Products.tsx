@@ -1,38 +1,89 @@
 import { useState } from "react";
-import { Package, Plus, Search, Upload, CheckCircle2, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Package, Plus, Search, Upload, CheckCircle2 } from "lucide-react";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { CategoryManager, Category } from "@/components/products/CategoryManager";
+import { ProductTable, Product, EmptyProductState } from "@/components/products/ProductTable";
 
-// Mock products data
-const mockProducts = [
-  { id: 1, name: "Espresso", price: 2.50, available: true },
-  { id: 2, name: "Cappuccino", price: 3.50, available: true },
+// Mock data
+const initialCategories: Category[] = [
+  { id: 1, name: "Hot Drinks", productCount: 2 },
+  { id: 2, name: "Cold Drinks", productCount: 0 },
+];
+
+const initialProducts: Product[] = [
+  { id: 1, name: "Espresso", price: 2.50, available: true, categoryId: 1 },
+  { id: 2, name: "Cappuccino", price: 3.50, available: true, categoryId: 1 },
 ];
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [products] = useState(mockProducts);
-  
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
+
   const productLimit = 25;
   const currentCount = products.length;
+
+  // Category handlers
+  const handleAddCategory = (name: string) => {
+    const newCategory: Category = {
+      id: Date.now(),
+      name,
+      productCount: 0,
+    };
+    setCategories([...categories, newCategory]);
+  };
+
+  const handleEditCategory = (id: number, name: string) => {
+    setCategories(categories.map((c) => (c.id === id ? { ...c, name } : c)));
+  };
+
+  const handleDeleteCategory = (id: number) => {
+    setCategories(categories.filter((c) => c.id !== id));
+    // Remove category from products
+    setProducts(products.map((p) => (p.categoryId === id ? { ...p, categoryId: null } : p)));
+  };
+
+  // Product handlers
+  const handleChangeProductCategory = (productId: number, categoryId: number | null) => {
+    const oldProduct = products.find((p) => p.id === productId);
+    const oldCategoryId = oldProduct?.categoryId;
+
+    setProducts(products.map((p) => (p.id === productId ? { ...p, categoryId } : p)));
+
+    // Update category counts
+    setCategories(
+      categories.map((c) => {
+        if (c.id === oldCategoryId) {
+          return { ...c, productCount: c.productCount - 1 };
+        }
+        if (c.id === categoryId) {
+          return { ...c, productCount: c.productCount + 1 };
+        }
+        return c;
+      })
+    );
+  };
+
+  const handleEditProduct = (product: Product) => {
+    // TODO: Open edit modal
+    console.log("Edit product:", product);
+  };
+
+  const handleDeleteProduct = (id: number) => {
+    const product = products.find((p) => p.id === id);
+    if (product?.categoryId) {
+      setCategories(
+        categories.map((c) =>
+          c.id === product.categoryId ? { ...c, productCount: c.productCount - 1 } : c
+        )
+      );
+    }
+    setProducts(products.filter((p) => p.id !== id));
+  };
 
   const filteredProducts = products.filter(
     (product) =>
@@ -60,7 +111,7 @@ export default function Products() {
               {[
                 "shared with customers",
                 "ordered online",
-                "included in your digital menu (if enabled)"
+                "included in your digital menu (if enabled)",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
@@ -73,6 +124,14 @@ export default function Products() {
             </p>
           </CardContent>
         </Card>
+
+        {/* Categories section */}
+        <CategoryManager
+          categories={categories}
+          onAddCategory={handleAddCategory}
+          onEditCategory={handleEditCategory}
+          onDeleteCategory={handleDeleteCategory}
+        />
 
         {/* Your products section */}
         <Card>
@@ -111,66 +170,18 @@ export default function Products() {
 
             {/* Product table */}
             {filteredProducts.length > 0 ? (
-              <div className="border rounded-lg overflow-hidden">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-muted/30">
-                      <TableHead className="font-medium">Name</TableHead>
-                      <TableHead className="font-medium">Price</TableHead>
-                      <TableHead className="font-medium">Availability</TableHead>
-                      <TableHead className="w-[50px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredProducts.map((product) => (
-                      <TableRow key={product.id}>
-                        <TableCell className="font-medium">{product.name}</TableCell>
-                        <TableCell>${product.price.toFixed(2)}</TableCell>
-                        <TableCell>
-                          <Badge 
-                            variant={product.available ? "default" : "secondary"}
-                            className={product.available ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : ""}
-                          >
-                            {product.available ? "Available" : "Unavailable"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-8 w-8">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem className="gap-2">
-                                <Pencil className="h-4 w-4" />
-                                Edit
-                              </DropdownMenuItem>
-                              <DropdownMenuItem className="gap-2 text-destructive">
-                                <Trash2 className="h-4 w-4" />
-                                Remove
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              <ProductTable
+                products={filteredProducts}
+                categories={categories}
+                onEditProduct={handleEditProduct}
+                onDeleteProduct={handleDeleteProduct}
+                onChangeCatProduct={handleChangeProductCategory}
+              />
             ) : (
-              <div className="text-center py-12 border rounded-lg bg-muted/10">
-                <Package className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">
-                  {searchQuery ? "No products match your search" : "No products added yet"}
-                </p>
-                {!searchQuery && (
-                  <Button variant="outline" className="mt-4 gap-2">
-                    <Plus className="h-4 w-4" />
-                    Add your first product
-                  </Button>
-                )}
-              </div>
+              <EmptyProductState
+                searchQuery={searchQuery}
+                onAddProduct={() => console.log("Add product")}
+              />
             )}
           </CardContent>
         </Card>
@@ -196,7 +207,7 @@ export default function Products() {
               {[
                 "Products can be edited or removed anytime",
                 "Customers only see products you choose to show",
-                "You can start with just one product"
+                "You can start with just one product",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
