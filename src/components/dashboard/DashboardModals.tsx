@@ -24,8 +24,7 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                FIND AND<br />
-                MANAGE<br />
+                MY<br />
                 CUSTOMERS
               </DialogTitle>
             </div>
@@ -34,7 +33,7 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
             </div>
           </div>
           <DialogDescription className="text-foreground mt-4">
-            Manage your customer list and discover their interests
+            Manage your customers and add new ones
           </DialogDescription>
         </DialogHeader>
 
@@ -100,9 +99,8 @@ export function ActivityModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                ENGAGE<br />
-                YOUR<br />
-                CUSTOMERS
+                MESSAGES<br />
+                & OFFERS
               </DialogTitle>
             </div>
             <div className="p-3 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl">
@@ -110,7 +108,7 @@ export function ActivityModal({ open, onOpenChange }: DashboardModalProps) {
             </div>
           </div>
           <DialogDescription className="text-foreground mt-4">
-            Send messages, create offers, and keep customers coming back
+            Increase customers' activity
           </DialogDescription>
         </DialogHeader>
 
@@ -155,8 +153,7 @@ export function SalesModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                CLOSE<br />
-                MORE<br />
+                MY<br />
                 SALES
               </DialogTitle>
             </div>
