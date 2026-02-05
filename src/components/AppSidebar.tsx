@@ -71,7 +71,7 @@ export function AppSidebar() {
     },
     { 
       id: "messages",
-      title: t.messagesOffers, 
+      title: t.activity, 
       url: "/messages", 
       icon: MessageSquare,
       submenu: [

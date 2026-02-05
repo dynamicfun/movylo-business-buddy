@@ -12,7 +12,7 @@ interface Translations {
   signUpPage: string;
   loyaltyProgram: string;
   autopilot: string;
-  messagesOffers: string;
+  
   createPromo: string;
   createNewsletter: string;
   createSocialPost: string;
@@ -119,7 +119,6 @@ const translations: Record<LanguageCode, Translations> = {
     signUpPage: "Pagina di Iscrizione",
     loyaltyProgram: "Programma Fedeltà",
     autopilot: "Autopilot",
-    messagesOffers: "Messaggi e Offerte",
     createPromo: "Crea una Promo",
     createNewsletter: "Crea una Newsletter",
     createSocialPost: "Crea un post social",
@@ -224,7 +223,6 @@ const translations: Record<LanguageCode, Translations> = {
     signUpPage: "Sign Up Page",
     loyaltyProgram: "Loyalty Program",
     autopilot: "Autopilot",
-    messagesOffers: "Messages & Offers",
     createPromo: "Create a Promo",
     createNewsletter: "Create a Newsletter",
     createSocialPost: "Create a social post",
@@ -329,7 +327,6 @@ const translations: Record<LanguageCode, Translations> = {
     signUpPage: "Página de Registro",
     loyaltyProgram: "Programa de Fidelidad",
     autopilot: "Autopilot",
-    messagesOffers: "Mensajes y Ofertas",
     createPromo: "Crear una Promo",
     createNewsletter: "Crear un Newsletter",
     createSocialPost: "Crear un post social",
@@ -434,7 +431,6 @@ const translations: Record<LanguageCode, Translations> = {
     signUpPage: "Page d'Inscription",
     loyaltyProgram: "Programme de Fidélité",
     autopilot: "Autopilot",
-    messagesOffers: "Messages et Offres",
     createPromo: "Créer une Promo",
     createNewsletter: "Créer une Newsletter",
     createSocialPost: "Créer un post social",
@@ -539,7 +535,6 @@ const translations: Record<LanguageCode, Translations> = {
     signUpPage: "Anmeldeseite",
     loyaltyProgram: "Treueprogramm",
     autopilot: "Autopilot",
-    messagesOffers: "Nachrichten & Angebote",
     createPromo: "Promo erstellen",
     createNewsletter: "Newsletter erstellen",
     createSocialPost: "Social Post erstellen",

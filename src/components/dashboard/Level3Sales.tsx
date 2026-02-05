@@ -1,4 +1,4 @@
-import { Ticket, Calendar, ShoppingCart, Link2, TrendingUp } from "lucide-react";
+import { Ticket, Calendar, ShoppingCart, Store, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LevelCard } from "./LevelCard";
 
@@ -53,8 +53,8 @@ export function Level3Sales() {
       </div>
 
       <Button variant="outline" className="w-full gap-2">
-        <Link2 className="w-4 h-4" />
-        Connect sales tools
+        <Store className="w-4 h-4" />
+        My Sales
       </Button>
     </LevelCard>
   );

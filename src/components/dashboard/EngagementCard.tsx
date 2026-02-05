@@ -117,7 +117,7 @@ export function EngagementCard({
           size="default"
           onClick={() => setShowModal(true)}
         >
-          {t.messagesOffers}
+        {t.activity}
           <ChevronRight className="w-4 h-4" />
         </Button>
 
@@ -197,7 +197,7 @@ export function EngagementCard({
         size="default"
         onClick={() => setShowModal(true)}
       >
-        {t.messagesOffers}
+        {t.activity}
         <ChevronRight className="w-4 h-4" />
       </Button>
 
