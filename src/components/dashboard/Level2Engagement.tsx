@@ -57,7 +57,7 @@ export function Level2Engagement() {
 
       <div className="flex flex-col sm:flex-row gap-2">
         <Button variant="outline" className="flex-1 gap-2">
-          Messages & offers
+          Activity
         </Button>
         <Button variant="ghost" className="gap-1 text-muted-foreground">
           See details

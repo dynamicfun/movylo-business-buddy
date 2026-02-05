@@ -51,7 +51,7 @@ export function Level1Customers() {
       <div className="flex flex-col sm:flex-row gap-2">
         <Button className="flex-1 gap-2">
           <Users className="w-4 h-4" />
-          Find & manage customers
+          My Customers
         </Button>
         <Button variant="ghost" className="gap-1 text-muted-foreground">
           View list
