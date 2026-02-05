@@ -24,7 +24,8 @@ export function CustomersModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                MY<br />
+                FIND AND<br />
+                MANAGE<br />
                 CUSTOMERS
               </DialogTitle>
             </div>
@@ -99,8 +100,9 @@ export function ActivityModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                MESSAGES<br />
-                & OFFERS
+                ENGAGE<br />
+                YOUR<br />
+                CUSTOMERS
               </DialogTitle>
             </div>
             <div className="p-3 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl">
@@ -153,7 +155,8 @@ export function SalesModal({ open, onOpenChange }: DashboardModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <DialogTitle className="text-xl font-bold text-primary">
-                MY<br />
+                CLOSE<br />
+                MORE<br />
                 SALES
               </DialogTitle>
             </div>
