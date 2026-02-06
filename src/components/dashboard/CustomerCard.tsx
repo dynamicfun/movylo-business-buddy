@@ -232,7 +232,7 @@ export function CustomerCard({
         size="default"
         onClick={() => setShowModal(true)}
       >
-        {t.addCustomers}
+        {t.myCustomers}
         <ChevronRight className="w-4 h-4" />
       </Button>
 

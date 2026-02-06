@@ -114,7 +114,7 @@ export function SalesCard(props: SalesCardProps) {
           size="default"
           onClick={() => setShowModal(true)}
         >
-          {t.sell}
+          {t.mySales}
           <ChevronRight className="w-4 h-4" />
         </Button>
 
@@ -150,7 +150,7 @@ export function SalesCard(props: SalesCardProps) {
         size="default"
         onClick={() => setShowModal(true)}
       >
-        {t.sell}
+        {t.mySales}
         <ChevronRight className="w-4 h-4" />
       </Button>
 
