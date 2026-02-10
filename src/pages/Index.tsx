@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -70,50 +69,37 @@ const Index = () => {
         
         <main className="flex-1 overflow-x-hidden">
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            {/* Compact header with Live Feed prominence */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex items-center justify-between gap-4 mb-3"
-            >
-              <div className="flex items-center gap-3">
-                <SidebarTrigger className="text-muted-foreground" />
-                <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal" asChild>
-                  <a href="/business-info/profile">
-                    <Building2 className="h-4 w-4" />
-                    <span className="hidden sm:inline">My Profile</span>
-                  </a>
-                </Button>
+            {/* Single row: sidebar trigger + action buttons + Live Feed or Activation Banner */}
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 flex-wrap">
+              <SidebarTrigger className="text-muted-foreground flex-shrink-0" />
+              <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal flex-shrink-0" asChild>
+                <a href="/business-info/profile">
+                  <Building2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">My Profile</span>
+                </a>
+              </Button>
+              <QuickActions />
+              
+              {/* Preview toggle */}
+              <div className="flex items-center gap-1.5 px-2 py-1.5 bg-secondary/50 rounded-lg flex-shrink-0">
+                <Switch
+                  id="preview-mode"
+                  checked={showSteadyState}
+                  onCheckedChange={setShowSteadyState}
+                />
+                <Label htmlFor="preview-mode" className="text-xs text-muted-foreground cursor-pointer hidden sm:inline">
+                  {showSteadyState ? t.steadyState : t.newUser}
+                </Label>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
-                {/* Preview toggle */}
-                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 bg-secondary/50 rounded-lg">
-                  <Switch
-                    id="preview-mode"
-                    checked={showSteadyState}
-                    onCheckedChange={setShowSteadyState}
-                  />
-                  <Label htmlFor="preview-mode" className="text-xs text-muted-foreground cursor-pointer hidden sm:inline">
-                    {showSteadyState ? t.steadyState : t.newUser}
-                  </Label>
-                </div>
-                {/* Show QuickActions only in steady state */}
-                {showSteadyState && <QuickActions />}
-              </div>
-            </motion.div>
 
-            {/* Activation banner with quick actions - only show in activation mode */}
-            {!showSteadyState && (
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 sm:mb-6">
-                <QuickActions />
-                <div className="flex-1">
+              <div className="flex-1 min-w-0">
+                {showSteadyState ? (
+                  <LiveFeed />
+                ) : (
                   <ActivationBanner completedSteps={2} totalSteps={5} />
-                </div>
+                )}
               </div>
-            )}
-
-            {/* Live feed - above the main cards */}
-            <LiveFeed />
+            </div>
 
             {/* Three equal columns: Customers, Activity, Sales */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
