@@ -77,7 +77,7 @@ const Index = () => {
               className="flex items-center justify-between gap-4 mb-3"
             >
               <div className="flex items-center gap-3">
-                <SidebarTrigger className="text-muted-foreground sm:hidden" />
+                <SidebarTrigger className="text-muted-foreground" />
                 <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal" asChild>
                   <a href="/business-info/profile">
                     <Building2 className="h-4 w-4" />
