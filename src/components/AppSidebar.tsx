@@ -36,6 +36,7 @@ import {
   SidebarMenuSubButton,
   SidebarFooter,
   SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   Collapsible,
@@ -139,15 +140,18 @@ export function AppSidebar() {
 
   const selectedLanguage = languages.find(l => l.code === currentLanguage);
 
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
   return (
-    <Sidebar className="border-r border-border">
+    <Sidebar collapsible="icon" className="border-r border-border">
       <SidebarContent className="pt-2">
         {/* Logo/Brand area */}
-        <div className="px-4 mb-2">
+        <div className="px-4 mb-2 overflow-hidden">
           <img 
             src={movyloLogo} 
             alt="Movylo" 
-            className="h-12 w-auto"
+            className={isCollapsed ? "h-8 w-8 object-contain object-left" : "h-12 w-auto"}
           />
         </div>
 
@@ -158,40 +162,52 @@ export function AppSidebar() {
               {primaryItems.map((item) => (
                 <SidebarMenuItem key={item.id || item.title}>
                   {item.submenu ? (
-                    <Collapsible 
-                      open={openGroupId === item.id} 
-                      onOpenChange={(isOpen) => handleGroupToggle(item.id!, isOpen)}
-                      className="w-full"
-                    >
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-muted/50 transition-colors">
-                          <div className="flex items-center gap-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
-                          </div>
-                          <ChevronDown className={`h-3 w-3 transition-transform ${openGroupId === item.id ? 'rotate-180' : ''}`} />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.submenu.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild>
-                                <NavLink 
-                                  to={subItem.url}
-                                  className="text-sm text-muted-foreground hover:text-foreground"
-                                  activeClassName="text-primary font-medium"
-                                >
-                                  {subItem.title}
-                                </NavLink>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </Collapsible>
+                    isCollapsed ? (
+                      <SidebarMenuButton asChild tooltip={item.title}>
+                        <NavLink 
+                          to={item.submenu[0].url}
+                          className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 transition-colors"
+                          activeClassName="bg-muted text-primary font-medium"
+                        >
+                          <item.icon className="h-4 w-4" />
+                        </NavLink>
+                      </SidebarMenuButton>
+                    ) : (
+                      <Collapsible 
+                        open={openGroupId === item.id} 
+                        onOpenChange={(isOpen) => handleGroupToggle(item.id!, isOpen)}
+                        className="w-full"
+                      >
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-muted/50 transition-colors">
+                            <div className="flex items-center gap-3">
+                              <item.icon className="h-4 w-4" />
+                              <span>{item.title}</span>
+                            </div>
+                            <ChevronDown className={`h-3 w-3 transition-transform ${openGroupId === item.id ? 'rotate-180' : ''}`} />
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenuSub>
+                            {item.submenu.map((subItem) => (
+                              <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton asChild>
+                                  <NavLink 
+                                    to={subItem.url}
+                                    className="text-sm text-muted-foreground hover:text-foreground"
+                                    activeClassName="text-primary font-medium"
+                                  >
+                                    {subItem.title}
+                                  </NavLink>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )
                   ) : (
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild tooltip={item.title}>
                       <NavLink 
                         to={item.url}
                         end={item.url === "/"}
@@ -199,7 +215,7 @@ export function AppSidebar() {
                         activeClassName="bg-muted text-primary font-medium"
                       >
                         <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
+                        {!isCollapsed && <span>{item.title}</span>}
                       </NavLink>
                     </SidebarMenuButton>
                   )}
@@ -213,34 +229,54 @@ export function AppSidebar() {
 
         {/* Business tools - collapsible, quieter */}
         <SidebarGroup>
-          <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
-            <CollapsibleTrigger asChild>
-              <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                <span>{t.businessTools}</span>
-                <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
-              </SidebarGroupLabel>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {businessToolsItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <NavLink 
-                          to={item.url}
-                          className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
-                          activeClassName="bg-muted text-primary font-medium"
-                        >
-                          <item.icon className="h-4 w-4" />
-                          <span>{item.title}</span>
-                        </NavLink>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </CollapsibleContent>
-          </Collapsible>
+          {isCollapsed ? (
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {businessToolsItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild tooltip={item.title}>
+                      <NavLink 
+                        to={item.url}
+                        className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
+                        activeClassName="bg-muted text-primary font-medium"
+                      >
+                        <item.icon className="h-4 w-4" />
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          ) : (
+            <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
+              <CollapsibleTrigger asChild>
+                <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  <span>{t.businessTools}</span>
+                  <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
+                </SidebarGroupLabel>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {businessToolsItems.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild>
+                          <NavLink 
+                            to={item.url}
+                            className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
+                            activeClassName="bg-muted text-primary font-medium"
+                          >
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.title}</span>
+                          </NavLink>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </Collapsible>
+          )}
         </SidebarGroup>
 
       </SidebarContent>
@@ -251,14 +287,14 @@ export function AppSidebar() {
           {/* Upgrade and Top Up actions */}
           {accountActions.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild tooltip={item.title}>
                 <NavLink 
                   to={item.url}
                   className="flex items-center gap-3 px-3 py-1.5 hover:bg-primary/10 text-sm text-primary font-medium"
                   activeClassName="bg-primary/20 text-primary font-medium"
                 >
                   <item.icon className="h-4 w-4" />
-                  <span>{item.title}</span>
+                  {!isCollapsed && <span>{item.title}</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -268,14 +304,14 @@ export function AppSidebar() {
           
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild tooltip={item.title}>
                 <NavLink 
                   to={item.url}
                   className="flex items-center gap-3 px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground"
                   activeClassName="bg-muted text-primary font-medium"
                 >
                   <item.icon className="h-4 w-4" />
-                  <span>{item.title}</span>
+                  {!isCollapsed && <span>{item.title}</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -285,12 +321,12 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <Popover open={languageOpen} onOpenChange={setLanguageOpen}>
               <PopoverTrigger asChild>
-                <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground cursor-pointer">
+                <SidebarMenuButton className="flex items-center justify-between w-full px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground cursor-pointer" tooltip={t.language}>
                   <div className="flex items-center gap-3">
                     <Globe className="h-4 w-4" />
-                    <span>{t.language}</span>
+                    {!isCollapsed && <span>{t.language}</span>}
                   </div>
-                  <span className="text-xs">{selectedLanguage?.flag} {selectedLanguage?.code.toUpperCase()}</span>
+                  {!isCollapsed && <span className="text-xs">{selectedLanguage?.flag} {selectedLanguage?.code.toUpperCase()}</span>}
                 </SidebarMenuButton>
               </PopoverTrigger>
               <PopoverContent 

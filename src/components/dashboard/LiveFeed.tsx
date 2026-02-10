@@ -66,7 +66,7 @@ export function LiveFeed() {
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/5 rounded-2xl border-2 border-primary/20 p-4 mb-4 shadow-sm"
+      className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/5 rounded-2xl border-2 border-primary/20 p-3 shadow-sm"
     >
       <div className="flex items-center gap-4">
         {/* Live indicator */}
