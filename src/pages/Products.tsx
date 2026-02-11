@@ -10,13 +10,15 @@ import { ProductTable, Product, EmptyProductState } from "@/components/products/
 
 // Mock data
 const initialCategories: Category[] = [
-  { id: 1, name: "Hot Drinks", productCount: 2 },
-  { id: 2, name: "Cold Drinks", productCount: 0 },
+  { id: 1, name: "Hot Drinks", parentId: null, level: 1, productCount: 2 },
+  { id: 2, name: "Cold Drinks", parentId: null, level: 1, productCount: 0 },
+  { id: 3, name: "Coffee", parentId: 1, level: 2, productCount: 0 },
+  { id: 4, name: "Tea", parentId: 1, level: 2, productCount: 0 },
 ];
 
 const initialProducts: Product[] = [
-  { id: 1, name: "Espresso", price: 2.50, available: true, categoryId: 1 },
-  { id: 2, name: "Cappuccino", price: 3.50, available: true, categoryId: 1 },
+  { id: 1, name: "Espresso", price: 2.5, available: true, categoryId: 3 },
+  { id: 2, name: "Cappuccino", price: 3.5, available: true, categoryId: 3 },
 ];
 
 export default function Products() {
@@ -28,10 +30,12 @@ export default function Products() {
   const currentCount = products.length;
 
   // Category handlers
-  const handleAddCategory = (name: string) => {
+  const handleAddCategory = (name: string, parentId: number | null, level: 1 | 2 | 3) => {
     const newCategory: Category = {
       id: Date.now(),
       name,
+      parentId,
+      level,
       productCount: 0,
     };
     setCategories([...categories, newCategory]);
@@ -43,7 +47,6 @@ export default function Products() {
 
   const handleDeleteCategory = (id: number) => {
     setCategories(categories.filter((c) => c.id !== id));
-    // Remove category from products
     setProducts(products.map((p) => (p.categoryId === id ? { ...p, categoryId: null } : p)));
   };
 
@@ -54,11 +57,10 @@ export default function Products() {
 
     setProducts(products.map((p) => (p.id === productId ? { ...p, categoryId } : p)));
 
-    // Update category counts
     setCategories(
       categories.map((c) => {
         if (c.id === oldCategoryId) {
-          return { ...c, productCount: c.productCount - 1 };
+          return { ...c, productCount: Math.max(0, c.productCount - 1) };
         }
         if (c.id === categoryId) {
           return { ...c, productCount: c.productCount + 1 };
@@ -69,7 +71,6 @@ export default function Products() {
   };
 
   const handleEditProduct = (product: Product) => {
-    // TODO: Open edit modal
     console.log("Edit product:", product);
   };
 
@@ -78,7 +79,7 @@ export default function Products() {
     if (product?.categoryId) {
       setCategories(
         categories.map((c) =>
-          c.id === product.categoryId ? { ...c, productCount: c.productCount - 1 } : c
+          c.id === product.categoryId ? { ...c, productCount: Math.max(0, c.productCount - 1) } : c
         )
       );
     }
