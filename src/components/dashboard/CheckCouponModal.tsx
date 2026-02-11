@@ -60,8 +60,8 @@ export function CheckCouponModal({ open, onOpenChange }: CheckCouponModalProps) 
           </div>
 
           {/* Scan option */}
-          <Button variant="outline" className="w-full gap-2">
-            <QrCode className="w-4 h-4" />
+          <Button variant="secondary" className="w-full gap-2 h-12 text-base font-medium border border-primary/20 bg-primary/5 hover:bg-primary/10 text-primary">
+            <QrCode className="w-5 h-5" />
             Scan the coupon
           </Button>
 
