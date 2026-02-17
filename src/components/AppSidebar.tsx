@@ -36,6 +36,7 @@ import {
   SidebarMenuSubButton,
   SidebarFooter,
   SidebarSeparator,
+  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
@@ -146,13 +147,14 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r border-border">
       <SidebarContent className="pt-2">
-        {/* Logo/Brand area */}
-        <div className="px-4 mb-2 overflow-hidden">
+        {/* Logo + Sidebar Toggle */}
+        <div className="px-3 mb-2 flex items-center justify-between overflow-hidden">
           <img 
             src={movyloLogo} 
             alt="Movylo" 
             className={isCollapsed ? "h-8 w-8 object-contain object-left" : "h-12 w-auto"}
           />
+          <SidebarTrigger className="text-muted-foreground hover:text-foreground h-7 w-7" />
         </div>
 
         {/* Primary navigation */}

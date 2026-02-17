@@ -10,7 +10,7 @@ import { SalesCard } from "@/components/dashboard/SalesCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { AppSidebar } from "@/components/AppSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Sample data for steady state preview
@@ -71,7 +71,6 @@ const Index = () => {
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             {/* Single row: sidebar trigger + action buttons + Live Feed or Activation Banner */}
             <div className="flex items-center gap-2 sm:gap-3 mb-4 flex-wrap">
-              <SidebarTrigger className="text-muted-foreground flex-shrink-0" />
               <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal flex-shrink-0" asChild>
                 <a href="/business-info/profile">
                   <Building2 className="h-4 w-4" />

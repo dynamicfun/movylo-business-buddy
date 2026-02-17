@@ -37,6 +37,7 @@ import ReportsIndex from "./pages/reports/ReportsIndex";
 import AIAssistant from "./pages/AIAssistant";
 import Preferences from "./pages/Preferences";
 import MobileApp from "./pages/MobileApp";
+import LiveFeedPage from "./pages/LiveFeedPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -82,6 +83,7 @@ const App = () => (
             <Route path="/ai-assistant" element={<AIAssistant />} />
             <Route path="/preferences" element={<Preferences />} />
             <Route path="/mobile-app" element={<MobileApp />} />
+            <Route path="/feed" element={<LiveFeedPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

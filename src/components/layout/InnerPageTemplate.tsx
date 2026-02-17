@@ -3,7 +3,7 @@ import { ArrowLeft, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 
 interface InnerPageTemplateProps {
@@ -50,7 +50,6 @@ export function InnerPageTemplate({
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
-              <SidebarTrigger className="text-muted-foreground" />
               <Link to={backTo} className="text-muted-foreground hover:text-foreground transition-colors">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
