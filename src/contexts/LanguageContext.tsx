@@ -95,6 +95,7 @@ interface Translations {
   salesWillAppearSubtitle: string;
   // Live Feed
   liveFeed: string;
+  seeMore: string;
   noRecentActivity: string;
   // Quick Actions
   checkCoupon: string;
@@ -201,6 +202,7 @@ const translations: Record<LanguageCode, Translations> = {
     salesWillAppearSubtitle: "Quando i clienti effettuano un acquisto o riscattano un'offerta.",
     // Live Feed
     liveFeed: "Live Feed",
+    seeMore: "Vedi tutto",
     noRecentActivity: "Nessuna attività recente",
     // Quick Actions
     checkCoupon: "Verifica Coupon",
@@ -305,6 +307,7 @@ const translations: Record<LanguageCode, Translations> = {
     salesWillAppearSubtitle: "When customers make a purchase or redeem an offer.",
     // Live Feed
     liveFeed: "Live Feed",
+    seeMore: "See more",
     noRecentActivity: "No recent activity",
     // Quick Actions
     checkCoupon: "Check Coupon",
@@ -409,6 +412,7 @@ const translations: Record<LanguageCode, Translations> = {
     salesWillAppearSubtitle: "Cuando los clientes realicen una compra o canjeen una oferta.",
     // Live Feed
     liveFeed: "Feed en Vivo",
+    seeMore: "Ver más",
     noRecentActivity: "Sin actividad reciente",
     // Quick Actions
     checkCoupon: "Verificar Cupón",
@@ -513,6 +517,7 @@ const translations: Record<LanguageCode, Translations> = {
     salesWillAppearSubtitle: "Lorsque les clients effectuent un achat ou utilisent une offre.",
     // Live Feed
     liveFeed: "Flux en Direct",
+    seeMore: "Voir plus",
     noRecentActivity: "Aucune activité récente",
     // Quick Actions
     checkCoupon: "Vérifier Coupon",
@@ -617,6 +622,7 @@ const translations: Record<LanguageCode, Translations> = {
     salesWillAppearSubtitle: "Wenn Kunden einen Kauf tätigen oder ein Angebot einlösen.",
     // Live Feed
     liveFeed: "Live-Feed",
+    seeMore: "Mehr sehen",
     noRecentActivity: "Keine aktuelle Aktivität",
     // Quick Actions
     checkCoupon: "Coupon prüfen",
