@@ -38,6 +38,7 @@ import AIAssistant from "./pages/AIAssistant";
 import Preferences from "./pages/Preferences";
 import MobileApp from "./pages/MobileApp";
 import LiveFeedPage from "./pages/LiveFeedPage";
+import UpgradePlan from "./pages/UpgradePlan";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -84,6 +85,7 @@ const App = () => (
             <Route path="/preferences" element={<Preferences />} />
             <Route path="/mobile-app" element={<MobileApp />} />
             <Route path="/feed" element={<LiveFeedPage />} />
+            <Route path="/upgrade" element={<UpgradePlan />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
