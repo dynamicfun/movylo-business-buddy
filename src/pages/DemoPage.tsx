@@ -10,33 +10,33 @@ const SCRIPT: Record<Lang, { time: [number, number]; text: string; highlight: "n
   en: [
     { time: [0, 4], text: "You run a local business. You're busy. And you want results.", highlight: "none" },
     { time: [4, 8], text: "Movylo turns nearby customers into repeat sales—automatically.", highlight: "all", sub: "My Customers → Activity → My Sales" },
-    { time: [8, 18], text: "Start here: My Customers. Connect the channels you already use—Google, your link, QR codes, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [18, 26], text: "As your list grows, Movylo Autopilot reaches out with personal messages—'Thanks for joining,' 'Come back soon,' 'Happy birthday.'", highlight: "activity" },
-    { time: [26, 32], text: "That creates Activity—offers downloaded, calls received, customers brought back.", highlight: "activity", sub: "Activity" },
-    { time: [32, 38], text: "And activity converts into Sales—in-store, online, or reservations—your choice.", highlight: "sales", sub: "In-store · Online · Reservations" },
-    { time: [38, 44], text: "Every month: more customers, more activity, more sales. Movylo runs it for you.", highlight: "all", sub: "Set it up. Autopilot takes over." },
+    { time: [8, 19], text: "Start here: My Customers. Connect the channels you already use—Google, your link, QR codes, Facebook, Instagram, WhatsApp. Every connection brings new customers in automatically.", highlight: "customers" },
+    { time: [19, 28], text: "Autopilot then sends each customer personalized messages—promos, newsletters, social posts—all done automatically, but always customizable.", highlight: "activity" },
+    { time: [28, 34], text: "That creates Activity—offers downloaded, calls received, customers brought back.", highlight: "activity", sub: "Activity" },
+    { time: [34, 40], text: "And activity converts into Sales—in-store, online, or reservations—your choice.", highlight: "sales", sub: "In-store · Online · Reservations" },
+    { time: [40, 46], text: "Every month: more customers, more activity, more sales. Movylo runs it for you.", highlight: "all", sub: "Set it up. Autopilot takes over." },
   ],
   it: [
     { time: [0, 4], text: "Gestisci un'attività locale. Sei sempre impegnato. E vuoi risultati.", highlight: "none" },
     { time: [4, 8], text: "Movylo trasforma i clienti vicini in vendite ripetute—in automatico.", highlight: "all", sub: "I Miei Clienti → Attività → Le Mie Vendite" },
-    { time: [8, 18], text: "Inizia da qui: I Miei Clienti. Collega i canali che usi già—Google, il tuo link, QR code, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [18, 26], text: "Man mano che la lista cresce, il Pilota Automatico di Movylo invia messaggi personalizzati—'Grazie per esserti iscritto,' 'Torna presto,' 'Buon compleanno.'", highlight: "activity" },
-    { time: [26, 32], text: "Questo genera Attività—offerte scaricate, chiamate ricevute, clienti fatti tornare.", highlight: "activity", sub: "Attività" },
-    { time: [32, 38], text: "E l'attività si converte in Vendite—in negozio, online o prenotazioni—come preferisci.", highlight: "sales", sub: "In Negozio · Online · Prenotazioni" },
-    { time: [38, 44], text: "Ogni mese: più clienti, più attività, più vendite. Il Pilota Automatico fa il resto.", highlight: "all", sub: "Configuralo. Il Pilota Automatico fa il resto." },
+    { time: [8, 19], text: "Inizia da qui: I Miei Clienti. Collega i canali che usi già—Google, il tuo link, QR code, Facebook, Instagram, WhatsApp. Ogni collegamento porta nuovi clienti in automatico.", highlight: "customers" },
+    { time: [19, 28], text: "Il Pilota Automatico invia a ogni cliente messaggi personalizzati—promozioni, newsletter, post sui social—tutto fatto in automatico, ma sempre personalizzabile a piacere.", highlight: "activity" },
+    { time: [28, 34], text: "Questo genera Attività—offerte scaricate, chiamate ricevute, clienti fatti tornare.", highlight: "activity", sub: "Attività" },
+    { time: [34, 40], text: "E l'attività si converte in Vendite—in negozio, online o prenotazioni—come preferisci.", highlight: "sales", sub: "In Negozio · Online · Prenotazioni" },
+    { time: [40, 46], text: "Ogni mese: più clienti, più attività, più vendite. Il Pilota Automatico fa il resto.", highlight: "all", sub: "Configuralo. Il Pilota Automatico fa il resto." },
   ],
   es: [
     { time: [0, 4], text: "Tienes un negocio local. Estás ocupado. Y quieres resultados.", highlight: "none" },
     { time: [4, 8], text: "Movylo convierte clientes cercanos en ventas repetidas—automáticamente.", highlight: "all", sub: "Mis Clientes → Actividad → Mis Ventas" },
-    { time: [8, 18], text: "Empieza aquí: Mis Clientes. Conecta los canales que ya usas—Google, tu enlace, códigos QR, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [18, 26], text: "A medida que tu lista crece, el Piloto Automático de Movylo envía mensajes personales—'Gracias por unirte,' 'Vuelve pronto,' 'Feliz cumpleaños.'", highlight: "activity" },
-    { time: [26, 32], text: "Eso genera Actividad—ofertas descargadas, llamadas recibidas, clientes que vuelven.", highlight: "activity", sub: "Actividad" },
-    { time: [32, 38], text: "Y la actividad se convierte en Ventas—en tienda, online o reservas—tú eliges.", highlight: "sales", sub: "En Tienda · Online · Reservas" },
-    { time: [38, 44], text: "Cada mes: más clientes, más actividad, más ventas. El Piloto Automático lo hace por ti.", highlight: "all", sub: "Configúralo. El Piloto Automático se encarga." },
+    { time: [8, 19], text: "Empieza aquí: Mis Clientes. Conecta los canales que ya usas—Google, tu enlace, códigos QR, Facebook, Instagram, WhatsApp. Cada conexión trae nuevos clientes automáticamente.", highlight: "customers" },
+    { time: [19, 28], text: "El Piloto Automático envía a cada cliente mensajes personalizados—promociones, newsletters, posts en redes sociales—todo automático, pero siempre personalizable.", highlight: "activity" },
+    { time: [28, 34], text: "Eso genera Actividad—ofertas descargadas, llamadas recibidas, clientes que vuelven.", highlight: "activity", sub: "Actividad" },
+    { time: [34, 40], text: "Y la actividad se convierte en Ventas—en tienda, online o reservas—tú eliges.", highlight: "sales", sub: "En Tienda · Online · Reservas" },
+    { time: [40, 46], text: "Cada mes: más clientes, más actividad, más ventas. El Piloto Automático lo hace por ti.", highlight: "all", sub: "Configúralo. El Piloto Automático se encarga." },
   ],
 };
 
-const TOTAL_DURATION = 44;
+const TOTAL_DURATION = 46;
 
 const LANG_LABELS: Record<Lang, string> = { en: "🇬🇧 EN", it: "🇮🇹 IT", es: "🇪🇸 ES" };
 
@@ -51,21 +51,21 @@ const SOURCES = [
 ];
 
 // ─── Message bubbles ──────────────────────────────────────────────────────────
-const MESSAGES: Record<Lang, { text: string; delay: number }[]> = {
+const MESSAGES: Record<Lang, { text: string; delay: number; type: "promo" | "newsletter" | "social" }[]> = {
   en: [
-    { text: "Thanks for joining! 🎉", delay: 0 },
-    { text: "Come back soon! ☕", delay: 0.4 },
-    { text: "Happy birthday! 🎂", delay: 0.8 },
+    { text: "🎁 Promo: 10% off this weekend only!", delay: 0, type: "promo" },
+    { text: "📰 Newsletter: Our new menu is here!", delay: 0.5, type: "newsletter" },
+    { text: "📱 Social post: Check us out on Instagram!", delay: 1.0, type: "social" },
   ],
   it: [
-    { text: "Grazie per esserti iscritto! 🎉", delay: 0 },
-    { text: "Torna presto! ☕", delay: 0.4 },
-    { text: "Buon compleanno! 🎂", delay: 0.8 },
+    { text: "🎁 Promo: Sconto 10% solo questo weekend!", delay: 0, type: "promo" },
+    { text: "📰 Newsletter: Il nostro nuovo menù è qui!", delay: 0.5, type: "newsletter" },
+    { text: "📱 Post social: Seguici su Instagram!", delay: 1.0, type: "social" },
   ],
   es: [
-    { text: "¡Gracias por unirte! 🎉", delay: 0 },
-    { text: "¡Vuelve pronto! ☕", delay: 0.4 },
-    { text: "¡Feliz cumpleaños! 🎂", delay: 0.8 },
+    { text: "🎁 Promo: ¡10% de descuento este fin de semana!", delay: 0, type: "promo" },
+    { text: "📰 Newsletter: ¡Nuestro nuevo menú está aquí!", delay: 0.5, type: "newsletter" },
+    { text: "📱 Post social: ¡Síguenos en Instagram!", delay: 1.0, type: "social" },
   ],
 };
 
@@ -87,17 +87,24 @@ function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapse
   const isCustomers = highlight === "customers" || highlight === "all";
   const isActivity = highlight === "activity" || highlight === "all";
   const isSales = highlight === "sales" || highlight === "all";
-  const showMessages = elapsed >= 18 && elapsed < 26;
-  const showSourcesAnim = elapsed >= 8 && elapsed < 18;
+  const showMessages = elapsed >= 19 && elapsed < 28;
+  const showSourcesAnim = elapsed >= 8 && elapsed < 19;
+  // Animate new customers count growing as sources connect (8–19s)
+  const newCustomers = showSourcesAnim
+    ? Math.round(247 + Math.min((elapsed - 8) / 11, 1) * 53)
+    : elapsed >= 19 ? 300 : 247;
+  const totalCustomers = showSourcesAnim
+    ? Math.round(15000 + Math.min((elapsed - 8) / 11, 1) * 742)
+    : elapsed >= 19 ? 15742 : 15000;
 
   const cardBase = "relative rounded-2xl border p-4 transition-all duration-700 flex flex-col gap-3";
   const highlight_cls = "border-primary/60 shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] bg-card";
   const dim_cls = "border-border/40 bg-card/60 opacity-60";
 
-  const labels: Record<Lang, { c: string; a: string; s: string; new: string; total: string; offers: string; calls: string; returning: string; instore: string; online: string; res: string }> = {
-    en: { c: "My Customers", a: "Activity", s: "My Sales", new: "New (30d)", total: "Total", offers: "Downloaded offers", calls: "Calls received", returning: "Customers brought back", instore: "In-Store", online: "Online", res: "Reservations" },
-    it: { c: "I Miei Clienti", a: "Attività", s: "Le Mie Vendite", new: "Nuovi (30g)", total: "Totale", offers: "Offerte scaricate", calls: "Chiamate ricevute", returning: "Clienti fatti tornare", instore: "In Negozio", online: "Online", res: "Prenotazioni" },
-    es: { c: "Mis Clientes", a: "Actividad", s: "Mis Ventas", new: "Nuevos (30d)", total: "Total", offers: "Ofertas descargadas", calls: "Llamadas recibidas", returning: "Clientes que volvieron", instore: "En Tienda", online: "Online", res: "Reservas" },
+  const labels: Record<Lang, { c: string; a: string; s: string; new: string; total: string; offers: string; calls: string; returning: string; instore: string; online: string; res: string; autopilot: string; autopilotSub: string }> = {
+    en: { c: "My Customers", a: "Activity", s: "My Sales", new: "New (30d)", total: "Total", offers: "Downloaded offers", calls: "Calls received", returning: "Customers brought back", instore: "In-Store", online: "Online", res: "Reservations", autopilot: "Autopilot", autopilotSub: "Promos · Newsletters · Social posts" },
+    it: { c: "I Miei Clienti", a: "Attività", s: "Le Mie Vendite", new: "Nuovi (30g)", total: "Totale", offers: "Offerte scaricate", calls: "Chiamate ricevute", returning: "Clienti fatti tornare", instore: "In Negozio", online: "Online", res: "Prenotazioni", autopilot: "Pilota Automatico", autopilotSub: "Promo · Newsletter · Post social" },
+    es: { c: "Mis Clientes", a: "Actividad", s: "Mis Ventas", new: "Nuevos (30d)", total: "Total", offers: "Ofertas descargadas", calls: "Llamadas recibidas", returning: "Clientes que volvieron", instore: "En Tienda", online: "Online", res: "Reservas", autopilot: "Piloto Automático", autopilotSub: "Promos · Newsletters · Posts sociales" },
   };
   const L = labels[lang];
 
@@ -118,11 +125,23 @@ function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapse
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-secondary/60 rounded-xl p-2.5 text-center">
             <p className="text-xs text-muted-foreground">{L.new}</p>
-            <p className="text-2xl font-bold text-primary">247</p>
+            <motion.p
+              className="text-2xl font-bold text-primary"
+              animate={{ scale: showSourcesAnim ? [1, 1.08, 1] : 1 }}
+              transition={{ duration: 0.4, repeat: showSourcesAnim ? Infinity : 0, repeatDelay: 1.2 }}
+            >
+              {newCustomers}
+            </motion.p>
           </div>
           <div className="bg-secondary/60 rounded-xl p-2.5 text-center">
             <p className="text-xs text-muted-foreground">{L.total}</p>
-            <p className="text-2xl font-bold">15k</p>
+            <motion.p
+              className="text-2xl font-bold"
+              animate={{ scale: showSourcesAnim ? [1, 1.05, 1] : 1 }}
+              transition={{ duration: 0.4, repeat: showSourcesAnim ? Infinity : 0, repeatDelay: 1.5 }}
+            >
+              {totalCustomers >= 1000 ? `${(totalCustomers / 1000).toFixed(1)}k` : totalCustomers}
+            </motion.p>
           </div>
         </div>
         {/* source channels */}
@@ -181,7 +200,12 @@ function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapse
         {/* message bubbles overlay */}
         <AnimatePresence>
           {showMessages && (
-            <div className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col justify-center gap-2 px-3 bg-card/90 backdrop-blur-sm">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col justify-center gap-2 px-3 bg-card/95 backdrop-blur-sm">
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className="text-xs font-bold text-primary">{L.autopilot}</span>
+                <span className="text-xs text-muted-foreground">·</span>
+                <span className="text-xs text-muted-foreground">{L.autopilotSub}</span>
+              </div>
               {messages.map((m, i) => (
                 <motion.div
                   key={i}
@@ -189,7 +213,7 @@ function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapse
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: m.delay, duration: 0.4 }}
-                  className="bg-primary text-primary-foreground text-xs font-medium px-3 py-2 rounded-2xl rounded-tl-sm max-w-[80%] shadow-md"
+                  className="bg-primary text-primary-foreground text-xs font-medium px-3 py-2 rounded-2xl rounded-tl-sm max-w-[90%] shadow-md"
                 >
                   {m.text}
                 </motion.div>
