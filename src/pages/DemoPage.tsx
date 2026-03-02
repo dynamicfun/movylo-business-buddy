@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, RotateCcw, Globe, Users, Activity, TrendingUp, QrCode, Link, Facebook, Instagram, MessageCircle, Search, Store, Monitor, CalendarCheck, MessageSquare, Gift, Star, ArrowRight } from "lucide-react";
+import { Play, Pause, RotateCcw, Globe, Users, Activity, TrendingUp, QrCode, Link, Facebook, Instagram, MessageCircle, Search, Store, Monitor, CalendarCheck, Gift, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // ─── Script data ──────────────────────────────────────────────────────────────
@@ -8,35 +8,35 @@ type Lang = "en" | "it" | "es";
 
 const SCRIPT: Record<Lang, { time: [number, number]; text: string; highlight: "none" | "customers" | "activity" | "sales" | "all"; sub?: string }[]> = {
   en: [
-    { time: [0, 5], text: "You run a local business. You're busy. And you want results.", highlight: "none" },
-    { time: [5, 12], text: "Movylo is built for one thing: turning nearby customers into repeat sales—automatically.", highlight: "all", sub: "My Customers → Activity → My Sales" },
-    { time: [12, 28], text: "Start here: My Customers. Connect the channels you already use—Google, your link, QR codes, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [28, 40], text: "As your list grows, Movylo Autopilot starts reaching out with personal messages—'Thanks for joining,' 'Come back soon,' 'Happy birthday.'", highlight: "activity" },
-    { time: [40, 50], text: "That creates Activity—everything customers do, tracked here.", highlight: "activity", sub: "Activity" },
-    { time: [50, 57], text: "And activity converts into Sales—in-store, online, or reservations—your choice.", highlight: "sales", sub: "In-store · Online · Reservations" },
-    { time: [57, 63], text: "Every month: more customers, more activity, more sales—without spending your day inside a tool. Movylo runs it for you.", highlight: "all", sub: "Set it up. Autopilot takes over." },
+    { time: [0, 4], text: "You run a local business. You're busy. And you want results.", highlight: "none" },
+    { time: [4, 8], text: "Movylo turns nearby customers into repeat sales—automatically.", highlight: "all", sub: "My Customers → Activity → My Sales" },
+    { time: [8, 18], text: "Start here: My Customers. Connect the channels you already use—Google, your link, QR codes, Facebook, Instagram, WhatsApp.", highlight: "customers" },
+    { time: [18, 26], text: "As your list grows, Movylo Autopilot reaches out with personal messages—'Thanks for joining,' 'Come back soon,' 'Happy birthday.'", highlight: "activity" },
+    { time: [26, 32], text: "That creates Activity—offers downloaded, calls received, customers brought back.", highlight: "activity", sub: "Activity" },
+    { time: [32, 38], text: "And activity converts into Sales—in-store, online, or reservations—your choice.", highlight: "sales", sub: "In-store · Online · Reservations" },
+    { time: [38, 44], text: "Every month: more customers, more activity, more sales. Movylo runs it for you.", highlight: "all", sub: "Set it up. Autopilot takes over." },
   ],
   it: [
-    { time: [0, 5], text: "Gestisci un'attività locale. Sei sempre impegnato. E vuoi risultati.", highlight: "none" },
-    { time: [5, 12], text: "Movylo è fatto per una cosa sola: trasformare i clienti vicini in vendite ripetute—in automatico.", highlight: "all", sub: "I miei clienti → Attività → Le mie vendite" },
-    { time: [12, 28], text: "Inizia da qui: I miei clienti. Collega i canali che usi già—Google, il tuo link, QR code, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [28, 40], text: "Man mano che la lista cresce, l'Autopilot di Movylo invia messaggi personalizzati—'Grazie per esserti iscritto,' 'Torna presto,' 'Buon compleanno.'", highlight: "activity" },
-    { time: [40, 50], text: "Questo genera Attività—tutto ciò che fanno i clienti, tracciato qui.", highlight: "activity", sub: "Attività" },
-    { time: [50, 57], text: "E l'attività si converte in Vendite—in negozio, online o prenotazioni—come preferisci.", highlight: "sales", sub: "In negozio · Online · Prenotazioni" },
-    { time: [57, 63], text: "Ogni mese: più clienti, più attività, più vendite—senza passare la giornata dentro uno strumento. Movylo lo fa per te.", highlight: "all", sub: "Configuralo. L'Autopilot fa il resto." },
+    { time: [0, 4], text: "Gestisci un'attività locale. Sei sempre impegnato. E vuoi risultati.", highlight: "none" },
+    { time: [4, 8], text: "Movylo trasforma i clienti vicini in vendite ripetute—in automatico.", highlight: "all", sub: "I Miei Clienti → Attività → Le Mie Vendite" },
+    { time: [8, 18], text: "Inizia da qui: I Miei Clienti. Collega i canali che usi già—Google, il tuo link, QR code, Facebook, Instagram, WhatsApp.", highlight: "customers" },
+    { time: [18, 26], text: "Man mano che la lista cresce, il Pilota Automatico di Movylo invia messaggi personalizzati—'Grazie per esserti iscritto,' 'Torna presto,' 'Buon compleanno.'", highlight: "activity" },
+    { time: [26, 32], text: "Questo genera Attività—offerte scaricate, chiamate ricevute, clienti fatti tornare.", highlight: "activity", sub: "Attività" },
+    { time: [32, 38], text: "E l'attività si converte in Vendite—in negozio, online o prenotazioni—come preferisci.", highlight: "sales", sub: "In Negozio · Online · Prenotazioni" },
+    { time: [38, 44], text: "Ogni mese: più clienti, più attività, più vendite. Il Pilota Automatico fa il resto.", highlight: "all", sub: "Configuralo. Il Pilota Automatico fa il resto." },
   ],
   es: [
-    { time: [0, 5], text: "Tienes un negocio local. Estás ocupado. Y quieres resultados.", highlight: "none" },
-    { time: [5, 12], text: "Movylo está hecho para una sola cosa: convertir clientes cercanos en ventas repetidas—automáticamente.", highlight: "all", sub: "Mis Clientes → Actividad → Mis Ventas" },
-    { time: [12, 28], text: "Empieza aquí: Mis Clientes. Conecta los canales que ya usas—Google, tu enlace, códigos QR, Facebook, Instagram, WhatsApp.", highlight: "customers" },
-    { time: [28, 40], text: "A medida que tu lista crece, el Autopiloto de Movylo envía mensajes personales—'Gracias por unirte,' 'Vuelve pronto,' 'Feliz cumpleaños.'", highlight: "activity" },
-    { time: [40, 50], text: "Eso genera Actividad—todo lo que hacen los clientes, rastreado aquí.", highlight: "activity", sub: "Actividad" },
-    { time: [50, 57], text: "Y la actividad se convierte en Ventas—en tienda, en línea o reservas—tú eliges.", highlight: "sales", sub: "En tienda · Online · Reservas" },
-    { time: [57, 63], text: "Cada mes: más clientes, más actividad, más ventas—sin pasar el día dentro de una herramienta. Movylo lo hace por ti.", highlight: "all", sub: "Configúralo. El Autopiloto se encarga." },
+    { time: [0, 4], text: "Tienes un negocio local. Estás ocupado. Y quieres resultados.", highlight: "none" },
+    { time: [4, 8], text: "Movylo convierte clientes cercanos en ventas repetidas—automáticamente.", highlight: "all", sub: "Mis Clientes → Actividad → Mis Ventas" },
+    { time: [8, 18], text: "Empieza aquí: Mis Clientes. Conecta los canales que ya usas—Google, tu enlace, códigos QR, Facebook, Instagram, WhatsApp.", highlight: "customers" },
+    { time: [18, 26], text: "A medida que tu lista crece, el Piloto Automático de Movylo envía mensajes personales—'Gracias por unirte,' 'Vuelve pronto,' 'Feliz cumpleaños.'", highlight: "activity" },
+    { time: [26, 32], text: "Eso genera Actividad—ofertas descargadas, llamadas recibidas, clientes que vuelven.", highlight: "activity", sub: "Actividad" },
+    { time: [32, 38], text: "Y la actividad se convierte en Ventas—en tienda, online o reservas—tú eliges.", highlight: "sales", sub: "En Tienda · Online · Reservas" },
+    { time: [38, 44], text: "Cada mes: más clientes, más actividad, más ventas. El Piloto Automático lo hace por ti.", highlight: "all", sub: "Configúralo. El Piloto Automático se encarga." },
   ],
 };
 
-const TOTAL_DURATION = 63;
+const TOTAL_DURATION = 44;
 
 const LANG_LABELS: Record<Lang, string> = { en: "🇬🇧 EN", it: "🇮🇹 IT", es: "🇪🇸 ES" };
 
@@ -51,11 +51,23 @@ const SOURCES = [
 ];
 
 // ─── Message bubbles ──────────────────────────────────────────────────────────
-const MESSAGES = [
-  { text: "Thanks for joining! 🎉", delay: 0 },
-  { text: "Come back soon! ☕", delay: 0.4 },
-  { text: "Happy birthday! 🎂", delay: 0.8 },
-];
+const MESSAGES: Record<Lang, { text: string; delay: number }[]> = {
+  en: [
+    { text: "Thanks for joining! 🎉", delay: 0 },
+    { text: "Come back soon! ☕", delay: 0.4 },
+    { text: "Happy birthday! 🎂", delay: 0.8 },
+  ],
+  it: [
+    { text: "Grazie per esserti iscritto! 🎉", delay: 0 },
+    { text: "Torna presto! ☕", delay: 0.4 },
+    { text: "Buon compleanno! 🎂", delay: 0.8 },
+  ],
+  es: [
+    { text: "¡Gracias por unirte! 🎉", delay: 0 },
+    { text: "¡Vuelve pronto! ☕", delay: 0.4 },
+    { text: "¡Feliz cumpleaños! 🎂", delay: 0.8 },
+  ],
+};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function formatTime(s: number) {
@@ -71,20 +83,21 @@ function useCurrentScene(elapsed: number, lang: Lang) {
 
 // ─── Dashboard Card ───────────────────────────────────────────────────────────
 function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapsed: number; lang: Lang }) {
+  const messages = MESSAGES[lang];
   const isCustomers = highlight === "customers" || highlight === "all";
   const isActivity = highlight === "activity" || highlight === "all";
   const isSales = highlight === "sales" || highlight === "all";
-  const showMessages = elapsed >= 28 && elapsed < 40;
-  const showSourcesAnim = elapsed >= 12 && elapsed < 28;
+  const showMessages = elapsed >= 18 && elapsed < 26;
+  const showSourcesAnim = elapsed >= 8 && elapsed < 18;
 
   const cardBase = "relative rounded-2xl border p-4 transition-all duration-700 flex flex-col gap-3";
   const highlight_cls = "border-primary/60 shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] bg-card";
   const dim_cls = "border-border/40 bg-card/60 opacity-60";
 
-  const labels: Record<Lang, { c: string; a: string; s: string; new: string; total: string; msg: string; sent: string; open: string; instore: string; online: string; res: string; coupons: string }> = {
-    en: { c: "My Customers", a: "Activity", s: "My Sales", new: "New (30d)", total: "Total", msg: "Messages", sent: "sent", open: "opened", instore: "In-Store", online: "Online", res: "Reservations", coupons: "Downloaded offers" },
-    it: { c: "I Miei Clienti", a: "Attività", s: "Le Mie Vendite", new: "Nuovi (30g)", total: "Totale", msg: "Messaggi", sent: "inviati", open: "aperti", instore: "In Negozio", online: "Online", res: "Prenotazioni", coupons: "Offerte scaricate" },
-    es: { c: "Mis Clientes", a: "Actividad", s: "Mis Ventas", new: "Nuevos (30d)", total: "Total", msg: "Mensajes", sent: "enviados", open: "abiertos", instore: "En Tienda", online: "Online", res: "Reservas", coupons: "Ofertas descargadas" },
+  const labels: Record<Lang, { c: string; a: string; s: string; new: string; total: string; offers: string; calls: string; returning: string; instore: string; online: string; res: string }> = {
+    en: { c: "My Customers", a: "Activity", s: "My Sales", new: "New (30d)", total: "Total", offers: "Downloaded offers", calls: "Calls received", returning: "Customers brought back", instore: "In-Store", online: "Online", res: "Reservations" },
+    it: { c: "I Miei Clienti", a: "Attività", s: "Le Mie Vendite", new: "Nuovi (30g)", total: "Totale", offers: "Offerte scaricate", calls: "Chiamate ricevute", returning: "Clienti fatti tornare", instore: "In Negozio", online: "Online", res: "Prenotazioni" },
+    es: { c: "Mis Clientes", a: "Actividad", s: "Mis Ventas", new: "Nuevos (30d)", total: "Total", offers: "Ofertas descargadas", calls: "Llamadas recibidas", returning: "Clientes que volvieron", instore: "En Tienda", online: "Online", res: "Reservas" },
   };
   const L = labels[lang];
 
@@ -148,31 +161,28 @@ function DashboardMock({ highlight, elapsed, lang }: { highlight: string; elapse
         <div className="space-y-2">
           <div className="flex justify-between items-center bg-secondary/60 rounded-xl px-3 py-2">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <MessageSquare className="w-3.5 h-3.5" /> {L.msg}
+              <Gift className="w-3.5 h-3.5" /> {L.offers}
             </div>
-            <div className="text-right">
-              <span className="text-sm font-bold">10</span>
-              <span className="text-xs text-muted-foreground ml-1">{L.sent}</span>
-            </div>
+            <span className="text-sm font-bold text-primary">22</span>
           </div>
           <div className="flex justify-between items-center bg-secondary/60 rounded-xl px-3 py-2">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Star className="w-3.5 h-3.5" /> opened
+              <MessageCircle className="w-3.5 h-3.5" /> {L.calls}
             </div>
-            <span className="text-sm font-bold text-primary">50%</span>
+            <span className="text-sm font-bold text-accent-foreground">8</span>
           </div>
           <div className="flex justify-between items-center bg-secondary/60 rounded-xl px-3 py-2">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Gift className="w-3.5 h-3.5" /> {L.coupons}
+              <Users className="w-3.5 h-3.5" /> {L.returning}
             </div>
-            <span className="text-sm font-bold text-accent-foreground">22</span>
+            <span className="text-sm font-bold">47</span>
           </div>
         </div>
         {/* message bubbles overlay */}
         <AnimatePresence>
           {showMessages && (
             <div className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col justify-center gap-2 px-3 bg-card/90 backdrop-blur-sm">
-              {MESSAGES.map((m, i) => (
+              {messages.map((m, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
