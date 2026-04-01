@@ -7,12 +7,12 @@ import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
-import { GlanceDashboard } from "@/components/dashboard/GlanceDashboard";
+import { GlanceDrawer } from "@/components/dashboard/GlanceDrawer";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type ViewMode = "glance" | "steady" | "new";
+type ViewMode = "steady" | "new";
 
 const sampleActivityData = {
   isActivationMode: false,
@@ -32,11 +32,10 @@ const sampleCustomerData = {
 };
 
 const Index = () => {
-  const [viewMode, setViewMode] = useState<ViewMode>("glance");
+  const [viewMode, setViewMode] = useState<ViewMode>("steady");
   const { t } = useLanguage();
 
   const modes: { key: ViewMode; label: string }[] = [
-    { key: "glance", label: "At a Glance" },
     { key: "steady", label: t.steadyState || "Steady State" },
     { key: "new", label: t.newUser || "New User" },
   ];
@@ -56,6 +55,7 @@ const Index = () => {
                 </a>
               </Button>
               <QuickActions />
+              <GlanceDrawer />
               
               {/* 3-way toggle */}
               <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0">
@@ -83,31 +83,27 @@ const Index = () => {
               </div>
             </div>
 
-            {viewMode === "glance" ? (
-              <GlanceDashboard />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                {viewMode === "steady" ? (
-                  <>
-                    <CustomerCard {...sampleCustomerData} />
-                    <EngagementCard {...sampleActivityData} />
-                    <SalesCard 
-                      isActivationMode={false}
-                      downloadedCoupons={22}
-                      inStoreSales={{ closed: 3, value: "$25" }}
-                      onlineSales={{ closed: 1, value: "$100" }}
-                      reservations={{ covers: 259, value: "$8,975" }}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <CustomerCard />
-                    <EngagementCard />
-                    <SalesCard />
-                  </>
-                )}
-              </div>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+              {viewMode === "steady" ? (
+                <>
+                  <CustomerCard {...sampleCustomerData} />
+                  <EngagementCard {...sampleActivityData} />
+                  <SalesCard 
+                    isActivationMode={false}
+                    downloadedCoupons={22}
+                    inStoreSales={{ closed: 3, value: "$25" }}
+                    onlineSales={{ closed: 1, value: "$100" }}
+                    reservations={{ covers: 259, value: "$8,975" }}
+                  />
+                </>
+              ) : (
+                <>
+                  <CustomerCard />
+                  <EngagementCard />
+                  <SalesCard />
+                </>
+              )}
+            </div>
           </div>
         </main>
       </div>
