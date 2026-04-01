@@ -7,7 +7,7 @@ import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
 import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
-import { GlanceDashboard } from "@/components/dashboard/GlanceDashboard";
+import { GlanceDrawer } from "@/components/dashboard/GlanceDrawer";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
