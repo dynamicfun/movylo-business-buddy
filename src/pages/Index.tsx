@@ -83,31 +83,27 @@ const Index = () => {
               </div>
             </div>
 
-            {viewMode === "glance" ? (
-              <GlanceDashboard />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                {viewMode === "steady" ? (
-                  <>
-                    <CustomerCard {...sampleCustomerData} />
-                    <EngagementCard {...sampleActivityData} />
-                    <SalesCard 
-                      isActivationMode={false}
-                      downloadedCoupons={22}
-                      inStoreSales={{ closed: 3, value: "$25" }}
-                      onlineSales={{ closed: 1, value: "$100" }}
-                      reservations={{ covers: 259, value: "$8,975" }}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <CustomerCard />
-                    <EngagementCard />
-                    <SalesCard />
-                  </>
-                )}
-              </div>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+              {viewMode === "steady" ? (
+                <>
+                  <CustomerCard {...sampleCustomerData} />
+                  <EngagementCard {...sampleActivityData} />
+                  <SalesCard 
+                    isActivationMode={false}
+                    downloadedCoupons={22}
+                    inStoreSales={{ closed: 3, value: "$25" }}
+                    onlineSales={{ closed: 1, value: "$100" }}
+                    reservations={{ covers: 259, value: "$8,975" }}
+                  />
+                </>
+              ) : (
+                <>
+                  <CustomerCard />
+                  <EngagementCard />
+                  <SalesCard />
+                </>
+              )}
+            </div>
           </div>
         </main>
       </div>
