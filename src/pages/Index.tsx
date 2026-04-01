@@ -32,11 +32,10 @@ const sampleCustomerData = {
 };
 
 const Index = () => {
-  const [viewMode, setViewMode] = useState<ViewMode>("glance");
+  const [viewMode, setViewMode] = useState<ViewMode>("steady");
   const { t } = useLanguage();
 
   const modes: { key: ViewMode; label: string }[] = [
-    { key: "glance", label: "At a Glance" },
     { key: "steady", label: t.steadyState || "Steady State" },
     { key: "new", label: t.newUser || "New User" },
   ];
