@@ -12,7 +12,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type ViewMode = "glance" | "steady" | "new";
+type ViewMode = "steady" | "new";
 
 const sampleActivityData = {
   isActivationMode: false,
