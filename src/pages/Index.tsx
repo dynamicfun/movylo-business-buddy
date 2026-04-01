@@ -55,6 +55,7 @@ const Index = () => {
                 </a>
               </Button>
               <QuickActions />
+              <GlanceDrawer />
               
               {/* 3-way toggle */}
               <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0">
