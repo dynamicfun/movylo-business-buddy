@@ -5,9 +5,8 @@ import { QuickActions } from "@/components/dashboard/QuickActions";
 import { CustomerCard } from "@/components/dashboard/CustomerCard";
 import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
-import { ActivationBanner } from "@/components/dashboard/ActivationBanner";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
-import { GlanceDrawer } from "@/components/dashboard/GlanceDrawer";
+import { NewUserDashboard } from "@/components/dashboard/NewUserDashboard";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -55,9 +54,7 @@ const Index = () => {
                 </a>
               </Button>
               <QuickActions />
-              <GlanceDrawer />
               
-              {/* 3-way toggle */}
               <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0">
                 {modes.map(m => (
                   <button
@@ -74,36 +71,28 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="flex-1 min-w-0">
-                {viewMode === "new" ? (
-                  <ActivationBanner completedSteps={2} totalSteps={5} />
-                ) : (
+              {viewMode === "steady" && (
+                <div className="flex-1 min-w-0">
                   <LiveFeed />
-                )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-              {viewMode === "steady" ? (
-                <>
-                  <CustomerCard {...sampleCustomerData} />
-                  <EngagementCard {...sampleActivityData} />
-                  <SalesCard 
-                    isActivationMode={false}
-                    downloadedCoupons={22}
-                    inStoreSales={{ closed: 3, value: "$25" }}
-                    onlineSales={{ closed: 1, value: "$100" }}
-                    reservations={{ covers: 259, value: "$8,975" }}
-                  />
-                </>
-              ) : (
-                <>
-                  <CustomerCard />
-                  <EngagementCard />
-                  <SalesCard />
-                </>
+                </div>
               )}
             </div>
+
+            {viewMode === "steady" ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <CustomerCard {...sampleCustomerData} />
+                <EngagementCard {...sampleActivityData} />
+                <SalesCard 
+                  isActivationMode={false}
+                  downloadedCoupons={22}
+                  inStoreSales={{ closed: 3, value: "$25" }}
+                  onlineSales={{ closed: 1, value: "$100" }}
+                  reservations={{ covers: 259, value: "$8,975" }}
+                />
+              </div>
+            ) : (
+              <NewUserDashboard />
+            )}
           </div>
         </main>
       </div>
