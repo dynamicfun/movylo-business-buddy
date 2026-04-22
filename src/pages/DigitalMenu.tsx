@@ -15,7 +15,7 @@ export default function DigitalMenu() {
   const [menuDescription, setMenuDescription] = useState("");
   const [disableOrdering, setDisableOrdering] = useState(false);
   const [allowPayAtTill, setAllowPayAtTill] = useState(true);
-  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiExpanded, setAiExpanded] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<{ file: File; preview: string }[]>([]);
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiStep, setAiStep] = useState<"upload" | "processing" | "done">("upload");
