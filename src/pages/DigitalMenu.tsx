@@ -51,7 +51,7 @@ export default function DigitalMenu() {
   };
 
   const handleAiClose = () => {
-    setAiModalOpen(false);
+    setAiExpanded(false);
     setTimeout(() => {
       setAiStep("upload");
       uploadedImages.forEach(img => URL.revokeObjectURL(img.preview));
