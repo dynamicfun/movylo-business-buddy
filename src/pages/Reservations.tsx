@@ -65,6 +65,62 @@ const Reservations = () => {
   const [requireDeposit, setRequireDeposit] = useState(false);
   const [depositAmount, setDepositAmount] = useState("");
 
+  // Restaurant zones (only shown for "tables" / dine-in)
+  type Zone = {
+    id: string;
+    name: string;
+    duration: string;
+    capacity: string;
+    hours: string;
+    notes: string;
+  };
+  const [zones, setZones] = useState<Zone[]>([
+    { id: "main", name: "Main dining room", duration: "60", capacity: "8", hours: "Business hours", notes: "" },
+  ]);
+  const [zonesOpen, setZonesOpen] = useState(true);
+  const [editingZoneId, setEditingZoneId] = useState<string | null>(null);
+
+  const addZone = () => {
+    // Replicate current configuration into a new zone
+    const base = zones[zones.length - 1] ?? {
+      duration,
+      capacity: capacity || "4",
+      hours: "Business hours",
+      notes: "",
+    };
+    const newZone: Zone = {
+      id: `zone-${Date.now()}`,
+      name: `New zone ${zones.length + 1}`,
+      duration: base.duration ?? duration,
+      capacity: base.capacity ?? capacity ?? "4",
+      hours: base.hours ?? "Business hours",
+      notes: "",
+    };
+    setZones([...zones, newZone]);
+    setEditingZoneId(newZone.id);
+    toast.success("Zone added — same rules as the previous one. Adjust as needed.");
+  };
+
+  const duplicateZone = (id: string) => {
+    const z = zones.find((z) => z.id === id);
+    if (!z) return;
+    const copy: Zone = { ...z, id: `zone-${Date.now()}`, name: `${z.name} (copy)` };
+    setZones([...zones, copy]);
+    toast.success("Zone duplicated.");
+  };
+
+  const removeZone = (id: string) => {
+    if (zones.length <= 1) {
+      toast.error("Keep at least one zone.");
+      return;
+    }
+    setZones(zones.filter((z) => z.id !== id));
+  };
+
+  const updateZone = (id: string, patch: Partial<Zone>) => {
+    setZones(zones.map((z) => (z.id === id ? { ...z, ...patch } : z)));
+  };
+
   const bookingLink = "https://yourbusiness.movylo.com/book";
 
   const handleCopyLink = () => {
