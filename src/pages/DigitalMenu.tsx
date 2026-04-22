@@ -104,7 +104,7 @@ export default function DigitalMenu() {
         {/* TAB 1: Create with AI + QR codes */}
         <TabsContent value="create" className="space-y-6 mt-0">
           {/* AI Menu Builder */}
-          <Card className="border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background overflow-hidden">
+          <Card className="border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background overflow-hidden transition-all">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
                 <div className="flex-1">
@@ -115,12 +115,117 @@ export default function DigitalMenu() {
                   <p className="text-sm text-muted-foreground mb-4">
                     Upload a photo of your paper menu or daily specials and let AI turn it into your digital Movylo menu in seconds.
                   </p>
-                  <Button onClick={() => setAiModalOpen(true)} className="gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Build your digital menu with AI
-                  </Button>
+                  {!aiExpanded && (
+                    <Button onClick={() => setAiExpanded(true)} className="gap-2">
+                      <Sparkles className="h-4 w-4" />
+                      Build your digital menu with AI
+                    </Button>
+                  )}
                 </div>
               </div>
+
+              {aiExpanded && (
+                <div className="mt-4 pt-5 border-t border-primary/20 animate-in fade-in slide-in-from-top-2 duration-300">
+                  {aiStep === "upload" && (
+                    <div className="space-y-4">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="hidden"
+                        onChange={handleImageUpload}
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="w-full border-2 border-dashed border-primary/30 rounded-lg p-8 flex flex-col items-center gap-3 hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer bg-background/50"
+                      >
+                        <ImagePlus className="h-10 w-10 text-primary/50" />
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-foreground">Click to upload menu photos</p>
+                          <p className="text-xs text-muted-foreground mt-1">JPG, PNG — menu cards, daily specials, chalkboards</p>
+                        </div>
+                      </button>
+
+                      {uploadedImages.length > 0 && (
+                        <div className="space-y-3">
+                          <p className="text-xs text-muted-foreground font-medium">{uploadedImages.length} photo{uploadedImages.length > 1 ? "s" : ""} ready</p>
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                            {uploadedImages.map((img, i) => (
+                              <div key={i} className="relative group rounded-lg overflow-hidden border border-border aspect-square">
+                                <img src={img.preview} alt={`Menu ${i + 1}`} className="w-full h-full object-cover" />
+                                <button
+                                  type="button"
+                                  onClick={() => removeImage(i)}
+                                  className="absolute top-1 right-1 bg-background/80 backdrop-blur-sm rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                  <X className="h-3.5 w-3.5 text-foreground" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex justify-end gap-2 pt-2">
+                        <Button variant="outline" onClick={handleAiClose}>Cancel</Button>
+                        <Button onClick={handleAiBuild} disabled={uploadedImages.length === 0} className="gap-2">
+                          <Sparkles className="h-4 w-4" />
+                          Build menu
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {aiStep === "processing" && (
+                    <div className="py-10 flex flex-col items-center gap-4">
+                      <Loader2 className="h-10 w-10 text-primary animate-spin" />
+                      <div className="text-center">
+                        <p className="text-sm font-medium text-foreground">AI is reading your menu…</p>
+                        <p className="text-xs text-muted-foreground mt-1">Extracting items, prices and categories</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {aiStep === "done" && (
+                    <div className="space-y-4">
+                      <div className="py-4 flex flex-col items-center gap-3">
+                        <CheckCircle2 className="h-10 w-10 text-primary" />
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-foreground">Menu imported!</p>
+                          <p className="text-xs text-muted-foreground mt-1">12 items across 4 categories have been added to your digital menu.</p>
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg border border-border divide-y divide-border text-sm bg-background/50">
+                        {[
+                          { cat: "Starters", count: 3 },
+                          { cat: "Mains", count: 4 },
+                          { cat: "Desserts", count: 3 },
+                          { cat: "Drinks", count: 2 },
+                        ].map((c) => (
+                          <div key={c.cat} className="flex items-center justify-between px-3 py-2">
+                            <span className="text-foreground">{c.cat}</span>
+                            <span className="text-muted-foreground">{c.count} items</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="text-xs text-muted-foreground">You can edit items anytime from Products.</p>
+
+                      <div className="flex justify-end gap-2 pt-2">
+                        <Button variant="outline" onClick={handleAiClose}>Close</Button>
+                        <Button onClick={handleAiDone} className="gap-2">
+                          <CheckCircle2 className="h-4 w-4" />
+                          Confirm & save
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
 
