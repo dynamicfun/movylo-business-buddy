@@ -522,17 +522,100 @@ const Reservations = () => {
                                         placeholder="e.g. 8"
                                       />
                                     </div>
-                                    <div className="space-y-1">
-                                      <Label className="text-xs">Hours</Label>
-                                      <Select value={zone.hours} onValueChange={(v) => updateZone(zone.id, { hours: v })}>
-                                        <SelectTrigger><SelectValue /></SelectTrigger>
-                                        <SelectContent>
-                                          <SelectItem value="Business hours">Same as business hours</SelectItem>
-                                          <SelectItem value="Lunch only">Lunch only (12:00 – 15:00)</SelectItem>
-                                          <SelectItem value="Dinner only">Dinner only (19:00 – 23:00)</SelectItem>
-                                          <SelectItem value="Custom">Custom schedule</SelectItem>
-                                        </SelectContent>
-                                      </Select>
+                                    <div className="space-y-2 sm:col-span-2">
+                                      <div className="flex items-center justify-between flex-wrap gap-2">
+                                        <Label className="text-xs">Weekly hours</Label>
+                                        <div className="flex items-center gap-2">
+                                          <span className="text-[11px] text-muted-foreground">
+                                            Synced from Google Business Profile
+                                          </span>
+                                          <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="sm"
+                                            className="h-7 px-2 text-xs"
+                                            onClick={() => resyncZoneFromGoogle(zone.id)}
+                                          >
+                                            Re-sync
+                                          </Button>
+                                        </div>
+                                      </div>
+                                      <div className="border border-border rounded-lg divide-y divide-border bg-background">
+                                        {DAYS.map(({ key, label }) => {
+                                          const day = zone.hours[key];
+                                          return (
+                                            <div key={key} className="p-3 space-y-2">
+                                              <div className="flex items-center justify-between gap-3">
+                                                <div className="flex items-center gap-3 min-w-[140px]">
+                                                  <Switch
+                                                    checked={day.open}
+                                                    onCheckedChange={(checked) =>
+                                                      updateZoneDay(zone.id, key, {
+                                                        open: checked,
+                                                        slots: checked && day.slots.length === 0
+                                                          ? [{ from: "12:00", to: "15:00" }]
+                                                          : day.slots,
+                                                      })
+                                                    }
+                                                  />
+                                                  <span className="text-sm font-medium text-foreground">{label}</span>
+                                                </div>
+                                                {!day.open && (
+                                                  <span className="text-xs text-muted-foreground">Closed</span>
+                                                )}
+                                                {day.open && (
+                                                  <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    className="h-7 px-2 text-xs gap-1"
+                                                    onClick={() => addZoneSlot(zone.id, key)}
+                                                  >
+                                                    <Plus className="h-3 w-3" />
+                                                    Add slot
+                                                  </Button>
+                                                )}
+                                              </div>
+                                              {day.open && day.slots.length > 0 && (
+                                                <div className="space-y-1.5 pl-[52px]">
+                                                  {day.slots.map((slot, i) => (
+                                                    <div key={i} className="flex items-center gap-2">
+                                                      <Input
+                                                        type="time"
+                                                        value={slot.from}
+                                                        onChange={(e) =>
+                                                          updateZoneSlot(zone.id, key, i, { from: e.target.value })
+                                                        }
+                                                        className="h-8 w-28 text-xs"
+                                                      />
+                                                      <span className="text-xs text-muted-foreground">–</span>
+                                                      <Input
+                                                        type="time"
+                                                        value={slot.to}
+                                                        onChange={(e) =>
+                                                          updateZoneSlot(zone.id, key, i, { to: e.target.value })
+                                                        }
+                                                        className="h-8 w-28 text-xs"
+                                                      />
+                                                      {day.slots.length > 1 && (
+                                                        <Button
+                                                          type="button"
+                                                          variant="ghost"
+                                                          size="icon"
+                                                          className="h-7 w-7"
+                                                          onClick={() => removeZoneSlot(zone.id, key, i)}
+                                                        >
+                                                          <Trash2 className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                      )}
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
                                     </div>
                                     <div className="space-y-1 sm:col-span-2">
                                       <Label className="text-xs">Notes for customers (optional)</Label>
@@ -544,10 +627,24 @@ const Reservations = () => {
                                     </div>
                                   </div>
                                 ) : (
-                                  <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground pl-6">
-                                    <span>{zone.duration} min</span>
-                                    <span>{zone.capacity || "—"} tables at once</span>
-                                    <span>{zone.hours}</span>
+                                  <div className="space-y-2 pl-6">
+                                    <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground">
+                                      <span>{zone.duration} min</span>
+                                      <span>{zone.capacity || "—"} tables at once</span>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground">
+                                      <div className="font-medium text-foreground/80 mb-1">Weekly hours (from Google)</div>
+                                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0.5">
+                                        {DAYS.map(({ key, label }) => (
+                                          <div key={key} className="flex justify-between gap-3">
+                                            <span>{label}</span>
+                                            <span className={zone.hours[key].open ? "" : "italic"}>
+                                              {formatDaySummary(zone.hours[key])}
+                                            </span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
                                   </div>
                                 )}
                               </div>
