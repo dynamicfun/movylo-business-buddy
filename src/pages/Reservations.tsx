@@ -38,6 +38,11 @@ import {
   BookOpen,
   MessageCircle,
   CalendarX,
+  MapPin,
+  Plus,
+  Copy as CopyIcon,
+  Trash2,
+  Pencil,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
