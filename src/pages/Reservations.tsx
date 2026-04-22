@@ -66,34 +66,68 @@ const Reservations = () => {
   const [depositAmount, setDepositAmount] = useState("");
 
   // Restaurant zones (only shown for "tables" / dine-in)
+  type DaySchedule = {
+    open: boolean;
+    slots: { from: string; to: string }[]; // multiple slots per day (e.g. lunch + dinner)
+  };
+  type WeeklyHours = Record<
+    "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun",
+    DaySchedule
+  >;
   type Zone = {
     id: string;
     name: string;
     duration: string;
     capacity: string;
-    hours: string;
+    hours: WeeklyHours;
     notes: string;
   };
+
+  const DAYS: { key: keyof WeeklyHours; label: string }[] = [
+    { key: "mon", label: "Monday" },
+    { key: "tue", label: "Tuesday" },
+    { key: "wed", label: "Wednesday" },
+    { key: "thu", label: "Thursday" },
+    { key: "fri", label: "Friday" },
+    { key: "sat", label: "Saturday" },
+    { key: "sun", label: "Sunday" },
+  ];
+
+  // Mocked weekly hours synced from Google Business Profile
+  const googleSyncedHours: WeeklyHours = {
+    mon: { open: true, slots: [{ from: "12:00", to: "15:00" }, { from: "19:00", to: "23:00" }] },
+    tue: { open: true, slots: [{ from: "12:00", to: "15:00" }, { from: "19:00", to: "23:00" }] },
+    wed: { open: true, slots: [{ from: "12:00", to: "15:00" }, { from: "19:00", to: "23:00" }] },
+    thu: { open: true, slots: [{ from: "12:00", to: "15:00" }, { from: "19:00", to: "23:30" }] },
+    fri: { open: true, slots: [{ from: "12:00", to: "15:30" }, { from: "19:00", to: "00:00" }] },
+    sat: { open: true, slots: [{ from: "12:30", to: "16:00" }, { from: "19:00", to: "00:00" }] },
+    sun: { open: false, slots: [] },
+  };
+
+  const cloneHours = (h: WeeklyHours): WeeklyHours =>
+    JSON.parse(JSON.stringify(h)) as WeeklyHours;
+
   const [zones, setZones] = useState<Zone[]>([
-    { id: "main", name: "Main dining room", duration: "60", capacity: "8", hours: "Business hours", notes: "" },
+    {
+      id: "main",
+      name: "Main dining room",
+      duration: "60",
+      capacity: "8",
+      hours: cloneHours(googleSyncedHours),
+      notes: "",
+    },
   ]);
   const [zonesOpen, setZonesOpen] = useState(true);
   const [editingZoneId, setEditingZoneId] = useState<string | null>(null);
 
   const addZone = () => {
-    // Replicate current configuration into a new zone
-    const base = zones[zones.length - 1] ?? {
-      duration,
-      capacity: capacity || "4",
-      hours: "Business hours",
-      notes: "",
-    };
+    const base = zones[zones.length - 1];
     const newZone: Zone = {
       id: `zone-${Date.now()}`,
       name: `New zone ${zones.length + 1}`,
-      duration: base.duration ?? duration,
-      capacity: base.capacity ?? capacity ?? "4",
-      hours: base.hours ?? "Business hours",
+      duration: base?.duration ?? duration,
+      capacity: base?.capacity ?? capacity ?? "4",
+      hours: cloneHours(base?.hours ?? googleSyncedHours),
       notes: "",
     };
     setZones([...zones, newZone]);
@@ -104,7 +138,12 @@ const Reservations = () => {
   const duplicateZone = (id: string) => {
     const z = zones.find((z) => z.id === id);
     if (!z) return;
-    const copy: Zone = { ...z, id: `zone-${Date.now()}`, name: `${z.name} (copy)` };
+    const copy: Zone = {
+      ...z,
+      id: `zone-${Date.now()}`,
+      name: `${z.name} (copy)`,
+      hours: cloneHours(z.hours),
+    };
     setZones([...zones, copy]);
     toast.success("Zone duplicated.");
   };
@@ -120,6 +159,65 @@ const Reservations = () => {
   const updateZone = (id: string, patch: Partial<Zone>) => {
     setZones(zones.map((z) => (z.id === id ? { ...z, ...patch } : z)));
   };
+
+  const updateZoneDay = (
+    zoneId: string,
+    day: keyof WeeklyHours,
+    patch: Partial<DaySchedule>,
+  ) => {
+    setZones(
+      zones.map((z) =>
+        z.id === zoneId
+          ? { ...z, hours: { ...z.hours, [day]: { ...z.hours[day], ...patch } } }
+          : z,
+      ),
+    );
+  };
+
+  const updateZoneSlot = (
+    zoneId: string,
+    day: keyof WeeklyHours,
+    slotIdx: number,
+    patch: Partial<{ from: string; to: string }>,
+  ) => {
+    setZones(
+      zones.map((z) => {
+        if (z.id !== zoneId) return z;
+        const slots = z.hours[day].slots.map((s, i) => (i === slotIdx ? { ...s, ...patch } : s));
+        return { ...z, hours: { ...z.hours, [day]: { ...z.hours[day], slots } } };
+      }),
+    );
+  };
+
+  const addZoneSlot = (zoneId: string, day: keyof WeeklyHours) => {
+    setZones(
+      zones.map((z) => {
+        if (z.id !== zoneId) return z;
+        const slots = [...z.hours[day].slots, { from: "19:00", to: "23:00" }];
+        return { ...z, hours: { ...z.hours, [day]: { open: true, slots } } };
+      }),
+    );
+  };
+
+  const removeZoneSlot = (zoneId: string, day: keyof WeeklyHours, slotIdx: number) => {
+    setZones(
+      zones.map((z) => {
+        if (z.id !== zoneId) return z;
+        const slots = z.hours[day].slots.filter((_, i) => i !== slotIdx);
+        return { ...z, hours: { ...z.hours, [day]: { ...z.hours[day], slots } } };
+      }),
+    );
+  };
+
+  const resyncZoneFromGoogle = (zoneId: string) => {
+    updateZone(zoneId, { hours: cloneHours(googleSyncedHours) });
+    toast.success("Hours re-synced from Google.");
+  };
+
+  const formatDaySummary = (d: DaySchedule) =>
+    !d.open || d.slots.length === 0
+      ? "Closed"
+      : d.slots.map((s) => `${s.from}–${s.to}`).join(", ");
 
   const bookingLink = "https://yourbusiness.movylo.com/book";
 
