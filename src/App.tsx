@@ -41,6 +41,7 @@ import LiveFeedPage from "./pages/LiveFeedPage";
 import UpgradePlan from "./pages/UpgradePlan";
 import TopUpSms from "./pages/TopUpSms";
 import MyAccount from "./pages/MyAccount";
+import Orders from "./pages/Orders";
 import DemoPage from "./pages/DemoPage";
 import NotFound from "./pages/NotFound";
 
@@ -91,6 +92,7 @@ const App = () => (
             <Route path="/upgrade" element={<UpgradePlan />} />
             <Route path="/topup" element={<TopUpSms />} />
             <Route path="/account" element={<MyAccount />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/demo" element={<DemoPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

@@ -14,6 +14,7 @@ import {
   Home,
   MessageSquare,
   Store,
+  ShoppingBag,
   Building2,
   ArrowUpCircle,
   CreditCard,
@@ -96,6 +97,7 @@ export function AppSidebar() {
         { title: "Sell Online / Payments", url: "/sales/sell-online" },
       ]
     },
+    { id: "orders", title: "Orders", url: "/orders", icon: ShoppingBag },
     { id: "reports", title: t.reports, url: "/reports", icon: BarChart3 },
   ];
 
