@@ -38,6 +38,11 @@ import {
   BookOpen,
   MessageCircle,
   CalendarX,
+  MapPin,
+  Plus,
+  Copy as CopyIcon,
+  Trash2,
+  Pencil,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -59,6 +64,62 @@ const Reservations = () => {
   const [reminderTime, setReminderTime] = useState("24h");
   const [requireDeposit, setRequireDeposit] = useState(false);
   const [depositAmount, setDepositAmount] = useState("");
+
+  // Restaurant zones (only shown for "tables" / dine-in)
+  type Zone = {
+    id: string;
+    name: string;
+    duration: string;
+    capacity: string;
+    hours: string;
+    notes: string;
+  };
+  const [zones, setZones] = useState<Zone[]>([
+    { id: "main", name: "Main dining room", duration: "60", capacity: "8", hours: "Business hours", notes: "" },
+  ]);
+  const [zonesOpen, setZonesOpen] = useState(true);
+  const [editingZoneId, setEditingZoneId] = useState<string | null>(null);
+
+  const addZone = () => {
+    // Replicate current configuration into a new zone
+    const base = zones[zones.length - 1] ?? {
+      duration,
+      capacity: capacity || "4",
+      hours: "Business hours",
+      notes: "",
+    };
+    const newZone: Zone = {
+      id: `zone-${Date.now()}`,
+      name: `New zone ${zones.length + 1}`,
+      duration: base.duration ?? duration,
+      capacity: base.capacity ?? capacity ?? "4",
+      hours: base.hours ?? "Business hours",
+      notes: "",
+    };
+    setZones([...zones, newZone]);
+    setEditingZoneId(newZone.id);
+    toast.success("Zone added — same rules as the previous one. Adjust as needed.");
+  };
+
+  const duplicateZone = (id: string) => {
+    const z = zones.find((z) => z.id === id);
+    if (!z) return;
+    const copy: Zone = { ...z, id: `zone-${Date.now()}`, name: `${z.name} (copy)` };
+    setZones([...zones, copy]);
+    toast.success("Zone duplicated.");
+  };
+
+  const removeZone = (id: string) => {
+    if (zones.length <= 1) {
+      toast.error("Keep at least one zone.");
+      return;
+    }
+    setZones(zones.filter((z) => z.id !== id));
+  };
+
+  const updateZone = (id: string, patch: Partial<Zone>) => {
+    setZones(zones.map((z) => (z.id === id ? { ...z, ...patch } : z)));
+  };
 
   const bookingLink = "https://yourbusiness.movylo.com/book";
 
@@ -276,7 +337,136 @@ const Reservations = () => {
                     </Button>
                   </div>
 
-                  {/* SECTION 3: Availability (collapsed) */}
+                  {/* SECTION: Restaurant zones — only for dine-in (tables) */}
+                  {bookingType === "tables" && (
+                    <Collapsible open={zonesOpen} onOpenChange={setZonesOpen}>
+                      <div className="bg-card border border-border rounded-xl overflow-hidden">
+                        <CollapsibleTrigger className="w-full p-6 flex items-center justify-between hover:bg-muted/30 transition-colors">
+                          <div className="flex items-center gap-3">
+                            <MapPin className="h-5 w-5 text-primary" />
+                            <div className="text-left">
+                              <h3 className="font-medium text-foreground">Restaurant zones</h3>
+                              <p className="text-sm text-muted-foreground">
+                                Set up different areas (terrace, main room, private room…). Each zone can have its own hours, capacity and rules.
+                              </p>
+                            </div>
+                          </div>
+                          <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${zonesOpen ? "rotate-180" : ""}`} />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-6 pb-6 space-y-3">
+                          {zones.map((zone) => {
+                            const isEditing = editingZoneId === zone.id;
+                            return (
+                              <div key={zone.id} className="border border-border rounded-lg p-4 space-y-3 bg-muted/20">
+                                <div className="flex items-center justify-between gap-3">
+                                  {isEditing ? (
+                                    <Input
+                                      value={zone.name}
+                                      onChange={(e) => updateZone(zone.id, { name: e.target.value })}
+                                      className="max-w-xs font-medium"
+                                      placeholder="Zone name (e.g. Terrace)"
+                                    />
+                                  ) : (
+                                    <div className="flex items-center gap-2">
+                                      <MapPin className="h-4 w-4 text-primary" />
+                                      <span className="font-medium text-foreground">{zone.name}</span>
+                                    </div>
+                                  )}
+                                  <div className="flex items-center gap-1">
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => setEditingZoneId(isEditing ? null : zone.id)}
+                                      title={isEditing ? "Done" : "Edit"}
+                                    >
+                                      <Pencil className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => duplicateZone(zone.id)}
+                                      title="Duplicate zone with same rules"
+                                    >
+                                      <CopyIcon className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => removeZone(zone.id)}
+                                      title="Remove zone"
+                                      disabled={zones.length <= 1}
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {isEditing ? (
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                                    <div className="space-y-1">
+                                      <Label className="text-xs">Booking duration</Label>
+                                      <Select value={zone.duration} onValueChange={(v) => updateZone(zone.id, { duration: v })}>
+                                        <SelectTrigger><SelectValue /></SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="30">30 minutes</SelectItem>
+                                          <SelectItem value="60">60 minutes</SelectItem>
+                                          <SelectItem value="90">90 minutes</SelectItem>
+                                          <SelectItem value="120">120 minutes</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs">Tables available at the same time</Label>
+                                      <Input
+                                        type="number"
+                                        value={zone.capacity}
+                                        onChange={(e) => updateZone(zone.id, { capacity: e.target.value })}
+                                        placeholder="e.g. 8"
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs">Hours</Label>
+                                      <Select value={zone.hours} onValueChange={(v) => updateZone(zone.id, { hours: v })}>
+                                        <SelectTrigger><SelectValue /></SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="Business hours">Same as business hours</SelectItem>
+                                          <SelectItem value="Lunch only">Lunch only (12:00 – 15:00)</SelectItem>
+                                          <SelectItem value="Dinner only">Dinner only (19:00 – 23:00)</SelectItem>
+                                          <SelectItem value="Custom">Custom schedule</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="space-y-1 sm:col-span-2">
+                                      <Label className="text-xs">Notes for customers (optional)</Label>
+                                      <Input
+                                        value={zone.notes}
+                                        onChange={(e) => updateZone(zone.id, { notes: e.target.value })}
+                                        placeholder="e.g. Outdoor area, weather permitting"
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground pl-6">
+                                    <span>{zone.duration} min</span>
+                                    <span>{zone.capacity || "—"} tables at once</span>
+                                    <span>{zone.hours}</span>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+
+                          <Button variant="outline" onClick={addZone} className="w-full gap-2">
+                            <Plus className="h-4 w-4" />
+                            Add another zone
+                          </Button>
+                          <p className="text-xs text-muted-foreground">
+                            New zones start with the same rules as the previous one — just tweak what's different.
+                          </p>
+                        </CollapsibleContent>
+                      </div>
+                    </Collapsible>
+                  )}
                   <Collapsible open={availabilityOpen} onOpenChange={setAvailabilityOpen}>
                     <div className="bg-card border border-border rounded-xl overflow-hidden">
                       <CollapsibleTrigger className="w-full p-6 flex items-center justify-between hover:bg-muted/30 transition-colors">
