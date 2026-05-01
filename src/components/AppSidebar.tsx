@@ -18,7 +18,8 @@ import {
   Building2,
   ArrowUpCircle,
   CreditCard,
-  Check
+  Check,
+  Mic
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -60,6 +61,7 @@ export function AppSidebar() {
   // Build navigation items using translations
   const primaryItems = [
     { id: "home", title: t.home, url: "/", icon: Home },
+    { id: "alex", title: "Alex", url: "/alex", icon: Mic },
     { id: "profile", title: t.myProfile, url: "/business-info/profile", icon: Building2 },
     { 
       id: "customers",
