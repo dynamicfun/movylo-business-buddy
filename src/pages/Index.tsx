@@ -7,6 +7,7 @@ import { EngagementCard } from "@/components/dashboard/EngagementCard";
 import { SalesCard } from "@/components/dashboard/SalesCard";
 import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { OrdersCard } from "@/components/dashboard/OrdersCard";
+import { AlexConsultant } from "@/components/dashboard/AlexConsultant";
 import { NewUserDashboard } from "@/components/dashboard/NewUserDashboard";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -81,6 +82,9 @@ const Index = () => {
 
             {viewMode === "steady" ? (
               <>
+                <div className="mb-4">
+                  <AlexConsultant />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                   <CustomerCard {...sampleCustomerData} />
                   <EngagementCard {...sampleActivityData} />
