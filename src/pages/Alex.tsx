@@ -1,27 +1,37 @@
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
-import { Mic, Phone, MessageCircle, Calendar, Users, TrendingUp, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mic, Phone, Lightbulb, FileCheck2, PhoneCall, Sparkles, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 const capabilities = [
-  { icon: Phone, title: "Answers calls", desc: "Picks up when you can't, 24/7, in your business voice." },
-  { icon: Calendar, title: "Books reservations", desc: "Confirms tables, handles changes, and avoids double-bookings." },
-  { icon: MessageCircle, title: "Replies to questions", desc: "Hours, menu, location, parking — Alex knows your business." },
-  { icon: Users, title: "Captures customers", desc: "Adds callers to your list so you can stay in touch later." },
-];
-
-const results = [
-  { icon: Users, value: "47", label: "New customers brought in" },
-  { icon: MessageCircle, value: "182", label: "Conversations handled" },
-  { icon: TrendingUp, value: "$1,240", label: "Sales generated" },
+  {
+    icon: Lightbulb,
+    title: "Spots opportunities for you",
+    desc: "Alex watches your business and calls you when he sees a chance to bring in customers or close more sales.",
+  },
+  {
+    icon: PhoneCall,
+    title: "Calls and explains what to do",
+    desc: "When there's something worth doing, Alex calls you, walks you through it, and answers your questions.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Prepares everything for you",
+    desc: "Alex produces the promotion, message, or campaign and sends it to you for a quick check and approval.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Follows up on results",
+    desc: "Once it's live, Alex calls back to review the results together and decide the next move.",
+  },
 ];
 
 const Alex = () => {
   return (
     <InnerPageTemplate
       title="Alex"
-      subtitle="Your Voice AI consultant"
+      subtitle="Your personal business consultant"
       icon={Mic}
       backTo="/"
     >
@@ -41,17 +51,15 @@ const Alex = () => {
                 <Sparkles className="w-4 h-4 text-primary" />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                I'm your voice consultant. I answer your calls, advise your customers, take reservations,
-                and bring people back to your business. Think of me as a teammate who's always on the line —
-                and the numbers you see on your dashboard reflect what I brought you.
+                I'm your personal consultant. I help you find new customers, close more sales,
+                and keep the ones you already have active. I use Movylo to do the work for you —
+                you just check and approve. Whenever you want, you can talk to me.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Button size="sm" className="gap-1.5">
+                  <Phone className="w-3.5 h-3.5" />
                   Talk to Alex
                   <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-                <Button size="sm" variant="outline" className="gap-1.5 font-normal">
-                  Listen to a sample call
                 </Button>
               </div>
             </div>
@@ -72,7 +80,7 @@ const Alex = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 * i }}
             >
-              <Card className="hover:border-primary/30 transition-colors">
+              <Card className="hover:border-primary/30 transition-colors h-full">
                 <CardContent className="p-4 flex gap-3">
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <c.icon className="w-4 h-4 text-primary" />
@@ -88,39 +96,17 @@ const Alex = () => {
         </div>
       </div>
 
-      {/* Results */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-            What Alex brought you
-          </h3>
-          <span className="text-[11px] text-muted-foreground">Last 30 days</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {results.map((r) => (
-            <Card key={r.label}>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-1.5 text-muted-foreground mb-2">
-                  <r.icon className="w-3.5 h-3.5" />
-                  <span className="text-[11px]">{r.label}</span>
-                </div>
-                <div className="text-2xl font-semibold text-foreground">{r.value}</div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
       {/* How it works */}
       <Card>
         <CardContent className="p-5">
-          <h3 className="text-sm font-semibold text-foreground mb-3">How Alex works</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-3">How working with Alex feels</h3>
           <ul className="space-y-2.5">
             {[
-              "Alex learns about your business from your profile, menu, and hours.",
-              "When a call comes in, Alex answers in your tone of voice.",
-              "Alex helps the customer — booking, info, or next steps — and logs everything.",
-              "You see results on your dashboard: customers brought, conversations handled, sales generated.",
+              "Alex gets to know your business — what you sell, your customers, your goals.",
+              "When he spots an opportunity, he calls you and explains what to do.",
+              "Alex prepares everything in Movylo and sends it to you for approval.",
+              "You approve — it goes live. Alex calls back to review results with you.",
+              "Anytime you want advice, you can call Alex directly.",
             ].map((step, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -137,12 +123,12 @@ const Alex = () => {
           <Sparkles className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
           <div className="flex-1">
             <p className="text-sm text-foreground/90">
-              <span className="font-medium">Alex suggests:</span> 12 customers asked about weekend hours this month —
-              consider extending Saturday opening.
+              <span className="font-medium">Alex suggests:</span> your weekend traffic is below average —
+              I can prepare a Friday promotion to bring customers in. Want me to draft it?
             </p>
           </div>
           <Button size="sm" variant="outline" className="font-normal text-xs flex-shrink-0">
-            Review
+            Talk to Alex
           </Button>
         </CardContent>
       </Card>
