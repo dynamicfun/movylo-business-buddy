@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
-import { Mic, Sparkles, Phone, ArrowRight } from "lucide-react";
+import { Sparkles, Phone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+function AlexMonogram({ className }: { className?: string }) {
+  return (
+    <div
+      className={`rounded-full bg-[#042C53] flex items-center justify-center ${className || ""}`}
+    >
+      <span className="text-white font-bold" style={{ fontSize: "inherit" }}>
+        A
+      </span>
+    </div>
+  );
+}
 
 export function AlexConsultant() {
   return (
@@ -16,9 +28,7 @@ export function AlexConsultant() {
           <div>
             <div className="flex items-center gap-3 mb-3">
               <div className="relative">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
-                  <Mic className="w-5 h-5 text-primary-foreground" />
-                </div>
+                <AlexMonogram className="w-11 h-11 text-xl" />
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-background" />
               </div>
               <div>
