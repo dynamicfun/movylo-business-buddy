@@ -70,7 +70,7 @@ export function AppSidebar() {
   // Build navigation items using translations
   const primaryItems = [
     { id: "home", title: t.home, url: "/", icon: Home },
-    { id: "alex", title: "Alex", url: "/alex", icon: Mic },
+    { id: "alex", title: "Alex", url: "/alex", icon: AlexIcon },
     { id: "profile", title: t.myProfile, url: "/business-info/profile", icon: Building2 },
     { 
       id: "customers",
