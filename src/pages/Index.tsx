@@ -49,14 +49,8 @@ const Index = () => {
         <main className="flex-1 overflow-x-hidden">
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 flex-wrap">
-              <Button variant="outline" size="sm" className="gap-1.5 text-muted-foreground font-normal flex-shrink-0" asChild>
-                <a href="/business-info/profile">
-                  <Building2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">My Profile</span>
-                </a>
-              </Button>
               <QuickActions />
-              
+
               <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0">
                 {modes.map(m => (
                   <button
