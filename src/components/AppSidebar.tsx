@@ -19,10 +19,19 @@ import {
   ArrowUpCircle,
   CreditCard,
   Check,
-  Mic
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+function AlexIcon({ className }: { className?: string }) {
+  return (
+    <div
+      className={`rounded-full bg-[#042C53] flex items-center justify-center text-white font-bold text-[10px] ${className || ""}`}
+    >
+      A
+    </div>
+  );
+}
 
 import {
   Sidebar,
@@ -61,7 +70,7 @@ export function AppSidebar() {
   // Build navigation items using translations
   const primaryItems = [
     { id: "home", title: t.home, url: "/", icon: Home },
-    { id: "alex", title: "Alex", url: "/alex", icon: Mic },
+    { id: "alex", title: "Alex", url: "/alex", icon: AlexIcon },
     { id: "profile", title: t.myProfile, url: "/business-info/profile", icon: Building2 },
     { 
       id: "customers",
