@@ -48,10 +48,14 @@ const Index = () => {
         
         <main className="flex-1 overflow-x-hidden">
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
-            <div className="flex items-center gap-2 sm:gap-3 mb-4 flex-wrap">
+            <div className="flex items-center gap-2 mb-3 md:hidden">
+              <SidebarTrigger />
+              <span className="text-sm font-medium text-muted-foreground">Menu</span>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-4">
               <QuickActions />
 
-              <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0">
+              <div className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded-lg flex-shrink-0 self-start sm:self-auto">
                 {modes.map(m => (
                   <button
                     key={m.key}
@@ -68,11 +72,16 @@ const Index = () => {
               </div>
 
               {viewMode === "steady" && (
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 hidden sm:block">
                   <LiveFeed />
                 </div>
               )}
             </div>
+            {viewMode === "steady" && (
+              <div className="mb-4 sm:hidden">
+                <LiveFeed />
+              </div>
+            )}
 
             {viewMode === "steady" ? (
               <>
