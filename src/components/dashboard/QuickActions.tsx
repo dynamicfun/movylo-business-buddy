@@ -16,11 +16,11 @@ export function QuickActions() {
       <motion.div
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex gap-2 flex-wrap"
+        className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto"
       >
         <Button
           size="sm"
-          className="gap-2 text-xs sm:text-sm font-medium bg-[#042C53] text-white hover:bg-[#042C53]/90"
+          className="gap-2 text-xs sm:text-sm font-medium bg-[#042C53] text-white hover:bg-[#042C53]/90 w-full sm:w-auto order-1"
           asChild
         >
           <a href="/alex">
@@ -28,24 +28,26 @@ export function QuickActions() {
             Talk to Alex
           </a>
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground"
-          onClick={() => setCheckCouponOpen(true)}
-        >
-          <Ticket className="w-3.5 h-3.5" />
-          {t.checkCoupon}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground"
-          onClick={() => setAssignPointsOpen(true)}
-        >
-          <Gift className="w-3.5 h-3.5" />
-          {t.assignLoyaltyPoints}
-        </Button>
+        <div className="flex gap-2 order-2 w-full sm:w-auto">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground flex-1 sm:flex-none"
+            onClick={() => setCheckCouponOpen(true)}
+          >
+            <Ticket className="w-3.5 h-3.5" />
+            {t.checkCoupon}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 text-xs sm:text-sm font-normal border-border/60 text-muted-foreground hover:text-foreground flex-1 sm:flex-none"
+            onClick={() => setAssignPointsOpen(true)}
+          >
+            <Gift className="w-3.5 h-3.5" />
+            {t.assignLoyaltyPoints}
+          </Button>
+        </div>
       </motion.div>
 
       <CheckCouponModal
