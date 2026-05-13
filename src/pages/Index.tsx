@@ -10,7 +10,7 @@ import { OrdersCard } from "@/components/dashboard/OrdersCard";
 import { AlexConsultant } from "@/components/dashboard/AlexConsultant";
 import { NewUserDashboard } from "@/components/dashboard/NewUserDashboard";
 import { AppSidebar } from "@/components/AppSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type ViewMode = "steady" | "new";
