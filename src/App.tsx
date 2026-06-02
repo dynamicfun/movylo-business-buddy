@@ -44,6 +44,7 @@ import MyAccount from "./pages/MyAccount";
 import Orders from "./pages/Orders";
 import Alex from "./pages/Alex";
 import Activate from "./pages/Activate";
+import Activate2 from "./pages/Activate2";
 import DemoPage from "./pages/DemoPage";
 import NotFound from "./pages/NotFound";
 
@@ -97,6 +98,7 @@ const App = () => (
             <Route path="/orders" element={<Orders />} />
             <Route path="/alex" element={<Alex />} />
             <Route path="/activate" element={<Activate />} />
+            <Route path="/activate-v2" element={<Activate2 />} />
             <Route path="/demo" element={<DemoPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
