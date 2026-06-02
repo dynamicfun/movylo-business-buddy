@@ -9,11 +9,12 @@ import { LiveFeed } from "@/components/dashboard/LiveFeed";
 import { OrdersCard } from "@/components/dashboard/OrdersCard";
 import { AlexConsultant } from "@/components/dashboard/AlexConsultant";
 import { NewUserDashboard } from "@/components/dashboard/NewUserDashboard";
+import { NewUserDashboardV2 } from "@/components/dashboard/NewUserDashboardV2";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type ViewMode = "steady" | "new";
+type ViewMode = "steady" | "new" | "new-v2";
 
 const sampleActivityData = {
   isActivationMode: false,
@@ -39,6 +40,7 @@ const Index = () => {
   const modes: { key: ViewMode; label: string }[] = [
     { key: "steady", label: t.steadyState || "Steady State" },
     { key: "new", label: t.newUser || "New User" },
+    { key: "new-v2", label: "New v2" },
   ];
 
   return (
@@ -100,12 +102,14 @@ const Index = () => {
                   <OrdersCard />
                 </div>
               </>
-            ) : (
+            ) : viewMode === "new" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <CustomerCard {...sampleCustomerData} />
                 <EngagementCard isActivationMode />
                 <SalesCard isActivationMode />
               </div>
+            ) : (
+              <NewUserDashboardV2 />
             )}
           </div>
         </main>
