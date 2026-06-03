@@ -159,6 +159,11 @@ export default function NewslettersReport() {
                               <th className="py-2 pr-4 font-medium">Update</th>
                               <th className="py-2 pr-4 font-medium">Date</th>
                               <th className="py-2 pr-4 font-medium">Reached</th>
+                              <th className="py-2 pr-4 font-medium">Email</th>
+                              <th className="py-2 pr-4 font-medium">SMS</th>
+                              <th className="py-2 pr-4 font-medium">WhatsApp</th>
+                              <th className="py-2 pr-4 font-medium">App</th>
+                              <th className="py-2 pr-4 font-medium">Messenger</th>
                               <th className="py-2 pr-4 font-medium">Opened</th>
                               <th className="py-2 font-medium">Clicks</th>
                             </tr>
@@ -169,6 +174,11 @@ export default function NewslettersReport() {
                                 <td className="py-2 pr-4 text-foreground">{n.name}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.date}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.reached}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.email}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.sms}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.whatsapp}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.app}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.messenger}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.opened}</td>
                                 <td className="py-2 text-muted-foreground">{n.clicks}</td>
                               </tr>
