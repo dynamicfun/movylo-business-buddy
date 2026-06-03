@@ -15,10 +15,10 @@ export default function PromotionsReport() {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const promotions = [
-    { name: "Pizze Golose per la Festa", date: "25 May 2026", sent: 120, opened: "1 (1%)", redeemed: 0 },
-    { name: "Celebrate the Weekend", date: "29 Jan 2026", sent: 95, opened: "0", redeemed: 0 },
-    { name: "Special Offer at Aleamex", date: "13 Jan 2026", sent: 110, opened: "3 (3%)", redeemed: 1 },
-    { name: "Spice up your Tuesday", date: "13 Jan 2026", sent: 80, opened: "0", redeemed: 0 },
+    { name: "Pizze Golose per la Festa", date: "25 May 2026", sent: 120, email: 80, sms: 20, whatsapp: 15, app: 3, messenger: 2, opened: "1 (1%)", redeemed: 0 },
+    { name: "Celebrate the Weekend", date: "29 Jan 2026", sent: 95, email: 60, sms: 18, whatsapp: 12, app: 3, messenger: 2, opened: "0", redeemed: 0 },
+    { name: "Special Offer at Aleamex", date: "13 Jan 2026", sent: 110, email: 70, sms: 22, whatsapp: 14, app: 2, messenger: 2, opened: "3 (3%)", redeemed: 1 },
+    { name: "Spice up your Tuesday", date: "13 Jan 2026", sent: 80, email: 50, sms: 16, whatsapp: 10, app: 2, messenger: 2, opened: "0", redeemed: 0 },
   ];
 
   return (
