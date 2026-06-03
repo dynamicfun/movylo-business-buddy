@@ -151,8 +151,13 @@ export default function PromotionsReport() {
                           <thead>
                             <tr className="text-left text-muted-foreground border-b border-border">
                               <th className="py-2 pr-4 font-medium">Promotion</th>
+                              <th className="py-2 pr-4 font-medium">Date</th>
                               <th className="py-2 pr-4 font-medium">Sent</th>
-                              <th className="py-2 pr-4 font-medium">Reached</th>
+                              <th className="py-2 pr-4 font-medium">Email</th>
+                              <th className="py-2 pr-4 font-medium">SMS</th>
+                              <th className="py-2 pr-4 font-medium">WhatsApp</th>
+                              <th className="py-2 pr-4 font-medium">App</th>
+                              <th className="py-2 pr-4 font-medium">Messenger</th>
                               <th className="py-2 pr-4 font-medium">Opened</th>
                               <th className="py-2 font-medium">Redeemed</th>
                             </tr>
@@ -163,6 +168,11 @@ export default function PromotionsReport() {
                                 <td className="py-2 pr-4 text-foreground">{p.name}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.date}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.sent}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.email}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.sms}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.whatsapp}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.app}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.messenger}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.opened}</td>
                                 <td className="py-2 text-muted-foreground">{p.redeemed}</td>
                               </tr>
