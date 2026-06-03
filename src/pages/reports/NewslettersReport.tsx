@@ -15,10 +15,10 @@ export default function NewslettersReport() {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const newsletters = [
-    { name: "Offerte Speciali di Maggio", date: "25 May 2026", reached: 110, opened: "0", clicks: "1" },
-    { name: "Scopri le nostre deliziose pizze", date: "4 May 2026", reached: 95, opened: "0", clicks: "1" },
-    { name: "All White: A Delightful Pizza", date: "25 Nov 2025", reached: 120, opened: "1", clicks: "14" },
-    { name: "Autumn Flavours", date: "1 Oct 2025", reached: 102, opened: "1", clicks: "18" },
+    { name: "Offerte Speciali di Maggio", date: "25 May 2026", reached: 110, email: 70, sms: 20, whatsapp: 14, app: 3, messenger: 3, opened: "0", clicks: "1" },
+    { name: "Scopri le nostre deliziose pizze", date: "4 May 2026", reached: 95, email: 60, sms: 18, whatsapp: 12, app: 3, messenger: 2, opened: "0", clicks: "1" },
+    { name: "All White: A Delightful Pizza", date: "25 Nov 2025", reached: 120, email: 80, sms: 20, whatsapp: 15, app: 3, messenger: 2, opened: "1", clicks: "14" },
+    { name: "Autumn Flavours", date: "1 Oct 2025", reached: 102, email: 65, sms: 19, whatsapp: 13, app: 3, messenger: 2, opened: "1", clicks: "18" },
   ];
 
   return (
@@ -159,6 +159,11 @@ export default function NewslettersReport() {
                               <th className="py-2 pr-4 font-medium">Update</th>
                               <th className="py-2 pr-4 font-medium">Date</th>
                               <th className="py-2 pr-4 font-medium">Reached</th>
+                              <th className="py-2 pr-4 font-medium">Email</th>
+                              <th className="py-2 pr-4 font-medium">SMS</th>
+                              <th className="py-2 pr-4 font-medium">WhatsApp</th>
+                              <th className="py-2 pr-4 font-medium">App</th>
+                              <th className="py-2 pr-4 font-medium">Messenger</th>
                               <th className="py-2 pr-4 font-medium">Opened</th>
                               <th className="py-2 font-medium">Clicks</th>
                             </tr>
@@ -169,6 +174,11 @@ export default function NewslettersReport() {
                                 <td className="py-2 pr-4 text-foreground">{n.name}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.date}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.reached}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.email}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.sms}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.whatsapp}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.app}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{n.messenger}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{n.opened}</td>
                                 <td className="py-2 text-muted-foreground">{n.clicks}</td>
                               </tr>

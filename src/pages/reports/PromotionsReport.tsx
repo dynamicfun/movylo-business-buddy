@@ -15,10 +15,10 @@ export default function PromotionsReport() {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const promotions = [
-    { name: "Pizze Golose per la Festa", date: "25 May 2026", sent: 120, opened: "1 (1%)", redeemed: 0 },
-    { name: "Celebrate the Weekend", date: "29 Jan 2026", sent: 95, opened: "0", redeemed: 0 },
-    { name: "Special Offer at Aleamex", date: "13 Jan 2026", sent: 110, opened: "3 (3%)", redeemed: 1 },
-    { name: "Spice up your Tuesday", date: "13 Jan 2026", sent: 80, opened: "0", redeemed: 0 },
+    { name: "Pizze Golose per la Festa", date: "25 May 2026", sent: 120, email: 80, sms: 20, whatsapp: 15, app: 3, messenger: 2, opened: "1 (1%)", redeemed: 0 },
+    { name: "Celebrate the Weekend", date: "29 Jan 2026", sent: 95, email: 60, sms: 18, whatsapp: 12, app: 3, messenger: 2, opened: "0", redeemed: 0 },
+    { name: "Special Offer at Aleamex", date: "13 Jan 2026", sent: 110, email: 70, sms: 22, whatsapp: 14, app: 2, messenger: 2, opened: "3 (3%)", redeemed: 1 },
+    { name: "Spice up your Tuesday", date: "13 Jan 2026", sent: 80, email: 50, sms: 16, whatsapp: 10, app: 2, messenger: 2, opened: "0", redeemed: 0 },
   ];
 
   return (
@@ -151,8 +151,13 @@ export default function PromotionsReport() {
                           <thead>
                             <tr className="text-left text-muted-foreground border-b border-border">
                               <th className="py-2 pr-4 font-medium">Promotion</th>
+                              <th className="py-2 pr-4 font-medium">Date</th>
                               <th className="py-2 pr-4 font-medium">Sent</th>
-                              <th className="py-2 pr-4 font-medium">Reached</th>
+                              <th className="py-2 pr-4 font-medium">Email</th>
+                              <th className="py-2 pr-4 font-medium">SMS</th>
+                              <th className="py-2 pr-4 font-medium">WhatsApp</th>
+                              <th className="py-2 pr-4 font-medium">App</th>
+                              <th className="py-2 pr-4 font-medium">Messenger</th>
                               <th className="py-2 pr-4 font-medium">Opened</th>
                               <th className="py-2 font-medium">Redeemed</th>
                             </tr>
@@ -163,6 +168,11 @@ export default function PromotionsReport() {
                                 <td className="py-2 pr-4 text-foreground">{p.name}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.date}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.sent}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.email}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.sms}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.whatsapp}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.app}</td>
+                                <td className="py-2 pr-4 text-muted-foreground">{p.messenger}</td>
                                 <td className="py-2 pr-4 text-muted-foreground">{p.opened}</td>
                                 <td className="py-2 text-muted-foreground">{p.redeemed}</td>
                               </tr>
