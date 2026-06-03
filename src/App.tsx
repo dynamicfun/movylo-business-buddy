@@ -33,6 +33,11 @@ import WiFiSource from "./pages/sources/WiFiSource";
 import TabletSource from "./pages/sources/TabletSource";
 import SourcesHub from "./pages/sources/SourcesHub";
 import CustomersReport from "./pages/reports/CustomersReport";
+import SalesReport from "./pages/reports/SalesReport";
+import PromotionsReport from "./pages/reports/PromotionsReport";
+import NewslettersReport from "./pages/reports/NewslettersReport";
+import ContactsReport from "./pages/reports/ContactsReport";
+import ReviewsReport from "./pages/reports/ReviewsReport";
 import ReportsIndex from "./pages/reports/ReportsIndex";
 import AIAssistant from "./pages/AIAssistant";
 import Preferences from "./pages/Preferences";
@@ -88,6 +93,11 @@ const App = () => (
             <Route path="/sources" element={<SourcesHub />} />
             <Route path="/reports" element={<ReportsIndex />} />
             <Route path="/reports/customers" element={<CustomersReport />} />
+            <Route path="/reports/sales" element={<SalesReport />} />
+            <Route path="/reports/promotions" element={<PromotionsReport />} />
+            <Route path="/reports/newsletters" element={<NewslettersReport />} />
+            <Route path="/reports/contacts" element={<ContactsReport />} />
+            <Route path="/reports/reviews" element={<ReviewsReport />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
             <Route path="/preferences" element={<Preferences />} />
             <Route path="/mobile-app" element={<MobileApp />} />
