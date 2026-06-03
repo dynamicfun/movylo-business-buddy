@@ -15,10 +15,10 @@ export default function NewslettersReport() {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const newsletters = [
-    { name: "Offerte Speciali di Maggio", date: "25 May 2026", reached: 110, opened: "0", clicks: "1" },
-    { name: "Scopri le nostre deliziose pizze", date: "4 May 2026", reached: 95, opened: "0", clicks: "1" },
-    { name: "All White: A Delightful Pizza", date: "25 Nov 2025", reached: 120, opened: "1", clicks: "14" },
-    { name: "Autumn Flavours", date: "1 Oct 2025", reached: 102, opened: "1", clicks: "18" },
+    { name: "Offerte Speciali di Maggio", date: "25 May 2026", reached: 110, email: 70, sms: 20, whatsapp: 14, app: 3, messenger: 3, opened: "0", clicks: "1" },
+    { name: "Scopri le nostre deliziose pizze", date: "4 May 2026", reached: 95, email: 60, sms: 18, whatsapp: 12, app: 3, messenger: 2, opened: "0", clicks: "1" },
+    { name: "All White: A Delightful Pizza", date: "25 Nov 2025", reached: 120, email: 80, sms: 20, whatsapp: 15, app: 3, messenger: 2, opened: "1", clicks: "14" },
+    { name: "Autumn Flavours", date: "1 Oct 2025", reached: 102, email: 65, sms: 19, whatsapp: 13, app: 3, messenger: 2, opened: "1", clicks: "18" },
   ];
 
   return (
