@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { ChevronLeft, Star, ChevronDown } from "lucide-react";
+import { ChevronLeft, Star, ChevronDown, Smile, MessageCircle, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -10,23 +10,32 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  RadialBarChart,
+  RadialBar,
+  ResponsiveContainer,
+  PolarAngleAxis,
+} from "recharts";
 
 export default function ReviewsReport() {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const satisfaction = [
-    { label: "Very satisfied", percentage: 64, color: "bg-green-500" },
-    { label: "Satisfied", percentage: 22, color: "bg-green-400" },
-    { label: "Somewhat", percentage: 11, color: "bg-green-300" },
-    { label: "Not really", percentage: 2, color: "bg-orange-400" },
-    { label: "Not at all", percentage: 1, color: "bg-red-500" },
+    { label: "Very satisfied", percentage: 64, color: "hsl(var(--primary))" },
+    { label: "Satisfied", percentage: 22, color: "#60a5fa" },
+    { label: "Somewhat", percentage: 11, color: "#bfdbfe" },
+    { label: "Not really", percentage: 2, color: "#fbbf24" },
+    { label: "Not at all", percentage: 1, color: "#f59e0b" },
   ];
 
+  const overallScore = 86;
+  const gauge = [{ name: "Score", value: overallScore, fill: "hsl(var(--primary))" }];
+
   const reviews = [
-    { name: "Giulia De Candia", title: "Soddisfatta", text: "Professionali e disponibili oltre...", date: "Apr 28, 2026" },
-    { name: "Valentina Sardaro", title: "Ottima esperienza", text: "Mi danno consigli utili sul materiale...", date: "Apr 28, 2026" },
-    { name: "Sergio D'Ambrosio", title: "Ottima disponibilità", text: "Ottima disponibilità e personale...", date: "Mar 9, 2026" },
-    { name: "Nunzia Squeo", title: "TOP", text: "Sempre molto fornite e super disp...", date: "Feb 6, 2026" },
+    { name: "Giulia De Candia", title: "Soddisfatta", text: "Professionali e disponibili oltre...", date: "Apr 28, 2026", rating: 5 },
+    { name: "Valentina Sardaro", title: "Ottima esperienza", text: "Mi danno consigli utili sul materiale...", date: "Apr 28, 2026", rating: 5 },
+    { name: "Sergio D'Ambrosio", title: "Ottima disponibilità", text: "Ottima disponibilità e personale...", date: "Mar 9, 2026", rating: 5 },
+    { name: "Nunzia Squeo", title: "TOP", text: "Sempre molto fornite e super disp...", date: "Feb 6, 2026", rating: 5 },
   ];
 
   return (
@@ -36,10 +45,7 @@ export default function ReviewsReport() {
         <main className="flex-1 overflow-x-hidden">
           <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-6">
             <div className="mb-6">
-              <Link
-                to="/reports"
-                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-3"
-              >
+              <Link to="/reports" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-3">
                 <ChevronLeft className="w-4 h-4" />
                 Reports
               </Link>
@@ -49,90 +55,54 @@ export default function ReviewsReport() {
                 </div>
                 <div>
                   <h1 className="text-xl font-semibold text-foreground">Reviews</h1>
-                  <p className="text-sm text-muted-foreground">
-                    A simple overview of what your customers think of your business
-                  </p>
+                  <p className="text-sm text-muted-foreground">A simple overview of what your customers think of your business</p>
                 </div>
               </div>
             </div>
 
-            {/* Layer 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="space-y-4 mb-6"
-            >
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base font-medium">Customer feedback</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-semibold text-foreground mb-1">
-                    Most customers are very satisfied
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    4 new reviews received recently.
-                  </p>
-                  <p className="text-xs text-muted-foreground/70 mt-2">
-                    Happy customers come back more often and bring friends.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base font-medium">Satisfaction level</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex h-6 rounded-md overflow-hidden mb-3">
-                    {satisfaction.map((s) => (
-                      <div key={s.label} className={s.color} style={{ width: `${s.percentage}%` }} />
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                    {satisfaction.map((s) => (
-                      <div key={s.label} className="flex items-center gap-1.5">
-                        <span className={`w-2 h-2 rounded-full ${s.color}`} />
-                        <span>{s.label} ({s.percentage}%)</span>
+            {/* Hero */}
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+              <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background">
+                <CardContent className="p-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
+                    <div className="lg:col-span-3">
+                      <p className="text-sm text-muted-foreground mb-1">Most customers are</p>
+                      <p className="text-4xl font-semibold text-foreground tracking-tight">Very satisfied</p>
+                      <div className="flex items-center gap-1.5 mt-3 text-sm text-primary">
+                        <Smile className="w-4 h-4" />
+                        <span className="font-medium">86% positive sentiment</span>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                      <p className="text-xs text-muted-foreground/70 mt-3">
+                        Happy customers come back more often and bring friends.
+                      </p>
 
-            {/* Layer 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mb-6"
-            >
-              <Card className="bg-secondary/30 border-secondary">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base font-medium text-muted-foreground">Review signals</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div>
-                      <p className="text-sm font-medium text-foreground mb-2">Recent reviews</p>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Last 30 days</span>
-                        <span className="text-foreground font-medium">4</span>
+                      {/* Stacked satisfaction bar */}
+                      <div className="mt-5">
+                        <div className="flex h-3 rounded-full overflow-hidden">
+                          {satisfaction.map((s) => (
+                            <div key={s.label} style={{ width: `${s.percentage}%`, background: s.color }} />
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground mt-2">
+                          {satisfaction.map((s) => (
+                            <div key={s.label} className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-full" style={{ background: s.color }} />
+                              <span>{s.label} ({s.percentage}%)</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground mb-2">Average sentiment</p>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Positive</span>
-                        <span className="text-foreground">86%</span>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground mb-2">Published</p>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Visible publicly</span>
-                        <span className="text-foreground">5</span>
+                    <div className="lg:col-span-2 h-[200px] relative">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <RadialBarChart innerRadius="70%" outerRadius="100%" data={gauge} startAngle={180} endAngle={0}>
+                          <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
+                          <RadialBar background dataKey="value" cornerRadius={20} />
+                        </RadialBarChart>
+                      </ResponsiveContainer>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none pb-6">
+                        <p className="text-4xl font-semibold text-foreground">{overallScore}</p>
+                        <p className="text-xs text-muted-foreground">Sentiment score</p>
                       </div>
                     </div>
                   </div>
@@ -140,12 +110,45 @@ export default function ReviewsReport() {
               </Card>
             </motion.div>
 
-            {/* Layer 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
+            {/* Quick tiles */}
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <Card>
+                <CardContent className="p-5 flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-semibold text-foreground leading-none">4</p>
+                    <p className="text-xs text-muted-foreground mt-1">Reviews last 30 days</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-5 flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Smile className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-semibold text-foreground leading-none">86%</p>
+                    <p className="text-xs text-muted-foreground mt-1">Positive sentiment</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-5 flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Eye className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-semibold text-foreground leading-none">5</p>
+                    <p className="text-xs text-muted-foreground mt-1">Visible publicly</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Details */}
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <Collapsible open={detailsOpen} onOpenChange={setDetailsOpen}>
                 <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-3 cursor-pointer">
                   <ChevronDown className={`w-4 h-4 transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
@@ -157,16 +160,21 @@ export default function ReviewsReport() {
                       <CardTitle className="text-base font-medium">What customers are saying</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {reviews.map((r) => (
-                          <div key={r.name} className="pb-3 border-b border-border/50 last:border-0 last:pb-0">
-                            <div className="flex items-start justify-between gap-3 mb-1">
+                          <div key={r.name} className="rounded-lg border border-border/60 p-4">
+                            <div className="flex items-start justify-between gap-3 mb-2">
                               <div>
                                 <p className="text-sm font-medium text-foreground">{r.name}</p>
-                                <p className="text-xs text-muted-foreground">{r.title}</p>
+                                <div className="flex items-center gap-0.5 mt-0.5">
+                                  {Array.from({ length: r.rating }).map((_, i) => (
+                                    <Star key={i} className="w-3 h-3 fill-primary text-primary" />
+                                  ))}
+                                </div>
                               </div>
                               <span className="text-xs text-muted-foreground shrink-0">{r.date}</span>
                             </div>
+                            <p className="text-sm font-medium text-foreground mb-1">{r.title}</p>
                             <p className="text-sm text-muted-foreground">{r.text}</p>
                           </div>
                         ))}
