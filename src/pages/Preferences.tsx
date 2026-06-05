@@ -18,6 +18,7 @@ import {
   ChevronRight,
   FileText,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 
@@ -68,73 +69,38 @@ function SettingsSection({ title, children, delay = 0 }: SettingsSectionProps) {
 }
 
 export default function Preferences() {
+  const navigate = useNavigate();
+  const go = (path: string) => () => navigate(path);
+
   return (
     <InnerPageTemplate title="Preferences" subtitle="Manage your store settings" backTo="/">
-      {/* Settings Grid */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Appearance */}
         <SettingsSection title="Appearance" delay={0.05}>
-          <SettingItem
-            icon={<Palette className="w-4 h-4 text-muted-foreground" />}
-            label="Store appearance"
-          />
-          <SettingItem
-            icon={<FileText className="w-4 h-4 text-muted-foreground" />}
-            label="Custom pages"
-          />
+          <SettingItem icon={<Palette className="w-4 h-4 text-muted-foreground" />} label="Store appearance" onClick={go("/preferences/appearance")} />
+          <SettingItem icon={<FileText className="w-4 h-4 text-muted-foreground" />} label="Custom pages" onClick={go("/preferences/custom-pages")} />
         </SettingsSection>
 
-        {/* Business settings */}
         <SettingsSection title="Business settings" delay={0.1}>
-          <SettingItem
-            icon={<Globe className="w-4 h-4 text-muted-foreground" />}
-            label="Store language"
-          />
-          <SettingItem icon={<Link2 className="w-4 h-4 text-muted-foreground" />} label="Store URL" />
-          <SettingItem icon={<Scale className="w-4 h-4 text-muted-foreground" />} label="Unit system" />
-          <SettingItem icon={<Clock className="w-4 h-4 text-muted-foreground" />} label="Timezone" />
-          <SettingItem
-            icon={<Store className="w-4 h-4 text-muted-foreground" />}
-            label="Digital store link"
-          />
+          <SettingItem icon={<Globe className="w-4 h-4 text-muted-foreground" />} label="Store language" onClick={go("/preferences/language")} />
+          <SettingItem icon={<Link2 className="w-4 h-4 text-muted-foreground" />} label="Store URL" onClick={go("/preferences/store-url")} />
+          <SettingItem icon={<Scale className="w-4 h-4 text-muted-foreground" />} label="Unit system" onClick={go("/preferences/units")} />
+          <SettingItem icon={<Clock className="w-4 h-4 text-muted-foreground" />} label="Timezone" onClick={go("/preferences/timezone")} />
+          <SettingItem icon={<Store className="w-4 h-4 text-muted-foreground" />} label="Digital store link" onClick={go("/preferences/digital-store-link")} />
         </SettingsSection>
 
-        {/* Orders & payments */}
         <SettingsSection title="Orders & payments" delay={0.15}>
-          <SettingItem
-            icon={<ShoppingCart className="w-4 h-4 text-muted-foreground" />}
-            label="Checkout information"
-          />
-          <SettingItem
-            icon={<Package className="w-4 h-4 text-muted-foreground" />}
-            label="In-store pickup & stock"
-          />
-          <SettingItem
-            icon={<Truck className="w-4 h-4 text-muted-foreground" />}
-            label="Shipping costs"
-          />
-          <SettingItem
-            icon={<Receipt className="w-4 h-4 text-muted-foreground" />}
-            label="Tax settings"
-          />
+          <SettingItem icon={<ShoppingCart className="w-4 h-4 text-muted-foreground" />} label="Checkout information" onClick={go("/preferences/checkout")} />
+          <SettingItem icon={<Package className="w-4 h-4 text-muted-foreground" />} label="In-store pickup & stock" onClick={go("/preferences/pickup-stock")} />
+          <SettingItem icon={<Truck className="w-4 h-4 text-muted-foreground" />} label="Shipping costs" onClick={go("/preferences/shipping")} />
+          <SettingItem icon={<Receipt className="w-4 h-4 text-muted-foreground" />} label="Tax settings" onClick={go("/preferences/tax")} />
         </SettingsSection>
 
-        {/* Advanced */}
         <SettingsSection title="Advanced" delay={0.2}>
-          <SettingItem icon={<Megaphone className="w-4 h-4 text-muted-foreground" />} label="App ads" />
-          <SettingItem icon={<Key className="w-4 h-4 text-muted-foreground" />} label="API keys" />
-          <SettingItem
-            icon={<Tag className="w-4 h-4 text-muted-foreground" />}
-            label="Google Tag Manager"
-          />
-          <SettingItem
-            icon={<Mail className="w-4 h-4 text-muted-foreground" />}
-            label="Email notifications"
-          />
-          <SettingItem
-            icon={<Unlink className="w-4 h-4 text-muted-foreground" />}
-            label="Disconnect Google"
-          />
+          <SettingItem icon={<Megaphone className="w-4 h-4 text-muted-foreground" />} label="App ads" onClick={go("/preferences/app-ads")} />
+          <SettingItem icon={<Key className="w-4 h-4 text-muted-foreground" />} label="API keys" onClick={go("/preferences/api-keys")} />
+          <SettingItem icon={<Tag className="w-4 h-4 text-muted-foreground" />} label="Google Tag Manager" onClick={go("/preferences/google-tag-manager")} />
+          <SettingItem icon={<Mail className="w-4 h-4 text-muted-foreground" />} label="Email notifications" onClick={go("/preferences/email-notifications")} />
+          <SettingItem icon={<Unlink className="w-4 h-4 text-muted-foreground" />} label="Disconnect Google" onClick={go("/preferences/disconnect-google")} />
         </SettingsSection>
       </div>
     </InnerPageTemplate>
