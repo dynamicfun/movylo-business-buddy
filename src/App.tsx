@@ -41,6 +41,22 @@ import ReviewsReport from "./pages/reports/ReviewsReport";
 import ReportsIndex from "./pages/reports/ReportsIndex";
 import AIAssistant from "./pages/AIAssistant";
 import Preferences from "./pages/Preferences";
+import StoreAppearance from "./pages/preferences/StoreAppearance";
+import CustomPages from "./pages/preferences/CustomPages";
+import StoreLanguage from "./pages/preferences/StoreLanguage";
+import StoreUrl from "./pages/preferences/StoreUrl";
+import UnitSystem from "./pages/preferences/UnitSystem";
+import Timezone from "./pages/preferences/Timezone";
+import DigitalStoreLink from "./pages/preferences/DigitalStoreLink";
+import CheckoutInformation from "./pages/preferences/CheckoutInformation";
+import PickupStock from "./pages/preferences/PickupStock";
+import ShippingCosts from "./pages/preferences/ShippingCosts";
+import TaxSettings from "./pages/preferences/TaxSettings";
+import AppAds from "./pages/preferences/AppAds";
+import ApiKeys from "./pages/preferences/ApiKeys";
+import GoogleTagManager from "./pages/preferences/GoogleTagManager";
+import EmailNotifications from "./pages/preferences/EmailNotifications";
+import DisconnectGoogle from "./pages/preferences/DisconnectGoogle";
 import MobileApp from "./pages/MobileApp";
 import LiveFeedPage from "./pages/LiveFeedPage";
 import UpgradePlan from "./pages/UpgradePlan";
@@ -100,6 +116,22 @@ const App = () => (
             <Route path="/reports/reviews" element={<ReviewsReport />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
             <Route path="/preferences" element={<Preferences />} />
+            <Route path="/preferences/appearance" element={<StoreAppearance />} />
+            <Route path="/preferences/custom-pages" element={<CustomPages />} />
+            <Route path="/preferences/language" element={<StoreLanguage />} />
+            <Route path="/preferences/store-url" element={<StoreUrl />} />
+            <Route path="/preferences/units" element={<UnitSystem />} />
+            <Route path="/preferences/timezone" element={<Timezone />} />
+            <Route path="/preferences/digital-store-link" element={<DigitalStoreLink />} />
+            <Route path="/preferences/checkout" element={<CheckoutInformation />} />
+            <Route path="/preferences/pickup-stock" element={<PickupStock />} />
+            <Route path="/preferences/shipping" element={<ShippingCosts />} />
+            <Route path="/preferences/tax" element={<TaxSettings />} />
+            <Route path="/preferences/app-ads" element={<AppAds />} />
+            <Route path="/preferences/api-keys" element={<ApiKeys />} />
+            <Route path="/preferences/google-tag-manager" element={<GoogleTagManager />} />
+            <Route path="/preferences/email-notifications" element={<EmailNotifications />} />
+            <Route path="/preferences/disconnect-google" element={<DisconnectGoogle />} />
             <Route path="/mobile-app" element={<MobileApp />} />
             <Route path="/feed" element={<LiveFeedPage />} />
             <Route path="/upgrade" element={<UpgradePlan />} />
