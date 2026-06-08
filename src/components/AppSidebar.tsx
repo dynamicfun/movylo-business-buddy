@@ -1,10 +1,9 @@
 import { useState } from "react";
+
 import movyloLogo from "@/assets/movylo-logo.png";
 import { useLocation } from "react-router-dom";
 import { 
   Users, 
-  Package, 
-  Sparkles, 
   BarChart3, 
   Settings, 
   Smartphone,
@@ -17,7 +16,6 @@ import {
   ShoppingBag,
   Building2,
   ArrowUpCircle,
-  CreditCard,
   Check,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
@@ -62,7 +60,6 @@ import {
 } from "@/components/ui/popover";
 
 export function AppSidebar() {
-  const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const location = useLocation();
   const { currentLanguage, setLanguage, t, languages } = useLanguage();
