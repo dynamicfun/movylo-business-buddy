@@ -38,6 +38,7 @@ import PromotionsReport from "./pages/reports/PromotionsReport";
 import NewslettersReport from "./pages/reports/NewslettersReport";
 import ContactsReport from "./pages/reports/ContactsReport";
 import ReviewsReport from "./pages/reports/ReviewsReport";
+import FeedbackReport from "./pages/reports/FeedbackReport";
 import ReportsIndex from "./pages/reports/ReportsIndex";
 import AIAssistant from "./pages/AIAssistant";
 import Preferences from "./pages/Preferences";
@@ -114,6 +115,7 @@ const App = () => (
             <Route path="/reports/newsletters" element={<NewslettersReport />} />
             <Route path="/reports/contacts" element={<ContactsReport />} />
             <Route path="/reports/reviews" element={<ReviewsReport />} />
+            <Route path="/reports/feedback" element={<FeedbackReport />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
             <Route path="/preferences" element={<Preferences />} />
             <Route path="/preferences/appearance" element={<StoreAppearance />} />

@@ -1,48 +1,82 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { ChevronLeft, UserPlus, ChevronDown, TrendingUp, Mail, Phone, Users } from "lucide-react";
+import { ChevronLeft, Phone, Mail, MessageCircle, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
+  CartesianGrid,
 } from "recharts";
 
-const SOURCE_COLORS = ["hsl(var(--primary))", "#3b82f6", "#60a5fa", "#93c5fd", "#bfdbfe", "#dbeafe"];
+// Generate 30 daily data points
+function makeData(seed: number) {
+  const days = [];
+  for (let i = 0; i < 30; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - (29 - i));
+    const label = `${date.getDate()}/${date.getMonth() + 1}`;
+    // Pseudo-random based on seed and index
+    const v = Math.max(0, Math.round(Math.sin(i * seed * 0.7) * 2 + Math.cos(i * seed) * 1.5 + 1));
+    days.push({ day: label, value: v });
+  }
+  return days;
+}
+
+interface ChannelChartProps {
+  title: string;
+  icon: React.ReactNode;
+  color: string;
+  data: { day: string; value: number }[];
+}
+
+function ChannelChart({ title, icon, color, data }: ChannelChartProps) {
+  const total = data.reduce((s, d) => s + d.value, 0);
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <span style={{ color }}>{icon}</span>
+            {title}
+          </CardTitle>
+          <span className="text-xs text-muted-foreground">
+            <span className="font-semibold text-foreground">{total}</span> total
+          </span>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[140px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" opacity={0.4} />
+              <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} interval={4} />
+              <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} width={24} allowDecimals={false} />
+              <Tooltip
+                contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }}
+                cursor={{ fill: "hsl(var(--muted))", opacity: 0.3 }}
+              />
+              <Bar dataKey="value" fill={color} radius={[3, 3, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function ContactsReport() {
-  const [detailsOpen, setDetailsOpen] = useState(false);
-
-  const sources = [
-    { name: "Google", value: 45 },
-    { name: "QR codes", value: 32 },
-    { name: "Share a link", value: 12 },
-    { name: "Facebook", value: 6 },
-    { name: "Instagram", value: 3 },
-    { name: "Others", value: 2 },
-  ];
-
-  const trend = [
-    { week: "W1", contacts: 6 },
-    { week: "W2", contacts: 9 },
-    { week: "W3", contacts: 12 },
-    { week: "W4", contacts: 15 },
+  const channels = [
+    { title: "Calls", icon: <Phone className="w-4 h-4" />, color: "#0d9488", data: makeData(1) },
+    { title: "Email clicks", icon: <Mail className="w-4 h-4" />, color: "#a78bfa", data: makeData(2) },
+    { title: "WhatsApp", icon: <MessageCircle className="w-4 h-4" />, color: "#7c3aed", data: makeData(3) },
+    { title: "Facebook page clicks", icon: <Facebook className="w-4 h-4" />, color: "#ec4899", data: makeData(4) },
+    { title: "Instagram page clicks", icon: <Instagram className="w-4 h-4" />, color: "#f43f5e", data: makeData(5) },
   ];
 
   return (
@@ -58,167 +92,25 @@ export default function ContactsReport() {
               </Link>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <UserPlus className="w-5 h-5 text-primary" />
+                  <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h1 className="text-xl font-semibold text-foreground">Contacts</h1>
-                  <p className="text-sm text-muted-foreground">A simple overview of the new people reaching your business</p>
+                  <p className="text-sm text-muted-foreground">
+                    Contacts Movylo brought you in the last 30 days. Calls, email clicks, WhatsApp chats and clicks on your social pages.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Hero */}
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-              <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background">
-                <CardContent className="p-6">
-                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
-                    <div className="lg:col-span-2">
-                      <p className="text-sm text-muted-foreground mb-1">You received</p>
-                      <p className="text-5xl font-semibold text-foreground tracking-tight">42</p>
-                      <p className="text-sm text-foreground/80 mt-1">new contacts</p>
-                      <div className="flex items-center gap-1.5 mt-3 text-sm text-primary">
-                        <TrendingUp className="w-4 h-4" />
-                        <span className="font-medium">+20% vs previous 30 days</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground/70 mt-3">
-                        Contacts grow as you keep your sources active.
-                      </p>
-                    </div>
-                    <div className="lg:col-span-3 h-[180px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={trend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                          <defs>
-                            <linearGradient id="contactsGrad" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
-                              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                            </linearGradient>
-                          </defs>
-                          <XAxis dataKey="week" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                          <YAxis hide />
-                          <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                          <Area type="monotone" dataKey="contacts" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#contactsGrad)" />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Visual signals */}
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Where they come from</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[160px] relative">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie data={sources} dataKey="value" cx="50%" cy="50%" innerRadius={45} outerRadius={70} paddingAngle={2} stroke="none">
-                          {sources.map((_, i) => <Cell key={i} fill={SOURCE_COLORS[i % SOURCE_COLORS.length]} />)}
-                        </Pie>
-                        <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} formatter={(v: number) => `${v}%`} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <p className="text-lg font-semibold text-foreground">Google</p>
-                      <p className="text-xs text-muted-foreground">top source</p>
-                    </div>
-                  </div>
-                  <div className="mt-3 space-y-1">
-                    {sources.slice(0, 3).map((s, i) => (
-                      <div key={s.name} className="flex items-center gap-2 text-xs">
-                        <span className="w-2 h-2 rounded-full" style={{ background: SOURCE_COLORS[i] }} />
-                        <span className="text-foreground flex-1">{s.name}</span>
-                        <span className="text-muted-foreground">{s.value}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">How to reach them</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="rounded-lg bg-primary/5 p-3 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-semibold text-foreground leading-none">82%</p>
-                      <p className="text-xs text-muted-foreground mt-1">Have a phone</p>
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-secondary/40 p-3 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-semibold text-foreground leading-none">64%</p>
-                      <p className="text-xs text-muted-foreground mt-1">Have an email</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Recent activity</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="rounded-lg bg-primary/5 p-3 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <UserPlus className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-semibold text-foreground leading-none">42</p>
-                      <p className="text-xs text-muted-foreground mt-1">Last 30 days</p>
-                    </div>
-                    <span className="text-xs font-medium text-primary">+20%</span>
-                  </div>
-                  <div className="rounded-lg bg-secondary/40 p-3 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                      <Users className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-semibold text-foreground leading-none">35</p>
-                      <p className="text-xs text-muted-foreground mt-1">Previous 30 days</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Details */}
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-              <Collapsible open={detailsOpen} onOpenChange={setDetailsOpen}>
-                <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-3 cursor-pointer">
-                  <ChevronDown className={`w-4 h-4 transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
-                  <span>View more details</span>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-base font-medium">All sources</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="h-[220px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <BarChart data={sources} layout="vertical" margin={{ left: 10 }}>
-                            <XAxis type="number" hide />
-                            <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} width={100} />
-                            <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} formatter={(v: number) => `${v}%`} />
-                            <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 6, 6, 0]} />
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CollapsibleContent>
-              </Collapsible>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+            >
+              {channels.map((c) => (
+                <ChannelChart key={c.title} {...c} />
+              ))}
             </motion.div>
           </div>
         </main>
