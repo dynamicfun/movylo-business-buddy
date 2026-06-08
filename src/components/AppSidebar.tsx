@@ -6,7 +6,7 @@ import {
   Users, 
   BarChart3, 
   Settings, 
-  Smartphone,
+  
   User,
   Globe,
   ChevronDown,
