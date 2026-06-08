@@ -160,14 +160,15 @@ export function EngagementCard({
         </div>
 
         {/* Contacts received */}
-        <div className="bg-accent/5 rounded-xl p-3">
+        <Link to="/reports/contacts" className="block bg-accent/5 rounded-xl p-3 hover:bg-accent/10 transition-colors group">
           <div className="flex items-center justify-between mb-1.5">
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.contacts}</h3>
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
           </div>
           <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.calls} value={contacts.calls} showValue={hasActivity} />
           <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.email} value={contacts.email} showValue={hasActivity} />
           <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.whatsapp} value={contacts.whatsapp} showValue={hasActivity} />
-        </div>
+        </Link>
 
         {/* Social clicks */}
         <div className="bg-primary/5 rounded-xl p-3">
@@ -186,8 +187,12 @@ export function EngagementCard({
           <div className="flex items-center justify-between mb-1.5">
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.interactions}</h3>
           </div>
-          <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.reviews} value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
-          <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.feedback} value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
+          <Link to="/reports/reviews" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
+            <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.reviews} value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
+          </Link>
+          <Link to="/reports/feedback" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
+            <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.feedback} value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
+          </Link>
         </div>
       </div>
 
