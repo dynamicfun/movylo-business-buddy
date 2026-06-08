@@ -261,6 +261,24 @@ export function AppSidebar() {
           ))}
           
           <SidebarSeparator className="my-1" />
+
+          {footerSecondary.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title}>
+                <NavLink 
+                  to={item.url}
+                  className="flex items-center gap-3 px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground"
+                  activeClassName="bg-muted text-primary font-medium"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {!isCollapsed && <span>{item.title}</span>}
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+
+          <SidebarSeparator className="my-1" />
+          
           
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
