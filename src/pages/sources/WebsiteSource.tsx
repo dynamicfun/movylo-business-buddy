@@ -183,9 +183,12 @@ const WebsiteSource = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <div>
+                <div className="flex-1 pr-3">
                   <p className="text-sm font-medium text-foreground">Questions and answers</p>
                   <p className="text-xs text-muted-foreground">Helps visitors get quick answers on your website.</p>
+                  <a href="/ai-assistant" className="text-xs text-primary hover:underline mt-1 inline-block">
+                    Assist visitors with an AI Chatbot →
+                  </a>
                 </div>
                 <Switch checked={questionsEnabled} onCheckedChange={setQuestionsEnabled} />
               </div>
