@@ -113,15 +113,13 @@ export function AppSidebar() {
   ];
 
 
-  const businessToolsItems = [
-    { title: t.aiAssistant, url: "/ai-assistant", icon: Sparkles },
-    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
-    { title: t.preferences, url: "/preferences", icon: Settings },
+  const accountActions = [
+    { title: "Plan & SMS Credits", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
   ];
 
-  const accountActions = [
-    { title: t.upgradePlan, url: "/upgrade", icon: ArrowUpCircle, highlight: true },
-    { title: t.topUpSms, url: "/topup", icon: CreditCard, highlight: true },
+  const footerSecondary = [
+    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
+    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
 
   const bottomMenuItems = [
