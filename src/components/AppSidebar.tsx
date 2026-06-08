@@ -115,7 +115,6 @@ export function AppSidebar() {
   ];
 
   const footerSecondary = [
-    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
     { title: t.preferences, url: "/preferences", icon: Settings },
   ];
 

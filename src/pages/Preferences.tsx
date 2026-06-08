@@ -17,6 +17,7 @@ import {
   Unlink,
   ChevronRight,
   FileText,
+  Smartphone,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,6 +79,7 @@ export default function Preferences() {
         <SettingsSection title="Appearance" delay={0.05}>
           <SettingItem icon={<Palette className="w-4 h-4 text-muted-foreground" />} label="Store appearance" onClick={go("/preferences/appearance")} />
           <SettingItem icon={<FileText className="w-4 h-4 text-muted-foreground" />} label="Custom pages" onClick={go("/preferences/custom-pages")} />
+          <SettingItem icon={<Smartphone className="w-4 h-4 text-muted-foreground" />} label="Mobile App" onClick={go("/mobile-app")} />
         </SettingsSection>
 
         <SettingsSection title="Business settings" delay={0.1}>
