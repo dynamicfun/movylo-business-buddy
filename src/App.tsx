@@ -60,7 +60,7 @@ import DisconnectGoogle from "./pages/preferences/DisconnectGoogle";
 import MobileApp from "./pages/MobileApp";
 import LiveFeedPage from "./pages/LiveFeedPage";
 import UpgradePlan from "./pages/UpgradePlan";
-import TopUpSms from "./pages/TopUpSms";
+
 import MyAccount from "./pages/MyAccount";
 import Orders from "./pages/Orders";
 import Alex from "./pages/Alex";
