@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Autopilot from "./pages/Autopilot";
@@ -60,7 +60,7 @@ import DisconnectGoogle from "./pages/preferences/DisconnectGoogle";
 import MobileApp from "./pages/MobileApp";
 import LiveFeedPage from "./pages/LiveFeedPage";
 import UpgradePlan from "./pages/UpgradePlan";
-import TopUpSms from "./pages/TopUpSms";
+
 import MyAccount from "./pages/MyAccount";
 import Orders from "./pages/Orders";
 import Alex from "./pages/Alex";
@@ -135,7 +135,7 @@ const App = () => (
             <Route path="/mobile-app" element={<MobileApp />} />
             <Route path="/feed" element={<LiveFeedPage />} />
             <Route path="/upgrade" element={<UpgradePlan />} />
-            <Route path="/topup" element={<TopUpSms />} />
+            <Route path="/topup" element={<Navigate to="/upgrade?tab=sms" replace />} />
             <Route path="/account" element={<MyAccount />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/alex" element={<Alex />} />

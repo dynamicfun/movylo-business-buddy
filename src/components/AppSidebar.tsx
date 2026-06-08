@@ -1,10 +1,9 @@
 import { useState } from "react";
+
 import movyloLogo from "@/assets/movylo-logo.png";
 import { useLocation } from "react-router-dom";
 import { 
   Users, 
-  Package, 
-  Sparkles, 
   BarChart3, 
   Settings, 
   Smartphone,
@@ -17,7 +16,6 @@ import {
   ShoppingBag,
   Building2,
   ArrowUpCircle,
-  CreditCard,
   Check,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
@@ -62,7 +60,6 @@ import {
 } from "@/components/ui/popover";
 
 export function AppSidebar() {
-  const [businessToolsOpen, setBusinessToolsOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const location = useLocation();
   const { currentLanguage, setLanguage, t, languages } = useLanguage();
@@ -113,15 +110,13 @@ export function AppSidebar() {
   ];
 
 
-  const businessToolsItems = [
-    { title: t.aiAssistant, url: "/ai-assistant", icon: Sparkles },
-    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
-    { title: t.preferences, url: "/preferences", icon: Settings },
+  const accountActions = [
+    { title: "Plan & SMS Credits", url: "/upgrade", icon: ArrowUpCircle, highlight: true },
   ];
 
-  const accountActions = [
-    { title: t.upgradePlan, url: "/upgrade", icon: ArrowUpCircle, highlight: true },
-    { title: t.topUpSms, url: "/topup", icon: CreditCard, highlight: true },
+  const footerSecondary = [
+    { title: t.mobileApp, url: "/mobile-app", icon: Smartphone },
+    { title: t.preferences, url: "/preferences", icon: Settings },
   ];
 
   const bottomMenuItems = [
@@ -240,59 +235,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator className="my-1" />
-
-        {/* Business tools - collapsible, quieter */}
-        <SidebarGroup>
-          {isCollapsed ? (
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {businessToolsItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild tooltip={item.title}>
-                      <NavLink 
-                        to={item.url}
-                        className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
-                        activeClassName="bg-muted text-primary font-medium"
-                      >
-                        <item.icon className="h-4 w-4" />
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          ) : (
-            <Collapsible open={businessToolsOpen} onOpenChange={setBusinessToolsOpen}>
-              <CollapsibleTrigger asChild>
-                <SidebarGroupLabel className="cursor-pointer hover:bg-muted/30 rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  <span>{t.businessTools}</span>
-                  <ChevronDown className={`h-3 w-3 transition-transform ${businessToolsOpen ? 'rotate-180' : ''}`} />
-                </SidebarGroupLabel>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {businessToolsItems.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <NavLink 
-                            to={item.url}
-                            className="flex items-center gap-3 px-3 py-1.5 rounded-md hover:bg-muted/50 transition-colors text-sm text-muted-foreground"
-                            activeClassName="bg-muted text-primary font-medium"
-                          >
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
-                          </NavLink>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </Collapsible>
-          )}
-        </SidebarGroup>
 
       </SidebarContent>
 
@@ -316,6 +258,24 @@ export function AppSidebar() {
           ))}
           
           <SidebarSeparator className="my-1" />
+
+          {footerSecondary.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title}>
+                <NavLink 
+                  to={item.url}
+                  className="flex items-center gap-3 px-3 py-1.5 hover:bg-muted/50 text-sm text-muted-foreground"
+                  activeClassName="bg-muted text-primary font-medium"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {!isCollapsed && <span>{item.title}</span>}
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+
+          <SidebarSeparator className="my-1" />
+          
           
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.title}>

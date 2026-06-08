@@ -1,14 +1,24 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, ChevronDown, ChevronUp, Tag, Send } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Tag, Send, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { InnerPageTemplate } from "@/components/layout/InnerPageTemplate";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+const smsPackages = [
+  { id: "basic", sms: 100, price: 5, perSms: "0.050" },
+  { id: "plus", sms: 300, price: 12, perSms: "0.040" },
+  { id: "business", sms: 700, price: 25, perSms: "0.036", popular: true },
+  { id: "premium", sms: 1500, price: 45, perSms: "0.030" },
+  { id: "enterprise", sms: 5000, price: 120, perSms: "0.024" },
+];
 
 const plans = [
   {
@@ -253,81 +263,117 @@ function CouponInput() {
 export default function UpgradePlan() {
   const { t } = useLanguage();
   const [showPrices, setShowPrices] = useState(true);
+  const [params] = useSearchParams();
+  const [tab, setTab] = useState(params.get("tab") === "sms" ? "sms" : "plan");
+  const [selectedSms, setSelectedSms] = useState<string | null>(null);
 
   return (
     <InnerPageTemplate
-      title={t.upgradePlan}
-      subtitle="Choose the plan that fits your business"
+      title="Plan & SMS Credits"
+      subtitle="Manage your subscription and message credits"
       backTo="/"
     >
-      {/* Toggle: Pricing vs Contact */}
-      <div className="flex items-center justify-center gap-3 mb-6">
-        <Label
-          htmlFor="price-toggle"
-          className={`text-sm cursor-pointer ${showPrices ? "text-foreground font-medium" : "text-muted-foreground"}`}
-        >
-          See prices
-        </Label>
-        <Switch
-          id="price-toggle"
-          checked={!showPrices}
-          onCheckedChange={(checked) => setShowPrices(!checked)}
-        />
-        <Label
-          htmlFor="price-toggle"
-          className={`text-sm cursor-pointer ${!showPrices ? "text-foreground font-medium" : "text-muted-foreground"}`}
-        >
-          Contact us
-        </Label>
-      </div>
+      <Tabs value={tab} onValueChange={setTab} className="w-full">
+        <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+          <TabsTrigger value="plan">Upgrade Plan</TabsTrigger>
+          <TabsTrigger value="sms">Top up SMS</TabsTrigger>
+        </TabsList>
 
-      {/* Plans Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {plans.map((plan) => (
-          <PlanCard
-            key={plan.id}
-            plan={plan}
-            showPrices={showPrices}
-            onSelect={() => {}}
-          />
-        ))}
-      </div>
+        <TabsContent value="plan">
+          {/* Toggle: Pricing vs Contact */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Label htmlFor="price-toggle" className={`text-sm cursor-pointer ${showPrices ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+              See prices
+            </Label>
+            <Switch id="price-toggle" checked={!showPrices} onCheckedChange={(c) => setShowPrices(!c)} />
+            <Label htmlFor="price-toggle" className={`text-sm cursor-pointer ${!showPrices ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+              Contact us
+            </Label>
+          </div>
 
-      {/* Contact Form (only in contact mode) */}
-      {!showPrices && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <Card className="mb-8">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">Get in touch</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Fill out the form and we'll find the best plan for you.
-              </p>
-            </CardHeader>
-            <CardContent>
-              <ContactForm />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {plans.map((plan) => (
+              <PlanCard key={plan.id} plan={plan} showPrices={showPrices} onSelect={() => {}} />
+            ))}
+          </div>
+
+          {!showPrices && (
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+              <Card className="mb-8">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">Get in touch</CardTitle>
+                  <p className="text-sm text-muted-foreground">Fill out the form and we'll find the best plan for you.</p>
+                </CardHeader>
+                <CardContent><ContactForm /></CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          <Card>
+            <CardContent className="py-4">
+              <p className="text-sm text-center text-muted-foreground mb-3">Have a coupon code?</p>
+              <CouponInput />
             </CardContent>
           </Card>
-        </motion.div>
-      )}
+        </TabsContent>
 
-      {/* Coupon Input */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Card>
-          <CardContent className="py-4">
-            <p className="text-sm text-center text-muted-foreground mb-3">
-              Have a coupon code?
-            </p>
-            <CouponInput />
-          </CardContent>
-        </Card>
-      </motion.div>
+        <TabsContent value="sms">
+          <Card className="mb-6">
+            <CardContent className="py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <MessageSquare className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Current balance</p>
+                  <p className="text-xl font-bold text-foreground">42 SMS</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {smsPackages.map((pkg, i) => (
+              <motion.div key={pkg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+                <Card
+                  className={`cursor-pointer transition-all hover:shadow-md ${selectedSms === pkg.id ? "border-primary ring-2 ring-primary/20" : ""} ${pkg.popular ? "border-primary/50 shadow-md" : ""}`}
+                  onClick={() => setSelectedSms(pkg.id)}
+                >
+                  {pkg.popular && (
+                    <div className="bg-primary text-primary-foreground text-xs font-semibold text-center py-1 rounded-t-lg -mt-px -mx-px">Best Value</div>
+                  )}
+                  <CardContent className="py-5 text-center space-y-3">
+                    <p className="text-3xl font-bold text-foreground">{pkg.sms.toLocaleString()}</p>
+                    <p className="text-sm text-muted-foreground">SMS credits</p>
+                    <div className="border-t pt-3">
+                      <span className="text-2xl font-bold text-foreground">${pkg.price}</span>
+                      <p className="text-xs text-muted-foreground mt-1">${pkg.perSms} per SMS</p>
+                    </div>
+                    <Button className="w-full mt-2" variant={selectedSms === pkg.id || pkg.popular ? "default" : "outline"} onClick={(e) => { e.stopPropagation(); setSelectedSms(pkg.id); }}>
+                      {selectedSms === pkg.id ? <span className="flex items-center gap-1.5"><Check className="w-4 h-4" /> Selected</span> : "Buy Now"}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          <Card className="mb-6">
+            <CardContent className="py-4">
+              <p className="text-sm text-center text-muted-foreground mb-3">Have a coupon code?</p>
+              <CouponInput />
+            </CardContent>
+          </Card>
+
+          {selectedSms && (
+            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+              <Button size="lg" className="px-10">
+                Proceed to Payment — ${smsPackages.find((p) => p.id === selectedSms)?.price}
+              </Button>
+            </motion.div>
+          )}
+        </TabsContent>
+      </Tabs>
     </InnerPageTemplate>
   );
 }

@@ -159,20 +159,20 @@ export function CustomerCard({
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-primary/5 rounded-xl p-3">
-          <div className="flex items-center gap-1 mb-1">
+          <div className="flex items-center gap-2 mb-1">
             <Users className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-            <span className="text-sm font-bold text-foreground tabular-nums min-w-[3ch]">
+            <span className="text-sm font-bold text-foreground tabular-nums">
               {isActivationMode || newCustomers === 0 ? "—" : newCustomers.toLocaleString()}
             </span>
             {!isActivationMode && newCustomers > 0 && <GrowthBadge growth={newCustomersGrowth} />}
           </div>
-          <p className="text-xs text-muted-foreground">{t.newCustomers}</p>
+          <p className="text-xs text-muted-foreground">Last 30 days</p>
         </div>
         
         <div className="bg-accent/10 rounded-xl p-3">
-          <div className="flex items-center gap-1 mb-1">
+          <div className="flex items-center gap-2 mb-1">
             <Users className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-            <span className="text-sm font-bold text-foreground tabular-nums min-w-[5ch]">
+            <span className="text-sm font-bold text-foreground tabular-nums">
               {isActivationMode || totalCustomers === 0 ? "—" : totalCustomers.toLocaleString()}
             </span>
             {!isActivationMode && totalCustomers > 0 && <GrowthBadge growth={totalCustomersGrowth} />}
