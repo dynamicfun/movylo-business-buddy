@@ -110,6 +110,10 @@ export function CustomerCard({
       navigate("/sources/tablet");
       return;
     }
+    if (sourceKey === "ads") {
+      navigate("/sources/meta-ads");
+      return;
+    }
     if (isActive) {
       navigate(`/customers?source=${sourceKey}`);
     } else {
