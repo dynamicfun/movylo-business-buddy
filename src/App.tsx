@@ -108,6 +108,7 @@ const App = () => (
             <Route path="/sources/whatsapp" element={<WhatsAppSource />} />
             <Route path="/sources/wifi" element={<WiFiSource />} />
             <Route path="/sources/tablet" element={<TabletSource />} />
+            <Route path="/sources/meta-ads" element={<MetaAdsSource />} />
             <Route path="/sources" element={<SourcesHub />} />
             <Route path="/reports" element={<ReportsIndex />} />
             <Route path="/reports/customers" element={<CustomersReport />} />
