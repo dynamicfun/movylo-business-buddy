@@ -178,40 +178,15 @@ export default function MetaAdsSource() {
                     <Sparkles className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold">Create your post with AI</h2>
+                    <h2 className="text-lg font-semibold">Find New Customers with paid Ads.</h2>
                     <p className="text-sm text-muted-foreground">
-                      Tell us what to highlight, or let AI write it for you.
+                      No ideas? Let Movylo generate everything for you, don't worry.
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>What do you want to promote? (optional)</Label>
-                  <Textarea
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    placeholder="e.g. New summer menu, weekend brunch, grand opening..."
-                    className="min-h-[80px]"
-                  />
-                  <Button onClick={handleGenerate} disabled={isGenerating} className="gap-2 rounded-xl">
-                    <Wand2 className="w-4 h-4" />
-                    {isGenerating ? "Generating..." : generated ? "Regenerate" : "Generate post"}
-                  </Button>
-                </div>
-
-                {generated && (
-                  <div className="space-y-2">
-                    <Label>Your post (you can edit it)</Label>
-                    <Textarea
-                      value={generated}
-                      onChange={(e) => setGenerated(e.target.value)}
-                      className="min-h-[140px]"
-                    />
-                  </div>
-                )}
-
-                <div className="space-y-2">
-                  <Label>Image or video (optional)</Label>
+                  <Label>Want to upload your images? Upload it here.</Label>
                   <input
                     ref={fileRef}
                     type="file"
@@ -246,6 +221,30 @@ export default function MetaAdsSource() {
                     </div>
                   )}
                 </div>
+
+                <div className="space-y-2">
+                  <Textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder="e.g. New summer menu, weekend brunch, grand opening..."
+                    className="min-h-[80px]"
+                  />
+                  <Button onClick={handleGenerate} disabled={isGenerating} className="gap-2 rounded-xl">
+                    <Wand2 className="w-4 h-4" />
+                    {isGenerating ? "Generating..." : generated ? "Regenerate" : "Generate post"}
+                  </Button>
+                </div>
+
+                {generated && (
+                  <div className="space-y-2">
+                    <Label>Your post (you can edit it)</Label>
+                    <Textarea
+                      value={generated}
+                      onChange={(e) => setGenerated(e.target.value)}
+                      className="min-h-[140px]"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           )}
