@@ -31,6 +31,7 @@ import ExcelSource from "./pages/sources/ExcelSource";
 import WhatsAppSource from "./pages/sources/WhatsAppSource";
 import WiFiSource from "./pages/sources/WiFiSource";
 import TabletSource from "./pages/sources/TabletSource";
+import MetaAdsSource from "./pages/sources/MetaAdsSource";
 import SourcesHub from "./pages/sources/SourcesHub";
 import CustomersReport from "./pages/reports/CustomersReport";
 import SalesReport from "./pages/reports/SalesReport";
