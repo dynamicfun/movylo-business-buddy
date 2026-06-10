@@ -8,6 +8,7 @@ import {
   Gift, 
   Mail, 
   Star,
+  MessageSquare,
   ChevronRight
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
