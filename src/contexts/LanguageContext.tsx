@@ -34,14 +34,15 @@ interface Translations {
   myAccount: string;
   language: string;
   // Reports
-  reportCustomers: string;
-  reportOrders: string;
-  reportSales: string;
-  reportContacts: string;
-  reportPromotions: string;
-  reportNewsletters: string;
-  reportReviews: string;
-  reportSatisfaction: string;
+    reportCustomers: string;
+    reportOrders: string;
+    reportSales: string;
+    reportContacts: string;
+    reportPromotions: string;
+    reportNewsletters: string;
+    reportReviews: string;
+    reportFeedback: string;
+    reportSatisfaction: string;
   // Dashboard
   steadyState: string;
   newUser: string;
@@ -148,6 +149,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Promozioni",
     reportNewsletters: "Newsletter",
     reportReviews: "Recensioni",
+    reportFeedback: "Feedback dai Clienti",
     reportSatisfaction: "Soddisfazione Clienti",
     // Dashboard
     steadyState: "Stato normale",
@@ -253,6 +255,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Promotions",
     reportNewsletters: "Newsletters",
     reportReviews: "Reviews",
+    reportFeedback: "Feedback from Customers",
     reportSatisfaction: "Customer Satisfaction",
     // Dashboard
     steadyState: "Steady State",
@@ -358,6 +361,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Promociones",
     reportNewsletters: "Newsletters",
     reportReviews: "Reseñas",
+    reportFeedback: "Feedback de Clientes",
     reportSatisfaction: "Satisfacción del Cliente",
     // Dashboard
     steadyState: "Estado normal",
@@ -463,6 +467,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Promotions",
     reportNewsletters: "Newsletters",
     reportReviews: "Avis",
+    reportFeedback: "Feedback des Clients",
     reportSatisfaction: "Satisfaction Client",
     // Dashboard
     steadyState: "État normal",
@@ -568,6 +573,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Aktionen",
     reportNewsletters: "Newsletter",
     reportReviews: "Bewertungen",
+    reportFeedback: "Kundenfeedback",
     reportSatisfaction: "Kundenzufriedenheit",
     // Dashboard
     steadyState: "Normaler Zustand",
