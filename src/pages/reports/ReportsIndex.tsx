@@ -170,13 +170,24 @@ export default function ReportsIndex() {
     {
       icon: Star,
       title: t.reportReviews,
+      hasData: showData && mockData.hasReviews,
+      dataLine: "Recent reviews are positive",
+      dataSubline: mockData.reviewsNote,
+      emptyLine: "No reviews yet",
+      emptySubline: "Reviews will appear once customers start leaving them.",
+      linkText: "View reviews report",
+      path: "/reports/reviews",
+    },
+    {
+      icon: MessageSquare,
+      title: t.reportFeedback,
       hasData: showData && mockData.hasFeedback,
       dataLine: "Recent feedback is positive",
       dataSubline: mockData.feedbackNote,
       emptyLine: "No feedback yet",
-      emptySubline: "Customer feedback will appear once reviews start coming in.",
+      emptySubline: "Customer feedback will appear once responses start coming in.",
       linkText: "View feedback report",
-      path: "/reports/reviews",
+      path: "/reports/feedback",
     },
   ];
 
