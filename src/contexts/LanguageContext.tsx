@@ -34,14 +34,15 @@ interface Translations {
   myAccount: string;
   language: string;
   // Reports
-  reportCustomers: string;
-  reportOrders: string;
-  reportSales: string;
-  reportContacts: string;
-  reportPromotions: string;
-  reportNewsletters: string;
-  reportReviews: string;
-  reportSatisfaction: string;
+    reportCustomers: string;
+    reportOrders: string;
+    reportSales: string;
+    reportContacts: string;
+    reportPromotions: string;
+    reportNewsletters: string;
+    reportReviews: string;
+    reportFeedback: string;
+    reportSatisfaction: string;
   // Dashboard
   steadyState: string;
   newUser: string;
