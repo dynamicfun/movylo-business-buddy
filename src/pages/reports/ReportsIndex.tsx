@@ -33,8 +33,10 @@ const mockData = {
   hasContacts: true,
   contactsCount: 42,
   contactsSources: "Google and QR codes",
+  hasReviews: true,
+  reviewsNote: "4 new reviews received",
   hasFeedback: true,
-  feedbackNote: "4 new reviews received",
+  feedbackNote: "Recent feedback is positive",
 };
 
 interface ReportCardProps {
