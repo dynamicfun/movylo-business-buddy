@@ -149,6 +149,7 @@ const translations: Record<LanguageCode, Translations> = {
     reportPromotions: "Promozioni",
     reportNewsletters: "Newsletter",
     reportReviews: "Recensioni",
+    reportFeedback: "Feedback dai Clienti",
     reportSatisfaction: "Soddisfazione Clienti",
     // Dashboard
     steadyState: "Stato normale",
