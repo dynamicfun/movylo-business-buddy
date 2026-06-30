@@ -215,52 +215,71 @@ export function EngagementCard({
       </Link>
 
       <div className="flex-1 space-y-3">
-        {/* Messages section */}
-        <div className="bg-primary/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.messages}</h3>
-          </div>
+        {/* Messages */}
+        <GroupBlock
+          icon={<Send className="w-4 h-4" />}
+          iconBg="bg-primary/10"
+          iconColor="text-primary"
+          bg="bg-primary/5"
+          title={t.messages}
+          summary={hasActivity ? `${messages.sent} ${t.sent.toLowerCase()}` : `0 ${t.sent.toLowerCase()}`}
+        >
           <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.sent} value={messages.sent} showValue={hasActivity} />
           <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.opened} value={messages.opened} showValue={hasActivity} />
           <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.clicked} value={messages.clicked} showValue={hasActivity} />
-        </div>
+        </GroupBlock>
 
-        {/* Contacts received */}
-        <Link to="/reports/contacts" className="block bg-accent/5 rounded-xl p-3 hover:bg-accent/10 transition-colors group">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.contacts}</h3>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-          </div>
+        {/* Contacts */}
+        <GroupBlock
+          icon={<Phone className="w-4 h-4" />}
+          iconBg="bg-accent/10"
+          iconColor="text-accent"
+          bg="bg-accent/5"
+          title={t.contacts}
+          summary={hasActivity ? `${contacts.calls + contacts.email + contacts.whatsapp} ${t.contacts.toLowerCase()}` : `0 ${t.contacts.toLowerCase()}`}
+        >
           <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.calls} value={contacts.calls} showValue={hasActivity} />
           <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.email} value={contacts.email} showValue={hasActivity} />
           <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.whatsapp} value={contacts.whatsapp} showValue={hasActivity} />
-        </Link>
+          <Link to="/reports/contacts" className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+            View details <ChevronRight className="w-3 h-3" />
+          </Link>
+        </GroupBlock>
 
         {/* Social clicks */}
-        <div className="bg-primary/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.socialClicks}</h3>
-          </div>
+        <GroupBlock
+          icon={<MousePointerClick className="w-4 h-4" />}
+          iconBg="bg-primary/10"
+          iconColor="text-primary"
+          bg="bg-primary/5"
+          title={t.socialClicks}
+          summary={hasActivity ? `${socialClicks.facebook + socialClicks.instagram + socialClicks.google + socialClicks.tiktok + socialClicks.linkedin} clicks` : "0 clicks"}
+        >
           <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.facebook} value={socialClicks.facebook} showValue={hasActivity} />
           <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.instagram} value={socialClicks.instagram} showValue={hasActivity} />
           <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.google} value={socialClicks.google} showValue={hasActivity} />
           <MetricRow icon={<TikTokIcon className="w-3.5 h-3.5" />} iconColor="text-foreground" label="TikTok" value={socialClicks.tiktok} showValue={hasActivity} />
           <MetricRow icon={<LinkedInIcon className="w-3.5 h-3.5" />} iconColor="text-primary" label="LinkedIn" value={socialClicks.linkedin} showValue={hasActivity} />
-        </div>
+        </GroupBlock>
 
         {/* Interactions */}
-        <div className="bg-accent/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.interactions}</h3>
-          </div>
+        <GroupBlock
+          icon={<Star className="w-4 h-4" />}
+          iconBg="bg-accent/10"
+          iconColor="text-accent"
+          bg="bg-accent/5"
+          title={t.interactions}
+          summary={hasActivity ? `${interactions.reviews.count + interactions.feedback.count} ${t.interactions.toLowerCase()}` : `0 ${t.interactions.toLowerCase()}`}
+        >
           <Link to="/reports/reviews" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
             <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.reviews} value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
           </Link>
           <Link to="/reports/feedback" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
             <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.feedback} value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
           </Link>
-        </div>
+        </GroupBlock>
       </div>
+
 
       {/* CTA */}
       <Button 
