@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Users, User, ChevronRight, Link2, Facebook, Instagram, MessageCircle, Store, LayoutGrid } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Users, User, ChevronRight, Link2, Facebook, Instagram, MessageCircle, Store, LayoutGrid, ChevronDown, Globe, FileSpreadsheet, Hand, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CustomersModal } from "./DashboardModals";
