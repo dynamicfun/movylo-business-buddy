@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
+import { useState, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
