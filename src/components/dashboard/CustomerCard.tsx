@@ -211,7 +211,7 @@ export function CustomerCard({
             count={0}
             onClick={() => navigate("/business-info/google-profile")}
           />
-          <SourceRow
+          <ExpandableGroup
             icon={
               <div className="flex items-center gap-1">
                 <Facebook className="w-4 h-4 text-blue-600" />
@@ -222,22 +222,84 @@ export function CustomerCard({
             title={t.social}
             subtitle={`${t.facebook}, ${t.instagram}, ${t.whatsapp}`}
             count={socialCount}
-            onClick={() => navigate("/sources/facebook")}
-          />
-          <SourceRow
+          >
+            <SubSourceRow
+              icon={<Facebook className="w-4 h-4 text-blue-600" />}
+              title={t.facebook}
+              count={sources.facebook || 0}
+              onClick={() => navigate("/sources/facebook")}
+            />
+            <SubSourceRow
+              icon={<Instagram className="w-4 h-4 text-pink-500" />}
+              title={t.instagram}
+              count={sources.instagram || 0}
+              onClick={() => navigate("/sources/instagram")}
+            />
+            <SubSourceRow
+              icon={<MessageCircle className="w-4 h-4 text-emerald-500" />}
+              title={t.whatsapp}
+              count={sources.whatsapp || 0}
+              onClick={() => navigate("/sources/whatsapp")}
+            />
+          </ExpandableGroup>
+
+          <ExpandableGroup
             icon={<Store className="w-5 h-5 text-violet-500" />}
             title={t.inStoreSource}
             subtitle={`${t.qrCodes}, ${t.wifi}, ${t.tablet}`}
             count={inStoreCount}
-            onClick={() => navigate("/sources/qr-codes")}
-          />
-          <SourceRow
+          >
+            <SubSourceRow
+              icon={<LayoutGrid className="w-4 h-4 text-violet-500" />}
+              title={t.qrCodes}
+              count={sources.qrCodes || 0}
+              onClick={() => navigate("/sources/qr-codes")}
+            />
+            <SubSourceRow
+              icon={<Link2 className="w-4 h-4 text-violet-500" />}
+              title={t.wifi}
+              count={0}
+              onClick={() => navigate("/sources/wifi")}
+            />
+            <SubSourceRow
+              icon={<LayoutGrid className="w-4 h-4 text-violet-500" />}
+              title={t.tablet}
+              count={0}
+              onClick={() => navigate("/sources/tablet")}
+            />
+          </ExpandableGroup>
+
+          <ExpandableGroup
             icon={<LayoutGrid className="w-5 h-5 text-slate-500" />}
             title={t.otherSources}
             subtitle={t.otherSourcesSubtitle}
             count={otherCount}
-            onClick={() => navigate("/sources/website-source")}
-          />
+          >
+            <SubSourceRow
+              icon={<Globe className="w-4 h-4 text-slate-500" />}
+              title={t.website}
+              count={sources.website || 0}
+              onClick={() => navigate("/sources/website")}
+            />
+            <SubSourceRow
+              icon={<FileSpreadsheet className="w-4 h-4 text-slate-500" />}
+              title={t.excel}
+              count={sources.excel || 0}
+              onClick={() => navigate("/sources/excel")}
+            />
+            <SubSourceRow
+              icon={<Hand className="w-4 h-4 text-slate-500" />}
+              title={t.manual}
+              count={sources.manual || 0}
+              onClick={() => navigate("/sources/manual")}
+            />
+            <SubSourceRow
+              icon={<Megaphone className="w-4 h-4 text-slate-500" />}
+              title={t.ads}
+              count={sources.ads || 0}
+              onClick={() => navigate("/sources/meta-ads")}
+            />
+          </ExpandableGroup>
         </div>
       </div>
 
