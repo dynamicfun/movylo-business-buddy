@@ -43,6 +43,72 @@ function MetricRow({ icon, iconColor, label, value, showValue = true }: MetricRo
   );
 }
 
+interface GroupBlockProps {
+  icon: ReactNode;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  summary: string;
+  bg: string;
+  defaultOpen?: boolean;
+  to?: string;
+  children: ReactNode;
+}
+
+function GroupBlock({ icon, iconBg, iconColor, title, summary, bg, defaultOpen = false, to, children }: GroupBlockProps) {
+  const [open, setOpen] = useState(defaultOpen);
+  const HeaderWrap: any = to ? Link : "button";
+  const headerProps: any = to ? { to } : { type: "button" };
+
+  return (
+    <div className={`${bg} rounded-xl overflow-hidden`}>
+      <div className="flex items-stretch">
+        <HeaderWrap
+          {...headerProps}
+          onClick={(e: any) => {
+            if (!to) {
+              e.preventDefault();
+              setOpen((o) => !o);
+            }
+          }}
+          className="flex-1 flex items-center gap-3 p-3 text-left hover:bg-foreground/[0.02] transition-colors"
+        >
+          <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${iconBg} ${iconColor}`}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-foreground leading-tight">{title}</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">{summary}</p>
+          </div>
+        </HeaderWrap>
+        <button
+          type="button"
+          aria-label={open ? "Collapse" : "Expand"}
+          onClick={() => setOpen((o) => !o)}
+          className="px-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
+        </button>
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="px-3 pb-3 pt-1 border-t border-foreground/5">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 interface EngagementCardProps {
   isActivationMode?: boolean;
   messages?: {
