@@ -66,6 +66,14 @@ interface Translations {
   shareLink: string;
   addCustomers: string;
   waitingForActivity: string;
+  findNewCustomersVia: string;
+  social: string;
+  inStoreSource: string;
+  otherSources: string;
+  shareLinkSubtitle: string;
+  googleProfile: string;
+  googleSubtitle: string;
+  otherSourcesSubtitle: string;
   // Activity Card
   activity: string;
   activitySubtitle: string;
