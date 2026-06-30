@@ -62,6 +62,76 @@ function SourceRow({ icon, title, subtitle, count, onClick }: {
   );
 }
 
+function SubSourceRow({ icon, title, count, onClick }: {
+  icon: React.ReactNode;
+  title: string;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center gap-3 py-2.5 px-3 pl-14 hover:bg-secondary/30 rounded-xl transition-colors text-left group"
+    >
+      <div className="shrink-0 w-8 h-8 flex items-center justify-center">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm text-foreground">{title}</p>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-medium text-foreground bg-primary/10 px-2 py-0.5 rounded-full">{count}</span>
+        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+      </div>
+    </button>
+  );
+}
+
+function ExpandableGroup({ icon, title, subtitle, count, children }: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+  count: number;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-xl border border-transparent hover:border-border/40 transition-colors">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center gap-3 py-3 px-3 hover:bg-secondary/40 rounded-xl transition-colors text-left group"
+      >
+        <div className="shrink-0 w-10 h-10 flex items-center justify-center">
+          {icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-foreground">{title}</p>
+          <p className="text-xs text-muted-foreground">{subtitle}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-foreground bg-primary/10 px-2.5 py-1 rounded-full">{count}</span>
+          <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        </div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="pb-1 space-y-0.5">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function CustomerCard({
   isActivationMode = true,
   newCustomers = 0,
