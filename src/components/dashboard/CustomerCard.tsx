@@ -1,18 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Facebook, Instagram, QrCode, FileSpreadsheet, UserPlus, Megaphone, Users, TrendingUp, ChevronRight, ChevronDown, MapPin, Link2, MessageCircle, Wifi, Tablet } from "lucide-react";
+import { Users, User, ChevronRight, Link2, Facebook, Instagram, MessageCircle, Store, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CustomersModal } from "./DashboardModals";
-
-interface CustomerSource {
-  icon: React.ReactNode;
-  iconColor: string;
-  label: string;
-  count: number | null;
-  sourceKey: string;
-}
 
 interface CustomerCardProps {
   isActivationMode?: boolean;
@@ -32,22 +24,48 @@ interface CustomerCardProps {
   };
 }
 
-function GrowthBadge({ growth }: { growth: number }) {
-  const isPositive = growth >= 0;
+function GoogleIcon({ className }: { className?: string }) {
   return (
-    <span className={`flex items-center gap-0.5 text-xs font-medium ${isPositive ? 'text-emerald-600' : 'text-rose-500'}`}>
-      <TrendingUp className={`w-3 h-3 ${!isPositive ? 'rotate-180' : ''}`} />
-      {Math.abs(growth)}%
-    </span>
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.15-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+      <path d="M5.85 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.67 2.84c.86-2.6 3.29-4.53 6.15-4.53z" fill="#EA4335" />
+    </svg>
+  );
+}
+
+function SourceRow({ icon, title, subtitle, count, onClick }: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center gap-3 py-3 px-3 hover:bg-secondary/40 rounded-xl transition-colors text-left group"
+    >
+      <div className="shrink-0 w-10 h-10 flex items-center justify-center">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-foreground">{title}</p>
+        <p className="text-xs text-muted-foreground">{subtitle}</p>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-semibold text-foreground bg-primary/10 px-2.5 py-1 rounded-full">{count}</span>
+        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+      </div>
+    </button>
   );
 }
 
 export function CustomerCard({
   isActivationMode = true,
   newCustomers = 0,
-  newCustomersGrowth = 2.4,
   totalCustomers = 0,
-  totalCustomersGrowth = 1.9,
   sources = {
     website: null,
     facebook: null,
@@ -60,92 +78,12 @@ export function CustomerCard({
   },
 }: CustomerCardProps) {
   const navigate = useNavigate();
-  const [showAllSources, setShowAllSources] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { t } = useLanguage();
 
-  const handleSourceClick = (sourceKey: string, isActive: boolean) => {
-    // Source pages have their own dedicated routes
-    if (sourceKey === "website-source") {
-      navigate("/sources/website");
-      return;
-    }
-    if (sourceKey === "instagram") {
-      navigate("/sources/instagram");
-      return;
-    }
-    if (sourceKey === "whatsapp") {
-      navigate("/sources/whatsapp");
-      return;
-    }
-    if (sourceKey === "google") {
-      navigate("/business-info/google-profile");
-      return;
-    }
-    if (sourceKey === "share-link") {
-      navigate("/sources/share-link");
-      return;
-    }
-    if (sourceKey === "qr-codes") {
-      navigate("/sources/qr-codes");
-      return;
-    }
-    if (sourceKey === "facebook") {
-      navigate("/sources/facebook");
-      return;
-    }
-    if (sourceKey === "manual") {
-      navigate("/sources/manual");
-      return;
-    }
-    if (sourceKey === "excel") {
-      navigate("/sources/excel");
-      return;
-    }
-    if (sourceKey === "wifi") {
-      navigate("/sources/wifi");
-      return;
-    }
-    if (sourceKey === "tablet") {
-      navigate("/sources/tablet");
-      return;
-    }
-    if (sourceKey === "ads") {
-      navigate("/sources/meta-ads");
-      return;
-    }
-    if (isActive) {
-      navigate(`/customers?source=${sourceKey}`);
-    } else {
-      navigate(`/settings/integrations?setup=${sourceKey}`);
-    }
-  };
-
-  // Default visible sources: Google, Share a link, QR codes, Facebook, Instagram, WhatsApp
-  const collapsedSourceItems: CustomerSource[] = [
-    { icon: <MapPin className="w-4 h-4" />, iconColor: "text-red-500", label: t.google, count: null, sourceKey: "google" },
-    { icon: <Link2 className="w-4 h-4" />, iconColor: "text-primary", label: t.shareLink, count: null, sourceKey: "share-link" },
-    { icon: <QrCode className="w-4 h-4" />, iconColor: "text-violet-500", label: t.qrCodes, count: sources.qrCodes, sourceKey: "qr-codes" },
-    { icon: <Facebook className="w-4 h-4" />, iconColor: "text-blue-600", label: t.facebook, count: sources.facebook, sourceKey: "facebook" },
-    { icon: <Instagram className="w-4 h-4" />, iconColor: "text-pink-500", label: t.instagram, count: sources.instagram, sourceKey: "instagram" },
-    { icon: <MessageCircle className="w-4 h-4" />, iconColor: "text-emerald-500", label: t.whatsapp, count: sources.whatsapp, sourceKey: "whatsapp" },
-  ];
-
-  // Hidden sources (shown when expanded): Website, Manual, Excel, WiFi, Tablet, Ads
-  const expandedSourceItems: CustomerSource[] = [
-    { icon: <Globe className="w-4 h-4" />, iconColor: "text-blue-500", label: t.website, count: sources.website, sourceKey: "website-source" },
-    { icon: <UserPlus className="w-4 h-4" />, iconColor: "text-slate-500", label: t.manual, count: sources.manual, sourceKey: "manual" },
-    { icon: <FileSpreadsheet className="w-4 h-4" />, iconColor: "text-emerald-600", label: t.excel, count: sources.excel, sourceKey: "excel" },
-    { icon: <Wifi className="w-4 h-4" />, iconColor: "text-sky-500", label: t.wifi, count: null, sourceKey: "wifi" },
-    { icon: <Tablet className="w-4 h-4" />, iconColor: "text-violet-500", label: t.tablet, count: null, sourceKey: "tablet" },
-    { icon: <Megaphone className="w-4 h-4" />, iconColor: "text-amber-500", label: t.ads, count: sources.ads, sourceKey: "ads" },
-  ];
-
-  // All sources for expanded view
-  const allSourceItems: CustomerSource[] = [...collapsedSourceItems, ...expandedSourceItems];
-
-  // Show 4 collapsed sources by default, all when expanded
-  const sourceItems = showAllSources ? allSourceItems : collapsedSourceItems;
+  const socialCount = (sources.facebook || 0) + (sources.instagram || 0) + (sources.whatsapp || 0);
+  const inStoreCount = sources.qrCodes || 0;
+  const otherCount = (sources.website || 0) + (sources.excel || 0) + (sources.manual || 0) + (sources.ads || 0);
 
   return (
     <motion.div
@@ -156,78 +94,81 @@ export function CustomerCard({
     >
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-lg font-bold text-foreground">{t.myCustomers}</h2>
+        <h2 className="text-lg font-bold text-foreground">{t.customers}</h2>
         <p className="text-xs text-muted-foreground">{t.customersSubtitle}</p>
       </div>
 
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-primary/5 rounded-xl p-3">
+        <div className="bg-emerald-50 rounded-xl p-3">
           <div className="flex items-center gap-2 mb-1">
-            <Users className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-            <span className="text-sm font-bold text-foreground tabular-nums">
-              {isActivationMode || newCustomers === 0 ? "—" : newCustomers.toLocaleString()}
+            <Users className="w-4 h-4 text-emerald-600" />
+            <span className="text-xs font-medium text-emerald-700">
+              {t.newCustomers.split(' ')[0]} {t.last30Days}
             </span>
-            {!isActivationMode && newCustomers > 0 && <GrowthBadge growth={newCustomersGrowth} />}
           </div>
-          <p className="text-xs text-muted-foreground">Last 30 days</p>
+          <p className="text-2xl font-bold text-emerald-600">
+            {isActivationMode ? "—" : newCustomers.toLocaleString()}
+          </p>
         </div>
         
-        <div className="bg-accent/10 rounded-xl p-3">
+        <div className="bg-amber-50 rounded-xl p-3">
           <div className="flex items-center gap-2 mb-1">
-            <Users className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-            <span className="text-sm font-bold text-foreground tabular-nums">
-              {isActivationMode || totalCustomers === 0 ? "—" : totalCustomers.toLocaleString()}
-            </span>
-            {!isActivationMode && totalCustomers > 0 && <GrowthBadge growth={totalCustomersGrowth} />}
+            <User className="w-4 h-4 text-amber-600" />
+            <span className="text-xs font-medium text-amber-700">{t.totalCustomers}</span>
           </div>
-          <p className="text-xs text-muted-foreground">{t.totalCustomers}</p>
+          <p className="text-2xl font-bold text-amber-600">
+            {isActivationMode ? "—" : totalCustomers.toLocaleString()}
+          </p>
         </div>
       </div>
 
-      {/* Sources list */}
-      <div className="flex-1 space-y-0.5">
-        <p className="text-xs font-medium text-muted-foreground mb-2">{t.addCustomers}</p>
-        {sourceItems.map(({ icon, iconColor, label, count, sourceKey }) => {
-          const isActive = count !== null;
-          return (
-            <button
-              key={label + sourceKey}
-              onClick={() => handleSourceClick(sourceKey, isActive)}
-              className="w-full flex items-center justify-between py-2 px-2 hover:bg-secondary/60 rounded-lg transition-colors"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className={iconColor}>{icon}</span>
-                <span className="text-sm text-foreground">{label}</span>
+      {/* Sources section */}
+      <div className="flex-1">
+        <p className="text-xs font-semibold text-foreground mb-2">{t.findNewCustomersVia}</p>
+        <div className="space-y-1">
+          <SourceRow
+            icon={<Link2 className="w-5 h-5 text-primary" />}
+            title={t.shareLink}
+            subtitle={t.shareLinkSubtitle}
+            count={0}
+            onClick={() => navigate("/sources/share-link")}
+          />
+          <SourceRow
+            icon={<GoogleIcon className="w-5 h-5" />}
+            title={t.googleProfile}
+            subtitle={t.googleSubtitle}
+            count={0}
+            onClick={() => navigate("/business-info/google-profile")}
+          />
+          <SourceRow
+            icon={
+              <div className="flex items-center gap-1">
+                <Facebook className="w-4 h-4 text-blue-600" />
+                <Instagram className="w-4 h-4 text-pink-500" />
+                <MessageCircle className="w-4 h-4 text-emerald-500" />
               </div>
-              {isActive ? (
-                <span className="text-xs font-semibold text-foreground bg-secondary/80 px-2 py-0.5 rounded-md">{count}</span>
-              ) : (
-                <span className="text-xs font-medium text-primary">+ {t.addCustomers.split(' ')[0]}</span>
-              )}
-            </button>
-          );
-        })}
-        
-        {/* Expand/Collapse button */}
-        {!showAllSources && (
-          <button
-            onClick={() => setShowAllSources(true)}
-            className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-primary hover:bg-secondary/60 rounded-lg transition-colors"
-          >
-            <span>{t.showMore}</span>
-            <ChevronDown className="w-3.5 h-3.5" />
-          </button>
-        )}
-        {showAllSources && (
-          <button
-            onClick={() => setShowAllSources(false)}
-            className="w-full flex items-center justify-center gap-1 py-2 px-2 text-xs font-medium text-muted-foreground hover:bg-secondary/60 rounded-lg transition-colors"
-          >
-            <span>{t.showLess}</span>
-            <ChevronDown className="w-3.5 h-3.5 rotate-180" />
-          </button>
-        )}
+            }
+            title={t.social}
+            subtitle={`${t.facebook}, ${t.instagram}, ${t.whatsapp}`}
+            count={socialCount}
+            onClick={() => navigate("/sources/facebook")}
+          />
+          <SourceRow
+            icon={<Store className="w-5 h-5 text-violet-500" />}
+            title={t.inStoreSource}
+            subtitle={`${t.qrCodes}, ${t.wifi}, ${t.tablet}`}
+            count={inStoreCount}
+            onClick={() => navigate("/sources/qr-codes")}
+          />
+          <SourceRow
+            icon={<LayoutGrid className="w-5 h-5 text-slate-500" />}
+            title={t.otherSources}
+            subtitle={t.otherSourcesSubtitle}
+            count={otherCount}
+            onClick={() => navigate("/sources/website-source")}
+          />
+        </div>
       </div>
 
       {/* CTA */}
@@ -236,7 +177,7 @@ export function CustomerCard({
         size="default"
         onClick={() => setShowModal(true)}
       >
-        {t.myCustomers}
+        {t.customers}
         <ChevronRight className="w-4 h-4" />
       </Button>
 
