@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle } from "lucide-react";
+import { useState, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Mail, MousePointerClick, Phone, AtSign, MessageCircle, Facebook, Instagram, Search, Star, MessageSquare, ChevronRight, Clock, AlertTriangle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -39,6 +39,72 @@ function MetricRow({ icon, iconColor, label, value, showValue = true }: MetricRo
         <span className="text-sm text-foreground">{label}</span>
       </div>
       {showValue && <span className="text-sm font-medium text-foreground">{value}</span>}
+    </div>
+  );
+}
+
+interface GroupBlockProps {
+  icon: ReactNode;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  summary: string;
+  bg: string;
+  defaultOpen?: boolean;
+  to?: string;
+  children: ReactNode;
+}
+
+function GroupBlock({ icon, iconBg, iconColor, title, summary, bg, defaultOpen = false, to, children }: GroupBlockProps) {
+  const [open, setOpen] = useState(defaultOpen);
+  const HeaderWrap: any = to ? Link : "button";
+  const headerProps: any = to ? { to } : { type: "button" };
+
+  return (
+    <div className={`${bg} rounded-xl overflow-hidden`}>
+      <div className="flex items-stretch">
+        <HeaderWrap
+          {...headerProps}
+          onClick={(e: any) => {
+            if (!to) {
+              e.preventDefault();
+              setOpen((o) => !o);
+            }
+          }}
+          className="flex-1 flex items-center gap-3 p-3 text-left hover:bg-foreground/[0.02] transition-colors"
+        >
+          <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${iconBg} ${iconColor}`}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-foreground leading-tight">{title}</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">{summary}</p>
+          </div>
+        </HeaderWrap>
+        <button
+          type="button"
+          aria-label={open ? "Collapse" : "Expand"}
+          onClick={() => setOpen((o) => !o)}
+          className="px-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
+        </button>
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="px-3 pb-3 pt-1 border-t border-foreground/5">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -149,52 +215,71 @@ export function EngagementCard({
       </Link>
 
       <div className="flex-1 space-y-3">
-        {/* Messages section */}
-        <div className="bg-primary/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.messages}</h3>
-          </div>
+        {/* Messages */}
+        <GroupBlock
+          icon={<Send className="w-4 h-4" />}
+          iconBg="bg-primary/10"
+          iconColor="text-primary"
+          bg="bg-primary/5"
+          title={t.messages}
+          summary={hasActivity ? `${messages.sent} ${t.sent.toLowerCase()}` : `0 ${t.sent.toLowerCase()}`}
+        >
           <MetricRow icon={<Send className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.sent} value={messages.sent} showValue={hasActivity} />
           <MetricRow icon={<Mail className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.opened} value={messages.opened} showValue={hasActivity} />
           <MetricRow icon={<MousePointerClick className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.clicked} value={messages.clicked} showValue={hasActivity} />
-        </div>
+        </GroupBlock>
 
-        {/* Contacts received */}
-        <Link to="/reports/contacts" className="block bg-accent/5 rounded-xl p-3 hover:bg-accent/10 transition-colors group">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.contacts}</h3>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-          </div>
+        {/* Contacts */}
+        <GroupBlock
+          icon={<Phone className="w-4 h-4" />}
+          iconBg="bg-accent/10"
+          iconColor="text-accent"
+          bg="bg-accent/5"
+          title={t.contacts}
+          summary={hasActivity ? `${contacts.calls + contacts.email + contacts.whatsapp} ${t.contacts.toLowerCase()}` : `0 ${t.contacts.toLowerCase()}`}
+        >
           <MetricRow icon={<Phone className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.calls} value={contacts.calls} showValue={hasActivity} />
           <MetricRow icon={<AtSign className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.email} value={contacts.email} showValue={hasActivity} />
           <MetricRow icon={<MessageCircle className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.whatsapp} value={contacts.whatsapp} showValue={hasActivity} />
-        </Link>
+          <Link to="/reports/contacts" className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+            View details <ChevronRight className="w-3 h-3" />
+          </Link>
+        </GroupBlock>
 
         {/* Social clicks */}
-        <div className="bg-primary/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.socialClicks}</h3>
-          </div>
+        <GroupBlock
+          icon={<MousePointerClick className="w-4 h-4" />}
+          iconBg="bg-primary/10"
+          iconColor="text-primary"
+          bg="bg-primary/5"
+          title={t.socialClicks}
+          summary={hasActivity ? `${socialClicks.facebook + socialClicks.instagram + socialClicks.google + socialClicks.tiktok + socialClicks.linkedin} clicks` : "0 clicks"}
+        >
           <MetricRow icon={<Facebook className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.facebook} value={socialClicks.facebook} showValue={hasActivity} />
           <MetricRow icon={<Instagram className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.instagram} value={socialClicks.instagram} showValue={hasActivity} />
           <MetricRow icon={<Search className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.google} value={socialClicks.google} showValue={hasActivity} />
           <MetricRow icon={<TikTokIcon className="w-3.5 h-3.5" />} iconColor="text-foreground" label="TikTok" value={socialClicks.tiktok} showValue={hasActivity} />
           <MetricRow icon={<LinkedInIcon className="w-3.5 h-3.5" />} iconColor="text-primary" label="LinkedIn" value={socialClicks.linkedin} showValue={hasActivity} />
-        </div>
+        </GroupBlock>
 
         {/* Interactions */}
-        <div className="bg-accent/5 rounded-xl p-3">
-          <div className="flex items-center justify-between mb-1.5">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t.interactions}</h3>
-          </div>
+        <GroupBlock
+          icon={<Star className="w-4 h-4" />}
+          iconBg="bg-accent/10"
+          iconColor="text-accent"
+          bg="bg-accent/5"
+          title={t.interactions}
+          summary={hasActivity ? `${interactions.reviews.count + interactions.feedback.count} ${t.interactions.toLowerCase()}` : `0 ${t.interactions.toLowerCase()}`}
+        >
           <Link to="/reports/reviews" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
             <MetricRow icon={<Star className="w-3.5 h-3.5" />} iconColor="text-accent" label={t.reviews} value={hasActivity ? `${interactions.reviews.count}/${interactions.reviews.total}` : "—"} showValue={true} />
           </Link>
           <Link to="/reports/feedback" className="block -mx-1 px-1 rounded hover:bg-background/60 transition-colors">
             <MetricRow icon={<MessageSquare className="w-3.5 h-3.5" />} iconColor="text-primary" label={t.feedback} value={hasActivity ? `${interactions.feedback.count}/${interactions.feedback.total}` : "—"} showValue={true} />
           </Link>
-        </div>
+        </GroupBlock>
       </div>
+
 
       {/* CTA */}
       <Button 
