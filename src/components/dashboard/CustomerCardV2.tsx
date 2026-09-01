@@ -168,8 +168,18 @@ export function CustomerCardV2({
         <p className="text-xs text-muted-foreground">{t.customersSubtitle}</p>
       </div>
 
-      {/* Stats row */}
+      {/* Stats row — focus on the customer list */}
       <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="bg-amber-50 rounded-xl p-3">
+          <div className="flex items-center gap-2 mb-1">
+            <User className="w-4 h-4 text-amber-600" />
+            <span className="text-xs font-medium text-amber-700">{t.totalCustomers}</span>
+          </div>
+          <p className="text-2xl font-bold text-amber-600">
+            {isActivationMode ? "—" : totalCustomers.toLocaleString()}
+          </p>
+        </div>
+
         <div className="bg-emerald-50 rounded-xl p-3">
           <div className="flex items-center gap-2 mb-1">
             <Users className="w-4 h-4 text-emerald-600" />
@@ -181,17 +191,8 @@ export function CustomerCardV2({
             {isActivationMode ? "—" : newCustomers.toLocaleString()}
           </p>
         </div>
-        
-        <div className="bg-amber-50 rounded-xl p-3">
-          <div className="flex items-center gap-2 mb-1">
-            <User className="w-4 h-4 text-amber-600" />
-            <span className="text-xs font-medium text-amber-700">{t.totalCustomers}</span>
-          </div>
-          <p className="text-2xl font-bold text-amber-600">
-            {isActivationMode ? "—" : totalCustomers.toLocaleString()}
-          </p>
-        </div>
       </div>
+
 
       {/* Sources section */}
       <div className="flex-1">
