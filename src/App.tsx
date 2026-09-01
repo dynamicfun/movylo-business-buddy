@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
+import IndexV2 from "./pages/IndexV2";
 import Autopilot from "./pages/Autopilot";
 import GoogleProfile from "./pages/GoogleProfile";
 import MyProfile from "./pages/MyProfile";
@@ -82,6 +83,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/v2" element={<IndexV2 />} />
             <Route path="/autopilot" element={<Autopilot />} />
             <Route path="/business-info/google-profile" element={<GoogleProfile />} />
             <Route path="/business-info/profile" element={<MyProfile />} />
